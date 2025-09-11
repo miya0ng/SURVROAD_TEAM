@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public float vAxis;
     public float hAxis = 1f;
     public float moveSpeed = 10f;
-    public float rotationSpeed = 180f;
+    public float rotationSpeed = 150f;
 
     private bool isLeft;
     private bool isRight;
@@ -45,14 +45,19 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (isLeft) 
+        if (isLeft)
         {
-            hAxis = -1f;
+            hAxis -= 1f * Time.deltaTime;
         }
-        if (isRight)
+        else if (isRight)
         {
-            hAxis = 1f;
+            hAxis += 1f * Time.deltaTime;
         }
+        else
+        {
+            hAxis = 0f;
+        }
+
         if (isAccel)
         {
             vAxis = 1f;
@@ -61,7 +66,7 @@ public class PlayerController : MonoBehaviour
         if (isBreak)
         {
             moveSpeed -= 2f;
-            vAxis = 0f;
+            vAxis = -1f * Time.deltaTime;
         }
 
         var curMoveSpeed = Mathf.Clamp(moveSpeed, 0f, 10f);
