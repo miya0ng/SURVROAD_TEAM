@@ -70,7 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetLayer:
     serializedVersion: 2
-    m_Bits: 9
+    m_Bits: 8
 --- !u!1001 &3331748397446880663
 PrefabInstance:
   m_ObjectHideFlags: 0

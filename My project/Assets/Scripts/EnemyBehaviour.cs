@@ -42,6 +42,9 @@ public class EnemyBehaviour : MonoBehaviour
             Debug.Log("경로 있음");
         else
             Debug.LogWarning("경로 없음");
+
+        Debug.Log("남은 거리: " + agent.remainingDistance);
+        Debug.Log(target.position);
     }
     protected void AttackPlayer()
     {
