@@ -11,10 +11,13 @@ public class PlayerBehaviour : MonoBehaviour
     {
         playerController = GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody>();
+
     }
     void Start()
     {
-        
+        bool voo;
+        voo = true;
+        voo = true;
     }
 
     // Update is called once per frame
