@@ -22,7 +22,6 @@ public class EnemyBehaviour : MonoBehaviour
         if (target != null)
         {
             agent.isStopped = false;
-            //Debug.Log("Target!");
             var success = agent.SetDestination(target.position);
             if(!success)
             {
@@ -34,17 +33,7 @@ public class EnemyBehaviour : MonoBehaviour
             Debug.Log("==== No Target! ===");
             agent.isStopped = true;
         }
-        //Debug.Log(agent.isStopped + ", " + agent.speed);
-        if (!agent.isOnNavMesh)
-            Debug.LogError("에이전트가 NavMesh 위에 없음!");
 
-        if (agent.hasPath)
-            Debug.Log("경로 있음");
-        else
-            Debug.LogWarning("경로 없음");
-
-        Debug.Log("남은 거리: " + agent.remainingDistance);
-        Debug.Log(target.position);
     }
     protected void AttackPlayer()
     {

@@ -11,8 +11,15 @@ public class PlayerController : MonoBehaviour
 {
     public float vAxis;
     public float hAxis = 1f;
-    public float moveSpeed = 10f;
+
+    private float curMoveSpeed = 30f;
     public float rotationSpeed = 150f;
+
+    private float maxSpeed = 202f;
+    private float maxReverseSpeed = 20f;
+    private float acceleration = 0.01f;
+    private float deceleration = 0.01f;
+    private float reverseAccel = 0.01f;
 
     private bool isLeft;
     private bool isRight;
@@ -43,15 +50,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (isLeft)
         {
-            hAxis -= 1f * Time.deltaTime;
+            hAxis -= 1f * Time.fixedDeltaTime;
         }
         else if (isRight)
         {
-            hAxis += 1f * Time.deltaTime;
+            hAxis += 1f * Time.fixedDeltaTime;
         }
         else
         {
@@ -61,16 +68,38 @@ public class PlayerController : MonoBehaviour
         if (isAccel)
         {
             vAxis = 1f;
-            moveSpeed += 1f;
+            curMoveSpeed += (curMoveSpeed + acceleration) * Time.fixedDeltaTime;
         }
-        if (isBreak)
+        else if (isBreak)
         {
-            moveSpeed -= 2f;
-            vAxis = -1f * Time.deltaTime;
+            if (curMoveSpeed > 0f)
+            {
+                vAxis = -1f;
+                curMoveSpeed -= deceleration * Time.fixedDeltaTime;
+            }
+            else
+            {
+                vAxis = -1f;
+                curMoveSpeed -= reverseAccel * Time.fixedDeltaTime;
+            }
+        }
+        else
+        {
+            vAxis = 0f;
+            if (curMoveSpeed > 0f)
+                curMoveSpeed -= deceleration * Time.fixedDeltaTime;
+            else if (curMoveSpeed < 0f)
+                curMoveSpeed += deceleration * Time.fixedDeltaTime;
         }
 
-        var curMoveSpeed = Mathf.Clamp(moveSpeed, 0f, 10f);
-        moveSpeed = curMoveSpeed;
+        // 속도 제한
+        curMoveSpeed = Mathf.Clamp(curMoveSpeed, -maxReverseSpeed, maxSpeed);
+
+        Debug.Log("isAccel: " + isAccel);
+        Debug.Log(curMoveSpeed);
+        var newMoveSpeed = Mathf.Clamp(curMoveSpeed, 0f, maxSpeed);
+        curMoveSpeed = newMoveSpeed;
+
         //vAxis = Input.GetAxis("Vertical");
         //hAxis = Input.GetAxis("Horizontal");
     }
