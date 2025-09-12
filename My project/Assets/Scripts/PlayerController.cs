@@ -26,8 +26,6 @@ public class PlayerController : MonoBehaviour
     private bool isRight;
     private bool isAccel;
     private bool isBreak;
-
-    float breakTimer = 0;
     private void Awake()
     {
 
@@ -79,7 +77,6 @@ public class PlayerController : MonoBehaviour
 
         else
         {
-
             if (curMoveSpeed > 0f)
                 curMoveSpeed -= deceleration * Time.fixedDeltaTime;
             else if (curMoveSpeed < 0f)
@@ -88,9 +85,6 @@ public class PlayerController : MonoBehaviour
 
         // 속도 제한
         curMoveSpeed = Mathf.Clamp(curMoveSpeed, -maxReverseSpeed, maxSpeed);
-
-        Debug.Log("isAccel: " + isAccel);
-        Debug.Log(curMoveSpeed);
         var newMoveSpeed = Mathf.Clamp(curMoveSpeed, 0f, maxSpeed);
         curMoveSpeed = newMoveSpeed;
 

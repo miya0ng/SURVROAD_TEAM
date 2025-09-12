@@ -9,6 +9,7 @@ public class UiDebugTexts : MonoBehaviour
     public TextMeshProUGUI playTime;
 
     public PlayerController player;
+    public PlayerBehaviour playerHp;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -22,5 +23,6 @@ public class UiDebugTexts : MonoBehaviour
         playTime.text = "Play Time: " + Mathf.FloorToInt(Time.timeSinceLevelLoad);
         rotation.text = "Rotation: " + player.rotationSpeed;
         speed.text = "Speed: " + player.curMoveSpeed;
+        hp.text = "Hp: " + playerHp.curHp + "/" + playerHp.maxHp;
     }
 }

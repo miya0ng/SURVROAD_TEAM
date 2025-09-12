@@ -386,7 +386,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 4
   m_CollisionDetection: 0
 --- !u!114 &2753819405524951641
 MonoBehaviour:
@@ -400,6 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a31261b924e46b49aa752e3801108d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHp: 0
   playerController: {fileID: 6920132984264494701}
 --- !u!114 &6920132984264494701
 MonoBehaviour:
@@ -416,7 +417,7 @@ MonoBehaviour:
   vAxis: 0
   hAxis: 1
   curMoveSpeed: 10
-  rotationSpeed: 150
+  rotationSpeed: 10
 --- !u!65 &6644107138950327055
 BoxCollider:
   m_ObjectHideFlags: 0
