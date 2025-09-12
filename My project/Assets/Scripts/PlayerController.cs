@@ -12,14 +12,17 @@ public class PlayerController : MonoBehaviour
     public float vAxis;
     public float hAxis = 1f;
 
-    private float curMoveSpeed = 30f;
+    public float curMoveSpeed = 10f;
     public float rotationSpeed = 150f;
 
-    private float maxSpeed = 202f;
-    private float maxReverseSpeed = 20f;
-    private float acceleration = 0.01f;
-    private float deceleration = 0.01f;
-    private float reverseAccel = 0.01f;
+    private float maxSpeed = 30f;
+    private float maxReverseSpeed = 2f;
+    private float acceleration = 3f;
+    private float accelFactor = 1.5f;
+
+    private float deceleration = 2f;
+    private float reverseAccel = 3f;
+    private float reverseFactor = 1.2f;
 
     private bool isLeft;
     private bool isRight;
@@ -68,29 +71,30 @@ public class PlayerController : MonoBehaviour
         if (isAccel)
         {
             vAxis = 1f;
-            curMoveSpeed += (curMoveSpeed + acceleration) * Time.fixedDeltaTime;
-        }
-        else if (isBreak)
-        {
-            if (curMoveSpeed > 0f)
-            {
-                vAxis = -1f;
-                curMoveSpeed -= deceleration * Time.fixedDeltaTime;
-            }
-            else
-            {
-                vAxis = -1f;
-                curMoveSpeed -= reverseAccel * Time.fixedDeltaTime;
-            }
+            curMoveSpeed += (curMoveSpeed + acceleration) * accelFactor* Time.fixedDeltaTime;
         }
         else
         {
-            vAxis = 0f;
             if (curMoveSpeed > 0f)
                 curMoveSpeed -= deceleration * Time.fixedDeltaTime;
             else if (curMoveSpeed < 0f)
                 curMoveSpeed += deceleration * Time.fixedDeltaTime;
         }
+
+        if (isBreak)
+        {
+            if (curMoveSpeed > 0f)
+            {
+                vAxis = -1f;
+                curMoveSpeed -= reverseAccel * reverseFactor* Time.fixedDeltaTime;
+            }
+            else
+            {
+                vAxis = -1f;
+                curMoveSpeed -= reverseAccel * reverseFactor * Time.fixedDeltaTime;
+            }
+        }
+  
 
         // 속도 제한
         curMoveSpeed = Mathf.Clamp(curMoveSpeed, -maxReverseSpeed, maxSpeed);

@@ -21,6 +21,6 @@ public class UiDebugTexts : MonoBehaviour
     {
         playTime.text = "Play Time: " + Mathf.FloorToInt(Time.timeSinceLevelLoad);
         rotation.text = "Rotation: " + player.rotationSpeed;
-        //speed.text = "Speed: " + player.curMoveSpeed;
+        speed.text = "Speed: " + player.curMoveSpeed;
     }
 }
