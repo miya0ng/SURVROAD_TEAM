@@ -2,12 +2,14 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyBehaviour : MonoBehaviour
+public class EnemyBehaviour : LivingEntity, IDamagable
 {
     public LayerMask targetLayer;
     private NavMeshAgent agent;
     private Transform target;
     private float traceDist = 100f;
+    private float collisionDamage = 10f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,17 +25,12 @@ public class EnemyBehaviour : MonoBehaviour
         {
             agent.isStopped = false;
             var success = agent.SetDestination(target.position);
-            if(!success)
-            {
-                Debug.Log("????");
-            }
         }
         else
         {
             Debug.Log("==== No Target! ===");
             agent.isStopped = true;
         }
-
     }
     protected void AttackPlayer()
     {
@@ -64,5 +61,21 @@ public class EnemyBehaviour : MonoBehaviour
             .First();
 
         return nearest.transform;
+    }
+
+    public override void OnDamage(float damage, LivingEntity attacker)
+    {
+        this.curHp -= damage;
+        Debug.Log($"{gameObject.name} took {damage} damage. HP: {this.curHp}");
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("충돌??");
+        var player = collision.gameObject.GetComponent<PlayerBehaviour>();
+        if (player != null )
+        {
+            Debug.Log("충돌!");
+            player.OnDamage(collisionDamage, this);
+        }
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerBehaviour : MonoBehaviour
+public class PlayerBehaviour : LivingEntity, IDamagable
 {
     public PlayerController playerController;
     private Rigidbody rb;
@@ -9,6 +9,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Awake()
     {
+        maxHp = 100;
+        curHp = maxHp;
         playerController = GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody>();
 
@@ -42,5 +44,17 @@ public class PlayerBehaviour : MonoBehaviour
         rb.MovePosition(rb.position + transform.forward * playerController.vAxis * playerController.curMoveSpeed * Time.fixedDeltaTime);
     }
 
-  
+    public override void OnDeath()
+    {
+        base.OnDeath();
+
+        Destroy(gameObject);
+    }
+
+
+    public override void OnDamage(float damage, LivingEntity attacker)
+    {
+        curHp -= damage;
+        Debug.Log($"{gameObject.name} took {damage} damage. HP: {curHp}");
+    }
 }
