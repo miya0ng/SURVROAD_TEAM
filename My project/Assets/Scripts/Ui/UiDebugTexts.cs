@@ -6,7 +6,7 @@ public class UiDebugTexts : MonoBehaviour
     public TextMeshProUGUI hp;
     public TextMeshProUGUI speed;
     public TextMeshProUGUI rotation;
-    public TextMeshProUGUI playTime;
+
 
     public PlayerController player;
     public PlayerBehaviour playerHp;
@@ -20,7 +20,7 @@ public class UiDebugTexts : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playTime.text = "Play Time: " + Mathf.FloorToInt(Time.timeSinceLevelLoad);
+
         rotation.text = "Rotation: " + player.rotationSpeed;
         speed.text = "Speed: " + player.curMoveSpeed;
         hp.text = "Hp: " + playerHp.curHp + "/" + playerHp.maxHp;

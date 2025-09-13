@@ -7,6 +7,7 @@ public class Ui_Game : MonoBehaviour
     public Slider hpBar;
     public TextMeshProUGUI leftEnemy;
     private TextMeshProUGUI hpText;
+    public TextMeshProUGUI playTime;
     public void Awake()
     {
         hpText = hpBar.GetComponentInChildren<TextMeshProUGUI>();
@@ -15,6 +16,7 @@ public class Ui_Game : MonoBehaviour
     public void Update()
     {
         UpdateLeftEnemyText();
+        playTime.text = $"{Time.timeSinceLevelLoad:F2}";
     }
     public void SetHpBar(float MaxHp)
     {
