@@ -4,6 +4,11 @@ using UnityEngine.AI;
 
 public class EnemyBehaviour : LivingEntity, IDamagable
 {
+
+    [SerializeField]
+    private EnemyManager enemyManager;
+    private EnemySpawner enemyPool;
+
     public LayerMask targetLayer;
     private NavMeshAgent agent;
     private Transform target;
@@ -11,9 +16,32 @@ public class EnemyBehaviour : LivingEntity, IDamagable
     private float collisionDamage = 10f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
+        //enemyManager = GetComponent<EnemyManager>();
+        enemyManager=GameObject.FindWithTag("EditorOnly").GetComponent<EnemyManager>();
+        enemyPool=GameObject.FindWithTag("EditorOnly").GetComponent<EnemySpawner>();
         agent = GetComponent<NavMeshAgent>();
+    }
+
+    void OnEnable()
+    {
+        if (enemyManager != null)
+            enemyManager.Register(this);
+
+        if (agent != null)
+        {
+            agent.isStopped = false;
+        }
+    }
+    void OnDisable()
+    {
+        if (enemyManager != null)
+            enemyManager.Unregister(this);
+    }
+    void OnDestroy()
+    {
+
     }
 
     // Update is called once per frame
@@ -21,12 +49,12 @@ public class EnemyBehaviour : LivingEntity, IDamagable
     {
         target = FindTarget(traceDist);
 
-        if (target != null)
+        if (target != null && agent.isOnNavMesh)
         {
             agent.isStopped = false;
             var success = agent.SetDestination(target.position);
         }
-        else
+        else if(target == null && agent.isOnNavMesh)
         {
             Debug.Log("==== No Target! ===");
             agent.isStopped = true;
@@ -65,14 +93,23 @@ public class EnemyBehaviour : LivingEntity, IDamagable
 
     public override void OnDamage(float damage, LivingEntity attacker)
     {
-        this.curHp -= damage;
+        base.OnDamage(damage, attacker);
+        if (curHp == 0)
+        {
+            enemyPool.Return(this.gameObject);
+            
+            if (agent != null && agent.isOnNavMesh)
+            {
+                agent.isStopped = true;
+            }
+        }
         Debug.Log($"{gameObject.name} took {damage} damage. HP: {this.curHp}");
     }
     void OnCollisionEnter(Collision collision)
     {
         Debug.Log("충돌??");
         var player = collision.gameObject.GetComponent<PlayerBehaviour>();
-        if (player != null )
+        if (player != null)
         {
             Debug.Log("충돌!");
             player.OnDamage(collisionDamage, this);
