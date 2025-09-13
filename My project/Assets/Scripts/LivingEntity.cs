@@ -1,9 +1,10 @@
 using UnityEngine;
-
+using System;
 public class LivingEntity : MonoBehaviour, IDamagable
 {
     public float maxHp;
     public float curHp;
+    public Action onDeath;
     public virtual void OnDamage(float damage, LivingEntity attacker)
     {
         curHp -= damage;
@@ -16,5 +17,6 @@ public class LivingEntity : MonoBehaviour, IDamagable
     public virtual void OnDeath()
     {
        Debug.Log($"=={gameObject.name} + isdead!==");
+       onDeath?.Invoke();
     }
 }
