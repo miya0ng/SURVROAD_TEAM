@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8478028225535045403}
-  - component: {fileID: 4726039593766214364}
   m_Layer: 3
   m_Name: Gun
   m_TagString: Untagged
@@ -33,20 +32,6 @@ Transform:
   - {fileID: 7180282014305370593}
   m_Father: {fileID: 4889628967467508393}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4726039593766214364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3231610632549306257}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7472cf164785c254ea927487cbf5990a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: 4336bd8a32db144439170496a7cec434, type: 2}
-  muzzle: {fileID: 7180282014305370593}
 --- !u!1 &4129357231401432067
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,7 +57,7 @@ Transform:
   m_GameObject: {fileID: 4129357231401432067}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 2.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -411,6 +396,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1665187737447004, guid: f65170bd5d5614c42a091c24c0f8104c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6644107138950327055}
+    - targetCorrespondingSourceObject: {fileID: 1665187737447004, guid: f65170bd5d5614c42a091c24c0f8104c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2166895329598841225}
     - targetCorrespondingSourceObject: {fileID: 1712449046460942, guid: f65170bd5d5614c42a091c24c0f8104c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 312453606370933737}
@@ -717,6 +705,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.0963776, y: 1.7263615, z: 4.2056427}
   m_Center: {x: 0.03573227, y: 1.2152525, z: -0.0036666393}
+--- !u!114 &2166895329598841225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4886311387770406165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7472cf164785c254ea927487cbf5990a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponData: {fileID: 11400000, guid: 4336bd8a32db144439170496a7cec434, type: 2}
+  muzzle: {fileID: 7180282014305370593}
 --- !u!1 &4886359265578318341 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1572266532443468, guid: f65170bd5d5614c42a091c24c0f8104c, type: 3}

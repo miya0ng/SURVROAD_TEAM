@@ -9,7 +9,10 @@ public class Bullet : MonoBehaviour
     private Rigidbody rb;
     private HashSet<GameObject> hitTargets = new();
 
-    void Awake() => rb = GetComponent<Rigidbody>();
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
     private void OnEnable()
     {
         timer = 0f;
@@ -21,7 +24,9 @@ public class Bullet : MonoBehaviour
     {
         timer += Time.deltaTime;
         if (timer >= weaponData.lifeTime)
+        {
             gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -34,7 +39,6 @@ public class Bullet : MonoBehaviour
             hitTargets.Add(other.gameObject);
         }
 
-        if (!weaponData.isPiercing)
-            gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 }
