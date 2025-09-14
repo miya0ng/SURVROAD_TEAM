@@ -1,25 +1,28 @@
 using UnityEngine;
-
+using UnityEngine.UI;
+using static Bullet;
 public class PlayerBehaviour : LivingEntity, IDamagable
 {
     public GameManager gameManager;
     public PlayerController playerController;
     private Rigidbody rb;
-    public Ui_Game ui_Game;
+    private Ui_HpBar ui_hpBar;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private void Awake()
     {
+
         maxHp = 100;
         curHp = maxHp;
         playerController = GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody>();
-
+        ui_hpBar=GetComponent<Ui_HpBar>();
+        ui_hpBar.SetHpBar(maxHp);
     }
     void Start()
     {
-        ui_Game.SetHpBar(maxHp);
+        teamId = TeamId.Player;
     }
 
     // Update is called once per frame
@@ -47,12 +50,11 @@ public class PlayerBehaviour : LivingEntity, IDamagable
         Destroy(gameObject);
     }
 
-
     public override void OnDamage(float damage, LivingEntity attacker)
     {
         base.OnDamage(damage, attacker);
 
         Debug.Log($"{gameObject.name} took {damage} damage. HP: {curHp}");
-        ui_Game.UpdateHpBar(curHp);
+        ui_hpBar.UpdateHpBar(curHp);
     }
 }

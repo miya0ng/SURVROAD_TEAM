@@ -13,14 +13,10 @@ MonoBehaviour:
   m_Name: WeaponData
   m_EditorClassIdentifier: 
   weaponName: DefaultWeapon
-  icon: {fileID: 21300000, guid: 9472dd791d5b84a96bde5ffc59b4647a, type: 3}
   damage: 10
-  attackSpeed: 1
+  attackSpeed: 0.1
   bulletCount: 1
-  bulletSpeed: 20
+  bulletSpeed: 600
   lifeTime: 3
-  isPiercing: 0
-  isExplosive: 0
-  explosionRadius: 0
   bulletPrefab: {fileID: 5245207698607943822, guid: dbc88583a9586b94cb4c753ff78f6f5b, type: 3}
   explosionPrefab: {fileID: 1320275964731592, guid: 871a43861e9528d47b2a10d97319b174, type: 3}

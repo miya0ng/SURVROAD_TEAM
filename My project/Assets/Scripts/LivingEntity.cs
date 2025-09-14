@@ -1,10 +1,13 @@
-using UnityEngine;
 using System;
+using UnityEngine;
+using static Bullet;
 public class LivingEntity : MonoBehaviour, IDamagable
 {
     public float maxHp;
     public float curHp;
     public Action onDeath;
+
+    public TeamId teamId;
     public virtual void OnDamage(float damage, LivingEntity attacker)
     {
         curHp -= damage;

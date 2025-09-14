@@ -4,13 +4,17 @@ using TMPro;
 public class Ui_Game : MonoBehaviour
 {
     public EnemyManager enemyManager;
-    public Slider hpBar;
     public TextMeshProUGUI leftEnemy;
-    private TextMeshProUGUI hpText;
+
     public TextMeshProUGUI playTime;
     public void Awake()
     {
-        hpText = hpBar.GetComponentInChildren<TextMeshProUGUI>();
+        
+    }
+
+    public void Start()
+    {
+        
     }
 
     public void Update()
@@ -18,16 +22,7 @@ public class Ui_Game : MonoBehaviour
         UpdateLeftEnemyText();
         playTime.text = $"{Time.timeSinceLevelLoad:F2}";
     }
-    public void SetHpBar(float MaxHp)
-    {
-        hpBar.maxValue = MaxHp;
-        hpText.text = $"{MaxHp} <#ffc9d6> / {MaxHp}";
-    }
-    public void UpdateHpBar(float curHp)
-    {
-        hpBar.value = curHp;
-        hpText.text = $"{curHp} <#ffc9d6> / {hpBar.maxValue}";
-    }
+
 
     public void UpdateLeftEnemyText()
     {
