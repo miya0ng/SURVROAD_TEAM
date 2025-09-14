@@ -1,9 +1,11 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityEngine.UI;
+using static Bullet;
 public class EnemyBehaviour : LivingEntity, IDamagable
 {
+    private Ui_HpBar ui_HpBar;
 
     [SerializeField]
     private EnemyManager enemyManager;
@@ -19,11 +21,18 @@ public class EnemyBehaviour : LivingEntity, IDamagable
     void Awake()
     {
         //enemyManager = GetComponent<EnemyManager>();
-        enemyManager=GameObject.FindWithTag("EditorOnly").GetComponent<EnemyManager>();
+        enemyManager =GameObject.FindWithTag("EditorOnly").GetComponent<EnemyManager>();
         enemyPool=GameObject.FindWithTag("EditorOnly").GetComponent<EnemySpawner>();
         agent = GetComponent<NavMeshAgent>();
-    }
 
+        ui_HpBar=GetComponent<Ui_HpBar>();
+        maxHp = 50;
+        ui_HpBar.SetHpBar(maxHp);
+    }
+    void Start()
+    {
+        teamId = TeamId.Enemy;
+    }
     void OnEnable()
     {
         if (enemyManager != null)
@@ -103,6 +112,7 @@ public class EnemyBehaviour : LivingEntity, IDamagable
                 agent.isStopped = true;
             }
         }
+        ui_HpBar.UpdateHpBar(curHp);
         Debug.Log($"{gameObject.name} took {damage} damage. HP: {this.curHp}");
     }
     void OnCollisionEnter(Collision collision)

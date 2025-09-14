@@ -10,7 +10,7 @@ public class WeaponData : ScriptableObject
     public float damage = 10f;
     public float attackSpeed = 1f;
     public int bulletCount = 1;
-    public float bulletSpeed = 20f;
+    public float bulletSpeed = 60f;
     public float lifeTime = 3f;
 
     //[Header("특수 옵션")]
