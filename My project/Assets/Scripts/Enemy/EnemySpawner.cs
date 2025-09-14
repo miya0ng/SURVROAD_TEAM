@@ -5,57 +5,98 @@ using UnityEngine.AI;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private EnemyManager enemyManager;
-
     [SerializeField] private Transform[] spawnPoints;
 
     public Transform emptySpawnPoint;
     public GameObject enemy;
 
-    public int enemySpawnCount = 5;
+    private int enemySpawnCount = 1;
+    public int EnemySpawnCount
+    {
+        get { return enemySpawnCount; }
+        set { enemySpawnCount = value; }
+    }
 
-    private readonly Queue<GameObject> pool = new();
-    [SerializeField] private int enemyPoolSize = 10;
+    private Queue<GameObject> pool = new();
+    private Queue<GameObject> acticveEnemyPool = new();
+    private Queue<GameObject> copyAllEnemy = new();
+
+    private int enemyPoolSize;
+    public int EnemyPoolSize
+    {
+        get { return enemyPoolSize; }
+        set { enemyPoolSize = value; }
+    }
 
     [SerializeField] private Transform player;
     [SerializeField] private Camera gameCamera;
     [SerializeField] private float spawnRadius = 40f;
     [SerializeField] private float cameraMargin = 0.1f;
 
-    private float spawnInterval = 5f;
-    private float spawnTimer = 0f;
+    private float spawnInterval = 1f;
 
+    public Coroutine coroutine;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         gameCamera = Camera.main;
         MakePool();
     }
-
-    private void MakePool()
+    private void Start()
     {
-        for (int i = 0; i < enemyPoolSize; i++)
+        StartSpawner();
+    }
+    public void StartSpawner()
+    {
+        coroutine = StartCoroutine(SpawnEnemy());
+    }
+    public void StopSpawner()
+    {
+        if(coroutine != null)
+        StopCoroutine(coroutine);
+    }
+    private IEnumerator SpawnEnemy()
+    {
+        SpawnOutsideView();
+        yield return new WaitForSeconds(spawnInterval);
+    }
+    public void Register(GameObject enemy)
+    {
+        acticveEnemyPool.Enqueue(enemy);
+    }
+    public void UnRegister(GameObject enemy)
+    {
+        if(acticveEnemyPool != null)
+        {
+            acticveEnemyPool.Dequeue();
+        }
+    }
+    public void MakePool()
+    {
+        for (int i = 0; i < 30; i++)
         {
             var e = Instantiate(enemy, emptySpawnPoint);
+            Debug.Log("Spawn");
             e.gameObject.SetActive(false);
             pool.Enqueue(e);
+            copyAllEnemy.Enqueue(e);
         }
     }
 
     void Update()
     {
-        spawnTimer -= Time.deltaTime;
-        if (spawnTimer <= 0f)
-        {
-            SpawnOutsideView();
-            spawnTimer = spawnInterval;
-        }
+           
     }
 
     public void SpawnOutsideView()
     {
-        for(int i = 0; i < enemySpawnCount; i++)
+        for(int i = 0; i < EnemySpawnCount; i++)
         {
+            if (enemyPoolSize <= 0)
+            {
+                return;
+            }
+
             Vector3 pos = GetSpawnPositionOutsideCamera();
 
             if (NavMesh.SamplePosition(pos, out NavMeshHit hit, 2f, NavMesh.AllAreas))
@@ -64,7 +105,6 @@ public class EnemySpawner : MonoBehaviour
                 var enemy = Get();
                 enemy.transform.position = newPos;
             }
-
         }
     }
 
@@ -98,10 +138,12 @@ public class EnemySpawner : MonoBehaviour
     {
         if(pool.Count == 0)
         {
-            return null;
             //MakePool();
+            pool = new Queue<GameObject>(copyAllEnemy);
+            return null;
         }
         var e = pool.Dequeue();
+
         e.gameObject.SetActive(true);
         return e;
     }
@@ -109,5 +151,10 @@ public class EnemySpawner : MonoBehaviour
     {
         e.gameObject.SetActive(false);
         pool.Enqueue(e);
+    }
+
+    public int GetActiveEnemyPoolCount()
+    {
+        return acticveEnemyPool.Count;
     }
 }

@@ -52,22 +52,19 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var target = other.GetComponent<IDamagable>();
-        Debug.Log($"=================Bullet hit================");
 
         if (other.gameObject == owner) return;
 
         var livingEntity = other.GetComponent<LivingEntity>();
         if (livingEntity != null && livingEntity.teamId == teamId)
-            return; // 같은 팀이면 데미지 무시
-
+            return;
 
         if (target != null && !hitTargets.Contains(other.gameObject))
         {
             Debug.Log($"Bullet hit {other.gameObject.name}");
             target.OnDamage(weaponData.damage, null);
             hitTargets.Add(other.gameObject);
+            gameObject.SetActive(false);
         }
-
-        gameObject.SetActive(false);
     }
 }
