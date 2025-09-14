@@ -834,10 +834,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4886311387770406165, guid: 335f3f404eb6b6c4b87883ca294b21ea, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 5123896136409139560, guid: 335f3f404eb6b6c4b87883ca294b21ea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -928,8 +924,6 @@ MonoBehaviour:
   spawnPoints: []
   emptySpawnPoint: {fileID: 1148857771}
   enemy: {fileID: 1034430169744898329, guid: f9d0544bb5535314ab5a3d941818ae38, type: 3}
-  enemySpawnCount: 5
-  enemyPoolSize: 10
   player: {fileID: 1768547038}
   gameCamera: {fileID: 90610349}
   spawnRadius: 30
@@ -955,6 +949,53 @@ Transform:
   - {fileID: 1608750997}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &520736551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 520736552}
+  - component: {fileID: 520736553}
+  m_Layer: 0
+  m_Name: ItemSpawner
+  m_TagString: ItemSpawner
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &520736552
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520736551}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 363.59766, y: 144.36678, z: -5.85029}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &520736553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520736551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27cd15b886606fc46b8f2c13697ef53b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 10
+  items:
+  - {fileID: 837432010726633910, guid: d4599ab1452142a489c7f1601b379630, type: 3}
 --- !u!114 &732064915 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1779086797351288340, guid: 2639bfb3a922be7478c5dd6cc6ff89b6, type: 3}
@@ -2590,3 +2631,4 @@ SceneRoots:
   - {fileID: 946532428}
   - {fileID: 470820010}
   - {fileID: 1148857771}
+  - {fileID: 520736552}
