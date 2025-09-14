@@ -18,6 +18,7 @@ public class Ui_HpBar : MonoBehaviour
     public void SetHpBar(float MaxHp)
     {
         hpBar.maxValue = MaxHp;
+        hpBar.value = MaxHp;
         hpText = hpBar.GetComponentInChildren<TextMeshProUGUI>();
         hpText.text = $"{MaxHp} <#ffc9d6> / {MaxHp}";
     }

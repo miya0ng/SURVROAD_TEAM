@@ -7,10 +7,7 @@ public class EnemyBehaviour : LivingEntity, IDamagable
 {
     private Ui_HpBar ui_HpBar;
 
-    [SerializeField]
-    private EnemyManager enemyManager;
     private EnemySpawner enemyPool;
-
     public LayerMask targetLayer;
     private NavMeshAgent agent;
     private Transform target;
@@ -21,11 +18,10 @@ public class EnemyBehaviour : LivingEntity, IDamagable
     void Awake()
     {
         //enemyManager = GetComponent<EnemyManager>();
-        enemyManager =GameObject.FindWithTag("EditorOnly").GetComponent<EnemyManager>();
-        enemyPool=GameObject.FindWithTag("EditorOnly").GetComponent<EnemySpawner>();
-        agent = GetComponent<NavMeshAgent>();
 
-        ui_HpBar=GetComponent<Ui_HpBar>();
+        enemyPool= GameObject.FindGameObjectWithTag("EnemySpawner").GetComponent<EnemySpawner>();
+        agent = GetComponent<NavMeshAgent>();
+        ui_HpBar = GetComponent<Ui_HpBar>();
         maxHp = 50;
         ui_HpBar.SetHpBar(maxHp);
     }
@@ -35,9 +31,8 @@ public class EnemyBehaviour : LivingEntity, IDamagable
     }
     void OnEnable()
     {
-        if (enemyManager != null)
-            enemyManager.Register(this);
-
+        ui_HpBar.SetHpBar(maxHp);
+        enemyPool.Register(gameObject);
         if (agent != null)
         {
             agent.isStopped = false;
@@ -45,14 +40,11 @@ public class EnemyBehaviour : LivingEntity, IDamagable
     }
     void OnDisable()
     {
-        if (enemyManager != null)
-            enemyManager.Unregister(this);
+        if (agent != null)
+        {
+            //agent.isStopped = true;
+        }
     }
-    void OnDestroy()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -103,17 +95,24 @@ public class EnemyBehaviour : LivingEntity, IDamagable
     public override void OnDamage(float damage, LivingEntity attacker)
     {
         base.OnDamage(damage, attacker);
-        if (curHp == 0)
-        {
-            enemyPool.Return(this.gameObject);
-            
-            if (agent != null && agent.isOnNavMesh)
-            {
-                agent.isStopped = true;
-            }
-        }
+
         ui_HpBar.UpdateHpBar(curHp);
         Debug.Log($"{gameObject.name} took {damage} damage. HP: {this.curHp}");
+    }
+
+    public override void OnDeath()
+    {
+        base.OnDeath();
+        if (enemyPool != null)
+        {
+            enemyPool.UnRegister(gameObject);
+            enemyPool.Return(gameObject);
+            enemyPool.EnemyPoolSize--;
+        }
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
     }
     void OnCollisionEnter(Collision collision)
     {

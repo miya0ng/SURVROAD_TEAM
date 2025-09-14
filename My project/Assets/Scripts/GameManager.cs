@@ -5,19 +5,36 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public UiDebugTexts debugText;
+
+    private WaveManager waveManager;
+    private EnemySpawner enemySpawner;
+
     [SerializeField]
     private float playTime = 0f;
 
     public int waveCount = 1;
     public int leftEnemyCount;
     private bool isGameOver = false;
+
+    void Awake()
+    {
+        enemySpawner = GameObject.FindGameObjectWithTag("EnemySpawner").GetComponent<EnemySpawner>();
+        waveManager = GameObject.FindGameObjectWithTag("WaveManager").GetComponent<WaveManager>();
+    }
+
     void Start()
     {
 
-        //leftEnemyCount = 
     }
     void Update()
     {
+        //Debug.Log(enemySpawner.EnemyPoolSize);
+        if (enemySpawner.EnemyPoolSize <= 0)
+        {
+            waveManager.NextWave();
+            enemySpawner.StopSpawner();
+            enemySpawner.StartSpawner();
+        }
         playTime += Time.deltaTime;
         
         if (Input.anyKey && isGameOver)
@@ -38,21 +55,8 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
         waveCount = 1;
         Time.timeScale = 0f; // Pause the game
-
+        enemySpawner.StopSpawner();
         Debug.Log($"Game Over! Total Play Time: {playTime} seconds.");
         // Additional game over logic can be added here
-    }
-
-    public bool WaveClear()
-    {
-        if (leftEnemyCount != 0)
-            return false;
-        else
-        {
-            Debug.Log($"Wave {waveCount} cleared!");
-            waveCount++;
-            // Additional wave clear logic can be added here
-            return true;
-        }
     }
 }
