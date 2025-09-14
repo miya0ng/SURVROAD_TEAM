@@ -8,6 +8,7 @@ TagManager:
   - EnemySpawner
   - GameManager
   - WaveManager
+  - ItemSpawner
   layers:
   - Default
   - TransparentFX

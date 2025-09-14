@@ -8,7 +8,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Transform muzzle;
 
     private float nextFireTime;
-    private Bullet bullet;
+   // private Bullet bullet;
     private TeamId teamId;
     private void Awake()
     {
