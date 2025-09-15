@@ -726,7 +726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7472cf164785c254ea927487cbf5990a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: 4336bd8a32db144439170496a7cec434, type: 2}
+  weaponData: {fileID: 11400000, guid: e60512bf3d0d2244a82df3f5172abd06, type: 2}
   muzzle: {fileID: 7180282014305370593}
 --- !u!114 &6804605943967220802
 MonoBehaviour:

@@ -822,6 +822,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1573015107}
     m_Modifications:
+    - target: {fileID: 730592862297438395, guid: 335f3f404eb6b6c4b87883ca294b21ea, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.00012207031
+      objectReference: {fileID: 0}
+    - target: {fileID: 730592862297438395, guid: 335f3f404eb6b6c4b87883ca294b21ea, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2753819405524951641, guid: 335f3f404eb6b6c4b87883ca294b21ea, type: 3}
       propertyPath: gameManager
       value: 
@@ -993,7 +1001,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27cd15b886606fc46b8f2c13697ef53b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 10
   items:
   - {fileID: 837432010726633910, guid: d4599ab1452142a489c7f1601b379630, type: 3}
 --- !u!114 &732064915 stripped
