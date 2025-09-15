@@ -3,26 +3,18 @@ using UnityEngine;
 
 public class EquipItem : MonoBehaviour, IItem
 {
-    public WeaponData weaponData;
-    public enum Types
-    {
-        auto_turret_lv1,
-        auto_turret_lv2
-    }
+    public WeaponSO weaponSO;
+    private PlayerShooter player;
 
-    public Types itemType;
+    public void Start()
+    {
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerShooter>();
+    }
     public void Use(GameObject go)
     {
         Debug.Log("Use");
-        switch (itemType)
-        {
-            case Types.auto_turret_lv1:
-                break;
-            case Types.auto_turret_lv2:
-                break;
-            default:
-                break;
-        }
+        player.EquipWeapon(weaponSO);
+
         Destroy(gameObject);
     }
 

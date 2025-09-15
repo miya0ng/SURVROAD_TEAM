@@ -4,7 +4,7 @@ using static UnityEngine.UI.GridLayoutGroup;
 
 public class Weapon : MonoBehaviour
 {
-    public WeaponData weaponData;
+    public WeaponSO weaponSO;
     public GameObject bulletPrefab;
     [SerializeField] private Transform muzzle;
 
@@ -22,7 +22,7 @@ public class Weapon : MonoBehaviour
     }
     void Update()
     {
-        if (weaponData == null || muzzle == null)
+        if (weaponSO == null || muzzle == null)
         {
             Debug.LogError("WeaponData ¶Ç´Â MuzzleÀÌ null");
             return;
@@ -30,7 +30,7 @@ public class Weapon : MonoBehaviour
 
         nextFireTime += Time.deltaTime;
 
-        if (nextFireTime >= weaponData.AttackSpeed)
+        if (nextFireTime >= weaponSO.AttackSpeed)
         {
             Fire();
             nextFireTime = 0f;
@@ -39,11 +39,11 @@ public class Weapon : MonoBehaviour
 
     void Fire()
     {
-        for (int i = 0; i < weaponData.ShotCount; i++)
+        for (int i = 0; i < weaponSO.ShotCount; i++)
         {
             var bulletObj = Instantiate(bulletPrefab, muzzle.position, muzzle.rotation);
             var bullet = bulletObj.GetComponent<Bullet>();
-            bullet.weaponData = weaponData;
+            bullet.weaponSO = weaponSO;
             bullet.SetBullet(gameObject, teamId);
             bulletObj.SetActive(true);
         }

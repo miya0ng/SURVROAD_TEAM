@@ -12,7 +12,6 @@ public class PlayerBehaviour : LivingEntity, IDamagable
 
     private void Awake()
     {
-
         maxHp = 100;
         curHp = maxHp;
         playerController = GetComponent<PlayerController>();

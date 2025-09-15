@@ -4,7 +4,7 @@ using static UnityEngine.UI.GridLayoutGroup;
 
 public class Bullet : MonoBehaviour
 {
-    public WeaponData weaponData;
+    public WeaponSO weaponSO;
 
     private GameObject owner;
     public enum TeamId
@@ -27,7 +27,7 @@ public class Bullet : MonoBehaviour
     {
         timer = 0f;
         hitTargets.Clear();
-        rb.linearVelocity = transform.forward * weaponData.BulletSpeed;
+        rb.linearVelocity = transform.forward * weaponSO.BulletSpeed;
     }
 
     public void SetBullet(GameObject owner, TeamId team)
@@ -43,7 +43,7 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= weaponData.Duration)
+        if (timer >= weaponSO.Duration)
         {
             gameObject.SetActive(false);
         }
@@ -62,7 +62,7 @@ public class Bullet : MonoBehaviour
         if (target != null && !hitTargets.Contains(other.gameObject))
         {
             Debug.Log($"Bullet hit {other.gameObject.name}");
-            target.OnDamage(weaponData.Damage, null);
+            target.OnDamage(weaponSO.Damage, null);
             hitTargets.Add(other.gameObject);
             gameObject.SetActive(false);
         }
