@@ -1003,6 +1003,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - {fileID: 837432010726633910, guid: d4599ab1452142a489c7f1601b379630, type: 3}
+  - {fileID: 837432010726633910, guid: d4599ab1452142a489c7f1601b379630, type: 3}
+  - {fileID: 837432010726633910, guid: d4599ab1452142a489c7f1601b379630, type: 3}
+  - {fileID: 837432010726633910, guid: d4599ab1452142a489c7f1601b379630, type: 3}
 --- !u!114 &732064915 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1779086797351288340, guid: 2639bfb3a922be7478c5dd6cc6ff89b6, type: 3}
