@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 736338638673776937}
   - component: {fileID: 8706827509820951062}
   - component: {fileID: 110483150008109079}
+  - component: {fileID: -8531832007376568586}
   m_Layer: 0
   m_Name: SM_Wep_Veh_MiniGun_01
   m_TagString: Untagged
@@ -196,3 +197,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43793263092734854, guid: 4b0a2e95db92b6e48952d1d04a549979, type: 2}
+--- !u!114 &-8531832007376568586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717230239203858784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7472cf164785c254ea927487cbf5990a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSO: {fileID: 11400000, guid: e579d5dac73b9974995f1e787b2f4f03, type: 2}
+  bulletPrefab: {fileID: 5245207698607943822, guid: dbc88583a9586b94cb4c753ff78f6f5b, type: 3}
+  muzzle: {fileID: 0}

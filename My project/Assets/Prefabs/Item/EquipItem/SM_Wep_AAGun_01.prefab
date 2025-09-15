@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 7928751067958997152}
   - component: {fileID: 6177625005952734800}
   - component: {fileID: 5289652652355207794}
+  - component: {fileID: -7614048780675982062}
   m_Layer: 0
   m_Name: SM_Wep_AAGun_01
   m_TagString: Untagged
@@ -310,7 +311,7 @@ MeshRenderer:
   m_GameObject: {fileID: 1874699347402938718}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -368,6 +369,21 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43761660768607592, guid: 88b2f80d34eb3f541ab5db40d7a7bcb2, type: 2}
+--- !u!114 &-7614048780675982062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874699347402938718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7472cf164785c254ea927487cbf5990a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSO: {fileID: 11400000, guid: e579d5dac73b9974995f1e787b2f4f03, type: 2}
+  bulletPrefab: {fileID: 5245207698607943822, guid: dbc88583a9586b94cb4c753ff78f6f5b, type: 3}
+  muzzle: {fileID: 0}
 --- !u!1 &2466835697639793568
 GameObject:
   m_ObjectHideFlags: 0
