@@ -8,12 +8,20 @@ public class Weapon : MonoBehaviour
     public GameObject bulletPrefab;
     [SerializeField] private Transform muzzle;
 
+    public bool IsEquipped { get; private set; }
     private float nextFireTime;
+
    // private Bullet bullet;
     private TeamId teamId;
     private void Awake()
     {
        
+    }
+
+    public void Equip(LivingEntity owner)
+    {
+        IsEquipped = true;
+        teamId = owner.teamId;
     }
 
     private void Start()
@@ -27,6 +35,8 @@ public class Weapon : MonoBehaviour
             Debug.LogError("WeaponData ¶Ç´Â MuzzleÀÌ null");
             return;
         }
+
+        if (!IsEquipped) return;
 
         nextFireTime += Time.deltaTime;
 

@@ -7,7 +7,7 @@ public class PlayerShooter : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        weapon=GetComponent<Weapon>();
+        weapon = GetComponent<Weapon>();
     }
 
     // Update is called once per frame
