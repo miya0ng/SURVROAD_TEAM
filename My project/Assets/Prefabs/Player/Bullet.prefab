@@ -124,7 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c37cae2592bba3d48b7287417cf996bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: 4336bd8a32db144439170496a7cec434, type: 2}
+  weaponSO: {fileID: 11400000, guid: e579d5dac73b9974995f1e787b2f4f03, type: 2}
+  teamId: 0
 --- !u!54 &3891137286479202278
 Rigidbody:
   m_ObjectHideFlags: 0

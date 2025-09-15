@@ -10,7 +10,7 @@ public class ItemSpawner : MonoBehaviour
     private int spawnCount = 15;
     Vector3 center = Vector3.zero;
     Vector3 result;
-    public List<EquipItem> items;
+    public WeaponLibrary WeaponLibrary;
 
     //GameManager gameManager;
     public void Start()
@@ -45,9 +45,10 @@ public class ItemSpawner : MonoBehaviour
             {
                 var pos = result;
                 pos.y += 0.5f;
-                var item = items[Random.Range(0, items.Count)];
+                var item = WeaponLibrary.GetPrefab((PrefabIndex)(Random.Range(0, WeaponLibrary.prefabs.Count)));
                 var randomRotationY = Random.Range(0, 120);
                 item.transform.rotation = Quaternion.Euler(0f, randomRotationY, 0f);
+                item.transform.localScale = new Vector3(3f, 3f, 3f);
                 Instantiate(item, pos, item.transform.rotation);
             }
         }
