@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16d788128e93c194899c81b36f09e4df, type: 3}
+  m_Name: 21302_rocket_launcher_lv3
+  m_EditorClassIdentifier: 
+  ID: 21302
+  Name: rocket_launcher_lv3
+  Type: 1
+  Target: 1
+  Level: 3
+  Damage: 20
+  ShotCount: 3
+  AttackSpeed: 0.33
+  AttackRange: 2
+  Dps: 19.8
+  BulletSpeed: 3
+  EffectiveRange: 2
+  ExplosionRange: 2.5
+  Duration: 3
+  Piercing: 0
+  Info: "\uACF5\uACA9\uC18D\uB3C4\uAC00 \uC18C\uD3ED \uC99D\uAC00\uD558\uACE0 \uB85C\uCF13\uC774
+    \uC138\uBC1C\uB85C \uB298\uC5B4\uB0A8"
+  PrefabName: 
+  PrefabIndex: 3
