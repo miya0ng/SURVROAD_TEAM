@@ -97,7 +97,7 @@ public class EnemyBehaviour : LivingEntity, IDamagable
         base.OnDamage(damage, attacker);
 
         ui_HpBar.UpdateHpBar(curHp);
-        Debug.Log($"{gameObject.name} took {damage} damage. HP: {this.curHp}");
+        //Debug.Log($"{gameObject.name} took {damage} damage. HP: {this.curHp}");
     }
 
     public override void OnDeath()
@@ -116,7 +116,6 @@ public class EnemyBehaviour : LivingEntity, IDamagable
     }
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Ãæµ¹??");
         var player = collision.gameObject.GetComponent<PlayerBehaviour>();
         if (player != null)
         {

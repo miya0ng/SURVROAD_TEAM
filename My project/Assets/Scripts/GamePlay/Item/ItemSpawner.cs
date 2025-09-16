@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class ItemSpawner : MonoBehaviour
 {
-    private float range = 100f;
+    private float range = 10f;
     private int spawnCount = 15;
     Vector3 center = Vector3.zero;
     Vector3 result;
@@ -45,11 +45,16 @@ public class ItemSpawner : MonoBehaviour
             {
                 var pos = result;
                 pos.y += 0.5f;
-                var item = WeaponLibrary.GetPrefab((PrefabIndex)(Random.Range(0, WeaponLibrary.prefabs.Count)));
+                int randomIndex = Random.Range(0, WeaponLibrary.weapons.Count);
+                var equipItem = WeaponLibrary.GetPrefab((WeaponIndex)randomIndex);
                 var randomRotationY = Random.Range(0, 120);
-                item.transform.rotation = Quaternion.Euler(0f, randomRotationY, 0f);
-                item.transform.localScale = new Vector3(3f, 3f, 3f);
-                Instantiate(item, pos, item.transform.rotation);
+                equipItem.transform.rotation = Quaternion.Euler(0f, randomRotationY, 0f);
+                equipItem.transform.localScale = new Vector3(3f, 3f, 3f);
+
+                var instance = Instantiate(equipItem, pos, equipItem.transform.rotation);
+                var weapon = instance.GetComponent<Weapon>();
+                weapon.weaponSO = WeaponLibrary.GetSO((WeaponIndex)randomIndex);
+
             }
         }
     }

@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d36774a9d1f6094da81a57f683055e8, type: 3}
   m_Name: WeaponLibrary
   m_EditorClassIdentifier: 
-  prefabs:
-  - prefabIndex: 0
+  weapons:
+  - Index: 0
     prefab: {fileID: 85222885766270236, guid: d4599ab1452142a489c7f1601b379630, type: 3}
-  - prefabIndex: 1
+    weaponSO: {fileID: 11400000, guid: e579d5dac73b9974995f1e787b2f4f03, type: 2}
+  - Index: 1
     prefab: {fileID: 1874699347402938718, guid: 051175f498943e24984a3776237fba3a, type: 3}
-  - prefabIndex: 2
+    weaponSO: {fileID: 11400000, guid: 3ebe5bb3acf7ec745b2d0e16d8f00f18, type: 2}
+  - Index: 2
     prefab: {fileID: 6717230239203858784, guid: f19675df16e879d4880d969b6c0b2a32, type: 3}
-  - prefabIndex: 3
+    weaponSO: {fileID: 11400000, guid: 61864f07e938b0e4eabbefe68d6264e2, type: 2}
+  - Index: 3
     prefab: {fileID: 385623515136055977, guid: 1ef01743cf9747f4096d149d9a3cdc46, type: 3}
+    weaponSO: {fileID: 11400000, guid: 9f3367056c5125240b4edf7c874fa719, type: 2}

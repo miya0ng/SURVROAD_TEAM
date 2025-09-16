@@ -9,6 +9,7 @@ TagManager:
   - GameManager
   - WaveManager
   - ItemSpawner
+  - EquipSocket
   layers:
   - Default
   - TransparentFX

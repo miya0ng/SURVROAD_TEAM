@@ -46,14 +46,15 @@ public class PlayerBehaviour : LivingEntity, IDamagable
     {
         base.OnDeath();
         gameManager.GameOver();
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     public override void OnDamage(float damage, LivingEntity attacker)
     {
         base.OnDamage(damage, attacker);
 
-        Debug.Log($"{gameObject.name} took {damage} damage. HP: {curHp}");
+        //Debug.Log($"{gameObject.name} took {damage} damage. HP: {curHp}");
         ui_hpBar.UpdateHpBar(curHp);
     }
 }

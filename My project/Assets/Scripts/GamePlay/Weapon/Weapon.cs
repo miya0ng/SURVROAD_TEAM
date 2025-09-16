@@ -4,10 +4,9 @@ using static UnityEngine.UI.GridLayoutGroup;
 
 public class Weapon : MonoBehaviour
 {
-    public WeaponSO weaponSO;
+    public WeaponSO weaponSO {  get; set; }
     public GameObject bulletPrefab;
     [SerializeField] private Transform muzzle;
-
     public bool IsEquipped { get; private set; }
     private float nextFireTime;
 
@@ -15,7 +14,7 @@ public class Weapon : MonoBehaviour
     private TeamId teamId;
     private void Awake()
     {
-       
+
     }
 
     public void Equip(LivingEntity owner)
@@ -30,10 +29,15 @@ public class Weapon : MonoBehaviour
     }
     void Update()
     {
-        if (weaponSO == null || muzzle == null)
+        if (weaponSO == null)
         {
-            Debug.LogError("WeaponData ¶Ç´Â MuzzleÀÌ null");
+            Debug.LogError($"{gameObject.name}: WeaponData null");
             return;
+        }
+
+        if (muzzle == null)
+        {
+            Debug.Log($"{gameObject.name}: muzzle null");
         }
 
         if (!IsEquipped) return;
@@ -54,6 +58,8 @@ public class Weapon : MonoBehaviour
             var bulletObj = Instantiate(bulletPrefab, muzzle.position, muzzle.rotation);
             var bullet = bulletObj.GetComponent<Bullet>();
             bullet.weaponSO = weaponSO;
+
+ 
             bullet.SetBullet(gameObject, teamId);
             bulletObj.SetActive(true);
         }

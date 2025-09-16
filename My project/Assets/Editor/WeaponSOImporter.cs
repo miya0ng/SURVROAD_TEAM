@@ -74,7 +74,7 @@ public class WeaponSOImporter : EditorWindow
             so.Info = record.Info;
 
             if (!string.IsNullOrEmpty(record.PrefabName) &&
-                System.Enum.TryParse(record.PrefabName, out PrefabIndex index))
+                System.Enum.TryParse(record.PrefabName, out WeaponIndex index))
             {
                 so.PrefabIndex = index;
             }
