@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09e517b9593597e4f92e3e8f7da3dd47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WeaponLibrary: {fileID: 11400000, guid: f59a24721fbf6904bbaf4104b345738e, type: 2}
+  sockets: []
 --- !u!1 &7270649413943101622
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +165,7 @@ GameObject:
   - component: {fileID: 518160272325255358}
   m_Layer: 3
   m_Name: PlayerRoot
-  m_TagString: PlayerMe
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -327,7 +329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5930895525319418974, guid: 1d8cd8f686275e342b115d3913d90a39, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000030517578
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6699269344844773759, guid: 1d8cd8f686275e342b115d3913d90a39, type: 3}
       propertyPath: m_AnchoredPosition.y
