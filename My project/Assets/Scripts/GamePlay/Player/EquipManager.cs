@@ -13,6 +13,7 @@ public class EquipManager : MonoBehaviour
 
     private int equipCount = 0;
 
+    bool isEquip = false;
     //Todo: manage list<transform>, ¹«±â ¿©·¯°³ ÀåÂøÇØ¾ßÇÔ
     public void Awake()
     {
@@ -28,21 +29,31 @@ public class EquipManager : MonoBehaviour
         }
     }
 
+    public void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            equipCount = 0;
+        }
+    }
+
     public void EquipWeapon(GameObject weapon)
     {
-        //if (equipCount >= 3)
-        //{
-        //    Debug.Log("ÀåÂø È½¼ö ÃÊ°ú");
-        //    return;
-        //}
-    
+        weapon.SetActive(false);//Todo:destroy
+        if (equipCount >= 3)
+        {
+            Debug.Log("ÀåÂø È½¼ö ÃÊ°ú");
+            return;
+        }
+        Debug.Log("EquipWeapon");
         var oldw = weapon.GetComponent<Weapon>();
         WeaponIndex index = oldw.weaponSO.PrefabIndex;
-        var equipWeapon = Instantiate(weapon, sockets[0].position, sockets[0].rotation);
-        weapon.SetActive(false);//Todo:destroy
-
+        var equipWeapon = Instantiate(weapon, sockets[equipCount].position, sockets[equipCount].rotation);
+        equipWeapon.SetActive(true);
         var w = equipWeapon.GetComponent<Weapon>();
+        var e = equipWeapon.GetComponent<EquipItem>();
         w.Equip(player);
+        e.isEquip = true;
         w.weaponSO = WeaponLibrary.GetSO(index);
         equipWeapons.Add(equipWeapon);
         equipCount++;
