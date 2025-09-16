@@ -5,11 +5,12 @@ using UnityEngine;
 public class EquipManager : MonoBehaviour
 {
     private LivingEntity player;
+    [SerializeField]
     private List<Transform> sockets = new List<Transform> ();
     //Todo: manage list<transform>, 무기 여러개 장착해야함
     public void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("PlayerMe").GetComponent<LivingEntity>();
+        player = GetComponentInParent<LivingEntity> ();
         if(player == null)
         {
             Debug.Log("equipmanager player is null");

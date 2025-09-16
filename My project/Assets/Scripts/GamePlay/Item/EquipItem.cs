@@ -7,7 +7,7 @@ public class EquipItem : MonoBehaviour, IItem
 
     public void Awake()
     {
-        rootPlayer = GameObject.FindGameObjectWithTag("PlayerMe");
+        rootPlayer = GameObject.FindGameObjectWithTag("Player");
     }
     public void Use(GameObject go)
     {
@@ -33,7 +33,7 @@ public class EquipItem : MonoBehaviour, IItem
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PlayerMe"))
+        if (other.CompareTag("Player"))
         {
             Debug.Log("¾ÆÀÌÅÛ°ú ºÎµúÈû");
             Use(other.gameObject);

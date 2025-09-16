@@ -13,8 +13,8 @@ public class UiDebugTexts : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        player = GameObject.FindWithTag("PlayerMe").GetComponent<PlayerController>();
-        playerHp = GameObject.FindWithTag("PlayerMe").GetComponent<PlayerBehaviour>();
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        playerHp = GameObject.FindWithTag("Player").GetComponent<PlayerBehaviour>();
     }
     void Start()
     {
