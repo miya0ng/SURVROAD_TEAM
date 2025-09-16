@@ -6,8 +6,8 @@ using UnityEngine.AI;
 
 public class ItemSpawner : MonoBehaviour
 {
-    private float range = 10f;
-    private int spawnCount = 15;
+    private float range = 100f;
+    private int spawnCount = 30;
     Vector3 center = Vector3.zero;
     Vector3 result;
     public WeaponLibrary WeaponLibrary;
@@ -39,7 +39,7 @@ public class ItemSpawner : MonoBehaviour
     }
     public void CreateItem()
     {
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < spawnCount; i++)
         {
             if (SpawnPosition(center, range, out result))
             {
