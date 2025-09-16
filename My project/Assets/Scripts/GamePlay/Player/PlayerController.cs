@@ -22,41 +22,38 @@ public class PlayerController : MonoBehaviour
     private float deceleration = 10f;
     private float reverseAccel = 10f;
 
+
     private bool isLeft;
     private bool isRight;
     private bool isAccel;
     private bool isBreak;
-    private void Awake()
-    {
 
-    }
-
-    public void ButtonState(UiPlayButton.ButtonType button, bool isheld)
+    public void ButtonState(UiPlayButton.ButtonType button, bool isHeld)
     {
-        switch(button)
+        switch (button)
         {
             case UiPlayButton.ButtonType.Left:
-                isLeft = isheld;
+                isLeft = isHeld;
                 break;
-                case UiPlayButton.ButtonType.Right:
-                isRight = isheld;
-                break;
-            case UiPlayButton.ButtonType.Break:
-                isBreak = isheld;
+            case UiPlayButton.ButtonType.Right:
+                isRight = isHeld;
                 break;
             case UiPlayButton.ButtonType.Accel:
-                isAccel = isheld;
+                isAccel = isHeld;
+                break;
+            case UiPlayButton.ButtonType.Break:
+                isBreak = isHeld;
                 break;
         }
     }
 
     private void FixedUpdate()
     {
-        if (isLeft)
+        if (isLeft || Input.GetKey(KeyCode.A))
         {
             hAxis -= 1f * Time.fixedDeltaTime;
         }
-        else if (isRight)
+        else if (isRight || Input.GetKey(KeyCode.D))
         {
             hAxis += 1f * Time.fixedDeltaTime;
         }
@@ -65,13 +62,13 @@ public class PlayerController : MonoBehaviour
             hAxis = 0f;
         }
 
-        if (isAccel)
+        if (isAccel || Input.GetKey(KeyCode.W))
         {
             vAxis = 1f;
             curMoveSpeed += (curMoveSpeed + acceleration) * Time.fixedDeltaTime;
         }
-        else if (isBreak)
-        {   
+        else if (isBreak || Input.GetKey(KeyCode.S))
+        {
             curMoveSpeed -= reverseAccel * Time.fixedDeltaTime;
         }
 
@@ -80,7 +77,8 @@ public class PlayerController : MonoBehaviour
             if (curMoveSpeed > 0f)
                 curMoveSpeed -= deceleration * Time.fixedDeltaTime;
             else if (curMoveSpeed < 0f)
-                curMoveSpeed += deceleration * Time.fixedDeltaTime;
+                vAxis = -1f;
+            curMoveSpeed += deceleration * Time.fixedDeltaTime;
         }
 
         // 속도 제한
