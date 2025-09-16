@@ -4,7 +4,7 @@ using UnityEngine;
 public class EquipItem : MonoBehaviour, IItem
 {
     private GameObject rootPlayer;
-
+    public bool isEquip {  get; set; }
     public void Awake()
     {
         rootPlayer = GameObject.FindGameObjectWithTag("Player");
@@ -33,8 +33,9 @@ public class EquipItem : MonoBehaviour, IItem
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isEquip)
         {
+            isEquip = true;
             Debug.Log("¾ÆÀÌÅÛ°ú ºÎµúÈû");
             Use(gameObject);
         }
