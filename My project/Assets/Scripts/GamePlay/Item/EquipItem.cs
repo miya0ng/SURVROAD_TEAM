@@ -36,7 +36,7 @@ public class EquipItem : MonoBehaviour, IItem
         if (other.CompareTag("Player"))
         {
             Debug.Log("¾ÆÀÌÅÛ°ú ºÎµúÈû");
-            Use(other.gameObject);
+            Use(gameObject);
         }
         else
         {
