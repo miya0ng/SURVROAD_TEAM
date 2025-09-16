@@ -76,7 +76,6 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < 30; i++)
         {
             var e = Instantiate(enemy, emptySpawnPoint);
-            Debug.Log("Spawn");
             e.gameObject.SetActive(false);
             pool.Enqueue(e);
             copyAllEnemy.Enqueue(e);

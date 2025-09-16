@@ -11,7 +11,7 @@ public class LivingEntity : MonoBehaviour, IDamagable
     public virtual void OnDamage(float damage, LivingEntity attacker)
     {
         curHp -= damage;
-        Debug.Log($"{gameObject.name} took {damage} damage. HP: {curHp}");
+        //Debug.Log($"{gameObject.name} took {damage} damage. HP: {curHp}");
 
         if (curHp <= 0)
             OnDeath();

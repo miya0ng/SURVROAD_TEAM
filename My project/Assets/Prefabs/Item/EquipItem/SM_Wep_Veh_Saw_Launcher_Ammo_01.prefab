@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 4395406992731933830}
   - component: {fileID: 5983877262007582149}
   - component: {fileID: 3871636983966962015}
-  - component: {fileID: 8329636992996461205}
-  m_Layer: 0
+  - component: {fileID: 150494630512372667}
+  - component: {fileID: 5853888473620311528}
+  m_Layer: 6
   m_Name: SM_Wep_Veh_Saw_Launcher_Ammo_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,8 +88,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8329636992996461205
-MeshCollider:
+--- !u!114 &150494630512372667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021201032924741099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a23c620b131099b47a9ed7e0a50235cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!135 &5853888473620311528
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -102,10 +115,9 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43037218572175208, guid: 42acdf8c10ec72042a0e74303ab55ba5, type: 2}
+  serializedVersion: 3
+  m_Radius: 0.16600673
+  m_Center: {x: 0.0013890043, y: -0.00004444411, z: 0.000000029802322}

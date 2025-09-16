@@ -27,6 +27,6 @@ public class WeaponSO : ScriptableObject
     [Header("INFO")]
     public string Info;
     public string PrefabName; //weaponPrefab
-    public PrefabIndex PrefabIndex;
+    public WeaponIndex PrefabIndex;
 
 }

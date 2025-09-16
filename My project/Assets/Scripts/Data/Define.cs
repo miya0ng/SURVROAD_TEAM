@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public enum PrefabIndex
+public enum WeaponIndex
 {
     SM_Wep_Veh_MachineGun_01 = 0,
     SM_Wep_AAGun_01 = 1,

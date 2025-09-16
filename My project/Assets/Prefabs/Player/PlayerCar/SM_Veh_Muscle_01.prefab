@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 8806449238123598975}
   m_Layer: 3
   m_Name: BackSoket
-  m_TagString: Untagged
+  m_TagString: EquipSocket
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -433,7 +433,7 @@ GameObject:
   - component: {fileID: 2607875354267902452}
   m_Layer: 3
   m_Name: FrontSoket
-  m_TagString: Untagged
+  m_TagString: EquipSocket
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -486,7 +486,7 @@ GameObject:
   - component: {fileID: 9036138669909930310}
   m_Layer: 3
   m_Name: TopSoket
-  m_TagString: Untagged
+  m_TagString: EquipSocket
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -713,7 +713,7 @@ GameObject:
   - component: {fileID: 9181687720418865109}
   m_Layer: 3
   m_Name: LeftSoket
-  m_TagString: Untagged
+  m_TagString: EquipSocket
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1470,7 +1470,7 @@ GameObject:
   - component: {fileID: 23525204554158630}
   m_Layer: 3
   m_Name: RightSoket
-  m_TagString: Untagged
+  m_TagString: EquipSocket
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

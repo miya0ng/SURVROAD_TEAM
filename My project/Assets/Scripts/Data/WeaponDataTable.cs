@@ -21,7 +21,7 @@ public class WeaponData
     public bool Piercing {  get; set; }
     public string Info { get; set; }
     public string PrefabName { get; set; }
-    public PrefabIndex PrefabIndex { get; set; }
+    public WeaponIndex PrefabIndex { get; set; }
 }
 public class WeaponDataTable : DataTable
 {
