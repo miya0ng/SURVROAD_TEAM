@@ -22,8 +22,8 @@ public class EquipManager : MonoBehaviour
     }
     public void EquipWeapon(GameObject weapon)
     {
-        var w = weapon.GetComponent<Weapon>();
-        w.Equip(player);
+        //var w = weapon.GetComponent<Weapon>();
+        //w.Equip(player);
         var equipWeapon = Instantiate(weapon, sockets[0].position, Quaternion.identity);
         weapon.SetActive(false);//Todo:
     }
