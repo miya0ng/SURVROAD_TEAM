@@ -49,6 +49,7 @@ public class EquipManager : MonoBehaviour
         var oldw = weapon.GetComponent<Weapon>();
         WeaponIndex index = oldw.weaponSO.PrefabIndex;
         var equipWeapon = Instantiate(weapon, sockets[equipCount].position, sockets[equipCount].rotation);
+        equipWeapon.transform.SetParent(sockets[equipCount].transform);
         equipWeapon.SetActive(true);
         var w = equipWeapon.GetComponent<Weapon>();
         var e = equipWeapon.GetComponent<EquipItem>();
