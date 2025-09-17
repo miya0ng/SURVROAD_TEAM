@@ -1,8 +1,5 @@
-using NUnit.Framework;
 using System.Collections.Generic;
-using System.Net.Sockets;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 public class EquipManager : MonoBehaviour
 {
     public WeaponLibrary WeaponLibrary;
