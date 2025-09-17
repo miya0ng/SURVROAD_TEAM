@@ -13,11 +13,11 @@ public class WeaponSO : ScriptableObject
     public int Level;
 
     [Header("SPEC")]
-    public float Damage;
+    public float MinDamage;
+    public float MaxDamage;
     public int ShotCount;
     public float AttackSpeed;
     public float AttackRange;
-    public float Dps;
     public float BulletSpeed;
     public float EffectiveRange;
     public float ExplosionRange;

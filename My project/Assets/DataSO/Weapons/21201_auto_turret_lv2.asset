@@ -17,11 +17,11 @@ MonoBehaviour:
   Type: 1
   Target: 1
   Level: 2
-  Damage: 10
+  MinDamage: 10
+  MaxDamage: 10
   ShotCount: 1
   AttackSpeed: 1.8
   AttackRange: 2
-  Dps: 18
   BulletSpeed: 5
   EffectiveRange: 1
   ExplosionRange: 0
@@ -29,5 +29,5 @@ MonoBehaviour:
   Piercing: 0
   Info: "Lv1\uC5D0 \uBE44\uD574 \uB370\uBBF8\uC9C0\uC640 \uACF5\uACA9\uC18D\uB3C4\uAC00
     \uB298\uC5B4\uB0A8"
-  PrefabName: 
-  PrefabIndex: 0
+  PrefabName: SM_Wep_Veh_MachineGun_01
+  PrefabIndex: 1

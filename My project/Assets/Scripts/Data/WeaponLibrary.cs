@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "WeaponLibrary", menuName = "Game/Weapon Library")]
 public class WeaponLibrary : ScriptableObject
 {
+    private WeaponData weaponData;
     [System.Serializable]
     public struct WeaponEntry
     {
@@ -28,6 +29,7 @@ public class WeaponLibrary : ScriptableObject
         weaponDict = new Dictionary<WeaponIndex, WeaponSO>();
         foreach (var entry in weapons)
             weaponDict[entry.Index] = entry.weaponSO;
+
     }
 
     public GameObject GetPrefab(WeaponIndex index)
@@ -38,5 +40,6 @@ public class WeaponLibrary : ScriptableObject
     public WeaponSO GetSO(WeaponIndex index)
     {
         return weaponDict.TryGetValue(index, out var weaponSO) ? weaponSO : null;
+        
     }
 }

@@ -1,10 +1,13 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Collections.Generic;
-using NUnit.Framework;
 public class Ui_Game : MonoBehaviour
 {
+    public WeaponLibrary weaponLibrary;
+
     private GameObject player;
     private WaveManager waveManager;
     private EquipManager equipManager;
@@ -19,7 +22,7 @@ public class Ui_Game : MonoBehaviour
    
 
     private string[] weaponThumnailName = new string[3]; // 3: equipCount;
-    private int[] weaponSOLevel = new int[3]; //
+
     public void Awake()
     {
         player = GameObject.FindWithTag("Player");
@@ -29,33 +32,51 @@ public class Ui_Game : MonoBehaviour
 
     public void Start()
     {
-        
+        SortWeaponSOtoThumNail();
     }
 
     public void Update()
     {
+        if (player == null ||  waveManager == null || waveManager == null)
+        {
+            return;
+        }
         wavePlayTime.text = $"{waveManager.WaveTimer:F2}";
         waveCount.text = $"{waveManager.currentWave}";
 
-        FindWeaponSO();
-        for (int i = 0; i < equipManager.Slot.Count; i++)
-        {
-            slotText[i].text = "Lv." + weaponSOLevel[i];
-            slotImage[i].sprite = loadWeaponThumNails[i];
-        }
+        SetSlotInfo();
     }
 
-    private void FindWeaponSO()
+    private void SortWeaponSOtoThumNail()
+    {
+        var thumbnailDict = loadWeaponThumNails
+            .Where(s => s != null)
+            .GroupBy(s => s.name)
+            .ToDictionary(g => g.Key, g => g.First());
+        loadWeaponThumNails = weaponLibrary.weapons
+            .Select(entry =>
+            {
+                string prefabName = entry.prefab ? entry.prefab.name : "";
+                if (thumbnailDict.TryGetValue(prefabName, out var sprite))
+                    return sprite;
+
+                Debug.LogWarning($"[{entry.Index}] {prefabName} ½æ³×ÀÏ ¾øÀ½");
+                return null;
+            })
+            .ToList();
+    }
+    private void SetSlotInfo()
     {
         if (equipManager.Slot.Count == 0)
         {
             return;
         }
+
         for (int i = 0; i < equipManager.Slot.Count; i++)
         {
             var w = equipManager.Slot[i].GetComponent<Weapon>();
-            weaponThumnailName[i] = w.weaponSO.PrefabName;
-            weaponSOLevel[i] = w.weaponSO.Level;
+            slotText[i].text = "Lv." + w.weaponSO.Level;
+            slotImage[i].sprite = loadWeaponThumNails[(int)w.weaponSO.PrefabIndex];
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Drawing;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class ItemSpawner : MonoBehaviour
 {
@@ -46,15 +47,16 @@ public class ItemSpawner : MonoBehaviour
                 var pos = result;
                 pos.y += 0.5f;
                 int randomIndex = Random.Range(0, WeaponLibrary.weapons.Count);
-                var equipItem = WeaponLibrary.GetPrefab((WeaponIndex)randomIndex);
+                var equipItem = WeaponLibrary.weapons[randomIndex];
+                var prefab = equipItem.prefab;
+
                 var randomRotationY = Random.Range(0, 120);
-                equipItem.transform.rotation = Quaternion.Euler(0f, randomRotationY, 0f);
-                equipItem.transform.localScale = new Vector3(3f, 3f, 3f);
+                prefab.transform.rotation = Quaternion.Euler(0f, randomRotationY, 0f);
+                prefab.transform.localScale = new Vector3(3f, 3f, 3f);
 
-                var instance = Instantiate(equipItem, pos, equipItem.transform.rotation);
+                var instance = Instantiate(prefab, pos, prefab.transform.rotation);
                 var weapon = instance.GetComponent<Weapon>();
-                weapon.weaponSO = WeaponLibrary.GetSO((WeaponIndex)randomIndex);
-
+                weapon.weaponSO = equipItem.weaponSO;
             }
         }
     }

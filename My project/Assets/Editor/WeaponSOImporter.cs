@@ -61,11 +61,11 @@ public class WeaponSOImporter : EditorWindow
             so.Type = record.Type;
             so.Target = record.Target;
             so.Level = record.Level;
-            so.Damage = record.Damage;
+            so.MinDamage = record.MinDamage;
+            so.MaxDamage = record.MaxDamage;
             so.ShotCount = record.ShotCount;
             so.AttackSpeed = record.AttackSpeed;
             so.AttackRange = record.AttackRange;
-            so.Dps = record.Dps;
             so.BulletSpeed = record.BulletSpeed;
             so.EffectiveRange = record.EffectiveRange;
             so.ExplosionRange = record.ExplosionRange;

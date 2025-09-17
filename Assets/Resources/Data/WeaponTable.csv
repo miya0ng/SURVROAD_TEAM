@@ -10,9 +10,9 @@ ID,Name,Type,Target,Level,MinDamage,MaxDamage,ShotCount,AttackSpeed,BulletSpeed,
 21402,rocket_launcher_lv4,1,1,4,20,20,4,0.35,3,2,2,2.5,3,false ,공격속도가 소폭 증가하고 로켓이 네발로 늘어남,SM_Wep_Veh_Rocket_Launcher_01
 21502,rocket_launcher_lv5,1,1,5,30,30,4,0.37,3,2,2,3,3,false ,공격속도가 소폭 증가하고 데미지와 폭발범위가 늘어남,SM_Wep_Veh_Rocket_Launcher_01
 21103,laser_cannon_lv1,1,2,1,2,2,2,8,10,3,1,0,3,true ,충전 후 3초 동안 전방 일직선으로 관통 레이저를 발사하는 무기,
-21203,laser_cannon_lv2,1,2,2,3,3,2,8,10,3,2,0,3,true ,Lv1 보다 데미지와 레이저 폭이 소폭 증가,
-21303,laser_cannon_lv3,1,2,3,4,4,2,8,10,3,3,0,3,true ,Lv2 보다 데미지와 레이저 폭이 소폭 증가,
-21403,laser_cannon_lv4,1,2,4,5,5,2,8,10,3,4,0,3,true ,Lv3 보다 데미지와 레이저 폭이 소폭 증가,
+21203,laser_cannon_lv2,1,2,2,3,3,2,8,10,3,2,0,3,true ,Lv1 보다 데미지와 레이저 폭이 소폭 증가,SM_Wep_Veh_MachineGun_01
+21303,laser_cannon_lv3,1,2,3,4,4,2,8,10,3,3,0,3,true ,Lv2 보다 데미지와 레이저 폭이 소폭 증가,SM_Wep_Veh_MachineGun_01
+21403,laser_cannon_lv4,1,2,4,5,5,2,8,10,3,4,0,3,true ,Lv3 보다 데미지와 레이저 폭이 소폭 증가,SM_Wep_Veh_MachineGun_01
 21503,laser_cannon_lv5,1,2,5,6,6,2,8,10,3,6,0,3,true ,Lv4 보다 데미지가 소폭 증가하고 레이저 폭이 대폭 증가,
 22101,spike_bumper_lv1,2,2,1,10,60,0,1,0,1,1,0,0,true ,차량 전면에 장착된 스파이크로 충돌 시 추가 피해와 넉백을 주는 무기,SM_Wep_Melee_Spear_Wood_01
 22201,spike_bumper_lv2,2,2,2,15,80,0,1,0,1,1,0,0,true ,Lv1 보다 스파이크 크기가 커지고 데미지가 늘어남,SM_Wep_Melee_Spear_Wood_01
