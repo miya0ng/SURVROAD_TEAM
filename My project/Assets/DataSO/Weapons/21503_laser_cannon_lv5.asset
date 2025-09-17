@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16d788128e93c194899c81b36f09e4df, type: 3}
+  m_Name: 21503_laser_cannon_lv5
+  m_EditorClassIdentifier: 
+  ID: 21503
+  Name: laser_cannon_lv5
+  Type: 1
+  Target: 2
+  Level: 5
+  MinDamage: 6
+  MaxDamage: 6
+  ShotCount: 2
+  AttackSpeed: 8
+  AttackRange: 3
+  BulletSpeed: 10
+  EffectiveRange: 6
+  ExplosionRange: 0
+  Duration: 3
+  Piercing: 1
+  Info: "Lv4 \uBCF4\uB2E4 \uB370\uBBF8\uC9C0\uAC00 \uC18C\uD3ED \uC99D\uAC00\uD558\uACE0
+    \uB808\uC774\uC800 \uD3ED\uC774 \uB300\uD3ED \uC99D\uAC00"
+  PrefabName: 
+  PrefabIndex: 0

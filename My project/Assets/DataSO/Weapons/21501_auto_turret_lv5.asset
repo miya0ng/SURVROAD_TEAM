@@ -17,11 +17,11 @@ MonoBehaviour:
   Type: 1
   Target: 1
   Level: 5
-  Damage: 10
+  MinDamage: 10
+  MaxDamage: 10
   ShotCount: 1
   AttackSpeed: 5
   AttackRange: 2
-  Dps: 50
   BulletSpeed: 5
   EffectiveRange: 1
   ExplosionRange: 0
@@ -29,5 +29,5 @@ MonoBehaviour:
   Piercing: 0
   Info: "\uCE90\uD2C0\uB9C1\uAC74\uC73C\uB85C \uC9C4\uD654\uB418\uBA70 \uD55C\uBC1C\uC529
     \uB098\uAC00\uC9C0\uB9CC \uACF5\uC18D\uC774 \uB9E4\uC6B0 \uBE68\uB77C\uC9D0"
-  PrefabName: 
-  PrefabIndex: 2
+  PrefabName: SM_Wep_Veh_MiniGun_01
+  PrefabIndex: 3

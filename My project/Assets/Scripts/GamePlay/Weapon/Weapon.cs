@@ -4,14 +4,14 @@ using static UnityEngine.UI.GridLayoutGroup;
 
 public class Weapon : MonoBehaviour
 {
-    public WeaponSO weaponSO {  get; set; }
+    public WeaponSO weaponSO { get; set; }
     public GameObject bulletPrefab;
     private GameObject player;
     [SerializeField] private Transform muzzle;
     public bool IsEquipped { get; private set; }
     private float nextFireTime;
 
-   // private Bullet bullet;
+    // private Bullet bullet;
     private TeamId teamId;
     private void Awake()
     {
@@ -27,6 +27,17 @@ public class Weapon : MonoBehaviour
     private void Start()
     {
         teamId = GetComponent<LivingEntity>()?.teamId ?? TeamId.None;
+        switch (weaponSO.Type)
+        {
+            case 1: //long
+                break;
+            case 2: //short
+                break;
+            case 3: //install
+                break;
+            default:
+                break;
+        }
     }
     void Update()
     {
@@ -36,12 +47,13 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        if (muzzle == null)
+        if (muzzle == null || bulletPrefab == null)
         {
-            Debug.Log($"{gameObject.name}: muzzle null");
+            Debug.Log($"{gameObject.name}: muzzle or bullet null");
+            return;
         }
 
-        if (!IsEquipped) return;
+        if (!IsEquipped || weaponSO.Type == 3) return;
 
         nextFireTime += Time.deltaTime;
 

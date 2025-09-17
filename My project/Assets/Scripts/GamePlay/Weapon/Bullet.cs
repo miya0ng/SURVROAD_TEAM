@@ -62,7 +62,7 @@ public class Bullet : MonoBehaviour
         if (target != null && !hitTargets.Contains(other.gameObject))
         {
             Debug.Log($"Bullet hit {other.gameObject.name}");
-            target.OnDamage(weaponSO.Damage, null);
+            target.OnDamage(Random.Range(weaponSO.MinDamage,weaponSO.MaxDamage), null);
             hitTargets.Add(other.gameObject);
             gameObject.SetActive(false);
         }

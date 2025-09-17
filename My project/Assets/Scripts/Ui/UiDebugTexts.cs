@@ -38,6 +38,10 @@ public class UiDebugTexts : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(player == null || playerController == null || playerHp == null || weaponSO == null || waveManager == null || enemySpawner == null)
+        {
+            return;
+        }
         weaponName.text = "WeaponName: ";
         speed.text = "Speed: " + playerController.curMoveSpeed;
         hp.text = "Hp: " + playerHp.curHp + "/" + playerHp.maxHp;

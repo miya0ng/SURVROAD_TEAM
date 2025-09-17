@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16d788128e93c194899c81b36f09e4df, type: 3}
+  m_Name: 23502_electric_trap_lv5
+  m_EditorClassIdentifier: 
+  ID: 23502
+  Name: electric_trap_lv5
+  Type: 3
+  Target: 2
+  Level: 5
+  MinDamage: 14
+  MaxDamage: 14
+  ShotCount: 1
+  AttackSpeed: 3
+  AttackRange: 4
+  BulletSpeed: 0
+  EffectiveRange: 1
+  ExplosionRange: 0
+  Duration: 4
+  Piercing: 0
+  Info: "(\uACF5\uBC31)"
+  PrefabName: SM_Prop_CarBattery_02
+  PrefabIndex: 0

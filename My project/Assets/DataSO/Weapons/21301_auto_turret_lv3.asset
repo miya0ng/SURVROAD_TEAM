@@ -17,11 +17,11 @@ MonoBehaviour:
   Type: 1
   Target: 1
   Level: 3
-  Damage: 7
+  MinDamage: 7
+  MaxDamage: 7
   ShotCount: 2
   AttackSpeed: 1.8
   AttackRange: 2
-  Dps: 25.2
   BulletSpeed: 5
   EffectiveRange: 1
   ExplosionRange: 0
@@ -29,5 +29,5 @@ MonoBehaviour:
   Piercing: 0
   Info: "\uCD1D\uC5F4\uC774 \uB450\uAC1C\uB85C \uB298\uC5B4\uB098 \uB3D9\uC2DC\uC5D0
     \uB450\uBC1C\uC529 \uBC1C\uC0AC\uB428"
-  PrefabName: 
-  PrefabIndex: 1
+  PrefabName: SM_Wep_AAGun_01
+  PrefabIndex: 2

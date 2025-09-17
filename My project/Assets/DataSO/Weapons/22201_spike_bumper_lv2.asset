@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16d788128e93c194899c81b36f09e4df, type: 3}
+  m_Name: 22201_spike_bumper_lv2
+  m_EditorClassIdentifier: 
+  ID: 22201
+  Name: spike_bumper_lv2
+  Type: 2
+  Target: 2
+  Level: 2
+  MinDamage: 15
+  MaxDamage: 80
+  ShotCount: 0
+  AttackSpeed: 1
+  AttackRange: 1
+  BulletSpeed: 0
+  EffectiveRange: 1
+  ExplosionRange: 0
+  Duration: 0
+  Piercing: 1
+  Info: "Lv1 \uBCF4\uB2E4 \uC2A4\uD30C\uC774\uD06C \uD06C\uAE30\uAC00 \uCEE4\uC9C0\uACE0
+    \uB370\uBBF8\uC9C0\uAC00 \uB298\uC5B4\uB0A8"
+  PrefabName: SM_Wep_Melee_Spear_Wood_01
+  PrefabIndex: 0
