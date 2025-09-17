@@ -10,7 +10,7 @@ TagManager:
   - WaveManager
   - ItemSpawner
   - EquipSocket
-  - PlayerMe
+  - Debug
   layers:
   - Default
   - TransparentFX

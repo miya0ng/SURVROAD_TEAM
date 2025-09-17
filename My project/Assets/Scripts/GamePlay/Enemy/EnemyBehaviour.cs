@@ -32,11 +32,11 @@ public class EnemyBehaviour : LivingEntity, IDamagable
     void OnEnable()
     {
         ui_HpBar.SetHpBar(maxHp);
-        enemyPool.Register(gameObject);
         if (agent != null)
         {
             agent.isStopped = false;
         }
+        Debug.Log("OnEnable");
     }
     void OnDisable()
     {
@@ -44,6 +44,8 @@ public class EnemyBehaviour : LivingEntity, IDamagable
         {
             //agent.isStopped = true;
         }
+        Debug.Log("OnDisable");
+
     }
     // Update is called once per frame
     void Update()
@@ -72,7 +74,7 @@ public class EnemyBehaviour : LivingEntity, IDamagable
         //lookPos.y = transform.position.y;
         //transform.LookAt(lookPos);
 
-        // TODO: IDamagable 인터페이스 추가
+        // TODO: 적 무기 추가
 
     }
 
@@ -105,9 +107,8 @@ public class EnemyBehaviour : LivingEntity, IDamagable
         base.OnDeath();
         if (enemyPool != null)
         {
-            enemyPool.UnRegister(gameObject);
             enemyPool.Return(gameObject);
-            enemyPool.EnemyPoolSize--;
+            enemyPool.ActiveEnemyCount--;
         }
         //else
         //{
