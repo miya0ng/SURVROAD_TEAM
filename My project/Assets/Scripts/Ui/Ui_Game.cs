@@ -76,6 +76,7 @@ public class Ui_Game : MonoBehaviour
         {
             var w = equipManager.Slot[i].GetComponent<Weapon>();
             slotText[i].text = "Lv." + w.weaponSO.Level;
+            Debug.Log((int)w.weaponSO.PrefabIndex);
             slotImage[i].sprite = loadWeaponThumNails[(int)w.weaponSO.PrefabIndex];
         }
     }
