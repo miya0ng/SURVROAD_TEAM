@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 public class EquipManager : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class EquipManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            equipCount = 0;
+            UnEquipWeapon();
         }
     }
 
@@ -55,5 +56,18 @@ public class EquipManager : MonoBehaviour
         w.weaponSO = WeaponLibrary.GetSO(index);
         equipWeapons.Add(equipWeapon);
         equipCount++;
+    }
+
+    public void UnEquipWeapon()
+    {
+        Debug.Log("장착 무기 없음");
+        Debug.Log(equipCount);
+        if (equipCount == 0)
+        {
+            return;
+        }
+        equipCount--;
+        var equipWeapon = sockets[equipCount].GetComponentInChildren<Weapon>();
+        Destroy(equipWeapon.gameObject);
     }
 }
