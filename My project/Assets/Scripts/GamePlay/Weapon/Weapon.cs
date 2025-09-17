@@ -6,6 +6,7 @@ public class Weapon : MonoBehaviour
 {
     public WeaponSO weaponSO {  get; set; }
     public GameObject bulletPrefab;
+    private GameObject player;
     [SerializeField] private Transform muzzle;
     public bool IsEquipped { get; private set; }
     private float nextFireTime;
@@ -14,7 +15,7 @@ public class Weapon : MonoBehaviour
     private TeamId teamId;
     private void Awake()
     {
-
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public void Equip(LivingEntity owner)
@@ -58,9 +59,7 @@ public class Weapon : MonoBehaviour
             var bulletObj = Instantiate(bulletPrefab, muzzle.position, muzzle.rotation);
             var bullet = bulletObj.GetComponent<Bullet>();
             bullet.weaponSO = weaponSO;
-
- 
-            bullet.SetBullet(gameObject, teamId);
+            bullet.SetBullet(player, teamId);
             bulletObj.SetActive(true);
         }
     }
