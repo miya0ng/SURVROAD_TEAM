@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UiPlayButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     private bool isHeld;
-    public PlayerController playerController;
+    private PlayerController playerController;
 
     public ButtonType buttonType = ButtonType.Accel;
     public enum ButtonType
@@ -17,6 +17,10 @@ public class UiPlayButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         Break
     }
 
+    public void Awake()
+    {
+        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+    }
     public void Update()
     {
         playerController.ButtonState(buttonType, isHeld);

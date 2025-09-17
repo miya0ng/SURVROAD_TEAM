@@ -10,16 +10,16 @@ public class EnemySpawner : MonoBehaviour
     public Transform emptySpawnPoint;
     public GameObject enemy;
 
-    private int enemySpawnCount = 1;
-    public int EnemySpawnCount
-    {
-        get { return enemySpawnCount; }
-        set { enemySpawnCount = value; }
-    }
+    public int curSpawnCount { get; set; }
+    public int waveSpawnCount { get; set; }
 
-    private Queue<GameObject> pool = new();
-    private Queue<GameObject> acticveEnemyPool = new();
-    private Queue<GameObject> copyAllEnemy = new();
+    private int makePoolCount = 30;
+    private int enemyCoSpawnCount = 3;
+
+    private Queue<GameObject> EnemyPool = new Queue<GameObject>();
+
+    public int ActiveEnemyCount { get; set;}
+    //private Queue<GameObject> copyAllEnemy = new();
 
     private int enemyPoolSize;
     public int EnemyPoolSize
@@ -35,7 +35,7 @@ public class EnemySpawner : MonoBehaviour
 
     private float spawnInterval = 1f;
 
-    public Coroutine coroutine;
+    public Coroutine coroutine { get; set; }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -60,25 +60,14 @@ public class EnemySpawner : MonoBehaviour
         SpawnOutsideView();
         yield return new WaitForSeconds(spawnInterval);
     }
-    public void Register(GameObject enemy)
-    {
-        acticveEnemyPool.Enqueue(enemy);
-    }
-    public void UnRegister(GameObject enemy)
-    {
-        if(acticveEnemyPool != null)
-        {
-            acticveEnemyPool.Dequeue();
-        }
-    }
+
     public void MakePool()
     {
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < makePoolCount; i++)
         {
             var e = Instantiate(enemy, emptySpawnPoint);
             e.gameObject.SetActive(false);
-            pool.Enqueue(e);
-            copyAllEnemy.Enqueue(e);
+            EnemyPool.Enqueue(e);
         }
     }
 
@@ -89,13 +78,8 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnOutsideView()
     {
-        for(int i = 0; i < EnemySpawnCount; i++)
+        for (int i = 0; i < enemyCoSpawnCount; i++)
         {
-            if (enemyPoolSize <= 0)
-            {
-                return;
-            }
-
             Vector3 pos = GetSpawnPositionOutsideCamera();
 
             if (NavMesh.SamplePosition(pos, out NavMeshHit hit, 2f, NavMesh.AllAreas))
@@ -104,9 +88,10 @@ public class EnemySpawner : MonoBehaviour
                 var enemy = Get();
                 enemy.transform.position = newPos;
             }
+            curSpawnCount++;
+            ActiveEnemyCount++;
         }
     }
-
     private Vector3 GetSpawnPositionOutsideCamera()
     {
         Vector3 pos;
@@ -135,25 +120,21 @@ public class EnemySpawner : MonoBehaviour
     }
     public GameObject Get()
     {
-        if(pool.Count == 0)
+        if(EnemyPool.Count <= 0)
         {
-            //MakePool();
-            pool = new Queue<GameObject>(copyAllEnemy);
+            MakePool();
+            //EnemyPool = new Queue<GameObject>(copyAllEnemy);
             return null;
         }
-        var e = pool.Dequeue();
+        Debug.Log("Spawn");
 
+        var e = EnemyPool.Dequeue();
         e.gameObject.SetActive(true);
         return e;
     }
     public void Return(GameObject e)
     {
+        EnemyPool.Enqueue(e);
         e.gameObject.SetActive(false);
-        pool.Enqueue(e);
-    }
-
-    public int GetActiveEnemyPoolCount()
-    {
-        return acticveEnemyPool.Count;
     }
 }

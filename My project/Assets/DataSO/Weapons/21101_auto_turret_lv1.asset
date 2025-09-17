@@ -22,7 +22,7 @@ MonoBehaviour:
   AttackSpeed: 1.5
   AttackRange: 2
   Dps: 9
-  BulletSpeed: 5
+  BulletSpeed: 110.81
   EffectiveRange: 1
   ExplosionRange: 0
   Duration: 3

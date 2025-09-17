@@ -3,16 +3,13 @@ using UnityEngine.UI;
 using TMPro;
 public class Ui_Game : MonoBehaviour
 {
-    private GameManager gameManager;
+    private WaveManager waveManager;
+    public TextMeshProUGUI waveCount;
 
-    public EnemySpawner enemySpawner;
-    public TextMeshProUGUI leftEnemy;
-    public TextMeshProUGUI wave;
-
-    public TextMeshProUGUI playTime;
+    public TextMeshProUGUI wavePlayTime;
     public void Awake()
     {
-        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        waveManager = GameObject.FindGameObjectWithTag("WaveManager").GetComponent<WaveManager>();
     }
 
     public void Start()
@@ -22,15 +19,7 @@ public class Ui_Game : MonoBehaviour
 
     public void Update()
     {
-        UpdateLeftEnemyText();
-        playTime.text = $"{Time.timeSinceLevelLoad:F2}";
-        wave.text = $"Wave: {gameManager.waveCount}";
-    }
-
-
-    public void UpdateLeftEnemyText()
-    {
-        var count = enemySpawner.GetActiveEnemyPoolCount();
-        leftEnemy.text = $"Left Enemy: {count}";
+        wavePlayTime.text = $"{waveManager.WaveTimer:F2}";
+        waveCount.text = $"{waveManager.currentWave}";
     }
 }
