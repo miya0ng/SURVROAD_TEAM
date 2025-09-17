@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16d788128e93c194899c81b36f09e4df, type: 3}
+  m_Name: 21301_auto_turret_lv3
+  m_EditorClassIdentifier: 
+  ID: 21301
+  Name: auto_turret_lv3
+  Type: 1
+  Target: 1
+  Level: 3
+  Damage: 7
+  ShotCount: 2
+  AttackSpeed: 1.8
+  AttackRange: 2
+  Dps: 25.2
+  BulletSpeed: 5
+  EffectiveRange: 1
+  ExplosionRange: 0
+  Duration: 3
+  Piercing: 0
+  Info: "\uCD1D\uC5F4\uC774 \uB450\uAC1C\uB85C \uB298\uC5B4\uB098 \uB3D9\uC2DC\uC5D0
+    \uB450\uBC1C\uC529 \uBC1C\uC0AC\uB428"
+  PrefabName: 
+  PrefabIndex: 1
