@@ -70,16 +70,16 @@ public class PlayerController : MonoBehaviour
         else if (isBreak || Input.GetKey(KeyCode.S))
         {
             curMoveSpeed -= reverseAccel * Time.fixedDeltaTime;
-        }
 
+        }
         else
         {
             if (curMoveSpeed > 0f)
                 curMoveSpeed -= deceleration * Time.fixedDeltaTime;
-            else if (curMoveSpeed < 0f)
-                vAxis = -1f;
-            curMoveSpeed += deceleration * Time.fixedDeltaTime;
         }
+           
+
+        
 
         // 속도 제한
         curMoveSpeed = Mathf.Clamp(curMoveSpeed, -maxReverseSpeed, maxSpeed);
