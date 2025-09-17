@@ -9,18 +9,24 @@ public class UiDebugTexts : MonoBehaviour
 
     public TextMeshProUGUI waveCount;
     public TextMeshProUGUI timePerWave;
-    public TextMeshProUGUI LeftEnemy;
+    public TextMeshProUGUI leftEnemy;
+    public TextMeshProUGUI weaponSO;
 
-    private PlayerController player;
+    private GameObject player;
+    private PlayerController playerController;
     private PlayerBehaviour playerHp;
     private WaveManager waveManager;
     private EnemySpawner enemySpawner;
+    private EquipManager equipManager;
 
+    private string[] weaponSOName = new string[3];
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-        playerHp = GameObject.FindWithTag("Player").GetComponent<PlayerBehaviour>();
+        player = GameObject.FindWithTag("Player");
+        playerController = player.GetComponent<PlayerController>();
+        playerHp = player.GetComponent<PlayerBehaviour>();
+        equipManager = player.GetComponentInChildren<EquipManager>();
         waveManager = GameObject.FindWithTag("WaveManager").GetComponent<WaveManager>();
         enemySpawner = GameObject.FindWithTag("EnemySpawner").GetComponent<EnemySpawner>();
     }
@@ -33,11 +39,29 @@ public class UiDebugTexts : MonoBehaviour
     void Update()
     {
         weaponName.text = "WeaponName: ";
-        speed.text = "Speed: " + player.curMoveSpeed;
+        speed.text = "Speed: " + playerController.curMoveSpeed;
         hp.text = "Hp: " + playerHp.curHp + "/" + playerHp.maxHp;
 
         waveCount.text = "WaveCount: " + waveManager.currentWave;
         timePerWave.text = $"TimePerWave: {waveManager.WaveTimer:F2}";
-        LeftEnemy.text = "LeftEnemy: " + enemySpawner.ActiveEnemyCount + "/" + enemySpawner.waveSpawnCount;
+        leftEnemy.text = "LeftEnemy: " + enemySpawner.ActiveEnemyCount + "/" + enemySpawner.waveSpawnCount;
+        if (equipManager.Slot.Count != 0)
+        {
+            FindWeaponSOName();
+        }
+        weaponSO.text = "WeaponSO: \n(1)" + weaponSOName[0] + "\n(2)" + weaponSOName[1] + "\n(3)" + weaponSOName[2];
+    }
+
+    private void FindWeaponSOName()
+    {
+        if(equipManager.Slot.Count == 0)
+        {
+            return;
+        }
+        for(int i = 0; i< equipManager.Slot.Count; i++)
+        {
+            var w = equipManager.Slot[i].GetComponent<Weapon>();
+            weaponSOName[i] = w.weaponSO.Name;
+        }
     }
 }

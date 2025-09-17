@@ -8,7 +8,7 @@ public class EquipManager : MonoBehaviour
     [SerializeField]
     private List<Transform> sockets = new List<Transform>();
     private List<GameObject> equipWeapons = new List<GameObject>();
-
+    public IReadOnlyList<GameObject> Slot => equipWeapons;
     private int equipCount = 0;
 
     bool isEquip = false;
