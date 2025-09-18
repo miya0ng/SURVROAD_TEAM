@@ -16,18 +16,7 @@ MonoBehaviour:
   Name: rocket_launcher_lv4
   Type: 1
   Target: 1
-  Level: 4
-  MinDamage: 20
-  MaxDamage: 20
-  ShotCount: 4
-  AttackSpeed: 0.35
-  AttackRange: 2
-  BulletSpeed: 3
-  EffectiveRange: 2
-  ExplosionRange: 2.5
-  Duration: 3
-  Piercing: 0
-  Info: "\uACF5\uACA9\uC18D\uB3C4\uAC00 \uC18C\uD3ED \uC99D\uAC00\uD558\uACE0 \uB85C\uCF13\uC774
-    \uB124\uBC1C\uB85C \uB298\uC5B4\uB0A8"
-  PrefabName: SM_Wep_Veh_Rocket_Launcher_01
   PrefabIndex: 4
+  ThumbNail: {fileID: 21300000, guid: 39683434fb05a9f41aa6b0006668db5d, type: 3}
+  prefab: {fileID: 385623515136055977, guid: 1ef01743cf9747f4096d149d9a3cdc46, type: 3}
+  Levels: []

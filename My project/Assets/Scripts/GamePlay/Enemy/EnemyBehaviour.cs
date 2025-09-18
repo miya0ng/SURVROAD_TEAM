@@ -36,7 +36,6 @@ public class EnemyBehaviour : LivingEntity, IDamagable
         {
             agent.isStopped = false;
         }
-        Debug.Log("OnEnable");
     }
     void OnDisable()
     {
@@ -44,8 +43,6 @@ public class EnemyBehaviour : LivingEntity, IDamagable
         {
             //agent.isStopped = true;
         }
-        Debug.Log("OnDisable");
-
     }
     // Update is called once per frame
     void Update()
@@ -120,7 +117,6 @@ public class EnemyBehaviour : LivingEntity, IDamagable
         var player = collision.gameObject.GetComponent<PlayerBehaviour>();
         if (player != null)
         {
-            Debug.Log("Ãæµ¹!");
             player.OnDamage(collisionDamage, this);
         }
     }

@@ -16,19 +16,7 @@ MonoBehaviour:
   Name: mine_dropper_lv1
   Type: 3
   Target: 2
-  Level: 1
-  MinDamage: 40
-  MaxDamage: 40
-  ShotCount: 1
-  AttackSpeed: 0.4
-  AttackRange: 4
-  BulletSpeed: 0
-  EffectiveRange: 1
-  ExplosionRange: 3
-  Duration: 10
-  Piercing: 0
-  Info: "\uCC28\uB7C9 \uB4A4\uC5D0 \uC9C0\uB8B0\uB97C \uB5A8\uC5B4\uB728\uB824, \uC77C\uC815
-    \uC2DC\uAC04 \uB4A4 \uD639\uC740 \uC801 \uCC28\uB7C9\uACFC \uC811\uCD09 \uC2DC
-    \uD3ED\uBC1C\uD558\uB294 \uBB34\uAE30"
-  PrefabName: SM_Wep_Bomb_Propane_01
-  PrefabIndex: 0
+  PrefabIndex: 7
+  ThumbNail: {fileID: 21300000, guid: 4df001e9281235a46b8ef81865500dc6, type: 3}
+  prefab: {fileID: 6066365829197139422, guid: 63a8776908ef44e45af7f31ed4f7055b, type: 3}
+  Levels: []

@@ -1,15 +1,15 @@
 ﻿#if UNITY_EDITOR
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using static UnityEditor.Recorder.OutputPath;
 
 public class WeaponSOImporter : EditorWindow
 {
     private TextAsset csvFile;
 
-    [MenuItem("Tools/Import WeaponSO From CSV")]
+    [MenuItem("Tools/Import WeaponSO From CSV (Grouped)")]
     public static void ShowWindow()
     {
         GetWindow<WeaponSOImporter>("WeaponSO Importer");
@@ -17,7 +17,7 @@ public class WeaponSOImporter : EditorWindow
 
     private void OnGUI()
     {
-        GUILayout.Label("CSV → WeaponSO 변환", EditorStyles.boldLabel);
+        GUILayout.Label("CSV → WeaponSO 변환 (레벨 그룹)", EditorStyles.boldLabel);
 
         csvFile = (TextAsset)EditorGUILayout.ObjectField("CSV File", csvFile, typeof(TextAsset), false);
 
@@ -30,7 +30,6 @@ public class WeaponSOImporter : EditorWindow
     private void Import(TextAsset csv)
     {
         var records = DataTable.LoadCSV<WeaponData>(csv.text);
-
         if (records == null || records.Count == 0)
         {
             Debug.LogWarning("CSV 비어있음");
@@ -41,52 +40,59 @@ public class WeaponSOImporter : EditorWindow
         string dataSoFolder = "Assets/DataSO";
         string folderPath = "Assets/DataSO/Weapons";
 
-        // DataSO 폴더 없으면 생성
         if (!AssetDatabase.IsValidFolder(dataSoFolder))
-        {
             AssetDatabase.CreateFolder(root, "DataSO");
-        }
 
-        // Weapons 폴더 없으면 생성
         if (!AssetDatabase.IsValidFolder(folderPath))
-        {
             AssetDatabase.CreateFolder(dataSoFolder, "Weapons");
-        }
-        foreach (var record in records)
+
+        var grouped = records.GroupBy(r => r.ID);
+
+        foreach (var group in grouped)
         {
+            var first = group.First();
+
             var so = ScriptableObject.CreateInstance<WeaponSO>();
+            so.ID = first.ID;
+            so.Name = first.Name;
+            so.Type = first.Type;
+            so.Target = first.Target;
 
-            so.ID = record.ID;
-            so.Name = record.Name;
-            so.Type = record.Type;
-            so.Target = record.Target;
-            so.Level = record.Level;
-            so.MinDamage = record.MinDamage;
-            so.MaxDamage = record.MaxDamage;
-            so.ShotCount = record.ShotCount;
-            so.AttackSpeed = record.AttackSpeed;
-            so.AttackRange = record.AttackRange;
-            so.BulletSpeed = record.BulletSpeed;
-            so.EffectiveRange = record.EffectiveRange;
-            so.ExplosionRange = record.ExplosionRange;
-            so.Duration = record.Duration;
-            so.Piercing = record.Piercing;
-            so.PrefabName = record.PrefabName;
-            so.Info = record.Info;
-
-            if (!string.IsNullOrEmpty(record.PrefabName) &&
-                System.Enum.TryParse(record.PrefabName, out WeaponIndex index))
+            if (!string.IsNullOrEmpty(first.PrefabName) &&
+                System.Enum.TryParse(first.PrefabName, out WeaponIndex index))
             {
                 so.PrefabIndex = index;
             }
 
-            string assetPath = $"{folderPath}/{record.ID}_{record.Name}.asset";
+            so.Levels = new List<WeaponLevelData>();
+            foreach (var record in group)
+            {
+                var levelData = new WeaponLevelData
+                {
+                    Level = record.Level,
+                    MinDamage = record.MinDamage,
+                    MaxDamage = record.MaxDamage,
+                    ShotCount = record.ShotCount,
+                    AttackSpeed = record.AttackSpeed,
+                    AttackRange = record.AttackRange,
+                    BulletSpeed = record.BulletSpeed,
+                    EffectiveRange = record.EffectiveRange,
+                    ExplosionRange = record.ExplosionRange,
+                    Duration = record.Duration,
+                    Piercing = record.Piercing,
+                    Info = record.Info
+                };
+
+                so.Levels.Add(levelData);
+            }
+
+            string assetPath = $"{folderPath}/{first.ID}_{first.Name}.asset";
             AssetDatabase.CreateAsset(so, assetPath);
         }
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
-        Debug.Log($"{records.Count}개의 WeaponSO 생성 완료!");
+        Debug.Log($"{grouped.Count()}개의 WeaponSO 생성 완료!");
     }
 }
 #endif
