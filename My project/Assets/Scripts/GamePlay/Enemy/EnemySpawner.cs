@@ -126,7 +126,7 @@ public class EnemySpawner : MonoBehaviour
             //EnemyPool = new Queue<GameObject>(copyAllEnemy);
             return null;
         }
-        Debug.Log("Spawn");
+        //Debug.Log("Spawn");
 
         var e = EnemyPool.Dequeue();
         e.gameObject.SetActive(true);

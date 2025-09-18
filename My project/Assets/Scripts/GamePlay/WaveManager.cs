@@ -8,7 +8,7 @@ public class WaveManager : MonoBehaviour
     public int currentWave;
     private int maxWaves = 3;
 
-    private int[] enemiesPerWave = { 20, 30, 40 };
+    public int[] enemiesPerWave = { 20, 30, 40 };
     public float WaveTimer { get; set; }
 
     public void Awake()

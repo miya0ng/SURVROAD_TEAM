@@ -16,18 +16,7 @@ MonoBehaviour:
   Name: sawblade_wheel_lv3
   Type: 2
   Target: 2
-  Level: 3
-  MinDamage: 8
-  MaxDamage: 8
-  ShotCount: 0
-  AttackSpeed: 5
-  AttackRange: 1
-  BulletSpeed: 0
-  EffectiveRange: 1
-  ExplosionRange: 0
-  Duration: 0
-  Piercing: 1
-  Info: "Lv2 \uBCF4\uB2E4 \uD53C\uD574\uB7C9\uC774 \uC99D\uAC00\uD558\uACE0 \uD1B1\uB0A0
-    \uD68C\uC804 \uC18D\uB3C4\uAC00 \uBE68\uB77C\uC9D0"
-  PrefabName: SM_Wep_Veh_Saw_Launcher_Ammo_01
   PrefabIndex: 5
+  ThumbNail: {fileID: 21300000, guid: 35997e87c16a37b4eba097c8eb122c30, type: 3}
+  prefab: {fileID: 1021201032924741099, guid: 875d4a8782b54414790e5d65aed1a807, type: 3}
+  Levels: []

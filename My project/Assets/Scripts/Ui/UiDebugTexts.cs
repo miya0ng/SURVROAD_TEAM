@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
 public class UiDebugTexts : MonoBehaviour
 {
     public TextMeshProUGUI hp;
@@ -10,7 +11,7 @@ public class UiDebugTexts : MonoBehaviour
     public TextMeshProUGUI waveCount;
     public TextMeshProUGUI timePerWave;
     public TextMeshProUGUI leftEnemy;
-    public TextMeshProUGUI weaponSO;
+    public TextMeshProUGUI weaponSOText;
 
     private GameObject player;
     private PlayerController playerController;
@@ -20,7 +21,7 @@ public class UiDebugTexts : MonoBehaviour
     private EquipManager equipManager;
 
     private string[] weaponSOName = new string[3];
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Awake()
     {
         player = GameObject.FindWithTag("Player");
@@ -30,42 +31,48 @@ public class UiDebugTexts : MonoBehaviour
         waveManager = GameObject.FindWithTag("WaveManager").GetComponent<WaveManager>();
         enemySpawner = GameObject.FindWithTag("EnemySpawner").GetComponent<EnemySpawner>();
     }
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
-        if(player == null || playerController == null || playerHp == null || weaponSO == null || waveManager == null || enemySpawner == null)
-        {
-            return;
-        }
+#if UNITY_EDITOR
+        // 기본 스탯 표시
         weaponName.text = "WeaponName: ";
         speed.text = "Speed: " + playerController.curMoveSpeed;
         hp.text = "Hp: " + playerHp.curHp + "/" + playerHp.maxHp;
 
+        // 웨이브 정보 표시
         waveCount.text = "WaveCount: " + waveManager.currentWave;
         timePerWave.text = $"TimePerWave: {waveManager.WaveTimer:F2}";
         leftEnemy.text = "LeftEnemy: " + enemySpawner.ActiveEnemyCount + "/" + enemySpawner.waveSpawnCount;
-        if (equipManager.Slot.Count != 0)
+
+        // 장착 무기 정보 표시
+        if (equipManager.Slot.Count > 0)
         {
             FindWeaponSOName();
+            weaponSOText.text = "WeaponSO: " + string.Join(", ", weaponSOName);
         }
-        weaponSO.text = "WeaponSO: \n(1)" + weaponSOName[0] + "\n(2)" + weaponSOName[1] + "\n(3)" + weaponSOName[2];
+        else
+        {
+            weaponSOText.text = "WeaponSO: None";
+        }
+#else
+        if (gameObject.activeSelf) gameObject.SetActive(false);
+#endif
     }
 
     private void FindWeaponSOName()
     {
-        if(equipManager.Slot.Count == 0)
-        {
-            return;
-        }
-        for(int i = 0; i< equipManager.Slot.Count; i++)
+        for (int i = 0; i < equipManager.Slot.Count; i++)
         {
             var w = equipManager.Slot[i].GetComponent<Weapon>();
-            weaponSOName[i] = w.weaponSO.Name;
+            if (w != null && w.weaponSO != null)
+            {
+                weaponSOName[i] = $"{w.weaponSO.Name}(Lv{w.curLevel})";
+            }
+            else
+            {
+                weaponSOName[i] = "null";
+            }
         }
     }
 }

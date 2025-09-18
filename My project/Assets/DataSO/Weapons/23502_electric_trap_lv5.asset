@@ -16,17 +16,7 @@ MonoBehaviour:
   Name: electric_trap_lv5
   Type: 3
   Target: 2
-  Level: 5
-  MinDamage: 14
-  MaxDamage: 14
-  ShotCount: 1
-  AttackSpeed: 3
-  AttackRange: 4
-  BulletSpeed: 0
-  EffectiveRange: 1
-  ExplosionRange: 0
-  Duration: 4
-  Piercing: 0
-  Info: "(\uACF5\uBC31)"
-  PrefabName: SM_Prop_CarBattery_02
   PrefabIndex: 0
+  ThumbNail: {fileID: 21300000, guid: 98d83c62d8c13e340a12b8c99fe33ced, type: 3}
+  prefab: {fileID: 8171487787002607651, guid: faf016170f8168c45a0aba88f2733503, type: 3}
+  Levels: []

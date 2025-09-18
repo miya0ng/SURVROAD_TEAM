@@ -1098,6 +1098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc10f7877d0c0d48b9eb4cc7a1e3914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponLibrary: {fileID: 11400000, guid: f59a24721fbf6904bbaf4104b345738e, type: 2}
   waveCount: {fileID: 8413718664176637907}
   wavePlayTime: {fileID: 4356612934803244240}
   slotText:
@@ -1108,15 +1109,6 @@ MonoBehaviour:
   - {fileID: 8477590249379928994}
   - {fileID: 7135562509635590370}
   - {fileID: 2420272332828324589}
-  loadWeaponThumNails:
-  - {fileID: 21300000, guid: 98d83c62d8c13e340a12b8c99fe33ced, type: 3}
-  - {fileID: 21300000, guid: 3866113dbab4f4a49bd8db1074fd80d5, type: 3}
-  - {fileID: 21300000, guid: 4df001e9281235a46b8ef81865500dc6, type: 3}
-  - {fileID: 21300000, guid: d69c28208b1852f4683bb0b5e9aac323, type: 3}
-  - {fileID: 21300000, guid: 8911dd3486906a74291abf02b6b8d75c, type: 3}
-  - {fileID: 21300000, guid: 5cd1e9c1f917a8947977dda4271c2d2d, type: 3}
-  - {fileID: 21300000, guid: 39683434fb05a9f41aa6b0006668db5d, type: 3}
-  - {fileID: 21300000, guid: 35997e87c16a37b4eba097c8eb122c30, type: 3}
 --- !u!1 &3456849274542200010
 GameObject:
   m_ObjectHideFlags: 0
@@ -2017,7 +2009,7 @@ MonoBehaviour:
   waveCount: {fileID: 2299114791423365080}
   timePerWave: {fileID: 413585486101695611}
   leftEnemy: {fileID: 3227488210344705544}
-  weaponSO: {fileID: 5172513022421791814}
+  weaponSOText: {fileID: 5172513022421791814}
 --- !u!1 &7525667052909096462
 GameObject:
   m_ObjectHideFlags: 0

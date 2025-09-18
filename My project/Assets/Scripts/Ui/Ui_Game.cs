@@ -18,9 +18,7 @@ public class Ui_Game : MonoBehaviour
     public TextMeshProUGUI[] slotText;
     public Image[] slotImage;
 
-    public List<Sprite> loadWeaponThumNails;
-   
-
+    private int curEquipCount = 0;
     private string[] weaponThumnailName = new string[3]; // 3: equipCount;
 
     public void Awake()
@@ -32,52 +30,62 @@ public class Ui_Game : MonoBehaviour
 
     public void Start()
     {
-        SortWeaponSOtoThumNail();
+        //SortWeaponSOtoThumNail();
+        equipManager.OnEquipChanged += SetSlotInfo;
     }
 
     public void Update()
     {
-        if (player == null ||  waveManager == null || waveManager == null)
+        if (player == null || waveManager == null || waveManager == null)
         {
             return;
         }
         wavePlayTime.text = $"{waveManager.WaveTimer:F2}";
         waveCount.text = $"{waveManager.currentWave}";
-
-        SetSlotInfo();
     }
 
-    private void SortWeaponSOtoThumNail()
-    {
-        var thumbnailDict = loadWeaponThumNails
-            .Where(s => s != null)
-            .GroupBy(s => s.name)
-            .ToDictionary(g => g.Key, g => g.First());
-        loadWeaponThumNails = weaponLibrary.weapons
-            .Select(entry =>
-            {
-                string prefabName = entry.prefab ? entry.prefab.name : "";
-                if (thumbnailDict.TryGetValue(prefabName, out var sprite))
-                    return sprite;
+    //private void SortWeaponSOtoThumNail()
+    //{
+    //    var thumbnailDict = loadWeaponThumNails
+    //        .Where(s => s != null)
+    //        .GroupBy(s => s.name)
+    //        .ToDictionary(g => g.Key, g => g.First());
+    //    loadWeaponThumNails = weaponLibrary.weapons
+    //        .Select(entry =>
+    //        {
+    //            string prefabName = entry.prefab ? entry.prefab.name : "";
+    //            if (thumbnailDict.TryGetValue(prefabName, out var sprite))
+    //                return sprite;
 
-                Debug.LogWarning($"[{entry.Index}] {prefabName} ½æ³×ÀÏ ¾øÀ½");
-                return null;
-            })
-            .ToList();
-    }
+    //            Debug.LogWarning($"[{entry.Index}] {prefabName} ½æ³×ÀÏ ¾øÀ½");
+    //            return null;
+    //        })
+    //        .ToList();
+    //}
     private void SetSlotInfo()
     {
-        if (equipManager.Slot.Count == 0)
-        {
-            return;
-        }
+        Debug.Log($"[SetSlotInfo] ½½·Ô °³¼ö: {equipManager.Slot.Count}");
 
-        for (int i = 0; i < equipManager.Slot.Count; i++)
+        for (int i = 0; i < slotImage.Length; i++)
         {
-            var w = equipManager.Slot[i].GetComponent<Weapon>();
-            slotText[i].text = "Lv." + w.weaponSO.Level;
-            Debug.Log((int)w.weaponSO.PrefabIndex);
-            slotImage[i].sprite = loadWeaponThumNails[(int)w.weaponSO.PrefabIndex];
+            if (i < equipManager.Slot.Count)
+            {
+                var w = equipManager.Slot[i].GetComponent<Weapon>();
+                var so = weaponLibrary.GetSO(w.weaponSO.PrefabIndex);
+
+                // ÇöÀç ·¹º§ µ¥ÀÌÅÍ ²¨³»¿À±â
+                var levelData = so.Levels.Find(l => l.Level == w.curLevel);
+
+                slotImage[i].sprite = so.ThumbNail;
+                slotText[i].text = $"Lv.{w.curLevel}";
+
+            }
+            else
+            {
+                slotImage[i].sprite = null;
+                slotText[i].text = string.Empty;
+                Debug.Log($"[{i}] ½½·Ô ºñ¿öÁü");
+            }
         }
     }
 }

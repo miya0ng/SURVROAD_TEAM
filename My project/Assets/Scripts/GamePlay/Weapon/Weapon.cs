@@ -11,8 +11,9 @@ public class Weapon : MonoBehaviour
     public bool IsEquipped { get; private set; }
     private float nextFireTime;
 
-    // private Bullet bullet;
+    public int curLevel = 1; // 현재 무기 레벨
     private TeamId teamId;
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -27,52 +28,69 @@ public class Weapon : MonoBehaviour
     private void Start()
     {
         teamId = GetComponent<LivingEntity>()?.teamId ?? TeamId.None;
+
+        // 타입 분류 예시
         switch (weaponSO.Type)
         {
-            case 1: //long
+            case 1: // long
                 break;
-            case 2: //short
+            case 2: // short
                 break;
-            case 3: //install
+            case 3: // install
                 break;
             default:
                 break;
         }
     }
+
     void Update()
     {
         if (weaponSO == null)
         {
-            Debug.LogError($"{gameObject.name}: WeaponData null");
+            Debug.LogError($"{gameObject.name}: WeaponSO null");
             return;
         }
 
-        if (muzzle == null || bulletPrefab == null)
+        if (muzzle == null)
         {
-            Debug.Log($"{gameObject.name}: muzzle or bullet null");
+            Debug.LogWarning($"{gameObject.name}: muzzle null");
             return;
         }
 
         if (!IsEquipped || weaponSO.Type == 3) return;
 
+        var levelData = GetCurrentLevelData();
+        if (levelData == null) return;
+
         nextFireTime += Time.deltaTime;
 
-        if (nextFireTime >= weaponSO.AttackSpeed)
+        if (nextFireTime >= levelData.AttackSpeed)
         {
-            Fire();
+            Fire(levelData);
             nextFireTime = 0f;
         }
     }
 
-    void Fire()
+    void Fire(WeaponLevelData levelData)
     {
-        for (int i = 0; i < weaponSO.ShotCount; i++)
+        for (int i = 0; i < levelData.ShotCount; i++)
         {
-            var bulletObj = Instantiate(bulletPrefab, muzzle.position, muzzle.rotation);
+            var bulletObj = Instantiate(levelData.bulletPrefab, muzzle.position, muzzle.rotation);
             var bullet = bulletObj.GetComponent<Bullet>();
-            bullet.weaponSO = weaponSO;
-            bullet.SetBullet(player, teamId);
+
+            bullet.SetBullet(player, teamId, levelData);
+
             bulletObj.SetActive(true);
         }
+
+        if (levelData.effectPrefab != null)
+        {
+            Instantiate(levelData.effectPrefab, muzzle.position, muzzle.rotation);
+        }
+    }
+
+    private WeaponLevelData GetCurrentLevelData()
+    {
+        return weaponSO.Levels.Find(l => l.Level == curLevel);
     }
 }

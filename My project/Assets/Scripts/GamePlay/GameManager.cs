@@ -26,8 +26,6 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        //Debug.Log(enemySpawner.EnemyPoolSize);
-        Debug.Log(enemySpawner.ActiveEnemyCount);
         if (enemySpawner.ActiveEnemyCount <= 0 && Input.GetKeyDown(KeyCode.C))
         {
             waveManager.NextWave();
