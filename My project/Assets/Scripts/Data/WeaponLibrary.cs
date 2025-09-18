@@ -1,28 +1,39 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 [CreateAssetMenu(fileName = "WeaponLibrary", menuName = "Game/Weapon Library")]
 public class WeaponLibrary : ScriptableObject
 {
-    [System.Serializable]
-    public struct PrefabEntry
+    public List<WeaponSO> weapons;
+
+    public WeaponSO GetSO(WeaponIndex index)
     {
-        public PrefabIndex prefabIndex;
-        public GameObject prefab;
+        return weapons.FirstOrDefault(so =>
+            so.Levels.Any(l => l.PrefabIndex == index));
     }
 
-    public List<PrefabEntry> prefabs;
-    private Dictionary<PrefabIndex, GameObject> prefabDict;
-
-    private void OnEnable()
+    public WeaponLevelData GetLevelData(WeaponIndex index, int level)
     {
-        prefabDict = new Dictionary<PrefabIndex, GameObject>();
-        foreach (var entry in prefabs)
-            prefabDict[entry.prefabIndex] = entry.prefab;
+        var so = GetSO(index);
+        if (so != null)
+        {
+            var data = so.Levels.FirstOrDefault(l => l.Level == level);
+            if (data != null)
+                return data;
+        }
+
+        Debug.LogWarning($"Weapon not found: {index}, Lv{level}");
+        return null;
     }
 
-    public GameObject GetPrefab(PrefabIndex index)
+    public Sprite GetThumbnail(WeaponIndex index, int level)
     {
-        return prefabDict.TryGetValue(index, out var prefab) ? prefab : null;
+        return GetLevelData(index, level)?.ThumbNail;
+    }
+
+    public GameObject GetPrefab(WeaponIndex index, int level)
+    {
+        return GetLevelData(index, level)?.prefab;
     }
 }

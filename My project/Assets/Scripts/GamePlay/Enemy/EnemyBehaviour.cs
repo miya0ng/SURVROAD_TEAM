@@ -32,7 +32,6 @@ public class EnemyBehaviour : LivingEntity, IDamagable
     void OnEnable()
     {
         ui_HpBar.SetHpBar(maxHp);
-        enemyPool.Register(gameObject);
         if (agent != null)
         {
             agent.isStopped = false;
@@ -57,7 +56,7 @@ public class EnemyBehaviour : LivingEntity, IDamagable
         }
         else if(target == null && agent.isOnNavMesh)
         {
-            Debug.Log("==== No Target! ===");
+            //Debug.Log("==== No Target! ===");
             agent.isStopped = true;
         }
     }
@@ -72,7 +71,7 @@ public class EnemyBehaviour : LivingEntity, IDamagable
         //lookPos.y = transform.position.y;
         //transform.LookAt(lookPos);
 
-        // TODO: IDamagable 인터페이스 추가
+        // TODO: 적 무기 추가
 
     }
 
@@ -97,7 +96,7 @@ public class EnemyBehaviour : LivingEntity, IDamagable
         base.OnDamage(damage, attacker);
 
         ui_HpBar.UpdateHpBar(curHp);
-        Debug.Log($"{gameObject.name} took {damage} damage. HP: {this.curHp}");
+        //Debug.Log($"{gameObject.name} took {damage} damage. HP: {this.curHp}");
     }
 
     public override void OnDeath()
@@ -105,9 +104,8 @@ public class EnemyBehaviour : LivingEntity, IDamagable
         base.OnDeath();
         if (enemyPool != null)
         {
-            enemyPool.UnRegister(gameObject);
             enemyPool.Return(gameObject);
-            enemyPool.EnemyPoolSize--;
+            enemyPool.ActiveEnemyCount--;
         }
         //else
         //{
@@ -116,11 +114,9 @@ public class EnemyBehaviour : LivingEntity, IDamagable
     }
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("충돌??");
         var player = collision.gameObject.GetComponent<PlayerBehaviour>();
         if (player != null)
         {
-            Debug.Log("충돌!");
             player.OnDamage(collisionDamage, this);
         }
     }

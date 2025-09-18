@@ -12,8 +12,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float playTime = 0f;
 
-    public int waveCount = 1;
-    public int leftEnemyCount;
     private bool isGameOver = false;
 
     void Awake()
@@ -24,16 +22,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
+        waveManager.NextWave();
     }
     void Update()
     {
-        //Debug.Log(enemySpawner.EnemyPoolSize);
-        if (enemySpawner.EnemyPoolSize <= 0)
+        if (enemySpawner.ActiveEnemyCount <= 0 && Input.GetKeyDown(KeyCode.C))
         {
             waveManager.NextWave();
-            enemySpawner.StopSpawner();
-            enemySpawner.StartSpawner();
         }
         playTime += Time.deltaTime;
         
@@ -53,7 +48,6 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         isGameOver = true;
-        waveCount = 1;
         Time.timeScale = 0f; // Pause the game
         enemySpawner.StopSpawner();
         Debug.Log($"Game Over! Total Play Time: {playTime} seconds.");

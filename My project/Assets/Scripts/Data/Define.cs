@@ -1,10 +1,14 @@
 using UnityEngine;
 
 
-public enum PrefabIndex
+public enum WeaponIndex
 {
-    SM_Wep_Veh_MachineGun_01 = 0,
-    SM_Wep_AAGun_01 = 1,
-    SM_Wep_Veh_MiniGun_01 = 2,
-    SM_Wep_Veh_Rocket_Launcher_01 = 3,
+    SM_Prop_CarBattery_02,
+    SM_Wep_Veh_MachineGun_01,
+    SM_Wep_AAGun_01,
+    SM_Wep_Veh_MiniGun_01,
+    SM_Wep_Veh_Rocket_Launcher_01,
+    SM_Wep_Veh_Saw_Launcher_Ammo_01,
+    SM_Wep_Melee_Spear_Wood_01,
+    SM_Wep_Bomb_Propane_01,
 }

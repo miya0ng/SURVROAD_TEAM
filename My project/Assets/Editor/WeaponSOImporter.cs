@@ -1,15 +1,14 @@
 ﻿#if UNITY_EDITOR
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using static UnityEditor.Recorder.OutputPath;
 
 public class WeaponSOImporter : EditorWindow
 {
     private TextAsset csvFile;
 
-    [MenuItem("Tools/Import WeaponSO From CSV")]
+    [MenuItem("Tools/Import WeaponSO From CSV (Grouped)")]
     public static void ShowWindow()
     {
         GetWindow<WeaponSOImporter>("WeaponSO Importer");
@@ -17,7 +16,7 @@ public class WeaponSOImporter : EditorWindow
 
     private void OnGUI()
     {
-        GUILayout.Label("CSV → WeaponSO 변환", EditorStyles.boldLabel);
+        GUILayout.Label("CSV → WeaponSO 변환 (레벨 그룹)", EditorStyles.boldLabel);
 
         csvFile = (TextAsset)EditorGUILayout.ObjectField("CSV File", csvFile, typeof(TextAsset), false);
 
@@ -30,7 +29,6 @@ public class WeaponSOImporter : EditorWindow
     private void Import(TextAsset csv)
     {
         var records = DataTable.LoadCSV<WeaponData>(csv.text);
-
         if (records == null || records.Count == 0)
         {
             Debug.LogWarning("CSV 비어있음");
@@ -41,51 +39,115 @@ public class WeaponSOImporter : EditorWindow
         string dataSoFolder = "Assets/DataSO";
         string folderPath = "Assets/DataSO/Weapons";
 
-        // DataSO 폴더 없으면 생성
         if (!AssetDatabase.IsValidFolder(dataSoFolder))
-        {
             AssetDatabase.CreateFolder(root, "DataSO");
-        }
 
-        // Weapons 폴더 없으면 생성
         if (!AssetDatabase.IsValidFolder(folderPath))
-        {
             AssetDatabase.CreateFolder(dataSoFolder, "Weapons");
-        }
-        foreach (var record in records)
+
+        // 🔑 ID 앞 두 자리 기준 그룹화 (예: 2111~2115 → 211)
+        var grouped = records.GroupBy(r => r.ID / 10);
+
+        foreach (var group in grouped)
         {
+            var first = group.First();
+
+            // 무기 SO 생성
             var so = ScriptableObject.CreateInstance<WeaponSO>();
+            so.ID = group.Key * 10;  // 그룹 대표 ID
+            so.Name = first.Name.Split(new[] { "_lv" }, System.StringSplitOptions.None)[0];
+            so.Type = first.Type;
+            so.Kind = first.Kind;
+            so.Target = first.Target;
+            so.Levels = new List<WeaponLevelData>();
 
-            so.ID = record.ID;
-            so.Name = record.Name;
-            so.Type = record.Type;
-            so.Target = record.Target;
-            so.Level = record.Level;
-            so.Damage = record.Damage;
-            so.ShotCount = record.ShotCount;
-            so.AttackSpeed = record.AttackSpeed;
-            so.AttackRange = record.AttackRange;
-            so.Dps = record.Dps;
-            so.BulletSpeed = record.BulletSpeed;
-            so.EffectiveRange = record.EffectiveRange;
-            so.ExplosionRange = record.ExplosionRange;
-            so.Duration = record.Duration;
-            so.Piercing = record.Piercing;
-            so.Info = record.Info;
-
-            if (!string.IsNullOrEmpty(record.PrefabName) &&
-                System.Enum.TryParse(record.PrefabName, out PrefabIndex index))
+            foreach (var record in group.OrderBy(r => r.Level))
             {
-                so.PrefabIndex = index;
+                var levelData = new WeaponLevelData
+                {
+                    Level = record.Level,
+                    MinDamage = record.MinDamage,
+                    MaxDamage = record.MaxDamage,
+                    ShotCount = record.ShotCount,
+                    AttackSpeed = record.AttackSpeed,
+                    AttackRange = record.AttackRange,
+                    BulletSpeed = record.BulletSpeed,
+                    EffectiveRange = record.EffectiveRange,
+                    ExplosionRange = record.ExplosionRange,
+                    Duration = record.Duration,
+                    Piercing = record.Piercing,
+                    Info = record.Info
+                };
+
+                if (!string.IsNullOrEmpty(record.PrefabName) &&
+                    System.Enum.TryParse(record.PrefabName, out WeaponIndex index))
+                {
+                    levelData.PrefabIndex = index;
+                }
+                else
+                {
+                    Debug.LogWarning($"[Importer] WeaponIndex 변환 실패: {record.PrefabName}");
+                }
+
+                // Prefab (Assets/Prefabs/Item/EquipItem)
+                string[] prefabGuids = AssetDatabase.FindAssets(record.PrefabName + " t:prefab", new[] { "Assets/Prefabs/Weapon" });
+                if (prefabGuids.Length > 0)
+                {
+                    string prefabPath = AssetDatabase.GUIDToAssetPath(prefabGuids[0]);
+                    levelData.prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+                }
+                else
+                {
+                    Debug.LogWarning($"[Importer] Prefab 없음: {record.PrefabName}");
+                }
+
+                // Thumbnail (Assets/Textures/WeaponThumbNail)
+                string[] spriteGuids = AssetDatabase.FindAssets(record.PrefabName + " t:sprite", new[] { "Assets/Textures/WeaponThumbNail" });
+                if (spriteGuids.Length > 0)
+                {
+                    string spritePath = AssetDatabase.GUIDToAssetPath(spriteGuids[0]);
+                    levelData.ThumbNail = AssetDatabase.LoadAssetAtPath<Sprite>(spritePath);
+                }
+                else
+                {
+                    Debug.LogWarning($"[Importer] Thumbnail 없음: {record.PrefabName}");
+                }
+
+                // Bullet Prefab (Assets/Prefabs/Player)
+                string[] bulletGuids = AssetDatabase.FindAssets("Bullet t:prefab", new[] { "Assets/Prefabs/Player" });
+                if (bulletGuids.Length > 0)
+                {
+                    string bulletPath = AssetDatabase.GUIDToAssetPath(bulletGuids[0]);
+                    levelData.bulletPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(bulletPath);
+                }
+                else
+                {
+                    Debug.LogWarning("[Importer] 기본 Bullet 프리팹 없음 (Assets/Prefabs/Player)");
+                }
+
+                // 아직 effectPrefab 없음
+                levelData.effectPrefab = null;
+
+                so.Levels.Add(levelData);
             }
 
-            string assetPath = $"{folderPath}/{record.ID}_{record.Name}.asset";
-            AssetDatabase.CreateAsset(so, assetPath);
+            // SO 저장
+            string assetPath = $"{folderPath}/{so.Name}.asset";
+            var existing = AssetDatabase.LoadAssetAtPath<WeaponSO>(assetPath);
+            if (existing != null)
+            {
+                EditorUtility.CopySerializedManagedFieldsOnly(so, existing);
+                EditorUtility.SetDirty(existing);
+            }
+            else
+            {
+                AssetDatabase.CreateAsset(so, assetPath);
+            }
         }
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
-        Debug.Log($"{records.Count}개의 WeaponSO 생성 완료!");
+        Debug.Log($"{grouped.Count()}개의 WeaponSO 생성/업데이트 완료!");
     }
 }
 #endif
