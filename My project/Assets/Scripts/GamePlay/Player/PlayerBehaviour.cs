@@ -37,8 +37,10 @@ public class PlayerBehaviour : LivingEntity, IDamagable
 
     private void Move()
     {
-        rb.MoveRotation(rb.rotation * Quaternion.Euler(0f, playerController.hAxis * playerController.rotationSpeed, 0f));
-        
+        rb.MoveRotation(
+     rb.rotation * Quaternion.Euler(0f, playerController.hAxis * playerController.rotationSpeed * Time.fixedDeltaTime, 0f)
+ );
+
         rb.MovePosition(rb.position + transform.forward * playerController.vAxis * playerController.curMoveSpeed * Time.fixedDeltaTime);
     }
 
@@ -46,14 +48,15 @@ public class PlayerBehaviour : LivingEntity, IDamagable
     {
         base.OnDeath();
         gameManager.GameOver();
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     public override void OnDamage(float damage, LivingEntity attacker)
     {
         base.OnDamage(damage, attacker);
 
-        Debug.Log($"{gameObject.name} took {damage} damage. HP: {curHp}");
+        //Debug.Log($"{gameObject.name} took {damage} damage. HP: {curHp}");
         ui_hpBar.UpdateHpBar(curHp);
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,12 +9,13 @@ public class WeaponData
     public string Name { get; set; }
     public int Type { get; set; }
     public int Target { get; set; }
+    public int Kind { get; set; }
     public int Level { get; set; }
-    public float Damage { get; set; }
+    public float MinDamage { get; set; }
+    public float MaxDamage { get; set; }
     public int ShotCount { get; set; }
     public float AttackSpeed { get; set; }
     public float AttackRange { get; set; }
-    public float Dps { get; set; }
     public float BulletSpeed {  get; set; }
     public float EffectiveRange { get; set; }
     public float ExplosionRange { get; set;}
@@ -21,7 +23,6 @@ public class WeaponData
     public bool Piercing {  get; set; }
     public string Info { get; set; }
     public string PrefabName { get; set; }
-    public PrefabIndex PrefabIndex { get; set; }
 }
 public class WeaponDataTable : DataTable
 {
@@ -33,17 +34,20 @@ public class WeaponDataTable : DataTable
         weapons.Clear();
         var path = string.Format(dataTablePath, fileName);
         var textAsset = Resources.Load<TextAsset>(path);
-        if(textAsset != null)
+
+        if (textAsset == null)
         {
             Debug.LogError($"Failed to load string table: {fileName} at path: {path}");
             return;
         }
+
         var records = LoadCSV<WeaponData>(textAsset.text);
-        if(records == null || records.Count == 0 )
+        if (records == null || records.Count == 0)
         {
             Debug.LogWarning($"No records found in string table: {fileName}");
             return;
         }
+
         weapons = records.ToDictionary(r => r.ID, r => r);
     }
 

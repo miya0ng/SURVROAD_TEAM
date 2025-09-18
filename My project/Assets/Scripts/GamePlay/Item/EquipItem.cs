@@ -4,18 +4,18 @@ using UnityEngine;
 public class EquipItem : MonoBehaviour, IItem
 {
     public WeaponSO weaponSO;
-    private PlayerShooter player;
 
-    public void Start()
+    private GameObject rootPlayer;
+    public bool isEquip {  get; set; }
+    public void Awake()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<PlayerShooter>();
+        rootPlayer = GameObject.FindGameObjectWithTag("Player");
     }
-    public void Use(GameObject go)
+    public void Use(GameObject player)
     {
-        Debug.Log("Use");
-        player.EquipWeapon(weaponSO);
-
-        Destroy(gameObject);
+        var equipManager = player.GetComponentInChildren<EquipManager>();
+        if (equipManager == null) return;
+        equipManager.EquipWeapon(weaponSO);
     }
 
     private void Update()
@@ -24,8 +24,10 @@ public class EquipItem : MonoBehaviour, IItem
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isEquip)
         {
+            isEquip = true;
+            Debug.Log("¾ÆÀÌÅÛ°ú ºÎµúÈû");
             Use(other.gameObject);
         }
         else

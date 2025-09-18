@@ -1,55 +1,92 @@
+using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class ItemSpawner : MonoBehaviour
 {
-    private float range = 100f;
-    private int spawnCount = 15;
-    Vector3 center = Vector3.zero;
-    Vector3 result;
-    public WeaponLibrary WeaponLibrary;
+    [SerializeField] private float range = 100f;
+    [SerializeField] private int spawnCount = 30;
+    [SerializeField]
+    private GameObject[] equipItemPrefabs;
 
-    //GameManager gameManager;
-    public void Start()
+    private Vector3 center = Vector3.zero;
+
+    public Coroutine coroutine;
+    private float spawnInterval = 3f;
+
+    private void Start()
     {
-        CreateItem();
+        StartSpawner();
     }
-    public void Update()
+
+    public void StartSpawner()
     {
-
+        coroutine = StartCoroutine(CoSpawnItem());
     }
 
-    public bool SpawnPosition(Vector3 center, float range, out Vector3 result)
+    public void StopSpawner()
+    {
+        if (coroutine != null)
+            StopCoroutine(coroutine);
+    }
+
+    private bool SpawnPosition(Vector3 center, float range, out Vector3 result)
     {
         for (int i = 0; i < 30; i++)
         {
             Vector3 randomPoint = center + Random.insideUnitSphere * range;
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(randomPoint, out var hit, 1.0f, NavMesh.AllAreas))
             {
                 result = hit.position;
                 return true;
             }
         }
+
         result = Vector3.zero;
         return false;
     }
+
+    public IEnumerator CoSpawnItem()
+    {
+        while (true)
+        {
+            CreateItem();
+            yield return new WaitForSeconds(spawnInterval);
+        }
+    }
+
+
     public void CreateItem()
     {
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < spawnCount; i++)
         {
-            if (SpawnPosition(center, range, out result))
+            if (!SpawnPosition(center, range, out var result))
+                continue;
+
+            var pos = result;
+            pos.y += 0.5f;
+
+            int randomIndex = Random.Range(0, System.Enum.GetValues(typeof(WeaponIndex)).Length);
+
+            // SO 가져오기
+            var so = equipItemPrefabs[randomIndex].GetComponent<EquipItem>().weaponSO;
+            if (so == null)
             {
-                var pos = result;
-                pos.y += 0.5f;
-                var item = WeaponLibrary.GetPrefab((PrefabIndex)(Random.Range(0, WeaponLibrary.prefabs.Count)));
-                var randomRotationY = Random.Range(0, 120);
-                item.transform.rotation = Quaternion.Euler(0f, randomRotationY, 0f);
-                item.transform.localScale = new Vector3(3f, 3f, 3f);
-                Instantiate(item, pos, item.transform.rotation);
+                Debug.LogWarning("WeaponSO is null");
+                continue;
+            }
+
+            // 아이템 프리팹 생성
+            var rot = Quaternion.Euler(0f, Random.Range(0f, 120f), 0f);
+            var instance = Instantiate(equipItemPrefabs[randomIndex], pos, rot);
+            instance.transform.localScale = new Vector3(3f, 3f, 3f);
+
+            // 아이템에 SO 연결
+            var equipItem = instance.GetComponent<EquipItem>();
+            if (equipItem != null)
+            {
+                equipItem.weaponSO = so;
             }
         }
     }

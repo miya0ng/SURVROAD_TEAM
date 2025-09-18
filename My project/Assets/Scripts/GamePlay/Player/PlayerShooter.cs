@@ -3,11 +3,12 @@ using UnityEngine;
 public class PlayerShooter : MonoBehaviour
 {
     public WeaponSO weaponsSO { get; set; }
+    public GameObject weaponEquipManager;
     private Weapon weapon {  get; set; }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        weapon=GetComponent<Weapon>();
+        
     }
 
     // Update is called once per frame
@@ -16,9 +17,8 @@ public class PlayerShooter : MonoBehaviour
         
     }
 
-    public void EquipWeapon(WeaponSO w)
+    public void EquipWeapon(Weapon weapon)
     {
-        this.weaponsSO = w;
-        weapon.weaponSO= weaponsSO;
+        
     }
 }

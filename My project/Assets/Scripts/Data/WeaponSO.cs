@@ -1,32 +1,39 @@
-using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "WeaponData", menuName = "Game/Weapon Data")]
+[CreateAssetMenu(fileName = "WeaponSO", menuName = "Game/Weapon SO")]
 public class WeaponSO : ScriptableObject
 {
-    [Header("TYPE")]
+    [Header("Info")]
     public int ID;
     public string Name;
+    public int Kind;
     public int Type;
     public int Target;
-    public int Level;
 
-    [Header("SPEC")]
-    public float Damage;
+    [Header("Level Data")]
+    public List<WeaponLevelData> Levels;
+}
+
+[System.Serializable]
+public class WeaponLevelData
+{
+    public int Level;
+    public float MinDamage;
+    public float MaxDamage;
     public int ShotCount;
     public float AttackSpeed;
     public float AttackRange;
-    public float Dps;
     public float BulletSpeed;
     public float EffectiveRange;
     public float ExplosionRange;
     public float Duration;
     public bool Piercing;
-
-    [Header("INFO")]
     public string Info;
-    public string PrefabName; //weaponPrefab
-    public PrefabIndex PrefabIndex;
 
+    public WeaponIndex PrefabIndex;
+    public Sprite ThumbNail;
+    public GameObject prefab; // 무기 프리팹 참조
+    public GameObject bulletPrefab;
+    public ParticleSystem effectPrefab;
 }
