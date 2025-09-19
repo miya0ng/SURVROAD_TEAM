@@ -8,6 +8,8 @@ public class Weapon : MonoBehaviour
     public WeaponLevelData CurLevelData { get; private set; }
     private int curLevel = 1; // 현재 무기 레벨
 
+    public int CurLevel => curLevel;
+
     public GameObject bulletPrefab;
     private GameObject player;
     [SerializeField] private Transform muzzle;
@@ -62,10 +64,12 @@ public class Weapon : MonoBehaviour
         w.SetLevel(nextLevel);
         w.Equip(GetComponentInParent<LivingEntity>());
 
-        var equipManager = GetComponentInParent<EquipManager>();
+        //var equipManager = GetComponentInParent<EquipManager>();
+        var equipManager = player.GetComponentInChildren<EquipManager>();
         if (equipManager != null)
         {
-            int index = equipManager.Slot.IndexOf(gameObject);
+            //int index = equipManager.Slot.IndexOf(gameObject);
+            int index = equipManager.IndexOfInternal(gameObject);
             if (index >= 0)
                 equipManager.ReplaceWeapon(index, newObj);
         }

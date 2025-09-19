@@ -47,6 +47,15 @@ public class Bullet : MonoBehaviour
         if (levelData != null && timer >= levelData.Duration)
         {
             gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (levelData != null && rb != null)
+        {
+            rb.linearVelocity = transform.forward * levelData.BulletSpeed;
         }
     }
 
