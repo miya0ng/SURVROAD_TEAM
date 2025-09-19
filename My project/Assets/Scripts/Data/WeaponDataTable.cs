@@ -9,6 +9,7 @@ public class WeaponData
     public string Name { get; set; }
     public int Type { get; set; }
     public int Target { get; set; }
+    public int Kind { get; set; }
     public int Level { get; set; }
     public float MinDamage { get; set; }
     public float MaxDamage { get; set; }

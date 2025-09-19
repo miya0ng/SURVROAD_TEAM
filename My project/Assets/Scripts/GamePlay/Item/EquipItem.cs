@@ -3,28 +3,20 @@ using UnityEngine;
 
 public class EquipItem : MonoBehaviour, IItem
 {
+    public WeaponSO weaponSO;
+
     private GameObject rootPlayer;
     public bool isEquip {  get; set; }
     public void Awake()
     {
         rootPlayer = GameObject.FindGameObjectWithTag("Player");
     }
-    public void Use(GameObject go)
+    public void Use(GameObject player)
     {
-        if(go == null)
-        {
-            Debug.Log("Item is Null");
-        }
-        if (rootPlayer == null)
-        {
-            Debug.Log("player is Null");
-        }
-        var equipManager = rootPlayer.GetComponentInChildren<EquipManager>();
-        if (equipManager == null)
-        {
-            Debug.Log("equipManager is Null");
-        }
-        equipManager.EquipWeapon(go);
+        var equipManager = player.GetComponentInChildren<EquipManager>();
+        if (equipManager == null) return;
+        equipManager.EquipWeapon(weaponSO);
+        Destroy(gameObject);
     }
 
     private void Update()
@@ -37,7 +29,7 @@ public class EquipItem : MonoBehaviour, IItem
         {
             isEquip = true;
             Debug.Log("¾ÆÀÌÅÛ°ú ºÎµúÈû");
-            Use(gameObject);
+            Use(other.gameObject);
         }
         else
         {

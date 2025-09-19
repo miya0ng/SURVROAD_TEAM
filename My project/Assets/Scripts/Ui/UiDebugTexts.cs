@@ -45,6 +45,11 @@ public class UiDebugTexts : MonoBehaviour
         timePerWave.text = $"TimePerWave: {waveManager.WaveTimer:F2}";
         leftEnemy.text = "LeftEnemy: " + enemySpawner.ActiveEnemyCount + "/" + enemySpawner.waveSpawnCount;
 
+        if (equipManager.Slot.Count > 3)
+        {
+            return;
+        }
+
         // 장착 무기 정보 표시
         if (equipManager.Slot.Count > 0)
         {
@@ -64,15 +69,21 @@ public class UiDebugTexts : MonoBehaviour
     {
         for (int i = 0; i < equipManager.Slot.Count; i++)
         {
-            var w = equipManager.Slot[i].GetComponent<Weapon>();
-            if (w != null && w.weaponSO != null)
-            {
-                weaponSOName[i] = $"{w.weaponSO.Name}(Lv{w.curLevel})";
-            }
-            else
+            var go = equipManager.Slot[i];
+            if (go == null)
             {
                 weaponSOName[i] = "null";
+                continue;
             }
+
+            var w = go.GetComponent<Weapon>();
+            if (w == null || w.weaponSO == null)
+            {
+                weaponSOName[i] = "null";
+                continue;
+            }
+
+            weaponSOName[i] = $"{w.weaponSO.Name}(Lv{w.CurLevelData.Level})";
         }
     }
 }

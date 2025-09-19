@@ -269,7 +269,6 @@ GameObject:
   - component: {fileID: 3691839799722516087}
   - component: {fileID: 7928751067958997152}
   - component: {fileID: 6177625005952734800}
-  - component: {fileID: -7614048780675982062}
   - component: {fileID: 1931283183643976579}
   - component: {fileID: -795881952282280529}
   m_Layer: 6
@@ -349,20 +348,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-7614048780675982062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1874699347402938718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7472cf164785c254ea927487cbf5990a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 5245207698607943822, guid: dbc88583a9586b94cb4c753ff78f6f5b, type: 3}
-  muzzle: {fileID: 6368593046481115089}
 --- !u!114 &1931283183643976579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,6 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23c620b131099b47a9ed7e0a50235cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSO: {fileID: 11400000, guid: b70e429230039e14c8c3ade8f7a637cb, type: 2}
 --- !u!135 &-795881952282280529
 SphereCollider:
   m_ObjectHideFlags: 0
