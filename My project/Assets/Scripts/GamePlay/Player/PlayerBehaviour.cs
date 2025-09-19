@@ -37,8 +37,10 @@ public class PlayerBehaviour : LivingEntity, IDamagable
 
     private void Move()
     {
-        rb.MoveRotation(rb.rotation * Quaternion.Euler(0f, playerController.hAxis * playerController.rotationSpeed, 0f));
-        
+        rb.MoveRotation(
+     rb.rotation * Quaternion.Euler(0f, playerController.hAxis * playerController.rotationSpeed * Time.fixedDeltaTime, 0f)
+ );
+
         rb.MovePosition(rb.position + transform.forward * playerController.vAxis * playerController.curMoveSpeed * Time.fixedDeltaTime);
     }
 

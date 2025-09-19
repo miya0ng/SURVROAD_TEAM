@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 1653047422597615567}
   - component: {fileID: 6888033588999481272}
   - component: {fileID: 7495417685821221389}
-  - component: {fileID: 3883627695200700131}
   m_Layer: 6
   m_Name: SM_Wep_Bomb_Propane_01
   m_TagString: Untagged
@@ -133,6 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23c620b131099b47a9ed7e0a50235cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSO: {fileID: 11400000, guid: c1278569db2dcee498de002398cd5fad, type: 2}
 --- !u!135 &7495417685821221389
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -154,17 +154,3 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0.0020608231, y: 0.23669444, z: -0.00000013411045}
---- !u!114 &3883627695200700131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6066365829197139422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7472cf164785c254ea927487cbf5990a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 888760136205294209}
-  muzzle: {fileID: 3965619974343928661}

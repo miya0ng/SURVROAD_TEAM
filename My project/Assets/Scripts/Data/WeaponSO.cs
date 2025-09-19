@@ -4,16 +4,14 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "WeaponSO", menuName = "Game/Weapon SO")]
 public class WeaponSO : ScriptableObject
 {
-    [Header("기본 정보")]
+    [Header("Info")]
     public int ID;
     public string Name;
+    public int Kind;
     public int Type;
     public int Target;
-    public WeaponIndex PrefabIndex;
-    public Sprite ThumbNail;
-    public GameObject prefab; // 무기 프리팹 참조
 
-    [Header("레벨별 데이터")]
+    [Header("Level Data")]
     public List<WeaponLevelData> Levels;
 }
 
@@ -33,6 +31,9 @@ public class WeaponLevelData
     public bool Piercing;
     public string Info;
 
+    public WeaponIndex PrefabIndex;
+    public Sprite ThumbNail;
+    public GameObject prefab; // 무기 프리팹 참조
     public GameObject bulletPrefab;
     public ParticleSystem effectPrefab;
 }

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6079063549185198227}
   - component: {fileID: 837432010726633910}
   - component: {fileID: -1478942826460608195}
-  - component: {fileID: 1735666563772863428}
   m_Layer: 6
   m_Name: SM_Wep_Veh_MachineGun_01
   m_TagString: Untagged
@@ -102,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23c620b131099b47a9ed7e0a50235cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSO: {fileID: 11400000, guid: b70e429230039e14c8c3ade8f7a637cb, type: 2}
 --- !u!135 &-1478942826460608195
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -123,20 +123,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.63823634
   m_Center: {x: -0.11989168, y: 0.15634535, z: 0.16403551}
---- !u!114 &1735666563772863428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 85222885766270236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7472cf164785c254ea927487cbf5990a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 5245207698607943822, guid: dbc88583a9586b94cb4c753ff78f6f5b, type: 3}
-  muzzle: {fileID: 1142633408594696883}
 --- !u!1 &2146528302918136386
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+#define DEBUG_MODE
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,6 @@ public class Ui_Game : MonoBehaviour
 
     public TextMeshProUGUI[] slotText;
     public Image[] slotImage;
-
-    private int curEquipCount = 0;
-    private string[] weaponThumnailName = new string[3]; // 3: equipCount;
 
     public void Awake()
     {
@@ -44,48 +42,111 @@ public class Ui_Game : MonoBehaviour
         waveCount.text = $"{waveManager.currentWave}";
     }
 
-    //private void SortWeaponSOtoThumNail()
-    //{
-    //    var thumbnailDict = loadWeaponThumNails
-    //        .Where(s => s != null)
-    //        .GroupBy(s => s.name)
-    //        .ToDictionary(g => g.Key, g => g.First());
-    //    loadWeaponThumNails = weaponLibrary.weapons
-    //        .Select(entry =>
-    //        {
-    //            string prefabName = entry.prefab ? entry.prefab.name : "";
-    //            if (thumbnailDict.TryGetValue(prefabName, out var sprite))
-    //                return sprite;
-
-    //            Debug.LogWarning($"[{entry.Index}] {prefabName} 썸네일 없음");
-    //            return null;
-    //        })
-    //        .ToList();
-    //}
     private void SetSlotInfo()
     {
-        Debug.Log($"[SetSlotInfo] 슬롯 개수: {equipManager.Slot.Count}");
+#if DEBUG_MODE
+        //Debug.Log($"[SetSlotInfo] 슬롯 개수: {equipManager.Slot.Count}");
+
+        var slot = equipManager.Slot;
+        Debug.Log($"[SetSlotInfo] 슬롯 개수: {slot.Count}");
 
         for (int i = 0; i < slotImage.Length; i++)
         {
-            if (i < equipManager.Slot.Count)
+            if (i < slot.Count && slot[i] != null)
             {
-                var w = equipManager.Slot[i].GetComponent<Weapon>();
-                var so = weaponLibrary.GetSO(w.weaponSO.PrefabIndex);
-
-                // 현재 레벨 데이터 꺼내오기
-                var levelData = so.Levels.Find(l => l.Level == w.curLevel);
-
-                slotImage[i].sprite = so.ThumbNail;
-                slotText[i].text = $"Lv.{w.curLevel}";
-
+                var w = slot[i].GetComponent<Weapon>();
+                if (!w || !w.weaponSO || w.CurLevelData == null || w.CurLevelData.ThumbNail == null)
+                {
+                    slotImage[i].sprite = null;
+                    slotText[i].text = string.Empty;
+                    continue;
+                }
+                slotImage[i].sprite = w.CurLevelData.ThumbNail;
+                Debug.Log($"[SetSlotInfo] Slot {i}: {w.weaponSO.Name} Lv{w.CurLevelData.Level}, 썸네일 OK");
+                slotText[i].text = $"Lv.{w.CurLevelData.Level}"; 
             }
             else
             {
                 slotImage[i].sprite = null;
                 slotText[i].text = string.Empty;
-                Debug.Log($"[{i}] 슬롯 비워짐");
             }
         }
+        //for (int i = 0; i < slotImage.Length; i++)
+        //{
+        //    if (i < equipManager.Slot.Count && equipManager.Slot[i] != null)
+        //    {
+        //        var go = equipManager.Slot[i];
+        //        var w = go.GetComponent<Weapon>();
+
+        //        if (w == null)
+        //        {
+        //            Debug.LogWarning($"[Slot {i}] GameObject={go.name}, Weapon 컴포넌트 없음");
+        //            slotImage[i].sprite = null;
+        //            slotText[i].text = string.Empty;
+        //            continue;
+        //        }
+
+        //        if (w.weaponSO == null)
+        //        {
+        //            Debug.LogWarning($"[Slot {i}] {go.name}: weaponSO 없음");
+        //            slotImage[i].sprite = null;
+        //            slotText[i].text = string.Empty;
+        //            continue;
+        //        }
+
+        //        if (w.CurLevelData == null)
+        //        {
+        //            Debug.LogWarning($"[Slot {i}] {w.weaponSO.Name} CurLevelData 없음 (curLevel?)");
+        //            slotImage[i].sprite = null;
+        //            slotText[i].text = string.Empty;
+        //            continue;
+        //        }
+
+        //        if (w.CurLevelData.ThumbNail == null)
+        //        {
+        //            Debug.LogWarning($"[Slot {i}] {w.weaponSO.Name} Lv{w.CurLevelData.Level} 썸네일 없음");
+        //            slotImage[i].sprite = null;
+        //            slotText[i].text = string.Empty;
+        //            continue;
+        //        }
+
+        //        // 정상 처리
+        //        Debug.Log($"[Slot {i}] {w.weaponSO.Name} Lv{w.CurLevelData.Level}, 썸네일 OK");
+        //        slotImage[i].sprite = w.CurLevelData.ThumbNail;
+        //        slotText[i].text = $"Lv.{w.CurLevelData.Level}";
+        //    }
+        //    //else
+        //    //{
+        //    //    Debug.Log($"[Slot {i}] 슬롯 비어있음");
+        //    //    slotImage[i].sprite = null;
+        //    //    slotText[i].text = string.Empty;
+        //    //}
+        //}
+#else
+        Debug.Log($"[SetSlotInfo] 슬롯 개수: {equipManager.Slot.Count}");
+        for (int i = 0; i < slotImage.Length; i++)
+        {
+            if (i < equipManager.Slot.Count && equipManager.Slot[i] != null)
+            {
+                var w = equipManager.Slot[i].GetComponent<Weapon>();
+                if (w != null && w.weaponSO != null)
+                {
+                    slotImage[i].sprite = w.weaponSO.Levels[w.CurLevelData.Level - 1].ThumbNail;
+                    slotText[i].text = $"Lv.{w.CurLevelData.Level}";
+                }
+                else
+                {
+                    slotImage[i].sprite = null;
+                    slotText[i].text = string.Empty;
+                }
+            }
+            else
+            {
+                slotImage[i].sprite = null;
+                slotText[i].text = string.Empty;
+            }
+        }
+      
+#endif
     }
 }

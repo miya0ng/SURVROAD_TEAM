@@ -47,6 +47,15 @@ public class Bullet : MonoBehaviour
         if (levelData != null && timer >= levelData.Duration)
         {
             gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (levelData != null && rb != null)
+        {
+            rb.linearVelocity = transform.forward * levelData.BulletSpeed;
         }
     }
 
@@ -62,7 +71,7 @@ public class Bullet : MonoBehaviour
         if (target != null && !hitTargets.Contains(other.gameObject))
         {
             float damage = Random.Range(levelData.MinDamage, levelData.MaxDamage);
-            Debug.Log($"Bullet hit {other.gameObject.name} �� {damage} damage");
+            Debug.Log($"Bullet hit {other.gameObject.name} / {damage} damage");
 
             target.OnDamage(damage, null);
             hitTargets.Add(other.gameObject);

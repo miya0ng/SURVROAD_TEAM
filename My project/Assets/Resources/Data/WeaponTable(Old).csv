@@ -1,0 +1,36 @@
+ID,Name,Type,Target,Level,MinDamage,MaxDamage,ShotCount,AttackSpeed,BulletSpeed,AttackRange,EffectiveRange,ExplosionRange,Duration,Piercing,Info,PrefabName
+21101,auto_turret_lv1,1,1,1,6,6,1,1.5,5,2,1,0,3,false ,자동으로 가장 가까운 적을 연사 공격하는 무기,SM_Wep_Veh_MachineGun_01
+21201,auto_turret_lv2,1,1,2,10,10,1,1.8,5,2,1,0,3,false ,Lv1에 비해 데미지와 공격속도가 늘어남,SM_Wep_Veh_MachineGun_01
+21301,auto_turret_lv3,1,1,3,7,7,2,1.8,5,2,1,0,3,false ,총열이 두개로 늘어나 동시에 두발씩 발사됨,SM_Wep_AAGun_01
+21401,auto_turret_lv4,1,1,4,9,9,2,2.2,5,2,1,0,3,false ,Lv3에 비해 데미지와 공격속도가 늘어남,SM_Wep_AAGun_01
+21501,auto_turret_lv5,1,1,5,10,10,1,5,5,2,1,0,3,false ,캐틀링건으로 진화되며 한발씩 나가지만 공속이 매우 빨라짐,SM_Wep_Veh_MiniGun_01
+21102,rocket_launcher_lv1,1,1,1,20,20,1,0.3,3,2,2,2.5,3,false ,자동으로 가장 가까운 적에게 폭발하는 로켓을 날리는 무기,SM_Wep_Veh_Rocket_Launcher_01
+21202,rocket_launcher_lv2,1,1,2,20,20,2,0.3,3,2,2,2.5,3,false ,한번에 발사되는 로켓이 두발로 늘어남,SM_Wep_Veh_Rocket_Launcher_01
+21302,rocket_launcher_lv3,1,1,3,20,20,3,0.33,3,2,2,2.5,3,false ,공격속도가 소폭 증가하고 로켓이 세발로 늘어남,SM_Wep_Veh_Rocket_Launcher_01
+21402,rocket_launcher_lv4,1,1,4,20,20,4,0.35,3,2,2,2.5,3,false ,공격속도가 소폭 증가하고 로켓이 네발로 늘어남,SM_Wep_Veh_Rocket_Launcher_01
+21502,rocket_launcher_lv5,1,1,5,30,30,4,0.37,3,2,2,3,3,false ,공격속도가 소폭 증가하고 데미지와 폭발범위가 늘어남,SM_Wep_Veh_Rocket_Launcher_01
+21103,laser_cannon_lv1,1,2,1,2,2,2,8,10,3,1,0,3,true ,충전 후 3초 동안 전방 일직선으로 관통 레이저를 발사하는 무기,
+21203,laser_cannon_lv2,1,2,2,3,3,2,8,10,3,2,0,3,true ,Lv1 보다 데미지와 레이저 폭이 소폭 증가,
+21303,laser_cannon_lv3,1,2,3,4,4,2,8,10,3,3,0,3,true ,Lv2 보다 데미지와 레이저 폭이 소폭 증가,
+21403,laser_cannon_lv4,1,2,4,5,5,2,8,10,3,4,0,3,true ,Lv3 보다 데미지와 레이저 폭이 소폭 증가,
+21503,laser_cannon_lv5,1,2,5,6,6,2,8,10,3,6,0,3,true ,Lv4 보다 데미지가 소폭 증가하고 레이저 폭이 대폭 증가,
+22101,spike_bumper_lv1,2,2,1,10,60,0,1,0,1,1,0,0,true ,차량 전면에 장착된 스파이크로 충돌 시 추가 피해와 넉백을 주는 무기,SM_Wep_Melee_Spear_Wood_01
+22201,spike_bumper_lv2,2,2,2,15,80,0,1,0,1,1,0,0,true ,Lv1 보다 스파이크 크기가 커지고 데미지가 늘어남,SM_Wep_Melee_Spear_Wood_01
+22301,spike_bumper_lv3,2,2,3,20,100,0,1,0,1,1,0,0,true ,Lv2 보다 스파이크 크기가 커지고 데미지가 늘어남,SM_Wep_Melee_Spear_Wood_01
+22401,spike_bumper_lv4,2,2,4,25,120,0,1,0,1,1,0,0,true ,Lv3 보다 스파이크 크기가 커지고 데미지가 늘어남,SM_Wep_Melee_Spear_Wood_01
+22501,spike_bumper_lv5,2,2,5,30,150,0,1,0,1,1,0,0,true ,충돌시 감속이 줄어들고 Lv4 보다 스파이크 크기가 커지고 데미지가 늘어남,SM_Wep_Melee_Spear_Wood_01
+22102,sawblade_wheel_lv1,2,2,1,4,4,0,4,0,1,1,0,0,true ,차량 옆면에 회전하는 톱날을 장착하여 접근하는 적에게 지속 피해를 주는 무기,SM_Wep_Veh_Saw_Launcher_Ammo_01
+22202,sawblade_wheel_lv2,2,2,2,7,7,0,4,0,1,1,0,0,true ,Lv1 보다 피해량이 증가하고 톱날 회전 속도가 빨라짐,SM_Wep_Veh_Saw_Launcher_Ammo_01
+22302,sawblade_wheel_lv3,2,2,3,8,8,0,5,0,1,1,0,0,true ,Lv2 보다 피해량이 증가하고 톱날 회전 속도가 빨라짐,SM_Wep_Veh_Saw_Launcher_Ammo_01
+22402,sawblade_wheel_lv4,2,2,4,12,12,0,5,0,1,1,0,0,true ,Lv3 보다 피해량이 증가하고 톱날 회전 속도가 빨라짐,SM_Wep_Veh_Saw_Launcher_Ammo_01
+22502,sawblade_wheel_lv5,2,2,5,12,12,0,8,0,1,1,0,0,true ,Lv4 보다 톱날의 크기와 피해량이 증가하고 톱날 회전 속도가 빨라짐,SM_Wep_Veh_Saw_Launcher_Ammo_01
+23101,mine_dropper_lv1,3,2,1,40,40,1,0.4,0,4,1,3,10,false ,"차량 뒤에 지뢰를 떨어뜨려, 일정 시간 뒤 혹은 적 차량과 접촉 시 폭발하는 무기",SM_Wep_Bomb_Propane_01
+23201,mine_dropper_lv2,3,2,2,60,60,1,0.4,0,4,1,3.5,10,false ,피해량이 증가하고 설치 지뢰의 폭발 반경이 커짐,SM_Wep_Bomb_Propane_01
+23301,mine_dropper_lv3,3,2,3,60,60,2,0.4,0,4,1,3.5,10,false ,지뢰를 한 번에 2개 드랍함,SM_Wep_Bomb_Propane_01
+23401,mine_dropper_lv4,3,2,4,80,80,2,0.4,0,4,1,4,10,false ,Lv3 보다 피해량이 증가하고 설치 지뢰의 폭발 반경이 커짐,SM_Wep_Bomb_Propane_01
+23501,mine_dropper_lv5,3,2,5,80,80,3,0.4,0,4,1,4,10,false ,지뢰를 한 번에 3개 드랍함,SM_Wep_Bomb_Propane_01
+23102,electric_trap_lv1,3,2,1,3,3,1,1,0,4,1,0,4,false ,"강력한 전류를 깔아, 해당 영역을 지나는 적 차량에게 슬로우와 지속 피해를 주는 무기",SM_Prop_CarBattery_02
+23202,electric_trap_lv2,3,2,2,6,6,1,1.3,0,4,1,0,4,false ,(공백),SM_Prop_CarBattery_02
+23302,electric_trap_lv3,3,2,3,10,10,1,1.5,0,4,1,0,4,false ,(공백),SM_Prop_CarBattery_02
+23402,electric_trap_lv4,3,2,4,14,14,1,1.8,0,4,1,0,4,false ,(공백),SM_Prop_CarBattery_02
+23502,electric_trap_lv5,3,2,5,14,14,1,3,0,4,1,0,4,false ,(공백),SM_Prop_CarBattery_02

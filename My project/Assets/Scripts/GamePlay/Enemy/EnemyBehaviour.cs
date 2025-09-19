@@ -56,7 +56,7 @@ public class EnemyBehaviour : LivingEntity, IDamagable
         }
         else if(target == null && agent.isOnNavMesh)
         {
-            Debug.Log("==== No Target! ===");
+            //Debug.Log("==== No Target! ===");
             agent.isStopped = true;
         }
     }
