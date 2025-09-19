@@ -1161,7 +1161,6 @@ GameObject:
   - component: {fileID: 5329385120361006913}
   - component: {fileID: 3611691631744251277}
   - component: {fileID: 3167097605616002190}
-  - component: {fileID: 5701414640233024411}
   m_Layer: 3
   m_Name: SM_Veh_Buggy_01
   m_TagString: Player
@@ -1250,28 +1249,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5701414640233024411
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8427232532716962088}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43281193284639866, guid: f01d2e25adb9a4b408cec5657747256b, type: 2}
 --- !u!1 &8624209421196519010
 GameObject:
   m_ObjectHideFlags: 0

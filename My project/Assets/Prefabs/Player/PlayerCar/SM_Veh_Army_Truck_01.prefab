@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 9138139504531843164}
   - component: {fileID: 5568201329830197630}
   - component: {fileID: 7624366868313580392}
-  - component: {fileID: 2008821971340519419}
   - component: {fileID: 186101136146224934}
   m_Layer: 0
   m_Name: SM_Veh_Army_Truck_01
@@ -107,28 +106,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2008821971340519419
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 53427528991549043}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43341768269885706, guid: febdbc3f29028b54887463c8d944a8c3, type: 2}
 --- !u!64 &186101136146224934
 MeshCollider:
   m_ObjectHideFlags: 0
