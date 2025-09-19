@@ -117,7 +117,6 @@ GameObject:
   - component: {fileID: 5991485049321972121}
   - component: {fileID: 8545205223128533550}
   - component: {fileID: 2457237709051763678}
-  - component: {fileID: 3151391107499434016}
   m_Layer: 0
   m_Name: SM_Veh_Ambulance_01
   m_TagString: Untagged
@@ -210,28 +209,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3151391107499434016
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 945839476522183920}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43766664580946738, guid: 8ab2e99cc7b969348af8864d3b9b4f4c, type: 2}
 --- !u!1 &1552831250084583121
 GameObject:
   m_ObjectHideFlags: 0
