@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7472cf164785c254ea927487cbf5990a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSO: {fileID: 0}
+  weaponSO: {fileID: 11400000, guid: b70e429230039e14c8c3ade8f7a637cb, type: 2}
   bulletPrefab: {fileID: 5245207698607943822, guid: dbc88583a9586b94cb4c753ff78f6f5b, type: 3}
   muzzle: {fileID: 1142633408594696883}
 --- !u!1 &2146528302918136386

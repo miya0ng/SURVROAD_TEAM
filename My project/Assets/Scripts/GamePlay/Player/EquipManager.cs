@@ -13,7 +13,9 @@ public class EquipManager : MonoBehaviour
     private int maxEquipCount = 3;
 
     public event System.Action OnEquipChanged;
-    
+
+    public int IndexOfInternal(GameObject go) => equipWeapons.IndexOf(go);
+
     //Todo: manage list<transform>, 무기 여러개 장착해야함
     public void Awake()
     {
@@ -22,11 +24,15 @@ public class EquipManager : MonoBehaviour
         {
             //Debug.Log("equipmanager player is null");
         }
-        GameObject[] socketObjs = GameObject.FindGameObjectsWithTag("EquipSocket");
-        foreach (var obj in socketObjs)
-        {
-            sockets.Add(obj.transform);
-        }
+        //GameObject[] socketObjs = GameObject.FindGameObjectsWithTag("EquipSocket");
+        //foreach (var obj in socketObjs)
+        //{
+        //    sockets.Add(obj.transform);
+        //}
+        var socketObjs = GameObject.FindGameObjectsWithTag("EquipSocket")
+                           .OrderBy(o => o.name, System.StringComparer.Ordinal).ToArray();
+        sockets.Clear();
+        foreach (var obj in socketObjs) sockets.Add(obj.transform);
     }
 
     public void Update()
@@ -37,16 +43,23 @@ public class EquipManager : MonoBehaviour
         }
     }
 
+    private System.Collections.IEnumerator InvokeEquipChangedNextFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        OnEquipChanged?.Invoke();
+    }
+
     public void EquipWeapon(WeaponSO so)
     {
         var same = equipWeapons
+        .Where(go => go != null)
         .Select(go => go?.GetComponent<Weapon>())
         .FirstOrDefault(w => w != null && w.weaponSO == so);
 
         if (same != null)
         {
             same.LevelUp();
-            OnEquipChanged?.Invoke();
+            //OnEquipChanged?.Invoke();
             return;
         }
 
@@ -56,7 +69,7 @@ public class EquipManager : MonoBehaviour
             return;
         }
 
-        var socket = sockets[Slot.Count];
+        var socket = sockets[equipWeapons.Count];
         var levelData = so.Levels.FirstOrDefault(l => l.Level == 1);
         if (levelData == null || levelData.prefab == null)
         {
@@ -67,11 +80,13 @@ public class EquipManager : MonoBehaviour
         var equipWeapon = Instantiate(levelData.prefab, socket.position, socket.rotation, socket);
         var w = equipWeapon.GetComponent<Weapon>();
 
+        w.weaponSO = so;
         w.SetLevel(1);
         w.Equip(player);
 
         equipWeapons.Add(equipWeapon);
-        OnEquipChanged?.Invoke();
+        StartCoroutine(InvokeEquipChangedNextFrame());
+        //OnEquipChanged?.Invoke();
     }
 
 
@@ -85,8 +100,8 @@ public class EquipManager : MonoBehaviour
 
         if (oldObj != null)
             Destroy(oldObj);
-
-        OnEquipChanged?.Invoke();
+        StartCoroutine(InvokeEquipChangedNextFrame());
+        //OnEquipChanged?.Invoke();
     }
     public void UnEquipWeapon()
     {
@@ -98,7 +113,8 @@ public class EquipManager : MonoBehaviour
 
         equipWeapon.SetActive(false);
         Destroy(equipWeapon);
-        OnEquipChanged?.Invoke();
+        StartCoroutine(InvokeEquipChangedNextFrame());
+        //OnEquipChanged?.Invoke();
 
         //var equipWeapon = sockets[equipCount].GetComponentInChildren<Weapon>();
         //equipWeapon.gameObject.SetActive(false);
@@ -113,6 +129,7 @@ public class EquipManager : MonoBehaviour
         equipWeapons.RemoveAt(index);
 
         Destroy(equipWeapon);
-        OnEquipChanged?.Invoke();
+        //OnEquipChanged?.Invoke();
+        StartCoroutine(InvokeEquipChangedNextFrame());
     }
 }
