@@ -311,7 +311,6 @@ GameObject:
   - component: {fileID: 6200902867089096698}
   - component: {fileID: 8904178539586405190}
   - component: {fileID: 3665505673014292595}
-  - component: {fileID: 6786364293000909998}
   m_Layer: 0
   m_Name: SM_Veh_Army_Truck_Wheel_rr_01
   m_TagString: Untagged
@@ -387,27 +386,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &6786364293000909998
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 979029348034388457}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5999723
-  m_Center: {x: 0.0000003874302, y: 0, z: 0}
 --- !u!1 &2434467087376714097
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,7 +395,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6721166839680536393}
-  - component: {fileID: 383609076431022134}
   m_Layer: 3
   m_Name: RightSoket
   m_TagString: EquipSocket
@@ -434,33 +411,12 @@ Transform:
   m_GameObject: {fileID: 2434467087376714097}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.3, y: 2, z: 0.6}
+  m_LocalPosition: {x: -1.52, y: 1.56, z: -1.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9138139504531843164}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &383609076431022134
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2434467087376714097}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3010231735713292595
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +428,6 @@ GameObject:
   - component: {fileID: 4386151746852035927}
   - component: {fileID: 8656415705879934966}
   - component: {fileID: 4642186055350427488}
-  - component: {fileID: 5483444882428524579}
   m_Layer: 0
   m_Name: SM_Veh_Army_Truck_Wheel_rr_02
   m_TagString: Untagged
@@ -548,27 +503,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &5483444882428524579
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3010231735713292595}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5999723
-  m_Center: {x: 0.0000003874302, y: 0, z: 0}
 --- !u!1 &3358526400072615282
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,7 +512,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3798282076040207756}
-  - component: {fileID: 8861326227876804985}
   m_Layer: 3
   m_Name: TopSoket
   m_TagString: EquipSocket
@@ -595,33 +528,12 @@ Transform:
   m_GameObject: {fileID: 3358526400072615282}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.13, z: 0.81}
+  m_LocalPosition: {x: 0, y: 3.37, z: -0.711}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9138139504531843164}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &8861326227876804985
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3358526400072615282}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3383485076406607364
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,7 +631,6 @@ GameObject:
   - component: {fileID: 8196699681766421753}
   - component: {fileID: 7678088062224112679}
   - component: {fileID: 8794136845829662234}
-  - component: {fileID: 3147533507287421050}
   m_Layer: 0
   m_Name: SM_Veh_Army_Truck_Wheel_fl
   m_TagString: Untagged
@@ -795,27 +706,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3147533507287421050
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583927542620188656}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.61274385
-  m_Center: {x: 0.0000003874302, y: -0.0000003874302, z: 0}
 --- !u!1 &3723847877655345589
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,7 +887,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7778848976364296318}
-  - component: {fileID: 3219432088634344413}
   m_Layer: 3
   m_Name: LeftSoket
   m_TagString: EquipSocket
@@ -1014,33 +903,12 @@ Transform:
   m_GameObject: {fileID: 4894374134301466916}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.3, y: 2, z: 0.6}
+  m_LocalPosition: {x: 1.52, y: 1.56, z: -1.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9138139504531843164}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &3219432088634344413
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4894374134301466916}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5074071538176703506
 GameObject:
   m_ObjectHideFlags: 0
@@ -1050,7 +918,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1816642956289607754}
-  - component: {fileID: 6839836464333610341}
   m_Layer: 3
   m_Name: FrontSoket
   m_TagString: EquipSocket
@@ -1067,33 +934,12 @@ Transform:
   m_GameObject: {fileID: 5074071538176703506}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.7, z: 3.73}
+  m_LocalPosition: {x: 0, y: 1.94, z: 2.687}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9138139504531843164}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &6839836464333610341
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5074071538176703506}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5589071161087367021
 GameObject:
   m_ObjectHideFlags: 0
@@ -1191,7 +1037,6 @@ GameObject:
   - component: {fileID: 7630789930205334533}
   - component: {fileID: 3968420800572462428}
   - component: {fileID: 1207942613639691025}
-  - component: {fileID: 1869419223018777335}
   m_Layer: 0
   m_Name: SM_Veh_Army_Truck_Wheel_fr
   m_TagString: Untagged
@@ -1267,27 +1112,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &1869419223018777335
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5678490236260833853}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.61274385
-  m_Center: {x: -0.0000011473894, y: -0.0000003874302, z: 0}
 --- !u!1 &6041682433572636096
 GameObject:
   m_ObjectHideFlags: 0
@@ -1297,7 +1121,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4855554776007421227}
-  - component: {fileID: 6514328766223739766}
   m_Layer: 3
   m_Name: BackSoket
   m_TagString: EquipSocket
@@ -1314,33 +1137,12 @@ Transform:
   m_GameObject: {fileID: 6041682433572636096}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.75, z: -4.83}
+  m_LocalPosition: {x: 0, y: 3.31, z: -3.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9138139504531843164}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &6514328766223739766
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6041682433572636096}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7068599551496350609
 GameObject:
   m_ObjectHideFlags: 0
@@ -1546,7 +1348,6 @@ GameObject:
   - component: {fileID: 7349304332042483943}
   - component: {fileID: 7846148363099923347}
   - component: {fileID: 2281195611854904000}
-  - component: {fileID: 8011743287072788895}
   m_Layer: 0
   m_Name: SM_Veh_Army_Truck_Wheel_rl_02
   m_TagString: Untagged
@@ -1622,27 +1423,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &8011743287072788895
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9089232231594362685}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5999723
-  m_Center: {x: 0.0000001937151, y: 0, z: 0}
 --- !u!1 &9174119605216066980
 GameObject:
   m_ObjectHideFlags: 0
@@ -1654,7 +1434,6 @@ GameObject:
   - component: {fileID: 3903158242247330845}
   - component: {fileID: 2613577887514621580}
   - component: {fileID: 3078365752979556025}
-  - component: {fileID: 2702630664022234607}
   m_Layer: 0
   m_Name: SM_Veh_Army_Truck_Wheel_rl_01
   m_TagString: Untagged
@@ -1730,24 +1509,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2702630664022234607
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9174119605216066980}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5999723
-  m_Center: {x: 0.0000001937151, y: 0, z: 0}

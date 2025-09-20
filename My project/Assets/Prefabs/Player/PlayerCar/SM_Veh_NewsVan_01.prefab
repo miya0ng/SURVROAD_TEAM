@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7453273191311463873}
-  - component: {fileID: 2085979701118415990}
   m_Layer: 3
   m_Name: RightSoket
   m_TagString: EquipSocket
@@ -26,33 +25,12 @@ Transform:
   m_GameObject: {fileID: 553299899614322973}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.3, y: 2, z: 0.14}
+  m_LocalPosition: {x: -1.36, y: 0.669, z: 0.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7325365355062025803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &2085979701118415990
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 553299899614322973}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &560368533506009807
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,7 +256,6 @@ GameObject:
   - component: {fileID: 4141649693793739477}
   - component: {fileID: 7912013051269268607}
   - component: {fileID: 4249418831607202473}
-  - component: {fileID: 3668801087566254648}
   m_Layer: 0
   m_Name: SM_Veh_NewsVan_Wheel_rl
   m_TagString: Untagged
@@ -354,27 +331,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3668801087566254648
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1131397890856640314}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.397583
-  m_Center: {x: 0.09900828, y: 0, z: -0.0000003874302}
 --- !u!1 &1873862142554653168
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,7 +340,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 620804917221861486}
-  - component: {fileID: 7322766886695794349}
   m_Layer: 3
   m_Name: FrontSoket
   m_TagString: EquipSocket
@@ -401,33 +356,12 @@ Transform:
   m_GameObject: {fileID: 1873862142554653168}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.7, z: 2.1000001}
+  m_LocalPosition: {x: 0, y: 1.205, z: 2.1000001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7325365355062025803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &7322766886695794349
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1873862142554653168}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2192764234211507472
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,7 +890,6 @@ GameObject:
   - component: {fileID: 6021841305542166644}
   - component: {fileID: 2816332205220629169}
   - component: {fileID: 5287339485019019343}
-  - component: {fileID: 581873949862807159}
   m_Layer: 0
   m_Name: SM_Veh_NewsVan_Wheel_fr
   m_TagString: Untagged
@@ -1032,27 +965,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &581873949862807159
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5483609756111711606}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.397583
-  m_Center: {x: 0.09900828, y: 0, z: 0.0000002682209}
 --- !u!1 &6413891957537310269
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,7 +1148,6 @@ GameObject:
   - component: {fileID: 7123999403030821895}
   - component: {fileID: 5199674457160334038}
   - component: {fileID: 2943235954466039705}
-  - component: {fileID: 4296081378990998255}
   m_Layer: 0
   m_Name: SM_Veh_NewsVan_Wheel_rl1
   m_TagString: Untagged
@@ -1312,27 +1223,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &4296081378990998255
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6507418408195057594}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.397583
-  m_Center: {x: -0.09900828, y: 0, z: -0.0000003874302}
 --- !u!1 &6758095877048624008
 GameObject:
   m_ObjectHideFlags: 0
@@ -1428,7 +1318,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2628641363373703762}
-  - component: {fileID: 4819404238636628005}
   m_Layer: 3
   m_Name: TopSoket
   m_TagString: EquipSocket
@@ -1445,33 +1334,12 @@ Transform:
   m_GameObject: {fileID: 7175955663708041096}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.22, z: -0.58}
+  m_LocalPosition: {x: 0, y: 2.913, z: 0.497}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7325365355062025803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &4819404238636628005
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7175955663708041096}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7384359705115538856
 GameObject:
   m_ObjectHideFlags: 0
@@ -1483,7 +1351,6 @@ GameObject:
   - component: {fileID: 7385911076509747590}
   - component: {fileID: 6562995912909471549}
   - component: {fileID: 6169491993415345099}
-  - component: {fileID: 2332757610385898318}
   m_Layer: 0
   m_Name: SM_Veh_NewsVan_Wheel_fl
   m_TagString: Untagged
@@ -1559,27 +1426,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2332757610385898318
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7384359705115538856}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.397583
-  m_Center: {x: -0.09900828, y: 0, z: 0.0000002682209}
 --- !u!1 &7559184492453101374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1589,7 +1435,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7758586463617901903}
-  - component: {fileID: 9212984385332821942}
   m_Layer: 3
   m_Name: LeftSoket
   m_TagString: EquipSocket
@@ -1606,33 +1451,12 @@ Transform:
   m_GameObject: {fileID: 7559184492453101374}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.3, y: 2, z: 0.13999999}
+  m_LocalPosition: {x: 1.41, y: 0.71, z: 0.13999999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7325365355062025803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &9212984385332821942
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7559184492453101374}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7661157743376278300
 GameObject:
   m_ObjectHideFlags: 0
@@ -1642,7 +1466,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2208990051014393432}
-  - component: {fileID: 185270167835037873}
   m_Layer: 3
   m_Name: BackSoket
   m_TagString: EquipSocket
@@ -1659,33 +1482,12 @@ Transform:
   m_GameObject: {fileID: 7661157743376278300}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.75, z: -2.81}
+  m_LocalPosition: {x: 1.104, y: 2.232, z: -1.691}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7325365355062025803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &185270167835037873
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7661157743376278300}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7842512320205176140
 GameObject:
   m_ObjectHideFlags: 0
