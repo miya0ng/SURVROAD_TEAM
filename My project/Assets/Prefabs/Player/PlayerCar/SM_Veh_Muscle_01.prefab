@@ -95,7 +95,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7796273440264195280}
-  - component: {fileID: 8806449238123598975}
   m_Layer: 3
   m_Name: BackSoket
   m_TagString: EquipSocket
@@ -112,119 +111,12 @@ Transform:
   m_GameObject: {fileID: 673354768905278015}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.22, z: -1.78}
+  m_LocalPosition: {x: 0, y: 2.025, z: -1.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8929061106331127813}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &8806449238123598975
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 673354768905278015}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &840123784251873476
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8756383284780850758}
-  - component: {fileID: 585484475970736255}
-  - component: {fileID: 4433360010403903848}
-  m_Layer: 0
-  m_Name: SM_Veh_Muscle_Roof_Props_01
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8756383284780850758
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 840123784251873476}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8929061106331127813}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &585484475970736255
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 840123784251873476}
-  m_Mesh: {fileID: 4300024, guid: cf2d7742fdc5b394788641965413e325, type: 3}
---- !u!23 &4433360010403903848
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 840123784251873476}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 7c26cf0bfe31c4247ad0de127e8e305f, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &984332280858738213
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,7 +128,6 @@ GameObject:
   - component: {fileID: 1797935185870445348}
   - component: {fileID: 6336841175324647028}
   - component: {fileID: 1249863139994287123}
-  - component: {fileID: 994644603589818572}
   m_Layer: 0
   m_Name: SM_Veh_Muscle_Wheel_rr
   m_TagString: Untagged
@@ -312,27 +203,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &994644603589818572
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 984332280858738213}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.55102766
-  m_Center: {x: -0.00000043958426, y: 0.000000059604645, z: -0.00000014901161}
 --- !u!1 &1478541204422319601
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,7 +300,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2011977301060322376}
-  - component: {fileID: 2607875354267902452}
   m_Layer: 3
   m_Name: FrontSoket
   m_TagString: EquipSocket
@@ -447,33 +316,12 @@ Transform:
   m_GameObject: {fileID: 1632271087041980324}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.23, z: 1.8000002}
+  m_LocalPosition: {x: 0, y: 1.69, z: 2.347}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8929061106331127813}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &2607875354267902452
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1632271087041980324}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1998682972370750062
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,7 +331,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5354426066735247352}
-  - component: {fileID: 9036138669909930310}
   m_Layer: 3
   m_Name: TopSoket
   m_TagString: EquipSocket
@@ -500,33 +347,12 @@ Transform:
   m_GameObject: {fileID: 1998682972370750062}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.87, z: 0.1}
+  m_LocalPosition: {x: 0, y: 2.187, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8929061106331127813}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &9036138669909930310
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1998682972370750062}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3124879877263662451
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,7 +536,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9206572099331245175}
-  - component: {fileID: 9181687720418865109}
   m_Layer: 3
   m_Name: LeftSoket
   m_TagString: EquipSocket
@@ -727,33 +552,12 @@ Transform:
   m_GameObject: {fileID: 3453536792969173766}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.3, y: 2, z: 0.15}
+  m_LocalPosition: {x: 1.44, y: 1.18, z: 0.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8929061106331127813}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &9181687720418865109
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3453536792969173766}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4317998885970133530
 GameObject:
   m_ObjectHideFlags: 0
@@ -765,7 +569,6 @@ GameObject:
   - component: {fileID: 8296765530917221294}
   - component: {fileID: 1215385931510293379}
   - component: {fileID: 7717070263480344458}
-  - component: {fileID: 7927219208636015654}
   m_Layer: 0
   m_Name: SM_Veh_Muscle_Wheel_fr
   m_TagString: Untagged
@@ -841,27 +644,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &7927219208636015654
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4317998885970133530}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.55102754
-  m_Center: {x: -0.00000043958426, y: 0.000000059604645, z: -0.0000011026859}
 --- !u!1 &5466287286214634517
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,7 +685,6 @@ Transform:
   - {fileID: 667540410969325197}
   - {fileID: 4488376847277473182}
   - {fileID: 6912925297281399371}
-  - {fileID: 8756383284780850758}
   - {fileID: 5641692627810230677}
   - {fileID: 2319833862359342974}
   - {fileID: 4338121580110434083}
@@ -1253,7 +1034,6 @@ GameObject:
   - component: {fileID: 1086670954809945120}
   - component: {fileID: 2265176763924261550}
   - component: {fileID: 5015252260657883812}
-  - component: {fileID: 883326295880074858}
   m_Layer: 0
   m_Name: SM_Veh_Muscle_Wheel_rl
   m_TagString: Untagged
@@ -1329,27 +1109,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &883326295880074858
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8157978462311120028}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.55102754
-  m_Center: {x: -0.00000025331974, y: 0.000000059604645, z: 0}
 --- !u!1 &8336069472807019246
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,7 +1120,6 @@ GameObject:
   - component: {fileID: 1838112462024372172}
   - component: {fileID: 3050915823043028208}
   - component: {fileID: 6583384598759847361}
-  - component: {fileID: 2171010632856855355}
   m_Layer: 0
   m_Name: SM_Veh_Muscle_Wheel_fl
   m_TagString: Untagged
@@ -1437,27 +1195,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2171010632856855355
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8336069472807019246}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5510266
-  m_Center: {x: -0.00000025331974, y: 0.000000059604645, z: 0.00000011920929}
 --- !u!1 &8710489842357739977
 GameObject:
   m_ObjectHideFlags: 0
@@ -1467,7 +1204,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1005641142391765416}
-  - component: {fileID: 23525204554158630}
   m_Layer: 3
   m_Name: RightSoket
   m_TagString: EquipSocket
@@ -1484,30 +1220,9 @@ Transform:
   m_GameObject: {fileID: 8710489842357739977}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.3, y: 2, z: 0.1500001}
+  m_LocalPosition: {x: -1.44, y: 1.18, z: 0.1500001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8929061106331127813}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &23525204554158630
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8710489842357739977}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
