@@ -16,7 +16,6 @@ public class EquipItem : MonoBehaviour, IItem
         var equipManager = player.GetComponentInChildren<EquipManager>();
         if (equipManager == null) return;
         equipManager.EquipWeapon(weaponSO);
-        Destroy(gameObject);
     }
 
     private void Update()

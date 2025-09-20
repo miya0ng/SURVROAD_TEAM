@@ -14,10 +14,20 @@ public class LivingEntity : MonoBehaviour, IDamagable
         //Debug.Log($"{gameObject.name} took {damage} damage. HP: {curHp}");
 
         if (curHp <= 0)
-            OnDeath();
+            Die();
     }
 
-    public virtual void OnDeath()
+    public virtual void Heal(float amount)
+    {
+        curHp += amount;
+        if (curHp >= maxHp)
+        {
+            curHp = maxHp;
+        }
+    }
+
+
+    protected virtual void Die()
     {
        Debug.Log($"=={gameObject.name} + isdead!==");
        onDeath?.Invoke();

@@ -7,7 +7,9 @@ public class EnemyBehaviour : LivingEntity, IDamagable
 {
     private Ui_HpBar ui_HpBar;
 
+    private ItemManager itemManager;
     private EnemySpawner enemyPool;
+
     public LayerMask targetLayer;
     private NavMeshAgent agent;
     private Transform target;
@@ -18,8 +20,8 @@ public class EnemyBehaviour : LivingEntity, IDamagable
     void Awake()
     {
         //enemyManager = GetComponent<EnemyManager>();
-
-        enemyPool= GameObject.FindGameObjectWithTag("EnemySpawner").GetComponent<EnemySpawner>();
+        itemManager = GameObject.FindGameObjectWithTag("ItemManager").GetComponent<ItemManager>();
+        enemyPool = GameObject.FindGameObjectWithTag("EnemySpawner").GetComponent<EnemySpawner>();
         agent = GetComponent<NavMeshAgent>();
         ui_HpBar = GetComponent<Ui_HpBar>();
         maxHp = 50;
@@ -99,14 +101,17 @@ public class EnemyBehaviour : LivingEntity, IDamagable
         //Debug.Log($"{gameObject.name} took {damage} damage. HP: {this.curHp}");
     }
 
-    public override void OnDeath()
+    protected override void Die()
     {
-        base.OnDeath();
+        base.Die();
+        itemManager.DropFromEnemy(transform.position);
+
         if (enemyPool != null)
         {
             enemyPool.Return(gameObject);
             enemyPool.ActiveEnemyCount--;
         }
+
         //else
         //{
         //    Destroy(gameObject);

@@ -44,9 +44,14 @@ public class PlayerBehaviour : LivingEntity, IDamagable
         rb.MovePosition(rb.position + transform.forward * playerController.vAxis * playerController.curMoveSpeed * Time.fixedDeltaTime);
     }
 
-    public override void OnDeath()
+    public override void Heal(float amount)
     {
-        base.OnDeath();
+        base.Heal(amount);
+    }
+
+    protected override void Die()
+    {
+        base.Die();
         gameManager.GameOver();
         //Destroy(gameObject);
         gameObject.SetActive(false);
