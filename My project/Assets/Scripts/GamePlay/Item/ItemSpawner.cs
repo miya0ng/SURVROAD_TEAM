@@ -18,6 +18,7 @@ public class ItemSpawner : MonoBehaviour
     private void Start()
     {
         StartSpawner();
+        StopSpawner();
     }
 
     public void StartSpawner()
@@ -67,7 +68,7 @@ public class ItemSpawner : MonoBehaviour
             var pos = result;
             pos.y += 0.5f;
 
-            int randomIndex = Random.Range(0, System.Enum.GetValues(typeof(WeaponIndex)).Length);
+            int randomIndex = Random.Range(0, equipItemPrefabs.Length);
 
             // SO 가져오기
             var so = equipItemPrefabs[randomIndex].GetComponent<EquipItem>().weaponSO;

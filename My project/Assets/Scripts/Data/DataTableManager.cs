@@ -26,6 +26,9 @@ public static class DataTableManger
         //        stringTable.Load(DataTableIds.String);
         //        tables.Add(DataTableIds.String, stringTable);
         //#endif
+        var itemTable = new ItemDataTable();
+        itemTable.Load(ItemDataTable.ItemTableId);
+        tables.Add(ItemDataTable.ItemTableId, itemTable);
 
         var weaponTable = new WeaponDataTable();
         weaponTable.Load(WeaponDataTable.WeaponTableId);

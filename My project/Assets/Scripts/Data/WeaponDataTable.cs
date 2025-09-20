@@ -26,7 +26,7 @@ public class WeaponData
 }
 public class WeaponDataTable : DataTable
 {
-    public static readonly string WeaponTableId = "TestWeapon";
+    public static readonly string WeaponTableId = "WeaponTable";
 
     private Dictionary<int, WeaponData> weapons = new Dictionary<int, WeaponData>();
     public override void Load(string fileName)
