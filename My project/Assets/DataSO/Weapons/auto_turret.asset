@@ -22,7 +22,7 @@ MonoBehaviour:
     MinDamage: 6
     MaxDamage: 6
     ShotCount: 1
-    AttackSpeed: 0.5
+    AttackSpeed: 0.1
     AttackRange: 10
     BulletSpeed: 2000
     EffectiveRange: 1

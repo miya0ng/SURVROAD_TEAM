@@ -145,6 +145,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5193912512339129210}
     m_Modifications:
+    - target: {fileID: 1354598067288510, guid: 142475bf32587464f86a974127ca5f1c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1720750727606104, guid: 142475bf32587464f86a974127ca5f1c, type: 3}
       propertyPath: m_Name
       value: SM_Veh_Muscle_01
@@ -205,6 +209,14 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: d72c6b5ad44370a4f9776b1eb63b1879, type: 2}
+    - target: {fileID: 23287136342255294, guid: 142475bf32587464f86a974127ca5f1c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d72c6b5ad44370a4f9776b1eb63b1879, type: 2}
+    - target: {fileID: 23291380723017674, guid: 142475bf32587464f86a974127ca5f1c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d72c6b5ad44370a4f9776b1eb63b1879, type: 2}
     - target: {fileID: 23350409046332310, guid: 142475bf32587464f86a974127ca5f1c, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -214,6 +226,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: d72c6b5ad44370a4f9776b1eb63b1879, type: 2}
     - target: {fileID: 23434813905134876, guid: 142475bf32587464f86a974127ca5f1c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d72c6b5ad44370a4f9776b1eb63b1879, type: 2}
+    - target: {fileID: 23447693120042732, guid: 142475bf32587464f86a974127ca5f1c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d72c6b5ad44370a4f9776b1eb63b1879, type: 2}
+    - target: {fileID: 23662943208697216, guid: 142475bf32587464f86a974127ca5f1c, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: d72c6b5ad44370a4f9776b1eb63b1879, type: 2}

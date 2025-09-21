@@ -23,7 +23,7 @@ public class Ui_Game : MonoBehaviour
 
     public Ui_Slider partsGuage;
 
-    private float maxPartsValue = 1000f;
+    private float maxPartsValue = 30f;
 
     public void Awake()
     {

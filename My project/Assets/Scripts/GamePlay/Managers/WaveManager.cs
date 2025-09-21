@@ -18,6 +18,10 @@ public class WaveManager : MonoBehaviour
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
+    public void Start()
+    {
+        NextWave();
+    }
     public void Update()
     {
         WaveTimer += Time.deltaTime;
@@ -28,12 +32,12 @@ public class WaveManager : MonoBehaviour
         {
             return;
         }
-        enemySpawner.StopSpawner();
-        enemySpawner.StartSpawner();
 
-        enemySpawner.curSpawnCount = 0;
         WaveTimer = 0;
         currentWave++;
         enemySpawner.waveSpawnCount = enemiesPerWave[currentWave - 1];
+
+        enemySpawner.StopSpawner();
+        enemySpawner.StartSpawner();
     }
 }

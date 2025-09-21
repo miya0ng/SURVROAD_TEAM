@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        waveManager.NextWave();
+        
     }
     void Update()
     {

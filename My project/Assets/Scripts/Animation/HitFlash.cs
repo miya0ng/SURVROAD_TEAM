@@ -1,27 +1,73 @@
+//using DG.Tweening;
+//using UnityEngine;
+
+//public class HitFlash : MonoBehaviour
+//{
+//    private Material[] mats;
+//    private int flashID;
+
+//    void Awake()
+//    {
+//        var renderer = GetComponentInChildren<Renderer>();
+//        if (renderer != null)
+//        {
+//            mats = renderer.materials;
+//            flashID = Shader.PropertyToID("_FlashAmount");
+//        }
+//    }
+
+//    public void Start()
+//    {
+
+//    }
+
+//    public void PlayFlash()
+//    {
+//        if (mats == null || mats.Length == 0) return;
+
+//        foreach (var mat in mats)
+//        {
+//            if (mat.HasProperty(flashID))
+//            {
+//                mat.DOKill();
+//                mat.SetFloat(flashID, 0f);
+
+//                mat.DOFloat(1f, flashID, 0.1f)
+//                   .SetLoops(2, LoopType.Yoyo);
+//            }
+//        }
+//    }
+//}
 using DG.Tweening;
 using UnityEngine;
 
 public class HitFlash : MonoBehaviour
 {
-    private Material mat;
+    private Renderer rend;
+    private Material[] originalMats;
+
+    [SerializeField] private Material flashMat;   // 흰색 번쩍용
+    [SerializeField] private float flashDuration = 0.1f;
 
     void Awake()
     {
-        var renderer = GetComponentInChildren<MeshRenderer>();
-        if (renderer != null)
-            mat = renderer.material; // 인스턴스화
+        rend = GetComponentInChildren<Renderer>();
+        if (rend != null)
+            originalMats = rend.materials;
     }
 
     public void PlayFlash()
     {
-        if (mat == null) return;
+        if (rend == null || flashMat == null) return;
 
-        // 깜빡임 값 초기화
-        mat.SetFloat("_FlashAmount", 0f);
+        Material[] mats = new Material[originalMats.Length];
+        for (int i = 0; i < mats.Length; i++) mats[i] = flashMat;
 
-        // 트윈 실행
-        mat.DOKill();
-        mat.DOFloat(1f, "_FlashAmount", 0.1f)
-           .SetLoops(2, LoopType.Yoyo);
+        rend.materials = mats;
+
+        DOVirtual.DelayedCall(flashDuration, () =>
+        {
+            rend.materials = originalMats;
+        });
     }
 }

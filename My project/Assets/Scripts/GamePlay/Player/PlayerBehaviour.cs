@@ -47,6 +47,7 @@ public class PlayerBehaviour : LivingEntity, IDamagable
     public override void Heal(float amount)
     {
         base.Heal(amount);
+        ui_hpBar.UpdateHpSlider(curHp);
     }
 
     protected override void Die()

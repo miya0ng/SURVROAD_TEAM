@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 using static Bullet;
-public class EnemyBehaviour : LivingEntity, IDamagable
+public class EnemyBehaviour : LivingEntity
 {
     private ItemManager itemManager;
     private EnemySpawner enemyPool;
@@ -21,7 +21,8 @@ public class EnemyBehaviour : LivingEntity, IDamagable
         itemManager = GameObject.FindGameObjectWithTag("ItemManager").GetComponent<ItemManager>();
         enemyPool = GameObject.FindGameObjectWithTag("EnemySpawner").GetComponent<EnemySpawner>();
         agent = GetComponent<NavMeshAgent>();
-        maxHp = 50;
+        maxHp = 18;
+        curHp = maxHp;
     }
     void Start()
     {
@@ -105,7 +106,6 @@ public class EnemyBehaviour : LivingEntity, IDamagable
         if (enemyPool != null)
         {
             enemyPool.Return(gameObject);
-            enemyPool.ActiveEnemyCount--;
         }
 
         //else
