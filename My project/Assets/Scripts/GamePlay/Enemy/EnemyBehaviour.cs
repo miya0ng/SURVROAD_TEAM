@@ -5,8 +5,6 @@ using UnityEngine.UI;
 using static Bullet;
 public class EnemyBehaviour : LivingEntity, IDamagable
 {
-    private Ui_HpBar ui_HpBar;
-
     private ItemManager itemManager;
     private EnemySpawner enemyPool;
 
@@ -23,9 +21,7 @@ public class EnemyBehaviour : LivingEntity, IDamagable
         itemManager = GameObject.FindGameObjectWithTag("ItemManager").GetComponent<ItemManager>();
         enemyPool = GameObject.FindGameObjectWithTag("EnemySpawner").GetComponent<EnemySpawner>();
         agent = GetComponent<NavMeshAgent>();
-        ui_HpBar = GetComponent<Ui_HpBar>();
         maxHp = 50;
-        ui_HpBar.SetHpBar(maxHp);
     }
     void Start()
     {
@@ -33,7 +29,6 @@ public class EnemyBehaviour : LivingEntity, IDamagable
     }
     void OnEnable()
     {
-        ui_HpBar.SetHpBar(maxHp);
         if (agent != null)
         {
             agent.isStopped = false;
@@ -97,8 +92,9 @@ public class EnemyBehaviour : LivingEntity, IDamagable
     {
         base.OnDamage(damage, attacker);
 
-        ui_HpBar.UpdateHpBar(curHp);
-        //Debug.Log($"{gameObject.name} took {damage} damage. HP: {this.curHp}");
+        var flash = GetComponentInChildren<HitFlash>();
+        if (flash != null)
+            flash.PlayFlash();
     }
 
     protected override void Die()

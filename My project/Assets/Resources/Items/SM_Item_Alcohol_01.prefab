@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6665857540306728601}
   - component: {fileID: 7911445557668730166}
   - component: {fileID: 1871564514323668814}
-  - component: {fileID: 1286335108404275403}
   - component: {fileID: -7291624508493738933}
+  - component: {fileID: -1933396275535695854}
   m_Layer: 0
   m_Name: SM_Item_Alcohol_01
   m_TagString: Untagged
@@ -88,28 +88,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1286335108404275403
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4972672830144557873}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43243828997936808, guid: 8e56c938613d5774c88dcd015b7c367a, type: 2}
 --- !u!114 &-7291624508493738933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,12 +101,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  itemData:
-    ID: 0
-    Name: 
-    Type: 0
-    DropPoint: 0
-    DropRate: 0
-    Value: 0
-    PrefabName: 
   healAmount: 20
+--- !u!135 &-1933396275535695854
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972672830144557873}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.21390626
+  m_Center: {x: 0, y: 0.21390626, z: 0.00000013783574}

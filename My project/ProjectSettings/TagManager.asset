@@ -12,6 +12,8 @@ TagManager:
   - EquipSocket
   - Debug
   - ItemManager
+  - Bullet
+  - PartsGuage
   layers:
   - Default
   - TransparentFX

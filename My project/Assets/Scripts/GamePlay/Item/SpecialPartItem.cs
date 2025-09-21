@@ -4,8 +4,9 @@ public class SpecialPartItem : ItemBase
 {
     private GameManager gameManager;
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
     }
 

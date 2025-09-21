@@ -15,11 +15,15 @@ public class Ui_Game : MonoBehaviour
     private GameManager gameManager;
 
     public TextMeshProUGUI waveCount;
-    public TextMeshProUGUI wavePlayTime;
+//public TextMeshProUGUI wavePlayTime;
     public TextMeshProUGUI specialPartText;
 
     public TextMeshProUGUI[] slotText;
     public Image[] slotImage;
+
+    public Ui_Slider partsGuage;
+
+    private float maxPartsValue = 1000f;
 
     public void Awake()
     {
@@ -27,11 +31,11 @@ public class Ui_Game : MonoBehaviour
         equipManager = player.GetComponentInChildren<EquipManager>();
         waveManager = GameObject.FindGameObjectWithTag("WaveManager").GetComponent<WaveManager>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-       
     }
 
     public void Start()
     {
+        partsGuage.SetSliderUi(maxPartsValue, 0);
         //SortWeaponSOtoThumNail();
         equipManager.OnEquipChanged += SetSlotInfo;
         gameManager.OnSpecialPartChanged += UpdateSpecialPartUI;
@@ -43,7 +47,7 @@ public class Ui_Game : MonoBehaviour
         {
             return;
         }
-        wavePlayTime.text = $"{waveManager.WaveTimer:F2}";
+       // wavePlayTime.text = $"{waveManager.WaveTimer:F2}";
         waveCount.text = $"{waveManager.currentWave}";
     }
     private void UpdateSpecialPartUI(int count)

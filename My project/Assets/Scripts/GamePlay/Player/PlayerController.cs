@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
 
     public void Awake()
     {
-        curMoveSpeed = 100f;
+        curMoveSpeed = 10f;
         rotationSpeed = 150f;
     }
     public void ButtonState(UiPlayButton.ButtonType button, bool isHeld)

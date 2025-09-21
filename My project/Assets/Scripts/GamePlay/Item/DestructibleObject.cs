@@ -4,12 +4,21 @@ public class DestructibleObject : LivingEntity
 {
     public GameObject[] dropItems;
     public float[] dropRates;
-
     private ItemManager itemManager;
 
+    public void Awake()
+    {
+        maxHp = 20;
+        curHp = maxHp;
+    }
     public void Start()
     {
         itemManager = GameObject.FindWithTag("ItemManager").GetComponent<ItemManager>();
+    }
+
+    public override void OnDamage(float damage, LivingEntity attacker)
+    {
+        base.OnDamage(damage, attacker);
     }
     protected override void Die()
     {

@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 public class EquipManager : MonoBehaviour
 {
-    public WeaponLibrary WeaponLibrary;
+    //public WeaponLibrary WeaponLibrary;
     private LivingEntity player;
     [SerializeField]
     private List<Transform> sockets = new List<Transform>();

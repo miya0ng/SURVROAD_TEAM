@@ -14,14 +14,23 @@ public class Weapon : MonoBehaviour
     private GameObject player;
     [SerializeField] private Transform muzzle;
 
-    public bool IsEquipped { get; private set; }
+    [SerializeField] private ParticleSystem fireEffect;
+    public bool IsEquipped { get; private set; } = true;
     private float nextFireTime;
+
+    public LayerMask hitLayers;
+    public LineRenderer tracerPrefab;
+    private float range;
 
     private TeamId teamId;
 
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+
+        SetLevel(curLevel);
+        //range = CurLevelData.AttackRange;
+        range = 10f;
     }
 
     public void Equip(LivingEntity owner)
@@ -29,7 +38,12 @@ public class Weapon : MonoBehaviour
         IsEquipped = true;
         teamId = owner.teamId;
     }
-
+    public void SetWeaponSO(WeaponSO so)
+    {
+        weaponSO = so;
+        curLevel = 1;
+        SetLevel(curLevel);
+    }
     public bool SetLevel(int level)
     {
         Debug.Log($"[SetLevel] {weaponSO.Name} 현재: {curLevel}, 시도: {level}");
@@ -126,19 +140,48 @@ public class Weapon : MonoBehaviour
 
     void Fire(WeaponLevelData levelData)
     {
+        //for (int i = 0; i < levelData.ShotCount; i++)
+        //{
+        //    var bulletObj = Instantiate(levelData.bulletPrefab, muzzle.position, muzzle.rotation);
+        //    var bullet = bulletObj.GetComponent<Bullet>();
+        //    bullet.SetBullet(player, teamId, levelData);
+
+        //    bulletObj.SetActive(true);
+        //}
+
+        //if (levelData.effectPrefab != null)
+        //{
+        //    Instantiate(levelData.effectPrefab, muzzle.position, muzzle.rotation);
+        //}
+
+
         for (int i = 0; i < levelData.ShotCount; i++)
         {
             var bulletObj = Instantiate(levelData.bulletPrefab, muzzle.position, muzzle.rotation);
-            var bullet = bulletObj.GetComponent<Bullet>();
-            bullet.SetBullet(player, teamId, levelData);
-
             bulletObj.SetActive(true);
-        }
-
-        if (levelData.effectPrefab != null)
+        }    
+            Ray ray = new Ray(muzzle.position, muzzle.forward);
+        if(Physics.Raycast(ray, out RaycastHit hit, range, hitLayers))
         {
-            Instantiate(levelData.effectPrefab, muzzle.position, muzzle.rotation);
+            // IDamagable에 데미지 전달
+            IDamagable target = hit.collider.GetComponent<IDamagable>();
+            if (target != null)
+                target.OnDamage(levelData.MaxDamage);
+
+            // 이펙트 플레이
+            if (fireEffect != null)
+                fireEffect.Play();
+
+            SpawnTracer(muzzle.position, hit.point);
         }
+        else
+        {
+            if (fireEffect != null)
+                fireEffect.Play();
+
+            SpawnTracer(muzzle.position, muzzle.position + muzzle.forward * range);
+        }
+  
     }
 
     private WeaponLevelData GetCurrentLevelData()
@@ -148,5 +191,17 @@ public class Weapon : MonoBehaviour
             Debug.Log("null");
         }
         return weaponSO.Levels.Find(l => l.Level == curLevel);
+    }
+
+    void SpawnTracer(Vector3 start, Vector3 end)
+    {
+        var tracer = Instantiate(tracerPrefab);
+        tracer.SetPosition(0, start);
+        tracer.SetPosition(1, end);
+        Destroy(tracer.gameObject, 0.1f); // 아주 짧게만 유지
+
+        var bulletMesh = Instantiate(bulletPrefab, start, Quaternion.identity);
+        var bullet = bulletMesh.GetComponent<Bullet>();
+        bulletMesh.transform.position = start;
     }
 }

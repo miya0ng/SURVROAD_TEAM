@@ -134,7 +134,8 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 1
-  dropItems: []
+  dropItems:
+  - {fileID: 4972672830144557873, guid: dcd2ac57f9849044fb882bd0c1886501, type: 3}
   dropRates: []
 --- !u!1 &1662325990303778192
 GameObject:

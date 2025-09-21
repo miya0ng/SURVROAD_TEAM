@@ -196,13 +196,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3717586635888343534}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -1, y: 0, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 1.811, z: -1.802}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5329385120361006913}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -180, y: 0, z: 0}
 --- !u!1 &4284199808209587111
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,7 +618,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8041090033505690845}
-  - component: {fileID: 2923610167732649299}
   m_Layer: 3
   m_Name: RightSoket
   m_TagString: EquipSocket
@@ -641,27 +640,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5329385120361006913}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &2923610167732649299
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6835066383593763904}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8010093822616438646
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,9 +765,9 @@ Transform:
   - {fileID: 5322073385505405522}
   - {fileID: 4229028768992803749}
   - {fileID: 2200158042925915280}
+  - {fileID: 7605499500694197544}
   - {fileID: 8041090033505690845}
   - {fileID: 3976271511943653452}
-  - {fileID: 7605499500694197544}
   - {fileID: 6522627314764652099}
   - {fileID: 5852166874591397146}
   m_Father: {fileID: 0}

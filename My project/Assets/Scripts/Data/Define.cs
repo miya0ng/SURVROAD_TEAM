@@ -20,3 +20,10 @@ public enum ItemType
     Heal,         // 수리키트 같은 소모 아이템
     Booster          // 부스터
 }
+
+public enum TeamId
+{
+    None,
+    Player,
+    Enemy
+}

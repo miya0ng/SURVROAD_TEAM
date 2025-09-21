@@ -18,8 +18,8 @@ public class ItemManager : MonoBehaviour
         foreach (var item in table.GetItemsByDropPoint(1))
             LoadPrefab(item);
 
-        foreach (var item in table.GetItemsByDropPoint(2))
-            LoadPrefab(item);
+        //foreach (var item in table.GetItemsByDropPoint(2))
+        //    LoadPrefab(item);
     }
 
     private void LoadPrefab(ItemData data)
@@ -40,15 +40,26 @@ public class ItemManager : MonoBehaviour
 
     public void DropFromEnemy(Vector3 pos)
     {
+        Vector3 spawnPos;
         // 확정 드랍 (일반 부품)
         var common = enemyDropItems.Find(i => i.ID == 31001);
         if (common != null)
-            SpawnItem(common, pos);
+        {
+            float v = pos.y + 2f;
+            float spawnPosY = v;
+            spawnPos = new Vector3(pos.x, spawnPosY, pos.z);
+            SpawnItem(common, spawnPos);
+        }
 
-        // 특수 부품 (확률)
-        var special = enemyDropItems.Find(i => i.ID == 31002);
-        if (special != null && Random.value < special.DropRate)
-            SpawnItem(special, pos);
+        //// 특수 부품 (확률)
+        //var special = enemyDropItems.Find(i => i.ID == 31002);
+        //if (special != null && Random.value < special.DropRate)
+        //{
+        //    float v = pos.y + 3f;
+        //    float spawnPosY = v;
+        //    spawnPos = new Vector3(pos.x, spawnPosY, pos.z);
+        //    SpawnItem(special, spawnPos);
+        //}
     }
 
     public void DropFromObject(Vector3 pos)

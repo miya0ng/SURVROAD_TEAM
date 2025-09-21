@@ -6,7 +6,7 @@ public class PlayerBehaviour : LivingEntity, IDamagable
     public GameManager gameManager;
     public PlayerController playerController;
     private Rigidbody rb;
-    private Ui_HpBar ui_hpBar;
+    private Ui_Slider ui_hpBar;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -16,8 +16,8 @@ public class PlayerBehaviour : LivingEntity, IDamagable
         curHp = maxHp;
         playerController = GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody>();
-        ui_hpBar=GetComponent<Ui_HpBar>();
-        ui_hpBar.SetHpBar(maxHp);
+        ui_hpBar=GetComponent<Ui_Slider>();
+        ui_hpBar.SetSliderUi(maxHp, maxHp);
     }
     void Start()
     {
@@ -62,6 +62,6 @@ public class PlayerBehaviour : LivingEntity, IDamagable
         base.OnDamage(damage, attacker);
 
         //Debug.Log($"{gameObject.name} took {damage} damage. HP: {curHp}");
-        ui_hpBar.UpdateHpBar(curHp);
+        ui_hpBar.UpdateHpSlider(curHp);
     }
 }

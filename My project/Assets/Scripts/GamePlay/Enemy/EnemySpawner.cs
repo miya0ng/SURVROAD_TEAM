@@ -80,8 +80,8 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < enemyCoSpawnCount; i++)
         {
-            Vector3 pos = GetSpawnPositionOutsideCamera();
-
+            Vector2 randomCircle = Random.insideUnitCircle.normalized * spawnRadius;
+            Vector3 pos = player.position + new Vector3(randomCircle.x, 0f, randomCircle.y);
             if (NavMesh.SamplePosition(pos, out NavMeshHit hit, 2f, NavMesh.AllAreas))
             {
                 var newPos = hit.position;
