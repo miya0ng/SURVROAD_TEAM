@@ -10,12 +10,12 @@ public class InfiniteMap : MonoBehaviour
     private Queue<GameObject> tilePool = new();
 
     private Vector2Int currentCenter;
-    private const float TILE_SIZE = 30f;
-    private const int RANGE = 1; // 주변 타일 거리 → 1이면 3x3 유지
+    private const float TILE_SIZE = 300f;
+    private const int RANGE = 1;
+    private float tileYOffset = 6f;
 
     void Start()
     {
-        // 풀 생성 (9개 + 여유분)
         for (int i = 0; i < 12; i++)
         {
             var obj = Instantiate(tilePrefab);
@@ -29,11 +29,10 @@ public class InfiniteMap : MonoBehaviour
     void Update()
     {
         Vector2Int playerTile = GetTileCoord(player.position);
-
-        // 플레이어가 다른 타일로 넘어간 경우에만 업데이트
         if (playerTile != currentCenter)
         {
             currentCenter = playerTile;
+
             UpdateTiles(force: false);
         }
     }
@@ -61,14 +60,14 @@ public class InfiniteMap : MonoBehaviour
                 if (!activeTiles.ContainsKey(coord))
                 {
                     GameObject tile = GetTileFromPool();
-                    tile.transform.position = new Vector3(coord.x * TILE_SIZE, 0, coord.y * TILE_SIZE);
+                    tile.transform.position = new Vector3
+                        (coord.x * TILE_SIZE, tileYOffset, coord.y * TILE_SIZE);
                     tile.SetActive(true);
                     activeTiles.Add(coord, tile);
                 }
             }
         }
 
-        // 필요 없는 타일 반환
         List<Vector2Int> toRemove = new();
         foreach (var kvp in activeTiles)
         {
