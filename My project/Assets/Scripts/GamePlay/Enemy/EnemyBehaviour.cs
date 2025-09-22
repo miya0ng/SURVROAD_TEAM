@@ -24,10 +24,7 @@ public class EnemyBehaviour : LivingEntity
         maxHp = 18;
         curHp = maxHp;
     }
-    void Start()
-    {
-        teamId = TeamId.Enemy;
-    }
+
     void OnEnable()
     {
         if (agent != null)

@@ -18,7 +18,6 @@ public class PlayerBehaviour : LivingEntity, IDamagable
         rb = GetComponent<Rigidbody>();
         ui_hpBar = GetComponent<Ui_Slider>();
         ui_hpBar.SetSliderUi(maxHp, maxHp);
-        teamId = TeamId.Player;
     }
     // Update is called once per frame
     void Update()

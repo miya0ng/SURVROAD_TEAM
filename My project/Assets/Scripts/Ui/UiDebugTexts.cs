@@ -43,7 +43,7 @@ public class UiDebugTexts : MonoBehaviour
         // 웨이브 정보 표시
         waveCount.text = "WaveCount: " + waveManager.currentWave;
         timePerWave.text = $"TimePerWave: {waveManager.WaveTimer:F2}";
-        leftEnemy.text = "LeftEnemy: " + enemySpawner.ActiveEnemyCount + "/" + enemySpawner.waveSpawnCount;
+        leftEnemy.text = "LeftEnemy: " + enemySpawner.GetEnemies().Count + "/" + enemySpawner.waveSpawnCount;
 
         if (equipManager.Slot.Count > 3)
         {

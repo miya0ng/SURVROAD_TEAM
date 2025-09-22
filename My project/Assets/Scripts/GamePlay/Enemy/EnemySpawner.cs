@@ -15,11 +15,15 @@ public class EnemySpawner : MonoBehaviour
      private float spawnInterval = 1f;
 
     private Queue<GameObject> EnemyPool = new Queue<GameObject>();
-
+    private List<LivingEntity> enemies = new List<LivingEntity>();
+    public List<LivingEntity> GetEnemies() => enemies;
     public int curSpawnCount { get; private set; }
     public int waveSpawnCount { get; set; }
     public int ActiveEnemyCount { get; private set; }
     public Coroutine coroutine { get; private set; }
+
+    public void Register(LivingEntity enemy) => enemies.Add(enemy);
+    public void Unregister(LivingEntity enemy) => enemies.Remove(enemy);
 
     void Awake()
     {
@@ -123,6 +127,7 @@ public class EnemySpawner : MonoBehaviour
 
         var e = EnemyPool.Dequeue();
         e.gameObject.SetActive(true);
+        Register(e.GetComponent<LivingEntity>());
         return e;
     }
 
@@ -130,6 +135,7 @@ public class EnemySpawner : MonoBehaviour
     {
         EnemyPool.Enqueue(e);
         e.gameObject.SetActive(false);
+        Unregister(e.GetComponent<LivingEntity>());
         ActiveEnemyCount--;
     }
 }

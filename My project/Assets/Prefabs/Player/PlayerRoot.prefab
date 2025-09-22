@@ -279,7 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 4651930944691526683}
---- !u!1001 &233168833380668049
+--- !u!1001 &1146026337598438434
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -291,10 +291,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Wep_Veh_MachineGun_01
       objectReference: {fileID: 0}
-    - target: {fileID: 1735666563772863428, guid: 0eaf28f7055add04baa596775165d73e, type: 3}
-      propertyPath: weaponSO
-      value: 
-      objectReference: {fileID: 11400000, guid: b70e429230039e14c8c3ade8f7a637cb, type: 2}
     - target: {fileID: 5341799689980693092, guid: 0eaf28f7055add04baa596775165d73e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -335,19 +331,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6079063549185198227, guid: 0eaf28f7055add04baa596775165d73e, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0eaf28f7055add04baa596775165d73e, type: 3}
---- !u!4 &5268511542752549109 stripped
+--- !u!4 &5027814223248143942 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5341799689980693092, guid: 0eaf28f7055add04baa596775165d73e, type: 3}
-  m_PrefabInstance: {fileID: 233168833380668049}
+  m_PrefabInstance: {fileID: 1146026337598438434}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8286719437220358157
 PrefabInstance:
@@ -551,7 +543,7 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7605499500694197544, guid: bdfd4200b994ff443910c9f029a07cd4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5268511542752549109}
+      addedObject: {fileID: 5027814223248143942}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdfd4200b994ff443910c9f029a07cd4, type: 3}
 --- !u!4 &2150967673408270895 stripped

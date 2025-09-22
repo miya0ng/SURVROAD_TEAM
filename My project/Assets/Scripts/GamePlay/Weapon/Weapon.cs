@@ -4,6 +4,8 @@ using static UnityEngine.UI.GridLayoutGroup;
 
 public class Weapon : MonoBehaviour
 {
+    private EnemySpawner enemySpawner;
+    
     public WeaponSO weaponSO;
     public WeaponLevelData CurLevelData { get; private set; }
     private int curLevel = 1; // 현재 무기 레벨
@@ -12,6 +14,7 @@ public class Weapon : MonoBehaviour
 
     public GameObject bulletPrefab;
     private GameObject player;
+    private LivingEntity ownerEntity;
     [SerializeField] private Transform muzzle;
 
     [SerializeField] private ParticleSystem fireEffect;
@@ -22,17 +25,27 @@ public class Weapon : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        teamId = player.GetComponent<LivingEntity>().teamId;
+        ownerEntity = GetComponentInParent<LivingEntity>();
+        enemySpawner = GameObject.FindWithTag("EnemySpawner").GetComponent<EnemySpawner>();
         SetLevel(curLevel);
-        //range = CurLevelData.AttackRange;
     }
 
-    //public void Equip(LivingEntity owner)
-    //{
-    //    IsEquipped = true;
-    //    teamId = owner.teamId;
-    //}
+    private void Start()
+    {
+        teamId = ownerEntity.teamId;
+
+        switch (weaponSO.Type)
+        {
+            case 1: // long
+                break;
+            case 2: // short
+                break;
+            case 3: // install
+                break;
+            default:
+                break;
+        }
+    }
     public void SetWeaponSO(WeaponSO so)
     {
         weaponSO = so;
@@ -72,11 +85,9 @@ public class Weapon : MonoBehaviour
         w.weaponSO = weaponSO;
         w.SetLevel(nextLevel);
 
-        //var equipManager = GetComponentInParent<EquipManager>();
         var equipManager = player.GetComponentInChildren<EquipManager>();
         if (equipManager != null)
         {
-            //int index = equipManager.Slot.IndexOf(gameObject);
             int index = equipManager.IndexOfInternal(gameObject);
             if (index >= 0)
                 equipManager.ReplaceWeapon(index, newObj);
@@ -86,23 +97,6 @@ public class Weapon : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void Start()
-    {
-        teamId = GetComponent<LivingEntity>()?.teamId ?? TeamId.None;
-
-        // 타입 분류 예시
-        switch (weaponSO.Type)
-        {
-            case 1: // long
-                break;
-            case 2: // short
-                break;
-            case 3: // install
-                break;
-            default:
-                break;
-        }
-    }
 
     void Update()
     {
@@ -127,6 +121,7 @@ public class Weapon : MonoBehaviour
 
         if (nextFireTime >= levelData.AttackSpeed)
         {
+            AimAtClosestEnemy();
             Fire(levelData);
             nextFireTime = 0f;
         }
@@ -134,39 +129,16 @@ public class Weapon : MonoBehaviour
 
     void Fire(WeaponLevelData levelData)
     {
-        //for (int i = 0; i < levelData.ShotCount; i++)
-        //{
-        //    var bulletObj = Instantiate(levelData.bulletPrefab, muzzle.position, muzzle.rotation);
-        //    var bullet = bulletObj.GetComponent<Bullet>();
-        //    bullet.SetBullet(player, teamId, levelData);
-
-        //    bulletObj.SetActive(true);
-        //}
-
-        //if (levelData.effectPrefab != null)
-        //{
-        //    Instantiate(levelData.effectPrefab, muzzle.position, muzzle.rotation);
-        //}
-
-
         for (int i = 0; i < levelData.ShotCount; i++)
         {
+
             var bulletObj = Instantiate(levelData.bulletPrefab, muzzle.position, muzzle.rotation);
             //levelData.Duration
-            bulletObj.GetComponent<Bullet>().Init(levelData.BulletSpeed,3, levelData.MaxDamage, teamId );
+            bulletObj.GetComponent<Bullet>().Init(levelData.BulletSpeed,3, levelData.MaxDamage, teamId, ownerEntity);
             bulletObj.SetActive(true);
             if (fireEffect != null)
                 fireEffect.Play();
         }
-
-        //    Ray ray = new Ray(muzzle.position, muzzle.forward);
-        //if(Physics.Raycast(ray, out RaycastHit hit, range, hitLayers))
-        //{
-        //    // IDamagable에 데미지 전달
-        //    IDamagable target = hit.collider.GetComponent<IDamagable>();
-        //    if (target != null)
-        //        target.OnDamage(levelData.MaxDamage);
-        //}
     }
 
     private WeaponLevelData GetCurrentLevelData()
@@ -176,5 +148,40 @@ public class Weapon : MonoBehaviour
             Debug.Log("null");
         }
         return weaponSO.Levels.Find(l => l.Level == curLevel);
+    }
+
+    private void AimAtClosestEnemy()
+    {
+        var target = FindClosestEnemy();
+        if (target == null) return;
+
+        Vector3 dir = (target.transform.position - transform.position).normalized;
+
+        dir.y = 0f;
+
+        if (dir.sqrMagnitude > 0.001f)
+        {
+            Quaternion targetRot = Quaternion.LookRotation(dir, Vector3.up);
+            transform.rotation = targetRot;
+        }
+    }
+
+    private LivingEntity FindClosestEnemy()
+    {
+        var enemies = enemySpawner.GetEnemies();
+        LivingEntity closest = null;
+        float closestDist = float.MaxValue;
+
+        foreach (var e in enemies)
+        {
+            if (!e.gameObject.activeInHierarchy) continue;
+            float dist = Vector3.Distance(transform.position, e.transform.position);
+            if (dist < closestDist)
+            {
+                closestDist = dist;
+                closest = e;
+            }
+        }
+        return closest;
     }
 }
