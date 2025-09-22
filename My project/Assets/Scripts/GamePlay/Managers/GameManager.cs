@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        if (enemySpawner.ActiveEnemyCount <= 0 && Input.GetKeyDown(KeyCode.C))
+        if (enemySpawner.ActiveEnemyCount <= 0 || Input.GetKeyDown(KeyCode.C))
         {
             waveManager.NextWave();
         }

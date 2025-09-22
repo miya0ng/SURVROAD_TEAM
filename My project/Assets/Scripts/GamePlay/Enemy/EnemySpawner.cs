@@ -9,10 +9,10 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject enemy;
     [SerializeField] private Camera mainCam;     // Inspector에서 MainCamera 직접 할당
     [SerializeField] private Transform player;
-    [SerializeField] private float spawnRadius = 300f;
-    [SerializeField] private int makePoolCount = 30;
-    [SerializeField] private int enemyCoSpawnCount = 1;
-    [SerializeField] private float spawnInterval = 1f;
+     private float spawnRadius = 300f;
+     private int makePoolCount = 200;
+     private int enemyCoSpawnCount = 1;
+     private float spawnInterval = 1f;
 
     private Queue<GameObject> EnemyPool = new Queue<GameObject>();
 
@@ -51,6 +51,7 @@ public class EnemySpawner : MonoBehaviour
     {
         while (curSpawnCount < waveSpawnCount)
         {
+            Debug.Log("Spawn");
             SpawnOutsideView();
             yield return new WaitForSeconds(spawnInterval);
         }
@@ -60,7 +61,8 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < makePoolCount; i++)
         {
-            var e = Instantiate(enemy, emptySpawnPoint);
+            var e = Instantiate(enemy);
+            e.transform.SetParent(emptySpawnPoint);
             e.gameObject.SetActive(false);
             EnemyPool.Enqueue(e);
         }
@@ -102,7 +104,6 @@ public class EnemySpawner : MonoBehaviour
             }
         }
     }
-
     private bool IsOnScreen(Camera cam, Vector3 worldPos)
     {
         if (cam == null) return false;
@@ -110,10 +111,9 @@ public class EnemySpawner : MonoBehaviour
         Vector3 screenPos = cam.WorldToViewportPoint(worldPos);
 
         return (screenPos.z > 0 &&
-                screenPos.x > 0 && screenPos.x < 1 &&
-                screenPos.y > 0 && screenPos.y < 1);
+                screenPos.x >= 0 && screenPos.x <= 1 &&
+                screenPos.y >= 0 && screenPos.y <= 1);
     }
-
     public GameObject Get()
     {
         if (EnemyPool.Count <= 0)

@@ -18,26 +18,21 @@ public class Weapon : MonoBehaviour
     public bool IsEquipped { get; private set; } = true;
     private float nextFireTime;
 
-    public LayerMask hitLayers;
-    public LineRenderer tracerPrefab;
-    private float range;
-
     private TeamId teamId;
 
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-
+        teamId = player.GetComponent<LivingEntity>().teamId;
         SetLevel(curLevel);
         //range = CurLevelData.AttackRange;
-        range = 10f;
     }
 
-    public void Equip(LivingEntity owner)
-    {
-        IsEquipped = true;
-        teamId = owner.teamId;
-    }
+    //public void Equip(LivingEntity owner)
+    //{
+    //    IsEquipped = true;
+    //    teamId = owner.teamId;
+    //}
     public void SetWeaponSO(WeaponSO so)
     {
         weaponSO = so;
@@ -76,7 +71,6 @@ public class Weapon : MonoBehaviour
 
         w.weaponSO = weaponSO;
         w.SetLevel(nextLevel);
-        w.Equip(GetComponentInParent<LivingEntity>());
 
         //var equipManager = GetComponentInParent<EquipManager>();
         var equipManager = player.GetComponentInChildren<EquipManager>();
@@ -158,30 +152,21 @@ public class Weapon : MonoBehaviour
         for (int i = 0; i < levelData.ShotCount; i++)
         {
             var bulletObj = Instantiate(levelData.bulletPrefab, muzzle.position, muzzle.rotation);
+            //levelData.Duration
+            bulletObj.GetComponent<Bullet>().Init(levelData.BulletSpeed,3, levelData.MaxDamage, teamId );
             bulletObj.SetActive(true);
-        }    
-            Ray ray = new Ray(muzzle.position, muzzle.forward);
-        if(Physics.Raycast(ray, out RaycastHit hit, range, hitLayers))
-        {
-            // IDamagable에 데미지 전달
-            IDamagable target = hit.collider.GetComponent<IDamagable>();
-            if (target != null)
-                target.OnDamage(levelData.MaxDamage);
-
-            // 이펙트 플레이
             if (fireEffect != null)
                 fireEffect.Play();
-
-            SpawnTracer(muzzle.position, hit.point);
         }
-        else
-        {
-            if (fireEffect != null)
-                fireEffect.Play();
 
-            SpawnTracer(muzzle.position, muzzle.position + muzzle.forward * range);
-        }
-  
+        //    Ray ray = new Ray(muzzle.position, muzzle.forward);
+        //if(Physics.Raycast(ray, out RaycastHit hit, range, hitLayers))
+        //{
+        //    // IDamagable에 데미지 전달
+        //    IDamagable target = hit.collider.GetComponent<IDamagable>();
+        //    if (target != null)
+        //        target.OnDamage(levelData.MaxDamage);
+        //}
     }
 
     private WeaponLevelData GetCurrentLevelData()
@@ -191,17 +176,5 @@ public class Weapon : MonoBehaviour
             Debug.Log("null");
         }
         return weaponSO.Levels.Find(l => l.Level == curLevel);
-    }
-
-    void SpawnTracer(Vector3 start, Vector3 end)
-    {
-        var tracer = Instantiate(tracerPrefab);
-        tracer.SetPosition(0, start);
-        tracer.SetPosition(1, end);
-        Destroy(tracer.gameObject, 0.1f); // 아주 짧게만 유지
-
-        var bulletMesh = Instantiate(bulletPrefab, start, Quaternion.identity);
-        var bullet = bulletMesh.GetComponent<Bullet>();
-        bulletMesh.transform.position = start;
     }
 }

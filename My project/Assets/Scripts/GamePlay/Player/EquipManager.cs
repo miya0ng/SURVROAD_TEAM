@@ -82,7 +82,6 @@ public class EquipManager : MonoBehaviour
 
         w.weaponSO = so;
         w.SetLevel(1);
-        w.Equip(player);
 
         equipWeapons.Add(equipWeapon);
         StartCoroutine(InvokeEquipChangedNextFrame());

@@ -13,14 +13,15 @@ public class PlayerController : MonoBehaviour
     public float vAxis;
     public float hAxis = 1f;
 
+    public Vector3 velocity;
     public float curMoveSpeed {  get; set; }
     public float rotationSpeed { get; set; }
 
-    private float maxSpeed = 40f;
-    private float maxReverseSpeed = 20f;
-    private float acceleration = 10f;
-    private float deceleration = 10f;
-    private float reverseAccel = 10f;
+    private float maxSpeed = 10f;
+    private float maxReverseSpeed = 5f;
+    private float acceleration = 5f;
+    private float deceleration = 5f;
+    private float reverseAccel = 5f;
 
     private bool isLeft;
     private bool isRight;
@@ -97,5 +98,6 @@ public class PlayerController : MonoBehaviour
             curMoveSpeed = Mathf.Clamp(curMoveSpeed, 0f, maxSpeed);
         else if (vAxis < 0f)
             curMoveSpeed = Mathf.Clamp(curMoveSpeed, 0f, maxReverseSpeed);
+        velocity = transform.forward * (vAxis * curMoveSpeed);
     }
 }
