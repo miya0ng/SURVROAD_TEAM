@@ -27,3 +27,12 @@ public enum TeamId
     Player,
     Enemy
 }
+
+public struct WeaponContext
+{
+    public Transform Muzzle;
+    public WeaponLevelData Level;
+    public TeamId TeamId;
+    public LivingEntity Owner;
+    public ParticleSystem FireFx;
+}

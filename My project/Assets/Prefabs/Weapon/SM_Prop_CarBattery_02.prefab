@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4598817277408900632}
   m_Layer: 0
-  m_Name: empty
+  m_Name: muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,8 +42,10 @@ GameObject:
   - component: {fileID: 6010177375103131376}
   - component: {fileID: 9122732733300453446}
   - component: {fileID: 4452087758353009773}
-  - component: {fileID: -7401207870467261589}
   - component: {fileID: 6575399127209325598}
+  - component: {fileID: 398384710740430353}
+  - component: {fileID: 3117581137168504570}
+  - component: {fileID: -7041522606654726405}
   m_Layer: 6
   m_Name: SM_Prop_CarBattery_02
   m_TagString: Untagged
@@ -120,21 +122,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-7401207870467261589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8171487787002607651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7472cf164785c254ea927487cbf5990a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponSO: {fileID: 11400000, guid: de784216a8c58aa4aba73c6a3988dd8b, type: 2}
-  bulletPrefab: {fileID: 395839924185548719}
-  muzzle: {fileID: 4598817277408900632}
 --- !u!135 &6575399127209325598
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -156,3 +143,43 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0.09546801, y: 0.28131473, z: 0.1817497}
+--- !u!114 &398384710740430353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8171487787002607651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77361b4588e5a8c49b866f2cfa86c6bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSO: {fileID: 11400000, guid: de784216a8c58aa4aba73c6a3988dd8b, type: 2}
+  muzzle: {fileID: 4598817277408900632}
+  fireEffect: {fileID: 198278458255326934, guid: b872966978318a147a2c447a23fefc4e, type: 3}
+--- !u!114 &3117581137168504570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8171487787002607651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd937904295d26b499a9cd6159290b8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropPoint: {fileID: 4598817277408900632}
+--- !u!114 &-7041522606654726405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8171487787002607651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e9de2bfddcd314892ad9862016754c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

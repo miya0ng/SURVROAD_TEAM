@@ -15,7 +15,7 @@ public class Ui_Slider : MonoBehaviour
     {
         
     }
-    public void SetSliderUi(float maxValue, float curValue)
+    public void SetSliderUi(float curValue, float maxValue)
     {
         slider.maxValue = maxValue;
         slider.value = curValue;

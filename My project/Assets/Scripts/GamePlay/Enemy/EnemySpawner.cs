@@ -5,40 +5,56 @@ using UnityEngine.AI;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [Header("Bindings")]
     [SerializeField] private Transform emptySpawnPoint;
     [SerializeField] private GameObject enemy;
-    [SerializeField] private Camera mainCam;     // Inspector에서 MainCamera 직접 할당
+    [SerializeField] private Camera mainCam;
     [SerializeField] private Transform player;
-     private float spawnRadius = 300f;
-     private int makePoolCount = 200;
-     private int enemyCoSpawnCount = 1;
-     private float spawnInterval = 1f;
 
-    private Queue<GameObject> EnemyPool = new Queue<GameObject>();
-    private List<LivingEntity> enemies = new List<LivingEntity>();
+    [Header("Spawn Settings")]
+    [SerializeField] private float spawnRadius = 300f;
+    [SerializeField] private int makePoolCount = 200;
+    [SerializeField] private int enemyCoSpawnCount = 1;
+    [SerializeField] private float spawnInterval = 1f;
+
+    public bool IsWaveCleared => curSpawnCount >= waveSpawnCount && ActiveEnemyCount <= 0;
+    public event System.Action OnWaveCleared;
+
+    private readonly Queue<GameObject> EnemyPool = new Queue<GameObject>();
+    private readonly List<LivingEntity> enemies = new List<LivingEntity>();
     public List<LivingEntity> GetEnemies() => enemies;
+
     public int curSpawnCount { get; private set; }
     public int waveSpawnCount { get; set; }
     public int ActiveEnemyCount { get; private set; }
     public Coroutine coroutine { get; private set; }
 
-    public void Register(LivingEntity enemy) => enemies.Add(enemy);
-    public void Unregister(LivingEntity enemy) => enemies.Remove(enemy);
+    // onDeath 안전 구독/해제용 매핑
+    private readonly Dictionary<LivingEntity, GameObject> deathMap = new();
+
+    public void Register(LivingEntity e)
+    {
+        if (e && !enemies.Contains(e)) enemies.Add(e);
+    }
+    public void Unregister(LivingEntity e)
+    {
+        if (e) enemies.Remove(e);
+    }
 
     void Awake()
     {
-        if (mainCam == null)
-            Debug.LogWarning("EnemySpawner: mainCam 할당");
+        if (mainCam == null) Debug.LogWarning("EnemySpawner: mainCam 미할당");
         MakePool();
     }
 
-    private void Start()
+    void Start()
     {
         StartSpawner();
     }
 
     public void StartSpawner()
     {
+        if (coroutine != null) StopSpawner();
         coroutine = StartCoroutine(SpawnEnemy());
     }
 
@@ -48,6 +64,7 @@ public class EnemySpawner : MonoBehaviour
         {
             curSpawnCount = 0;
             StopCoroutine(coroutine);
+            coroutine = null;
         }
     }
 
@@ -55,7 +72,6 @@ public class EnemySpawner : MonoBehaviour
     {
         while (curSpawnCount < waveSpawnCount)
         {
-            Debug.Log("Spawn");
             SpawnOutsideView();
             yield return new WaitForSeconds(spawnInterval);
         }
@@ -66,76 +82,170 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < makePoolCount; i++)
         {
             var e = Instantiate(enemy);
-            e.transform.SetParent(emptySpawnPoint);
+            e.transform.SetParent(emptySpawnPoint, false);
             e.gameObject.SetActive(false);
             EnemyPool.Enqueue(e);
         }
     }
 
+    // 화면 밖, NavMesh 위에 즉시 한 마리 스폰
+    public void SpawnOneImmediate()
+    {
+        if (player == null) return;
+        if (!TryFindSpawnPosition(out var pos)) return;
+
+        var enemyObj = Get();
+        if (enemyObj == null) return;
+
+        ActivateEnemy(enemyObj, pos);
+        curSpawnCount++;
+        ActiveEnemyCount++;
+    }
+
+    // 배치 루프(여러 마리)
     public void SpawnOutsideView()
     {
         for (int i = 0; i < enemyCoSpawnCount; i++)
         {
-            Vector3 spawnPos = Vector3.zero;
-            bool found = false;
+            if (!TryFindSpawnPosition(out var spawnPos)) continue;
 
-            for (int safety = 0; safety < 50; safety++)
+            var enemyObj = Get();
+            if (enemyObj == null) continue;
+
+            ActivateEnemy(enemyObj, spawnPos);
+            curSpawnCount++;
+            ActiveEnemyCount++;
+        }
+    }
+
+    // 화면 밖 + NavMesh 위치 찾기
+    private bool TryFindSpawnPosition(out Vector3 spawnPos)
+    {
+        for (int safety = 0; safety < 50; safety++)
+        {
+            float angle = Random.Range(0f, Mathf.PI * 2f);
+            Vector3 dir = new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle));
+            Vector3 candidate = player.position + dir * spawnRadius;
+
+            if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, 50f, NavMesh.AllAreas))
             {
-                float angle = Random.Range(0f, Mathf.PI * 2f);
-                Vector3 dir = new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle));
-                Vector3 candidate = player.position + dir * spawnRadius;
-
-                if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, 50f, NavMesh.AllAreas))
+                if (!IsOnScreen(mainCam, hit.position))
                 {
-                    if (!IsOnScreen(mainCam, hit.position))
-                    {
-                        spawnPos = hit.position;
-                        found = true;
-                        break;
-                    }
+                    spawnPos = hit.position;
+                    return true;
                 }
             }
+        }
+        spawnPos = Vector3.zero;
+        return false;
+    }
 
-            if (found)
+    private bool IsOnScreen(Camera cam, Vector3 worldPos)
+    {
+        if (cam == null) return false;
+        Vector3 v = cam.WorldToViewportPoint(worldPos);
+        return (v.z > 0f && v.x >= 0f && v.x <= 1f && v.y >= 0f && v.y <= 1f);
+    }
+
+    // 풀에서 하나 꺼내기
+    public GameObject Get()
+    {
+        if (EnemyPool.Count <= 0) MakePool();
+        if (EnemyPool.Count == 0) return null;
+
+        var e = EnemyPool.Dequeue();
+        var le = e.GetComponent<LivingEntity>();
+        if (le) Register(le);
+
+        e.SetActive(true);
+        return e;
+    }
+
+    // 풀로 반납
+    public void Return(GameObject e)
+    {
+        if (!e) return;
+
+        var le = e.GetComponent<LivingEntity>();
+        if (le)
+        {
+            UnhookDeath(le);
+            Unregister(le);
+        }
+
+        e.SetActive(false);
+        e.transform.SetParent(emptySpawnPoint, false);
+        EnemyPool.Enqueue(e);
+
+        ActiveEnemyCount = Mathf.Max(0, ActiveEnemyCount - 1);
+        CheckWaveCleared();
+    }
+    private void CheckWaveCleared()
+    {
+        if (IsWaveCleared) OnWaveCleared?.Invoke();
+    }
+
+    private void ActivateEnemy(GameObject enemyObj, Vector3 pos)
+    {
+        enemyObj.transform.SetPositionAndRotation(
+            pos,
+            Quaternion.LookRotation((player.position - pos).normalized, Vector3.up)
+        );
+
+        var agent = enemyObj.GetComponent<NavMeshAgent>();
+        if (agent && !agent.isOnNavMesh)
+        {
+            if (NavMesh.SamplePosition(pos, out var hit, 3f, NavMesh.AllAreas))
+                enemyObj.transform.position = hit.position;
+        }
+
+        var le = enemyObj.GetComponent<LivingEntity>();
+        if (le)
+        {
+            Register(le);
+            HookDeath(le, enemyObj);
+        }
+
+        enemyObj.SetActive(true);
+    }
+
+    private void HookDeath(LivingEntity le, GameObject go)
+    {
+        UnhookDeath(le);
+        deathMap[le] = go;
+        le.onDeath += OnEnemyDeath;
+    }
+
+    private void UnhookDeath(LivingEntity le)
+    {
+        if (le == null) return;
+        le.onDeath -= OnEnemyDeath;
+        deathMap.Remove(le);
+    }
+
+    private void OnEnemyDeath(LivingEntity dead)
+    {
+        if (dead == null) return;
+        if (deathMap.TryGetValue(dead, out var go))
+        {
+            Return(go);
+        }
+        else
+        {
+            foreach (var kv in deathMap)
             {
-                var enemyObj = Get();
-                if (enemyObj != null)
+                if (!kv.Key || !kv.Key.gameObject.activeSelf)
                 {
-                    enemyObj.transform.position = spawnPos;
-                    curSpawnCount++;
-                    ActiveEnemyCount++;
+                    Return(kv.Value);
+                    break;
                 }
             }
         }
     }
-    private bool IsOnScreen(Camera cam, Vector3 worldPos)
+
+    public void DebugSpawn(int count)
     {
-        if (cam == null) return false;
-
-        Vector3 screenPos = cam.WorldToViewportPoint(worldPos);
-
-        return (screenPos.z > 0 &&
-                screenPos.x >= 0 && screenPos.x <= 1 &&
-                screenPos.y >= 0 && screenPos.y <= 1);
-    }
-    public GameObject Get()
-    {
-        if (EnemyPool.Count <= 0)
-            MakePool();
-
-        if (EnemyPool.Count == 0) return null;
-
-        var e = EnemyPool.Dequeue();
-        e.gameObject.SetActive(true);
-        Register(e.GetComponent<LivingEntity>());
-        return e;
-    }
-
-    public void Return(GameObject e)
-    {
-        EnemyPool.Enqueue(e);
-        e.gameObject.SetActive(false);
-        Unregister(e.GetComponent<LivingEntity>());
-        ActiveEnemyCount--;
+        for (int i = 0; i < count; i++)
+            SpawnOneImmediate();
     }
 }

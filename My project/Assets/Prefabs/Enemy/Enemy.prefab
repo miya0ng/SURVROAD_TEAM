@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 164510842567168047}
   - component: {fileID: 2992926252845765422}
   - component: {fileID: 2032455145379877592}
-  - component: {fileID: 5800571115944905103}
+  - component: {fileID: 7609719975163643523}
   m_Layer: 8
   m_Name: SM_Wep_Veh_MachineGun_01 (1)
   m_TagString: Untagged
@@ -352,7 +352,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5800571115944905103
+--- !u!114 &7609719975163643523
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -361,13 +361,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5280280322123552599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7472cf164785c254ea927487cbf5990a, type: 3}
+  m_Script: {fileID: 11500000, guid: 77361b4588e5a8c49b866f2cfa86c6bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSO: {fileID: 11400000, guid: b70e429230039e14c8c3ade8f7a637cb, type: 2}
-  bulletPrefab: {fileID: 5245207698607943822, guid: 2bd459d78f44b954ea08e6514a9991fd, type: 3}
-  muzzle: {fileID: 5166442680468242680}
-  fireEffect: {fileID: 1012599084377681393}
+  weaponSO: {fileID: 0}
+  muzzle: {fileID: 0}
+  fireEffect: {fileID: 0}
 --- !u!1 &6170942108887427081
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,11 +518,6 @@ PrefabInstance:
 --- !u!4 &919513546757180593 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4056852919073388, guid: 871a43861e9528d47b2a10d97319b174, type: 3}
-  m_PrefabInstance: {fileID: 922302365342283485}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &1012599084377681393 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198673632737434412, guid: 871a43861e9528d47b2a10d97319b174, type: 3}
   m_PrefabInstance: {fileID: 922302365342283485}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3331748397446880663

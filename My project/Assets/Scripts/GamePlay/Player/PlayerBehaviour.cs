@@ -45,7 +45,7 @@ public class PlayerBehaviour : LivingEntity, IDamagable
         ui_hpBar.UpdateHpSlider(curHp);
     }
 
-    protected override void Die()
+    protected override void Die(LivingEntity killer)
     {
         base.Die();
         gameManager.GameOver();

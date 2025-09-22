@@ -128,8 +128,11 @@ GameObject:
   - component: {fileID: 3818943737933129012}
   - component: {fileID: 736338638673776937}
   - component: {fileID: 8706827509820951062}
-  - component: {fileID: -8531832007376568586}
   - component: {fileID: 5131998461907770581}
+  - component: {fileID: -529725661812648673}
+  - component: {fileID: 4394731805358179251}
+  - component: {fileID: -7116926410841214705}
+  - component: {fileID: -5895016035305166670}
   m_Layer: 6
   m_Name: SM_Wep_Veh_MiniGun_01
   m_TagString: Untagged
@@ -207,21 +210,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-8531832007376568586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6717230239203858784}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7472cf164785c254ea927487cbf5990a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponSO: {fileID: 11400000, guid: b70e429230039e14c8c3ade8f7a637cb, type: 2}
-  bulletPrefab: {fileID: 5245207698607943822, guid: dbc88583a9586b94cb4c753ff78f6f5b, type: 3}
-  muzzle: {fileID: 8547492829012331405}
 --- !u!135 &5131998461907770581
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -243,3 +231,54 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0.06153954, y: 0.2676287, z: -0.057826832}
+--- !u!114 &-529725661812648673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717230239203858784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77361b4588e5a8c49b866f2cfa86c6bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSO: {fileID: 11400000, guid: b70e429230039e14c8c3ade8f7a637cb, type: 2}
+  muzzle: {fileID: 8547492829012331405}
+  fireEffect: {fileID: 1183308707104473704, guid: d214921ff78362e4fa1006e01d372bc4, type: 3}
+--- !u!114 &4394731805358179251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717230239203858784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61ce6b1471cfa964fb634122f88d6f72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-7116926410841214705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717230239203858784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a096e7d141dcdb5489c41ecf94227149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-5895016035305166670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717230239203858784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e46d708fa8b414da5db4dd06ca661f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

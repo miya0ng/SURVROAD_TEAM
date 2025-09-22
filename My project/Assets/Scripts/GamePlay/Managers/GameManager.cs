@@ -20,20 +20,24 @@ public class GameManager : MonoBehaviour
     {
         enemySpawner = GameObject.FindGameObjectWithTag("EnemySpawner").GetComponent<EnemySpawner>();
         waveManager = GameObject.FindGameObjectWithTag("WaveManager").GetComponent<WaveManager>();
+        enemySpawner.OnWaveCleared += () => waveManager.NextWave();
     }
 
     void Start()
     {
-        
+
     }
+
     void Update()
     {
-        if (enemySpawner.ActiveEnemyCount <= 0 || Input.GetKeyDown(KeyCode.C))
+        if (enemySpawner.curSpawnCount >= enemySpawner.waveSpawnCount
+            && enemySpawner.ActiveEnemyCount <= 0)
         {
             waveManager.NextWave();
         }
+
         playTime += Time.deltaTime;
-        
+
         if (Input.anyKey && isGameOver)
         {
             GameStart();

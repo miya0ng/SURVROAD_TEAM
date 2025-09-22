@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 4395406992731933830}
   - component: {fileID: 5983877262007582149}
   - component: {fileID: 3871636983966962015}
-  - component: {fileID: 5853888473620311528}
-  - component: {fileID: 4376016692706420681}
+  - component: {fileID: -7691759490242415763}
+  - component: {fileID: 8055286391889251141}
+  - component: {fileID: 7120700820928657327}
   m_Layer: 6
   m_Name: SM_Wep_Veh_Saw_Launcher_Ammo_01
   m_TagString: Untagged
@@ -30,10 +31,9 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.4305111, z: 0, w: 0.90258527}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1868358345635445922}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5983877262007582149
@@ -89,8 +89,39 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &5853888473620311528
-SphereCollider:
+--- !u!114 &-7691759490242415763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021201032924741099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77361b4588e5a8c49b866f2cfa86c6bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSO: {fileID: 11400000, guid: b72217001f24b294cb3816b49de9a388, type: 2}
+  muzzle: {fileID: 0}
+  fireEffect: {fileID: 198862153969099638, guid: e95c1fef6288b9440ab2eeeacac7da05, type: 3}
+--- !u!114 &8055286391889251141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021201032924741099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c9e12e32d6e8b345abd5296b0905e7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radiusMultiplier: 1
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!65 &7120700820928657327
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -104,55 +135,9 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.16600673
-  m_Center: {x: 0.0013890043, y: -0.00004444411, z: 0.000000029802322}
---- !u!114 &4376016692706420681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1021201032924741099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7472cf164785c254ea927487cbf5990a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponSO: {fileID: 11400000, guid: b72217001f24b294cb3816b49de9a388, type: 2}
-  bulletPrefab: {fileID: 4648075785578101050}
-  muzzle: {fileID: 1868358345635445922}
---- !u!1 &4648075785578101050
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1868358345635445922}
-  m_Layer: 0
-  m_Name: empty
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1868358345635445922
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4648075785578101050}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.6946584, z: -0, w: 0.7193398}
-  m_LocalPosition: {x: 0.0013889994, y: -0.000044445198, z: 0.000000023127845}
-  m_LocalScale: {x: 0.3333333, y: 0.33333334, z: 0.3333333}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4395406992731933830}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.3243961, y: 0.24, z: 0.33201343}
+  m_Center: {x: 0.0013890042, y: -0.00004444411, z: 0.000000029843715}

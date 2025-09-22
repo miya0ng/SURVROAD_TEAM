@@ -1,134 +1,189 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
+using System.Linq;
 public class EquipManager : MonoBehaviour
 {
-    //public WeaponLibrary WeaponLibrary;
-    private LivingEntity player;
-    [SerializeField]
-    private List<Transform> sockets = new List<Transform>();
-    private List<GameObject> equipWeapons = new List<GameObject>();
-    public List<GameObject> Slot => equipWeapons;
-    private int maxEquipCount = 3;
+    [Header("Starter Loadout")]
+    [SerializeField] private bool equipStarterOnStart = true;
+    [SerializeField] private GameObject starterPrefab;
+    [SerializeField] private WeaponSO starterSO;
 
+    // === Public Events ===
     public event System.Action OnEquipChanged;
+    public event System.Action<float, float> OnPartsGaugeChanged;
+    public event System.Action OnLevelUpReady;
+    public event System.Action<WeaponDriver> OnWeaponLeveled;
+    public event System.Action<WeaponDriver> OnWeaponEquipped;
+    public event System.Action<WeaponDriver> OnWeaponUnequipped;
 
-    public int IndexOfInternal(GameObject go) => equipWeapons.IndexOf(go);
+    // === State ===
+    [SerializeField] private List<Transform> sockets = new();
+    [SerializeField] private int maxEquipCount = 3;
+    private List<WeaponDriver> equipWeapons = new();
+    public IReadOnlyList<WeaponDriver> Slot => equipWeapons;
 
-    //Todo: manage list<transform>, 무기 여러개 장착해야함
-    public void Awake()
+    private LivingEntity player;
+
+    // Parts Gauge
+    [Header("Parts Gauge")]
+    [SerializeField] private float parts = 0f;
+    public float Parts => parts;
+    [SerializeField] private float partsMax = 100f;
+    public float PartsMax => partsMax;
+    private bool levelUpPending = false;
+
+    void Awake()
     {
         player = GetComponentInParent<LivingEntity>();
-        if (player == null)
-        {
-            //Debug.Log("equipmanager player is null");
-        }
-        //GameObject[] socketObjs = GameObject.FindGameObjectsWithTag("EquipSocket");
-        //foreach (var obj in socketObjs)
-        //{
-        //    sockets.Add(obj.transform);
-        //}
         var socketObjs = GameObject.FindGameObjectsWithTag("EquipSocket")
-                           .OrderBy(o => o.name, System.StringComparer.Ordinal).ToArray();
+            .OrderBy(o => o.name, System.StringComparer.Ordinal).ToArray();
         sockets.Clear();
         foreach (var obj in socketObjs) sockets.Add(obj.transform);
     }
 
-    public void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!equipStarterOnStart) return;
+        if (starterPrefab == null || starterSO == null || player == null) return;
+
+        EquipWeapon(starterPrefab, starterSO, player);
+        OnPartsGaugeChanged?.Invoke(parts, partsMax);
+    }
+
+    // =========================================
+    // ============== Public API ===============
+    // =========================================
+
+    public void AddParts(float amount)
+    {
+        if (levelUpPending) return;
+
+        parts = Mathf.Clamp(parts + amount, 0f, partsMax);
+        OnPartsGaugeChanged?.Invoke(parts, partsMax);
+
+        if (parts >= partsMax)
         {
-            UnEquipWeapon();
+            levelUpPending = true;
+            OnLevelUpReady?.Invoke();//pop up 창 띄우기
         }
     }
 
-    private System.Collections.IEnumerator InvokeEquipChangedNextFrame()
+    public void ApplyLevelUpChoice_LevelUpExisting(int slotIndex)
     {
-        yield return new WaitForEndOfFrame();
-        OnEquipChanged?.Invoke();
+        if (!levelUpPending) return;
+        if (slotIndex < 0 || slotIndex >= equipWeapons.Count) return;
+
+        var driver = equipWeapons[slotIndex];
+        var ok = driver.SetLevel(driver.CurLevel + 1);
+        if (ok) OnWeaponLeveled?.Invoke(driver);
+
+        ResetPartsGauge();
     }
 
-    public void EquipWeapon(WeaponSO so)
+    public void ApplyLevelUpChoice_EquipNew(GameObject weaponPrefab, WeaponSO so)
     {
-        var same = equipWeapons
-        .Where(go => go != null)
-        .Select(go => go?.GetComponent<Weapon>())
-        .FirstOrDefault(w => w != null && w.weaponSO == so);
+        if (!levelUpPending) return;
+        EquipWeapon(weaponPrefab, so, player);
+        ResetPartsGauge();
+    }
 
-        if (same != null)
-        {
-            same.LevelUp();
-            //OnEquipChanged?.Invoke();
-            return;
-        }
+    public void EquipWeapon(GameObject weaponPrefab, WeaponSO so, LivingEntity owner)
+    {
+        // 같은 SO 면
+        // var same = equipWeapons.FirstOrDefault(w => w != null && w.weaponSO == so);
+        // if (same != null) { same.SetLevel(same.CurLevel + 1); OnWeaponLeveled?.Invoke(same); OnEquipChanged?.Invoke(); return; }
 
-        if (Slot.Count >= maxEquipCount)
+        if (equipWeapons.Count >= maxEquipCount)
         {
             Debug.Log("장착 슬롯 가득 참");
             return;
         }
 
         var socket = sockets[equipWeapons.Count];
-        var levelData = so.Levels.FirstOrDefault(l => l.Level == 1);
-        if (levelData == null || levelData.prefab == null)
-        {
-            Debug.LogError($"{so.Name} Lv1 Prefab 없음");
-            return;
-        }
+        var wObj = Instantiate(weaponPrefab, socket);
+        wObj.transform.localPosition = Vector3.zero;
+        wObj.transform.localRotation = Quaternion.identity;
 
-        var equipWeapon = Instantiate(levelData.prefab, socket.position, socket.rotation, socket);
-        var w = equipWeapon.GetComponent<Weapon>();
+        var driver = wObj.GetComponent<WeaponDriver>();
+        driver.Init(owner, so, 1);
 
-        w.weaponSO = so;
-        w.SetLevel(1);
+        equipWeapons.Add(driver);
 
-        equipWeapons.Add(equipWeapon);
-        StartCoroutine(InvokeEquipChangedNextFrame());
-        //OnEquipChanged?.Invoke();
+        OnWeaponEquipped?.Invoke(driver);
+        OnEquipChanged?.Invoke();
     }
 
-
-    public void ReplaceWeapon(int oldIndex, GameObject newObject)
+    public void ReplaceWeapon(int index, GameObject newWeaponPrefab, WeaponSO so)
     {
-        if (oldIndex < 0 || oldIndex >= equipWeapons.Count)
-            return;
+        if (index < 0 || index >= equipWeapons.Count) return;
 
-        var oldObj = equipWeapons[oldIndex];
-        equipWeapons[oldIndex] = newObject;
+        var old = equipWeapons[index];
+        var socket = old.transform.parent;
 
-        if (oldObj != null)
-            Destroy(oldObj);
-        StartCoroutine(InvokeEquipChangedNextFrame());
-        //OnEquipChanged?.Invoke();
-    }
-    public void UnEquipWeapon()
-    {
-        if (Slot.Count == 0)
-            return;
+        var newObj = Instantiate(newWeaponPrefab, socket);
+        newObj.transform.localPosition = Vector3.zero;
+        newObj.transform.localRotation = Quaternion.identity;
 
-        var equipWeapon = equipWeapons[Slot.Count - 1];
-        equipWeapons.RemoveAt(Slot.Count - 1);
+        var newDriver = newObj.GetComponent<WeaponDriver>();
+        newDriver.Init(player, so, Mathf.Max(1, old.CurLevel));
 
-        equipWeapon.SetActive(false);
-        Destroy(equipWeapon);
-        StartCoroutine(InvokeEquipChangedNextFrame());
-        //OnEquipChanged?.Invoke();
+        equipWeapons[index] = newDriver;
+        if (old) Destroy(old.gameObject);
 
-        //var equipWeapon = sockets[equipCount].GetComponentInChildren<Weapon>();
-        //equipWeapon.gameObject.SetActive(false);
-        //Destroy(equipWeapon.gameObject);
+        OnEquipChanged?.Invoke();
     }
 
     public void UnEquipWeapon(int index)
     {
         if (index < 0 || index >= equipWeapons.Count) return;
 
-        var equipWeapon = equipWeapons[index];
+        var drv = equipWeapons[index];
         equipWeapons.RemoveAt(index);
 
-        Destroy(equipWeapon);
-        //OnEquipChanged?.Invoke();
-        StartCoroutine(InvokeEquipChangedNextFrame());
+        OnWeaponUnequipped?.Invoke(drv);
+        Destroy(drv.gameObject);
+
+        OnEquipChanged?.Invoke();
+    }
+
+    public void UnEquipLast()
+    {
+        if (equipWeapons.Count == 0) return;
+        UnEquipWeapon(equipWeapons.Count - 1);
+    }
+    // ============= for cheat =================
+    public void EquipWeapon(WeaponSO so, int level = 1)
+    {
+        if (so == null)
+        {
+            Debug.LogWarning("EquipWeapon(so): SO null");
+            return;
+        }
+
+        var data = so.Levels.FirstOrDefault(l => l.Level == level);
+        if (data == null || data.prefab == null)
+        {
+            Debug.LogWarning($"EquipWeapon(so): {so.Name} Lv{level} 데이터/프리팹 없음");
+            return;
+        }
+
+        EquipWeapon(data.prefab, so, player);
+    }
+
+    public void ForceEquipNew(WeaponSO so, int level = 1)
+    {
+        bool prevPending = levelUpPending;
+        levelUpPending = false;       // 대기 상태 무시
+        EquipWeapon(so, level);       // 위 편의 API 재사용
+        levelUpPending = prevPending; // 원복(원하면 그대로 false 유지도 가능)
+    }
+    // =========================================
+    // ============== Internal =================
+    // =========================================
+    private void ResetPartsGauge()
+    {
+        levelUpPending = false;
+        parts = 0f;
+        OnPartsGaugeChanged?.Invoke(parts, partsMax);
     }
 }

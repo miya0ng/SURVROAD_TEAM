@@ -4,6 +4,7 @@ using TMPro;
 
 public class UiDebugTexts : MonoBehaviour
 {
+    [Header("UI Refs")]
     public TextMeshProUGUI hp;
     public TextMeshProUGUI speed;
     public TextMeshProUGUI weaponName;
@@ -25,65 +26,72 @@ public class UiDebugTexts : MonoBehaviour
     void Awake()
     {
         player = GameObject.FindWithTag("Player");
-        playerController = player.GetComponent<PlayerController>();
-        playerHp = player.GetComponent<PlayerBehaviour>();
-        equipManager = player.GetComponentInChildren<EquipManager>();
-        waveManager = GameObject.FindWithTag("WaveManager").GetComponent<WaveManager>();
-        enemySpawner = GameObject.FindWithTag("EnemySpawner").GetComponent<EnemySpawner>();
+        if (player != null)
+        {
+            playerController = player.GetComponent<PlayerController>();
+            playerHp = player.GetComponent<PlayerBehaviour>();
+            equipManager = player.GetComponentInChildren<EquipManager>();
+        }
+
+        var wmObj = GameObject.FindWithTag("WaveManager");
+        if (wmObj) waveManager = wmObj.GetComponent<WaveManager>();
+
+        var esObj = GameObject.FindWithTag("EnemySpawner");
+        if (esObj) enemySpawner = esObj.GetComponent<EnemySpawner>();
     }
 
     void Update()
     {
 #if UNITY_EDITOR
-        // 기본 스탯 표시
-        weaponName.text = "WeaponName: ";
-        speed.text = "Speed: " + playerController.curMoveSpeed;
-        hp.text = "Hp: " + playerHp.curHp + "/" + playerHp.maxHp;
-
-        // 웨이브 정보 표시
-        waveCount.text = "WaveCount: " + waveManager.currentWave;
-        timePerWave.text = $"TimePerWave: {waveManager.WaveTimer:F2}";
-        leftEnemy.text = "LeftEnemy: " + enemySpawner.GetEnemies().Count + "/" + enemySpawner.waveSpawnCount;
-
-        if (equipManager.Slot.Count > 3)
-        {
+        if (!player || !playerController || !playerHp)
             return;
+
+        if (weaponName) weaponName.text = "WeaponName: ";
+        if (speed) speed.text = "Speed: " + playerController.curMoveSpeed.ToString("F2");
+        if (hp) hp.text = $"Hp: {playerHp.curHp}/{playerHp.maxHp}";
+
+        if (waveManager && waveCount)
+        {
+            waveCount.text = "WaveCount: " + waveManager.currentWave;
+            if (timePerWave) timePerWave.text = $"TimePerWave: {waveManager.WaveTimer:F2}";
         }
 
-        // 장착 무기 정보 표시
-        if (equipManager.Slot.Count > 0)
+        if (enemySpawner && leftEnemy)
         {
-            FindWeaponSOName();
-            weaponSOText.text = "WeaponSO: " + string.Join(", ", weaponSOName);
+            int remainingToSpawn = Mathf.Max(0, enemySpawner.waveSpawnCount - enemySpawner.curSpawnCount);
+            leftEnemy.text =
+                $"SpawnLeft: {remainingToSpawn}, Active: {enemySpawner.ActiveEnemyCount}, " +
+                $"Spawned: {enemySpawner.curSpawnCount}/{enemySpawner.waveSpawnCount}";
+        }
+
+        if (equipManager != null && equipManager.Slot != null && equipManager.Slot.Count > 0)
+        {
+            FillWeaponNames();
+            if (weaponSOText) weaponSOText.text = "WeaponSO: " + string.Join(", ", weaponSOName);
         }
         else
         {
-            weaponSOText.text = "WeaponSO: None";
+            if (weaponSOText) weaponSOText.text = "WeaponSO: None";
         }
 #else
         if (gameObject.activeSelf) gameObject.SetActive(false);
 #endif
     }
 
-    private void FindWeaponSOName()
+    private void FillWeaponNames()
     {
-        for (int i = 0; i < equipManager.Slot.Count; i++)
+        for (int i = 0; i < weaponSOName.Length; i++) weaponSOName[i] = "-";
+
+        int count = Mathf.Min(equipManager.Slot.Count, weaponSOName.Length);
+        for (int i = 0; i < count; i++)
         {
-            var go = equipManager.Slot[i];
-            if (go == null)
+            var drv = equipManager.Slot[i]; // WeaponDriver
+            if (drv == null || drv.weaponSO == null || drv.CurLevelData == null)
             {
                 weaponSOName[i] = "null";
                 continue;
             }
-
-            var w = go.GetComponent<Weapon>();
-            if (w == null || w.weaponSO == null)
-            {
-                weaponSOName[i] = "null";
-                continue;
-            }
-
-            weaponSOName[i] = $"{w.weaponSO.Name}(Lv{w.CurLevelData.Level})";
+            weaponSOName[i] = $"{drv.weaponSO.Name}(Lv{drv.CurLevel})";
         }
     }
 }

@@ -1,10 +1,9 @@
-#define DEBUG_MODE
-using NUnit.Framework;
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class Ui_Game : MonoBehaviour
 {
     public WeaponLibrary weaponLibrary;
@@ -15,7 +14,6 @@ public class Ui_Game : MonoBehaviour
     private GameManager gameManager;
 
     public TextMeshProUGUI waveCount;
-//public TextMeshProUGUI wavePlayTime;
     public TextMeshProUGUI specialPartText;
 
     public TextMeshProUGUI[] slotText;
@@ -23,9 +21,7 @@ public class Ui_Game : MonoBehaviour
 
     public Ui_Slider partsGuage;
 
-    private float maxPartsValue = 30f;
-
-    public void Awake()
+    void Awake()
     {
         player = GameObject.FindWithTag("Player");
         equipManager = player.GetComponentInChildren<EquipManager>();
@@ -33,23 +29,41 @@ public class Ui_Game : MonoBehaviour
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
-    public void Start()
+    void Start()
     {
-        partsGuage.SetSliderUi(maxPartsValue, 0);
-        //SortWeaponSOtoThumNail();
         equipManager.OnEquipChanged += SetSlotInfo;
+        equipManager.OnPartsGaugeChanged += UpdatePartsGauge;
         gameManager.OnSpecialPartChanged += UpdateSpecialPartUI;
+
+        UpdatePartsGauge(equipManager.Parts, equipManager.PartsMax);
+        SetSlotInfo();
     }
 
-    public void Update()
+    void OnDestroy()
     {
-        if (player == null || waveManager == null || waveManager == null)
+        if (equipManager != null)
         {
-            return;
+            equipManager.OnEquipChanged -= SetSlotInfo;
+            equipManager.OnPartsGaugeChanged -= UpdatePartsGauge;
         }
-       // wavePlayTime.text = $"{waveManager.WaveTimer:F2}";
+        if (gameManager != null)
+        {
+            gameManager.OnSpecialPartChanged -= UpdateSpecialPartUI;
+        }
+    }
+
+    void Update()
+    {
+        if (player == null || waveManager == null) return;
         waveCount.text = $"{waveManager.currentWave}";
     }
+
+
+    private void UpdatePartsGauge(float cur, float max)
+    {
+        partsGuage.SetSliderUi(cur, max);
+    }
+
     private void UpdateSpecialPartUI(int count)
     {
         specialPartText.text = $"x {count}";
@@ -57,53 +71,30 @@ public class Ui_Game : MonoBehaviour
 
     private void SetSlotInfo()
     {
-        Debug.Log($"[SetSlotInfo] 슬롯 개수: {equipManager.Slot.Count}");
-
+        // EquipManager.Slot: IReadOnlyList<WeaponDriver>
         for (int i = 0; i < slotImage.Length; i++)
         {
             if (i < equipManager.Slot.Count && equipManager.Slot[i] != null)
             {
-                var go = equipManager.Slot[i];
-                var w = go.GetComponent<Weapon>();
+                var drv = equipManager.Slot[i];
 
-                if (w == null)
+                var levelData = drv.CurLevelData;
+                if (levelData != null && levelData.ThumbNail != null)
                 {
-                    Debug.LogWarning($"[Slot {i}] GameObject={go.name}, Weapon 컴포넌트 없음");
+                    slotImage[i].sprite = levelData.ThumbNail;
+                    slotText[i].text = $"Lv.{drv.CurLevel}";
+                }
+                else
+                {
                     slotImage[i].sprite = null;
                     slotText[i].text = string.Empty;
-                    continue;
                 }
-
-                if (w.weaponSO == null)
-                {
-                    Debug.LogWarning($"[Slot {i}] {go.name}: weaponSO 없음");
-                    slotImage[i].sprite = null;
-                    slotText[i].text = string.Empty;
-                    continue;
-                }
-
-                if (w.CurLevelData == null)
-                {
-                    Debug.LogWarning($"[Slot {i}] {w.weaponSO.Name} CurLevelData 없음 (curLevel?)");
-                    slotImage[i].sprite = null;
-                    slotText[i].text = string.Empty;
-                    continue;
-                }
-
-                if (w.CurLevelData.ThumbNail == null)
-                {
-                    Debug.LogWarning($"[Slot {i}] {w.weaponSO.Name} Lv{w.CurLevelData.Level} 썸네일 없음");
-                    slotImage[i].sprite = null;
-                    slotText[i].text = string.Empty;
-                    continue;
-                }
-
-                // 정상 처리
-                Debug.Log($"[Slot {i}] {w.weaponSO.Name} Lv{w.CurLevelData.Level}, 썸네일 OK");
-                slotImage[i].sprite = w.CurLevelData.ThumbNail;
-                slotText[i].text = $"Lv.{w.CurLevelData.Level}";
             }
-
+            else
+            {
+                slotImage[i].sprite = null;
+                slotText[i].text = string.Empty;
+            }
         }
     }
 }

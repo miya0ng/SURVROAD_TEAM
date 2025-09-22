@@ -24,7 +24,7 @@ public class DestructibleObject : LivingEntity
         base.OnDamage(damage, attacker);
         hitFlash.PlayFlash();
     }
-    protected override void Die()
+    protected override void Die(LivingEntity killer)
     {
         base.Die();
         OnBreak();

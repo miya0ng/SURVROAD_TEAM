@@ -1,35 +1,37 @@
 using System;
 using UnityEngine;
-using static Bullet;
+
 public class LivingEntity : MonoBehaviour, IDamagable
 {
-    public float maxHp;
+    [Header("HP")]
+    public float maxHp = 100f;
     public float curHp;
-    public Action onDeath;
 
+    [Header("Team")]
     public TeamId teamId;
+
+    public Action<LivingEntity> onDeath;
+
+    protected virtual void Awake()
+    {
+        if (curHp <= 0f) curHp = maxHp;
+    }
+
     public virtual void OnDamage(float damage, LivingEntity attacker)
     {
         curHp -= damage;
-        //Debug.Log($"{gameObject.name} took {damage} damage. HP: {curHp}");
-
-        if (curHp <= 0)
-            Die();
+        if (curHp <= 0f)
+            Die(attacker);
     }
 
     public virtual void Heal(float amount)
     {
-        curHp += amount;
-        if (curHp >= maxHp)
-        {
-            curHp = maxHp;
-        }
+        curHp = Mathf.Min(curHp + amount, maxHp);
     }
 
-
-    protected virtual void Die()
+    protected virtual void Die(LivingEntity killer = null)
     {
-       Debug.Log($"=={gameObject.name} + isdead!==");
-       onDeath?.Invoke();
+        Debug.Log($"== {gameObject.name} is dead ==");
+        onDeath?.Invoke(this);
     }
 }

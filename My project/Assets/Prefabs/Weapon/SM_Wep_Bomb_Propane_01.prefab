@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3965619974343928661}
   m_Layer: 0
-  m_Name: empty
+  m_Name: muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,8 +42,11 @@ GameObject:
   - component: {fileID: 3915280200126749698}
   - component: {fileID: 4626390528555576201}
   - component: {fileID: 1653047422597615567}
-  - component: {fileID: 7495417685821221389}
-  - component: {fileID: 3883627695200700131}
+  - component: {fileID: -5587680525385365839}
+  - component: {fileID: 1463056825197488707}
+  - component: {fileID: -987883198232813741}
+  - component: {fileID: 8984875188087305017}
+  - component: {fileID: 2903471807044868644}
   m_Layer: 6
   m_Name: SM_Wep_Bomb_Propane_01
   m_TagString: Untagged
@@ -120,7 +123,54 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &7495417685821221389
+--- !u!114 &-5587680525385365839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6066365829197139422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77361b4588e5a8c49b866f2cfa86c6bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSO: {fileID: 11400000, guid: c1278569db2dcee498de002398cd5fad, type: 2}
+  muzzle: {fileID: 0}
+  fireEffect: {fileID: 0}
+--- !u!114 &1463056825197488707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6066365829197139422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e9de2bfddcd314892ad9862016754c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-987883198232813741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6066365829197139422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd937904295d26b499a9cd6159290b8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropPoint: {fileID: 3965619974343928661}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  castHeight: 5
+  maxCastDown: 200
+  yOffset: 0.05
+  fallbackToOwnerPosIfNoHit: 1
+--- !u!135 &8984875188087305017
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,13 +185,13 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.23669444
   m_Center: {x: 0.0020608231, y: 0.23669444, z: -0.00000013411045}
---- !u!114 &3883627695200700131
+--- !u!114 &2903471807044868644
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,9 +200,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 6066365829197139422}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7472cf164785c254ea927487cbf5990a, type: 3}
+  m_Script: {fileID: 11500000, guid: 94f6cd40d1f51f44caa539337a013072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSO: {fileID: 11400000, guid: c1278569db2dcee498de002398cd5fad, type: 2}
-  bulletPrefab: {fileID: 888760136205294209}
-  muzzle: {fileID: 3965619974343928661}
+  damage: 50
+  radius: 4
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 256
+  lineOfSightCheck: 1
+  armingDelay: 0.3
+  lifeTime: 30
+  explodeOnTrigger: 1
+  explodeOnProximity: 1
+  proximityPoll: 0.1
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 512
+  castHeight: 2.5
+  maxCastDown: 50
+  yOffset: 0.03
+  maxSlopeDeg: 55
+  explodeVfxPrefab: {fileID: 1844356732292132, guid: b872966978318a147a2c447a23fefc4e, type: 3}
+  vfxLifetime: 2

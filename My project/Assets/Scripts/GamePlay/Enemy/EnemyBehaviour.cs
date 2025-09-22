@@ -95,7 +95,7 @@ public class EnemyBehaviour : LivingEntity
             flash.PlayFlash();
     }
 
-    protected override void Die()
+    protected override void Die(LivingEntity killer = null)
     {
         base.Die();
         itemManager.DropFromEnemy(transform.position);
