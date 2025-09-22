@@ -11,10 +11,12 @@ public class Bullet : MonoBehaviour
     private float lifeTime = 1f;
     private float damage;
 
+    private GameObject player;
     private float bulletSpeed = 30f;
     private List<Vector3> points = new();
     private void Awake()
     {
+        player = GameObject.FindWithTag("Player");
         tracer = GetComponent<LineRenderer>();
     }
 
@@ -57,11 +59,13 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(other == player.GetComponent<Collider>())
+        {
+            return;
+        }
+
         if (other.TryGetComponent<LivingEntity>(out var entity))
         {
-            Debug.Log(ownerTeam + "/" + entity.teamId);
-            if (entity.teamId == ownerTeam) return;
-
             if (entity.TryGetComponent<IDamagable>(out var target))
                 target.OnDamage(damage);
 
