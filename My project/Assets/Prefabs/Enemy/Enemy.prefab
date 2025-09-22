@@ -137,6 +137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 429fd4c66ea0fc546a4e495742d4d37e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flashMat: {fileID: 2100000, guid: dc2e63f961eec314ea3c22a9d4431b31, type: 2}
+  flashDuration: 0.1
 --- !u!1001 &3331748397446880663
 PrefabInstance:
   m_ObjectHideFlags: 0
