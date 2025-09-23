@@ -27,7 +27,8 @@ public class EnemyBehaviour : LivingEntity
 
     void OnEnable()
     {
-        if (agent != null)
+        var agent = GetComponent<NavMeshAgent>();
+        if (agent && agent.isOnNavMesh)
         {
             agent.isStopped = false;
         }

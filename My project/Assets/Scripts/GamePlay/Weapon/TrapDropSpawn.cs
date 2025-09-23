@@ -30,7 +30,7 @@ public class TrapDropSpawn : MonoBehaviour, IProjectileSpawn
             spawnPos = src.position;
         }
 
-        var obj = Instantiate(ctx.Level.prefab, spawnPos, Quaternion.identity);
+        var obj = Instantiate(ctx.Level.prefab, ctx.Owner.transform.position, Quaternion.identity);
 
         if (obj.TryGetComponent<TrapMine>(out var mine))
         {
@@ -41,7 +41,6 @@ public class TrapDropSpawn : MonoBehaviour, IProjectileSpawn
     }
 
 #if UNITY_EDITOR
-    // 디버깅에 도움되는 기즈모
     private void OnDrawGizmosSelected()
     {
         Transform src = dropPoint ? dropPoint : transform;

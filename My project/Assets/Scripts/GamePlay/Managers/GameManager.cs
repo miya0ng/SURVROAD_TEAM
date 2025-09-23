@@ -4,8 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public UiDebugTexts debugText;
-
     private WaveManager waveManager;
     private EnemySpawner enemySpawner;
 
@@ -47,7 +45,6 @@ public class GameManager : MonoBehaviour
     public void AddSpecialPart(int amount = 1)
     {
         specialPartCount += amount;
-        // UI 갱신 이벤트 호출
         OnSpecialPartChanged?.Invoke(specialPartCount);
     }
 

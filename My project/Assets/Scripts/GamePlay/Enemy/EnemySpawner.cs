@@ -82,6 +82,8 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < makePoolCount; i++)
         {
             var e = Instantiate(enemy);
+            var agent = e.GetComponent<NavMeshAgent>();
+            if (agent) agent.enabled = false;
             e.transform.SetParent(emptySpawnPoint, false);
             e.gameObject.SetActive(false);
             EnemyPool.Enqueue(e);
@@ -156,8 +158,6 @@ public class EnemySpawner : MonoBehaviour
         var e = EnemyPool.Dequeue();
         var le = e.GetComponent<LivingEntity>();
         if (le) Register(le);
-
-        e.SetActive(true);
         return e;
     }
 
@@ -187,17 +187,29 @@ public class EnemySpawner : MonoBehaviour
 
     private void ActivateEnemy(GameObject enemyObj, Vector3 pos)
     {
+        if (!NavMesh.SamplePosition(pos, out var hit, 5f, NavMesh.AllAreas))
+        {
+            Return(enemyObj); 
+            return;
+        }
+
         enemyObj.transform.SetPositionAndRotation(
             pos,
             Quaternion.LookRotation((player.position - pos).normalized, Vector3.up)
         );
 
         var agent = enemyObj.GetComponent<NavMeshAgent>();
-        if (agent && !agent.isOnNavMesh)
+        if (agent)
         {
-            if (NavMesh.SamplePosition(pos, out var hit, 3f, NavMesh.AllAreas))
-                enemyObj.transform.position = hit.position;
+            agent.enabled = true;
+            agent.Warp(hit.position);
+            agent.isStopped = false;
         }
+
+        if (agent.isOnNavMesh)
+            agent.isStopped = false;
+
+        enemyObj.SetActive(true);
 
         var le = enemyObj.GetComponent<LivingEntity>();
         if (le)
@@ -205,8 +217,6 @@ public class EnemySpawner : MonoBehaviour
             Register(le);
             HookDeath(le, enemyObj);
         }
-
-        enemyObj.SetActive(true);
     }
 
     private void HookDeath(LivingEntity le, GameObject go)

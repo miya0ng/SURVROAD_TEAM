@@ -163,7 +163,6 @@ public class TrapMine : MonoBehaviour
 
         Despawn();
     }
-
     private void Despawn()
     {
         if (OnDespawnToPool != null) OnDespawnToPool(this);
@@ -184,5 +183,7 @@ public class TrapMine : MonoBehaviour
         Gizmos.DrawLine(origin, origin + Vector3.down * (castHeight + maxCastDown));
         Gizmos.DrawWireSphere(origin, 0.06f);
     }
+
+
 #endif
 }

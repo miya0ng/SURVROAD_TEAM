@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UiPlayButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     private bool isHeld;
-    private PlayerController playerController;
+    private CarController playerController;
 
     public ButtonType buttonType = ButtonType.Accel;
     public enum ButtonType
@@ -14,12 +14,13 @@ public class UiPlayButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         Left,
         Right,
         Accel,
-        Break
+        Break,
+        Drift
     }
 
     public void Awake()
     {
-        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        playerController = GameObject.FindWithTag("Player").GetComponent<CarController>();
     }
     public void Update()
     {

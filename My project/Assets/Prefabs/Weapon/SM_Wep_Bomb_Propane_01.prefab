@@ -44,9 +44,9 @@ GameObject:
   - component: {fileID: 1653047422597615567}
   - component: {fileID: -5587680525385365839}
   - component: {fileID: 1463056825197488707}
-  - component: {fileID: -987883198232813741}
   - component: {fileID: 8984875188087305017}
-  - component: {fileID: 2903471807044868644}
+  - component: {fileID: 5520749344709666055}
+  - component: {fileID: 270236787542648037}
   m_Layer: 6
   m_Name: SM_Wep_Bomb_Propane_01
   m_TagString: Untagged
@@ -136,8 +136,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSO: {fileID: 11400000, guid: c1278569db2dcee498de002398cd5fad, type: 2}
-  muzzle: {fileID: 0}
-  fireEffect: {fileID: 0}
+  muzzle: {fileID: 3965619974343928661}
+  fireEffect: {fileID: 198278458255326934, guid: b872966978318a147a2c447a23fefc4e, type: 3}
 --- !u!114 &1463056825197488707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,26 +150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e9de2bfddcd314892ad9862016754c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-987883198232813741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6066365829197139422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd937904295d26b499a9cd6159290b8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dropPoint: {fileID: 3965619974343928661}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 0
-  castHeight: 5
-  maxCastDown: 200
-  yOffset: 0.05
-  fallbackToOwnerPosIfNoHit: 1
 --- !u!135 &8984875188087305017
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -191,7 +171,27 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.23669444
   m_Center: {x: 0.0020608231, y: 0.23669444, z: -0.00000013411045}
---- !u!114 &2903471807044868644
+--- !u!114 &5520749344709666055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6066365829197139422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd937904295d26b499a9cd6159290b8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropPoint: {fileID: 3965619974343928661}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 512
+  castHeight: 5
+  maxCastDown: 200
+  yOffset: 0.05
+  fallbackToOwnerPosIfNoHit: 1
+--- !u!114 &270236787542648037
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -208,9 +208,9 @@ MonoBehaviour:
   hitMask:
     serializedVersion: 2
     m_Bits: 256
-  lineOfSightCheck: 1
+  lineOfSightCheck: 0
   armingDelay: 0.3
-  lifeTime: 30
+  lifeTime: 10
   explodeOnTrigger: 1
   explodeOnProximity: 1
   proximityPoll: 0.1
