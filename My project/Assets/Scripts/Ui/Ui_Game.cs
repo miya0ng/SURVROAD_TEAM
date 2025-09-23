@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -82,6 +83,8 @@ public class Ui_Game : MonoBehaviour
                 if (levelData != null && levelData.ThumbNail != null)
                 {
                     slotImage[i].sprite = levelData.ThumbNail;
+                    slotImage[i].gameObject.SetActive(true);
+
                     slotText[i].text = $"Lv.{drv.CurLevel}";
                 }
                 else

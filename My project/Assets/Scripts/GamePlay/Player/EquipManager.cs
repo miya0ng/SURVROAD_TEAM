@@ -90,8 +90,8 @@ public class EquipManager : MonoBehaviour
     public void EquipWeapon(GameObject weaponPrefab, WeaponSO so, LivingEntity owner)
     {
         // 같은 SO 면
-        // var same = equipWeapons.FirstOrDefault(w => w != null && w.weaponSO == so);
-        // if (same != null) { same.SetLevel(same.CurLevel + 1); OnWeaponLeveled?.Invoke(same); OnEquipChanged?.Invoke(); return; }
+         var same = equipWeapons.FirstOrDefault(w => w != null && w.weaponSO == so);
+         if (same != null) { same.SetLevel(same.CurLevel + 1); OnWeaponLeveled?.Invoke(same); OnEquipChanged?.Invoke(); return; }
 
         if (equipWeapons.Count >= maxEquipCount)
         {
@@ -144,6 +144,7 @@ public class EquipManager : MonoBehaviour
         Destroy(drv.gameObject);
 
         OnEquipChanged?.Invoke();
+        ResetPartsGauge();
     }
 
     public void UnEquipLast()
