@@ -563,7 +563,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4225113955022362127}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8556202115346944588}
+        m_TargetAssemblyTypeName: LevelUpPopup, Assembly-CSharp
+        m_MethodName: OnClick_EquipButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &775203810716156586
 GameObject:
   m_ObjectHideFlags: 0
@@ -910,7 +922,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2433,7 +2445,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1646731273158217804
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2446,7 +2458,6 @@ RectTransform:
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 37931923426955660}
   - {fileID: 4136584007562208108}
   - {fileID: 8318711292216152657}
   m_Father: {fileID: 8051172029620113760}
@@ -2471,13 +2482,12 @@ MonoBehaviour:
   equip: {fileID: 0}
   weaponLibrary: {fileID: 11400000, guid: 6c2feb5f30003bf47a6a1c4a1915502c, type: 2}
   equipButton: {fileID: 2706492607415131566}
-  choice0: {fileID: 6878318273191026485}
-  choice1: {fileID: 2017285949154498603}
-  choice2: {fileID: 3368889436608160985}
   weaponIcons:
   - {fileID: 5271812232126765327}
   - {fileID: 2210953422761361688}
   - {fileID: 6685064518231468455}
+  levelUpDefault: {fileID: 7973041520034749293}
+  DetailPopUp: {fileID: 1493341836200772106}
 --- !u!1 &3609161195918458103
 GameObject:
   m_ObjectHideFlags: 0
@@ -3416,7 +3426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3462,7 +3472,7 @@ RectTransform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1646731273158217804}
+  m_Father: {fileID: 4136584007562208108}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5277,7 +5287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -5310,7 +5320,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4136584007562208108
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5323,6 +5333,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 37931923426955660}
   - {fileID: 5351135284282146165}
   - {fileID: 4126108727771194792}
   - {fileID: 7442392691651205202}

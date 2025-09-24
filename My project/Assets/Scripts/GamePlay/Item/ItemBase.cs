@@ -10,6 +10,8 @@ public abstract class ItemBase : MonoBehaviour
     [Header("아이템 데이터")]
     public ItemData itemData;
 
+    protected float lifeTimer =0;
+    protected bool OnTimer = false;
     public virtual void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
@@ -24,7 +26,7 @@ public abstract class ItemBase : MonoBehaviour
                 moveSpeed * Time.deltaTime
             );
 
-            if (Vector3.Distance(transform.position, player.position) < 1f)
+            if (Vector3.Distance(transform.position, player.position) < 3f)
             {
                 Collect(player.gameObject);
             }

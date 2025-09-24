@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6835086774756334737}
   m_Layer: 3
   m_Name: WeaponEquipManager
-  m_TagString: Untagged
+  m_TagString: EquipManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -252,7 +252,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 1
@@ -469,6 +469,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  velLocal: {x: 0, y: 0, z: 0}
   hAxis: 1
 --- !u!1001 &8286719437220358157
 PrefabInstance:

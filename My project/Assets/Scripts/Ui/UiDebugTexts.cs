@@ -15,29 +15,29 @@ public class UiDebugTexts : MonoBehaviour
     public TextMeshProUGUI weaponSOText;
 
     private GameObject player;
-    private PlayerController playerController;
+    private CarController playerController;
     private PlayerBehaviour playerHp;
     private WaveManager waveManager;
     private EnemySpawner enemySpawner;
     private EquipManager equipManager;
 
-    private string[] weaponSOName = new string[3];
+    private string[] equipWeapons = new string[3];
 
     void Awake()
     {
         player = GameObject.FindWithTag("Player");
         if (player != null)
         {
-            playerController = player.GetComponent<PlayerController>();
+            playerController = player.GetComponent<CarController>();
             playerHp = player.GetComponent<PlayerBehaviour>();
             equipManager = player.GetComponentInChildren<EquipManager>();
         }
 
-        var wmObj = GameObject.FindWithTag("WaveManager");
-        if (wmObj) waveManager = wmObj.GetComponent<WaveManager>();
+        var weaponManager = GameObject.FindWithTag("WaveManager");
+        if (weaponManager) waveManager = weaponManager.GetComponent<WaveManager>();
 
-        var esObj = GameObject.FindWithTag("EnemySpawner");
-        if (esObj) enemySpawner = esObj.GetComponent<EnemySpawner>();
+        var enemySpawner = GameObject.FindWithTag("EnemySpawner");
+        if (enemySpawner) this.enemySpawner = enemySpawner.GetComponent<EnemySpawner>();
     }
 
     void Update()
@@ -47,7 +47,7 @@ public class UiDebugTexts : MonoBehaviour
             return;
 
         if (weaponName) weaponName.text = "WeaponName: ";
-        if (speed) speed.text = "Speed: " + playerController.curMoveSpeed.ToString("F2");
+        if (speed) speed.text = "Speed: " + playerController.velLocal.ToString("F2");
         if (hp) hp.text = $"Hp: {playerHp.curHp}/{playerHp.maxHp}";
 
         if (waveManager && waveCount)
@@ -67,7 +67,7 @@ public class UiDebugTexts : MonoBehaviour
         if (equipManager != null && equipManager.Slot != null && equipManager.Slot.Count > 0)
         {
             FillWeaponNames();
-            if (weaponSOText) weaponSOText.text = "WeaponSO: " + string.Join(", ", weaponSOName);
+            if (weaponSOText) weaponSOText.text = "WeaponSO: " + string.Join(", ", equipWeapons);
         }
         else
         {
@@ -80,18 +80,18 @@ public class UiDebugTexts : MonoBehaviour
 
     private void FillWeaponNames()
     {
-        for (int i = 0; i < weaponSOName.Length; i++) weaponSOName[i] = "-";
+        for (int i = 0; i < equipWeapons.Length; i++) equipWeapons[i] = "-";
 
-        int count = Mathf.Min(equipManager.Slot.Count, weaponSOName.Length);
+        int count = Mathf.Min(equipManager.Slot.Count, equipWeapons.Length);
         for (int i = 0; i < count; i++)
         {
-            var drv = equipManager.Slot[i]; // WeaponDriver
+            var drv = equipManager.Slot[i];
             if (drv == null || drv.weaponSO == null || drv.CurLevelData == null)
             {
-                weaponSOName[i] = "null";
+                equipWeapons[i] = "null";
                 continue;
             }
-            weaponSOName[i] = $"{drv.weaponSO.Name}(Lv{drv.CurLevel})";
+            equipWeapons[i] = $"{drv.weaponSO.Name}(Lv{drv.CurLevel})";
         }
     }
 }
