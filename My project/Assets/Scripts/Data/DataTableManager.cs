@@ -33,6 +33,14 @@ public static class DataTableManger
         var weaponTable = new WeaponDataTable();
         weaponTable.Load(WeaponDataTable.WeaponTableId);
         tables.Add(WeaponDataTable.WeaponTableId, weaponTable);
+
+        var waveTable = new WaveDataTable();
+        waveTable.Load(WaveDataTable.WaveTableId);
+        tables.Add(WaveDataTable.WaveTableId, waveTable);
+
+        var enemyCarTable = new EnemyCarDataTable();
+        enemyCarTable.Load(EnemyCarDataTable.EnemyCarTableId);
+        tables.Add(EnemyCarDataTable.EnemyCarTableId, enemyCarTable);
     }
 
     ////public static StringTable StringTable => Get<StringTable>(DataTableIds.String);

@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+
+
 [CreateAssetMenu(fileName = "WeaponSO", menuName = "Game/Weapon SO")]
 public class WeaponSO : ScriptableObject
 {
@@ -13,6 +15,11 @@ public class WeaponSO : ScriptableObject
 
     [Header("Level Data")]
     public List<WeaponLevelData> Levels;
+
+    [Header("Mount Rules")]
+    public MountPolicy MountPolicy = MountPolicy.Single;
+    public SocketMask Allowed = SocketMask.Top;
+    public SocketType[] PreferenceOrder;
 }
 
 [System.Serializable]
@@ -33,7 +40,7 @@ public class WeaponLevelData
 
     public WeaponIndex PrefabIndex;
     public Sprite ThumbNail;
-    public GameObject prefab; // 무기 프리팹 참조
+    public GameObject prefab; // 무기 프리팹
     public GameObject bulletPrefab;
     public ParticleSystem effectPrefab;
 }

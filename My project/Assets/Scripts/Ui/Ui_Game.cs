@@ -77,7 +77,7 @@ public class Ui_Game : MonoBehaviour
     void Update()
     {
         if (waveCount != null && waveManager != null)
-            waveCount.text = $"{waveManager.currentWave}";
+            waveCount.text = $"{waveManager.CurrentWaveNumber}";
     }
 
     // === Event Handlers ===

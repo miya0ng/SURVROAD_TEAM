@@ -664,58 +664,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
-      propertyPath: accelCurve.m_PostInfinity
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
-      propertyPath: accelCurve.m_Curve.Array.data[0].time
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
-      propertyPath: accelCurve.m_Curve.Array.data[1].time
-      value: 0.9867859
-      objectReference: {fileID: 0}
-    - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
-      propertyPath: accelCurve.m_Curve.Array.data[0].value
-      value: 1.005249
-      objectReference: {fileID: 0}
-    - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
-      propertyPath: accelCurve.m_Curve.Array.data[1].value
-      value: 0.015136719
-      objectReference: {fileID: 0}
-    - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
-      propertyPath: accelCurve.m_Curve.Array.data[0].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
-      propertyPath: accelCurve.m_Curve.Array.data[1].inSlope
-      value: -2.7351093
-      objectReference: {fileID: 0}
-    - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
-      propertyPath: accelCurve.m_Curve.Array.data[0].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
-      propertyPath: accelCurve.m_Curve.Array.data[1].inWeight
-      value: 0.02710093
-      objectReference: {fileID: 0}
-    - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
-      propertyPath: accelCurve.m_Curve.Array.data[1].outSlope
-      value: -2.7351093
-      objectReference: {fileID: 0}
-    - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
-      propertyPath: accelCurve.m_Curve.Array.data[0].outWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
-      propertyPath: accelCurve.m_Curve.Array.data[0].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
-      propertyPath: accelCurve.m_Curve.Array.data[1].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4363016265159077599, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -768,26 +716,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6835086774756334737, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
-      propertyPath: starterSO
-      value: 
-      objectReference: {fileID: 11400000, guid: b70e429230039e14c8c3ade8f7a637cb, type: 2}
-    - target: {fileID: 6835086774756334737, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
-      propertyPath: starterPrefab
-      value: 
-      objectReference: {fileID: 85222885766270236, guid: b373eafe822046e46b26d52fb92f636d, type: 3}
-    - target: {fileID: 7587718835494761279, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
-      propertyPath: m_Drag
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7587718835494761279, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7587718835494761279, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7974319632393463753, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: m_Name
       value: PlayerRoot
@@ -797,17 +725,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
---- !u!114 &1510633158 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6835086774756334737, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
-  m_PrefabInstance: {fileID: 1510633157}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09e517b9593597e4f92e3e8f7da3dd47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1818739124 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4967023163653259886, guid: 21bf4754ca74594458eb545e47451542, type: 3}
@@ -1065,7 +982,7 @@ PrefabInstance:
     - target: {fileID: 8556202115346944588, guid: 35ffbb0b9295c324ca03fb98c7350881, type: 3}
       propertyPath: equip
       value: 
-      objectReference: {fileID: 1510633158}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1886,8 +1803,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1148857771}
     - target: {fileID: 8391724321260391887, guid: 8858a0769ac39fc4082bf043010671ad, type: 3}
+      propertyPath: enemyCarCsvPath
+      value: EnemyCarTable
+      objectReference: {fileID: 0}
+    - target: {fileID: 8391724321260391887, guid: 8858a0769ac39fc4082bf043010671ad, type: 3}
       propertyPath: enemyCoSpawnCount
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8391724321260391887, guid: 8858a0769ac39fc4082bf043010671ad, type: 3}
+      propertyPath: enemyEntries.Array.size
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -1905,6 +1830,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4092678037204066751, guid: 8858a0769ac39fc4082bf043010671ad, type: 3}
   m_PrefabInstance: {fileID: 2676317846389910137}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2676317846389910139 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8391724321260391887, guid: 8858a0769ac39fc4082bf043010671ad, type: 3}
+  m_PrefabInstance: {fileID: 2676317846389910137}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2bb3c0c7994d294eafb86578d8d2ac2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4981072172041266346
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2046,6 +1982,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1102792035}
     m_Modifications:
+    - target: {fileID: 240556288306324376, guid: ac8e625de9b961e4d8860a8f93fa55d0, type: 3}
+      propertyPath: enemySpawner
+      value: 
+      objectReference: {fileID: 2676317846389910139}
     - target: {fileID: 240556288306324376, guid: ac8e625de9b961e4d8860a8f93fa55d0, type: 3}
       propertyPath: 'enemiesPerWave.Array.data[0]'
       value: 10

@@ -33,11 +33,11 @@ public class UiDebugTexts : MonoBehaviour
             equipManager = player.GetComponentInChildren<EquipManager>();
         }
 
-        var weaponManager = GameObject.FindWithTag("WaveManager");
-        if (weaponManager) waveManager = weaponManager.GetComponent<WaveManager>();
+        var wmObj = GameObject.FindWithTag("WaveManager");
+        if (wmObj) waveManager = wmObj.GetComponent<WaveManager>();
 
-        var enemySpawner = GameObject.FindWithTag("EnemySpawner");
-        if (enemySpawner) this.enemySpawner = enemySpawner.GetComponent<EnemySpawner>();
+        var esObj = GameObject.FindWithTag("EnemySpawner");
+        if (esObj) enemySpawner = esObj.GetComponent<EnemySpawner>();
     }
 
     void Update()
@@ -52,16 +52,21 @@ public class UiDebugTexts : MonoBehaviour
 
         if (waveManager && waveCount)
         {
-            waveCount.text = "WaveCount: " + waveManager.currentWave;
+            if (waveManager.TotalWaves > 0)
+                waveCount.text = $"Wave: {waveManager.CurrentWaveNumber}/{waveManager.TotalWaves}";
+      
             if (timePerWave) timePerWave.text = $"TimePerWave: {waveManager.WaveTimer:F2}";
         }
 
         if (enemySpawner && leftEnemy)
         {
-            int remainingToSpawn = Mathf.Max(0, enemySpawner.waveSpawnCount - enemySpawner.curSpawnCount);
+            int total = enemySpawner.WaveTotalToSpawn;
+            int spawned = enemySpawner.SpawnedInWave;
+            int remainingToSpawn = Mathf.Max(0, total - spawned);
+
             leftEnemy.text =
                 $"SpawnLeft: {remainingToSpawn}, Active: {enemySpawner.ActiveEnemyCount}, " +
-                $"Spawned: {enemySpawner.curSpawnCount}/{enemySpawner.waveSpawnCount}";
+                $"Spawned: {spawned}/{total}";
         }
 
         if (equipManager != null && equipManager.Slot != null && equipManager.Slot.Count > 0)
