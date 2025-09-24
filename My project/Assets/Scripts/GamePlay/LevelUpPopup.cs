@@ -1,5 +1,7 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class LevelUpPopup : MonoBehaviour
 {
@@ -14,12 +16,12 @@ public class LevelUpPopup : MonoBehaviour
     public Button choice1;
     public Button choice2;
 
-    public int idx;
-    public Sprite[] weaponIcons;
+    private int selectedIndex = -1;
+    public Image[] weaponIcons;
+    private (WeaponSO so, int level)[] candidates;
+
     int[] weaponIds;
 
-    private GameObject weaponPrefab;
-    private WeaponSO so;
     void OnEnable()
     {
         equip.OnLevelUpReady += Show;
@@ -30,6 +32,7 @@ public class LevelUpPopup : MonoBehaviour
         Time.timeScale = 1;
         equip.OnLevelUpReady -= Show;
         equip.OnPartsGaugeChanged -= UpdateGauge;
+        selectedIndex = -1;
     }
 
     void UpdateGauge(float cur, float max)
@@ -43,34 +46,67 @@ public class LevelUpPopup : MonoBehaviour
         gameObject.SetActive(true);
         Time.timeScale = 0;
         weaponIds = new int[choiceCount];
+        candidates = new (WeaponSO, int)[choiceCount];
+
+        // 후보 만들기 (현재 장착여부 따라 Lv1 or CurLevel+1)
+        var allCandidates = new List<(WeaponSO so, int level)>();
+        foreach (var w in weaponLibrary.weapons)
+        {
+            var equipped = equip.Slot.FirstOrDefault(s => s.weaponSO == w);
+            int nextLevel = equipped != null ? Mathf.Min(equipped.CurLevel + 1, 5) : 1;
+            allCandidates.Add((w, nextLevel));
+        }
+
+        // 랜덤으로 3개 뽑기
         for (int i = 0; i < choiceCount; i++)
         {
-            idx = Random.Range(0, weaponLibrary.weapons.Count);
-            weaponIds[i] = weaponLibrary.weapons[idx].ID;
-            weaponIcons[i] = weaponLibrary.GetThumbnail((WeaponIndex)idx, 1);
+            var pick = allCandidates[Random.Range(0, allCandidates.Count)];
+            candidates[i] = pick;
+            weaponIds[i] = pick.so.ID;
+            weaponIcons[i].sprite = weaponLibrary.GetThumbnail(pick.so.Levels[pick.level-1].PrefabIndex, pick.level);
         }
-        // 팝업 열기 + 옵션 구성
-        // ① 기존 무기 중 하나 레벨업
-        // ② 새로운 무기 1개 선택하여 장착
-
-        //선택한 choice인덱스 찾기
     }
 
-    public void OnClick_LevelUpSlot0()
+    public void OnClick_slot0()
     {
-        int iiiiiiiiiiiiiiiii  = weaponLibrary.weapons[0].ID;
+        selectedIndex = 0;
     }
-    public void OnClick_LevelUpSlot1()
+    public void OnClick_slot1()
     {
-        
+        selectedIndex = 1;
     }
-    public void OnClick_LevelUpSlot2()
+    public void OnClick_slot2()
     {
-       
+        selectedIndex = 2;
     }
-    public void OnClick_EquipButton(GameObject weaponPrefab, WeaponSO so)
+
+    public void OnClick_EquipButton()
     {
-        equip.ApplyLevelUpChoice_EquipNew(weaponPrefab, so);
+        if (selectedIndex < 0)
+        {
+            Debug.Log("선택된 무기가 없음");
+            return;
+        }
+
+        var (so, level) = candidates[selectedIndex];
+        var equipped = equip.Slot.FirstOrDefault(s => s.weaponSO == so);
+
+        if (equipped != null)
+        {
+            int idx = -1;
+            if (equip.Slot is List<WeaponDriver> list)
+            {
+               idx = list.IndexOf(equipped);
+            }
+            equip.ApplyLevelUpChoice_LevelUpExisting(idx);
+        }
+        else
+        {
+            var data = so.Levels.FirstOrDefault(l => l.Level == level);
+            if (data != null && data.prefab != null)
+                equip.ApplyLevelUpChoice_EquipNew(data.prefab, so);
+        }
+
         gameObject.SetActive(false);
     }
 }

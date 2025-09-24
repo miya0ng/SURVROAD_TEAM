@@ -28,7 +28,7 @@ public class EquipManager : MonoBehaviour
     [Header("Parts Gauge")]
     [SerializeField] private float parts = 0f;
     public float Parts => parts;
-    [SerializeField] private float partsMax = 100f;
+    [SerializeField] private float partsMax = 10f;
     public float PartsMax => partsMax;
     private bool levelUpPending = false;
 
@@ -60,7 +60,7 @@ public class EquipManager : MonoBehaviour
 
         parts = Mathf.Clamp(parts + amount, 0f, partsMax);
         OnPartsGaugeChanged?.Invoke(parts, partsMax);
-
+        Debug.Log("Turn On LevelUP PopUp");
         if (parts >= partsMax)
         {
             levelUpPending = true;

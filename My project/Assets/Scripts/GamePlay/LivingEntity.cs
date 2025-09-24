@@ -31,7 +31,7 @@ public class LivingEntity : MonoBehaviour, IDamagable
 
     protected virtual void Die(LivingEntity killer = null)
     {
-        Debug.Log($"== {gameObject.name} is dead ==");
+       // Debug.Log($"== {gameObject.name} is dead ==");
         onDeath?.Invoke(this);
     }
 }
