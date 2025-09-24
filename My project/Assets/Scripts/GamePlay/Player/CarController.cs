@@ -40,10 +40,10 @@ public class CarController : MonoBehaviour
     private bool isRight;
     private bool isAccel;
     private bool isBrake;
-    private bool isDrift;    // 드리프트 버튼
+    private bool isDrift;
 
     float driftT;
-    Vector3 velLocal;
+    public Vector3 velLocal;
     public float hAxis = 1f;
 
     void Reset() { rb = GetComponent<Rigidbody>(); }

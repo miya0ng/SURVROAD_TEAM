@@ -134,7 +134,7 @@ public class DevCheatConsole : MonoBehaviour
                     equip.ForceEquipNew(so, pickLevel);
 
                     // 팝업 흐름(게이지 꽉 찼을 때 선택 적용)
-                    // equip.ApplyLevelUpChoice_EquipNew(so, pickLevel);
+                    // equip.ApplyNewEquip(so, pickLevel);
                 }
             }
             GUI.enabled = true;

@@ -7,7 +7,7 @@ public class WaveManager : MonoBehaviour
     public int currentWave;
     private int maxWaves = 3;
 
-    public int[] enemiesPerWave = { 2, 3, 4 };
+    public int[] enemiesPerWave = { 10, 15, 20 };
     public float WaveTimer { get; set; }
 
     public void Awake()
@@ -18,21 +18,26 @@ public class WaveManager : MonoBehaviour
 
     public void Start()
     {
+        NextWave();
 
+        enemySpawner.OnWaveCleared += NextWave;
     }
+
     public void Update()
     {
         WaveTimer += Time.deltaTime;
     }
+
     public void NextWave()
     {
-        if (currentWave == maxWaves)
+        if (currentWave >= maxWaves)
         {
             return;
         }
 
-        WaveTimer = 0;
+        WaveTimer = 0f;
         currentWave++;
+
         enemySpawner.waveSpawnCount = enemiesPerWave[currentWave - 1];
 
         enemySpawner.StopSpawner();

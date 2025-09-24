@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,82 +21,114 @@ public class Ui_Game : MonoBehaviour
 
     public Ui_Slider partsGuage;
 
+    const string LOG = "[Ui_Game]";
+
     void Awake()
     {
         player = GameObject.FindWithTag("Player");
-        equipManager = player.GetComponentInChildren<EquipManager>();
-        waveManager = GameObject.FindGameObjectWithTag("WaveManager").GetComponent<WaveManager>();
-        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        if (player != null) equipManager = player.GetComponentInChildren<EquipManager>();
+
+        var wmObj = GameObject.FindGameObjectWithTag("WaveManager");
+        if (wmObj) waveManager = wmObj.GetComponent<WaveManager>();
+
+        var gmObj = GameObject.FindGameObjectWithTag("GameManager");
+        if (gmObj) gameManager = gmObj.GetComponent<GameManager>();
     }
 
-    void Start()
+    void OnEnable()
     {
-        equipManager.OnEquipChanged += SetSlotInfo;
-        equipManager.OnPartsGaugeChanged += UpdatePartsGauge;
-        gameManager.OnSpecialPartChanged += UpdateSpecialPartUI;
+        if (equipManager != null)
+        {
+            equipManager.OnEquipChanged += SetSlotInfo;
+            equipManager.OnWeaponLeveled += OnWeaponLeveledRefresh;
+            equipManager.OnPartsGaugeChanged += UpdatePartsGauge;
+            Debug.Log($"{LOG} Subscribed to EquipManager events");
 
-        UpdatePartsGauge(equipManager.Parts, equipManager.PartsMax);
-        SetSlotInfo();
+            UpdatePartsGauge(equipManager.Parts, equipManager.PartsMax);
+            SetSlotInfo();
+        }
+        else
+        {
+            Debug.LogWarning($"{LOG} equipManager not found at OnEnable");
+        }
+
+        if (gameManager != null)
+        {
+            gameManager.OnSpecialPartChanged += UpdateSpecialPartUI;
+        }
     }
 
-    void OnDestroy()
+    void OnDisable()
     {
         if (equipManager != null)
         {
             equipManager.OnEquipChanged -= SetSlotInfo;
+            equipManager.OnWeaponLeveled -= OnWeaponLeveledRefresh;
             equipManager.OnPartsGaugeChanged -= UpdatePartsGauge;
+            Debug.Log($"{LOG} Unsubscribed from EquipManager events");
         }
         if (gameManager != null)
         {
             gameManager.OnSpecialPartChanged -= UpdateSpecialPartUI;
+            Debug.Log($"{LOG} Unsubscribed from GameManager events");
         }
     }
 
     void Update()
     {
-        if (player == null || waveManager == null) return;
-        waveCount.text = $"{waveManager.currentWave}";
+        if (waveCount != null && waveManager != null)
+            waveCount.text = $"{waveManager.currentWave}";
     }
 
+    // === Event Handlers ===
+    private void OnWeaponLeveledRefresh(WeaponDriver drv)
+    {
+        Debug.Log($"{LOG} OnWeaponLeveled -> {drv.weaponSO?.Name} Lv{drv.CurLevel}");
+        SetSlotInfo();
+    }
 
     private void UpdatePartsGauge(float cur, float max)
     {
+        if (partsGuage == null)
+        {
+            Debug.LogWarning($"{LOG} partsGuage is null");
+            return;
+        }
         partsGuage.SetSliderUi(cur, max);
     }
 
     private void UpdateSpecialPartUI(int count)
     {
+        if (specialPartText == null) return;
         specialPartText.text = $"x {count}";
     }
 
     private void SetSlotInfo()
     {
-        // EquipManager.Slot: IReadOnlyList<WeaponDriver>
+        if (equipManager == null)
+        {
+            Debug.LogWarning($"{LOG} SetSlotInfo aborted: equipManager is null");
+            return;
+        }
+
+        var infos = equipManager.GetSlotInfos();
+        int n = Mathf.Min(slotImage.Length, infos.Length);
+
         for (int i = 0; i < slotImage.Length; i++)
         {
-            if (i < equipManager.Slot.Count && equipManager.Slot[i] != null)
+            if (i < n && !infos[i].IsEmpty)
             {
-                var drv = equipManager.Slot[i];
-
-                var levelData = drv.CurLevelData;
-                if (levelData != null && levelData.ThumbNail != null)
-                {
-                    slotImage[i].sprite = levelData.ThumbNail;
-                    slotImage[i].gameObject.SetActive(true);
-
-                    slotText[i].text = $"Lv.{drv.CurLevel}";
-                }
-                else
-                {
-                    slotImage[i].sprite = null;
-                    slotText[i].text = string.Empty;
-                }
+                slotImage[i].sprite = infos[i].Thumbnail;
+                slotImage[i].gameObject.SetActive(true);
+                if (i < slotText.Length) slotText[i].text = $"Lv.{infos[i].Level}";
             }
             else
             {
                 slotImage[i].sprite = null;
-                slotText[i].text = string.Empty;
+                slotImage[i].gameObject.SetActive(false);
+                if (i < slotText.Length) slotText[i].text = string.Empty;
             }
         }
+        Debug.Log($"{LOG} SetSlotInfo() infos={infos.Length}, slots={slotImage.Length}");
     }
 }

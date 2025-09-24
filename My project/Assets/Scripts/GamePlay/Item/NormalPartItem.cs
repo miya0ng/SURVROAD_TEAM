@@ -12,9 +12,27 @@ public class NormalPartItem : ItemBase
     }
     public override void Start()
     {
-    }    
+        base.Start();
+        OnTimer = true;
+        lifeTimer = 0;
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        if (OnTimer)
+        {
+            lifeTimer = Time.time;
+        }
+        if (lifeTimer >= 30)
+        {
+            lifeTimer = 0;
+            Destroy(gameObject);
+        }
+    }
     protected override void Collect(GameObject player)
     {
+        Debug.Log("ItemCollect");
         equip.AddParts(partsValue);
         Destroy(gameObject);
     }
