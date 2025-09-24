@@ -40,7 +40,7 @@ public class CarController : MonoBehaviour
     private bool isRight;
     private bool isAccel;
     private bool isBrake;
-    private bool isDrift;    // 드리프트 버튼
+    private bool isDrift;
 
     float driftT;
     public Vector3 velLocal;
