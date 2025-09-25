@@ -14,7 +14,7 @@ public class EnemyShooter : EnemyBehaviourBase
     {
         base.OnEnable();
         orbitSign = Random.value < 0.5f ? -1f : 1f;
-        swapT = Random.Range(1.5f, 3.5f);
+        swapT = Random.Range(2.5f, 3.5f);
 
         if (agent && agent.isOnNavMesh) agent.isStopped = false;
     }

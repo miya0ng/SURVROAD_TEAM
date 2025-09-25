@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 빠른 총알용: 스윕 충돌(Raycast/SphereCast) + 라인 렌더러 세그먼트 제한 + 풀링 대응
+/// 빠른 총알용: 스윕 충돌(Raycast/SphereCast)
 /// Player/Enemy 공용. ownerTeam으로 아군피해 방지.
 /// </summary>
 [RequireComponent(typeof(Collider))]

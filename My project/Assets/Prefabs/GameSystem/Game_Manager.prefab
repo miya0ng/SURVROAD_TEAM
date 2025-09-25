@@ -44,7 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ab957d4f98fb5f4a8d9aa58ab68fb3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugText: {fileID: 0}
+  specialPartCount: 0
   playTime: 0
-  waveCount: 0
-  leftEnemyCount: 0

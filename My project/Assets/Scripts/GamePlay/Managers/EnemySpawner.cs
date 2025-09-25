@@ -16,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Spawn Settings (defaults/overrides)")]
     [SerializeField] private float spawnRadius = 100f;
-    [SerializeField] private int makePoolCount = 30;
+    [SerializeField] private int makePoolCount = 50;
     [SerializeField] private int enemyCoSpawnCount = 1;
     [SerializeField] private float spawnInterval = 0.5f;
 

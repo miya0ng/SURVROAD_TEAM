@@ -50,7 +50,6 @@ public class EnemyGunController : MonoBehaviour
         if (muzzle == null) Debug.LogWarning("[GunController] muzzle ������");
         if (projectilePrefab == null) Debug.LogWarning("[GunController] projectilePrefab ������");
 
-        // CSV �Ķ���� �ڵ� �ݿ�(������ ��)
         if (behaviour != null)
         {
             TrySyncFromBehaviour();
@@ -142,12 +141,12 @@ public class EnemyGunController : MonoBehaviour
             if (Vector3.Dot(fw, to) < minDotToFire) return;
         }
 
-        Vector3 aimDir = ComputeAimDirection(fireOrigin, tgt);
+        //Vector3 aimDir = ComputeAimDirection(fireOrigin, tgt);
 
         if (useBurst && shotsPerBurst > 1)
-            StartCoroutine(BurstRoutine(aimDir, shotsPerBurst));
+            StartCoroutine(BurstRoutine(gameObject.transform.forward, shotsPerBurst));
         else
-            FireOne(aimDir);
+            FireOne(gameObject.transform.forward);
 
         nextFireTime = Time.time + fireInterval;
     }
@@ -218,46 +217,46 @@ public class EnemyGunController : MonoBehaviour
         return go;
     }
 
-    private Vector3 ComputeAimDirection(Vector3 fireOrigin, Transform tgt)
-    {
-        Vector3 targetPos = tgt.position;
-        Vector3 targetVel = Vector3.zero;
+    //private Vector3 ComputeAimDirection(Vector3 fireOrigin, Transform tgt)
+    //{
+    //    Vector3 targetPos = tgt.position;
+    //    Vector3 targetVel = Vector3.zero;
 
-        if (useLeadShot && projectileSpeed > 0.1f)
-        {
-            var trb = tgt.GetComponent<Rigidbody>();
-            if (trb != null) targetVel = trb.linearVelocity;
+    //    if (useLeadShot && projectileSpeed > 0.1f)
+    //    {
+    //        var trb = tgt.GetComponent<Rigidbody>();
+    //        if (trb != null) targetVel = trb.linearVelocity;
 
-            Vector3 toTarget = targetPos - fireOrigin;
-            float a = Vector3.Dot(targetVel, targetVel) - projectileSpeed * projectileSpeed;
-            float b = 2f * Vector3.Dot(toTarget, targetVel);
-            float c = Vector3.Dot(toTarget, toTarget);
-            float t = SolveInterceptTime(a, b, c);
-            if (t > 0f) t = Mathf.Min(t, leadMaxSeconds);
+    //        Vector3 toTarget = targetPos - fireOrigin;
+    //        float a = Vector3.Dot(targetVel, targetVel) - projectileSpeed * projectileSpeed;
+    //        float b = 2f * Vector3.Dot(toTarget, targetVel);
+    //        float c = Vector3.Dot(toTarget, toTarget);
+    //        float t = SolveInterceptTime(a, b, c);
+    //        if (t > 0f) t = Mathf.Min(t, leadMaxSeconds);
 
-            if (t > 0f)
-                targetPos += targetVel * t;
-        }
+    //        if (t > 0f)
+    //            targetPos += targetVel * t;
+    //    }
 
-        return (targetPos - fireOrigin).sqrMagnitude > 0.0001f
-            ? (targetPos - fireOrigin).normalized
-            : transform.forward;
-    }
+    //    return (targetPos - fireOrigin).sqrMagnitude > 0.0001f
+    //        ? (targetPos - fireOrigin).normalized
+    //        : transform.forward;
+    //}
 
-    private static float SolveInterceptTime(float a, float b, float c)
-    {
-        float disc = b * b - 4f * a * c;
-        if (disc < 0f || Mathf.Abs(a) < 1e-6f) return 0f;
+    //private static float SolveInterceptTime(float a, float b, float c)
+    //{
+    //    float disc = b * b - 4f * a * c;
+    //    if (disc < 0f || Mathf.Abs(a) < 1e-6f) return 0f;
 
-        float sqrt = Mathf.Sqrt(disc);
-        float t1 = (-b - sqrt) / (2f * a);
-        float t2 = (-b + sqrt) / (2f * a);
+    //    float sqrt = Mathf.Sqrt(disc);
+    //    float t1 = (-b - sqrt) / (2f * a);
+    //    float t2 = (-b + sqrt) / (2f * a);
 
-        if (t1 > 0f && t2 > 0f) return Mathf.Min(t1, t2);
-        if (t1 > 0f) return t1;
-        if (t2 > 0f) return t2;
-        return 0f;
-    }
+    //    if (t1 > 0f && t2 > 0f) return Mathf.Min(t1, t2);
+    //    if (t1 > 0f) return t1;
+    //    if (t2 > 0f) return t2;
+    //    return 0f;
+    //}
 
     private static Vector3 ApplySpread(Vector3 dir, float degrees)
     {

@@ -179,7 +179,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 30
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -790,7 +790,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2880814381959446625, guid: aece0a5275b9271438384434e990fc16, type: 3}
       propertyPath: Lens.FieldOfView
-      value: 40
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2880814381959446625, guid: aece0a5275b9271438384434e990fc16, type: 3}
       propertyPath: Target.TrackingTarget
@@ -860,10 +860,6 @@ PrefabInstance:
     - target: {fileID: 6363159204833234995, guid: 1ae7bd5749b7ca14f9789f8543d71c20, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9195594445626368099, guid: 1ae7bd5749b7ca14f9789f8543d71c20, type: 3}
-      propertyPath: debugText
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1795,8 +1791,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 90610349}
     - target: {fileID: 8391724321260391887, guid: 8858a0769ac39fc4082bf043010671ad, type: 3}
-      propertyPath: makePoolCount
+      propertyPath: spawnRadius
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8391724321260391887, guid: 8858a0769ac39fc4082bf043010671ad, type: 3}
+      propertyPath: makePoolCount
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8391724321260391887, guid: 8858a0769ac39fc4082bf043010671ad, type: 3}
       propertyPath: emptySpawnPoint
