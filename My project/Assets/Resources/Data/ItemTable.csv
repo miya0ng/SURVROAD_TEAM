@@ -1,7 +1,7 @@
 ID,Name,Type,EffectType,DropPoint,DropRate,UseEffect,Duration,Damage,Info,PrefabName,
 31001,common_parts,1,0,1,1,0,0,0,적 차량에서 확정적으로 드랍되는 성장재화,GearSilver,
 31002,special_parts,1,0,1,0.1,0,0,0,적 차량에서 확률적으로 드랍되는 튜닝 전용 재화,GearGold,
-32101,repair_kit,2,1,2,0.2,1,10,0,내구도의 30%를 회복해주는 아이템,SM_Item_Alcohol_01,
+32101,repair_kit,2,1,2,0.2,1,0,0,내구도의 30%를 회복해주는 아이템,SM_Item_Alcohol_01,
 32102,reinforced_shield,2,1,2,0.15,2,3,0,3초동안 플레이어를 무적으로 만들어주는 아이템,SM_Item_Alcohol_01,
 32201,emp_bomb,2,2,2,0.1,2,2,0,2초동안 모든 적 차량을 정지시키는 아이템,SM_Item_Alcohol_01,
 32202,shockwave_generator,2,2,2,0.1,3,0,30,플레이어 주변 적들에게 피해를 주며 밀쳐내는 아이템,SM_Item_Alcohol_01,

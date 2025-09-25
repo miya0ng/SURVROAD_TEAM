@@ -1,46 +1,80 @@
+﻿using System.Linq;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    private EnemySpawner enemySpawner;
+   
+    private string waveCsvPath = "WaveTable";
+    private int[] waveOrder; // 비우면 CSV의 ID 오름차순으로 플레이
 
-    public int currentWave;
-    private int maxWaves = 3;
+    [Header("Spawner Binding")]
+    [SerializeField] private EnemySpawner enemySpawner;
 
-    public int[] enemiesPerWave = { 10, 15, 20 };
-    public float WaveTimer { get; set; }
+    [Header("Timing Overrides (선택)")]
+    [SerializeField] private int coSpawnPerTick = 1;    // 웨이브 공통 override
+    [SerializeField] private float tickInterval = 0.5f; // 웨이브 공통 override
 
-    public void Awake()
+    private WaveDataTable waveTable;
+
+    public int currentWaveIndex { get; private set; }
+    public float WaveTimer { get; private set; }
+
+    public int CurrentWaveNumber => currentWaveIndex + 1;
+    public int TotalWaves => waveOrder != null ? waveOrder.Length : 0;
+
+    void Awake()
     {
-        currentWave = 0;
-        enemySpawner = GameObject.FindGameObjectWithTag("EnemySpawner").GetComponent<EnemySpawner>();
+        if (enemySpawner == null)
+            enemySpawner = GameObject.FindGameObjectWithTag("EnemySpawner")?.GetComponent<EnemySpawner>();
+
+        waveTable = new WaveDataTable();
+        waveTable.Load(waveCsvPath);
+
+        // 웨이브 순서 결정
+        if (waveOrder == null || waveOrder.Length == 0)
+        {
+            waveOrder = waveTable.GetAll().Select(w => w.ID).OrderBy(id => id).ToArray();
+        }
+
+        currentWaveIndex = -1;
     }
 
-    public void Start()
+    void Start()
     {
+        if (enemySpawner != null)
+            enemySpawner.OnWaveCleared += NextWave;
+
         NextWave();
-
-        enemySpawner.OnWaveCleared += NextWave;
     }
 
-    public void Update()
+    void Update()
     {
         WaveTimer += Time.deltaTime;
     }
 
     public void NextWave()
     {
-        if (currentWave >= maxWaves)
+        currentWaveIndex++;
+        if (currentWaveIndex >= waveOrder.Length)
         {
+            Debug.Log("[WaveManager] 모든 웨이브 완료");
             return;
         }
 
         WaveTimer = 0f;
-        currentWave++;
+        int waveId = waveOrder[currentWaveIndex];
 
-        enemySpawner.waveSpawnCount = enemiesPerWave[currentWave - 1];
+        var wave = waveTable.GetWaveData(waveId);
+        if (wave == null)
+        {
+            Debug.LogError($"[WaveManager] Wave {waveId} 없음");
+            NextWave(); // 스킵
+            return;
+        }
 
-        enemySpawner.StopSpawner();
-        enemySpawner.StartSpawner();
+        Debug.Log($"[WaveManager] Wave {waveId} 시작 — 총 {wave.TotalAmount}마리");
+
+        // 웨이브 데이터 전달 + 스폰 시작
+        enemySpawner.SetWave(wave, coSpawnPerTick, tickInterval);
     }
 }

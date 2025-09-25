@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,26 +12,39 @@ public class GameManager : MonoBehaviour
     private float playTime = 0f;
 
     private bool isGameOver = false;
+    private bool subscribed = false;
 
     void Awake()
     {
-        enemySpawner = GameObject.FindGameObjectWithTag("EnemySpawner").GetComponent<EnemySpawner>();
-        waveManager = GameObject.FindGameObjectWithTag("WaveManager").GetComponent<WaveManager>();
-        enemySpawner.OnWaveCleared += () => waveManager.NextWave();
+        var esObj = GameObject.FindGameObjectWithTag("EnemySpawner");
+        if (esObj) enemySpawner = esObj.GetComponent<EnemySpawner>();
+
+        var wmObj = GameObject.FindGameObjectWithTag("WaveManager");
+        if (wmObj) waveManager = wmObj.GetComponent<WaveManager>();
+
+        if (enemySpawner && waveManager)
+        {
+            enemySpawner.OnWaveCleared += HandleWaveCleared;
+            subscribed = true;
+        }
+        else
+        {
+            Debug.LogError("[GameManager] EnemySpawner 또는 WaveManager 참조 실패");
+        }
     }
 
-    void Start()
+    void OnDestroy()
     {
-
+        if (subscribed && enemySpawner)
+            enemySpawner.OnWaveCleared -= HandleWaveCleared;
+        subscribed = false;
     }
 
     void Update()
     {
-        if (enemySpawner.curSpawnCount >= enemySpawner.waveSpawnCount
-            && enemySpawner.ActiveEnemyCount <= 0)
-        {
-            waveManager.NextWave();
-        }
+        // 이전 코드:
+        // if (enemySpawner.curSpawnCount >= enemySpawner.waveSpawnCount && enemySpawner.ActiveEnemyCount <= 0)
+        //     waveManager.NextWave();
 
         playTime += Time.deltaTime;
 
@@ -40,6 +52,12 @@ public class GameManager : MonoBehaviour
         {
             GameStart();
         }
+    }
+
+    private void HandleWaveCleared()
+    {
+        if (!waveManager) return;
+        waveManager.NextWave();
     }
 
     public void AddSpecialPart(int amount = 1)
@@ -66,9 +84,8 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         isGameOver = true;
-        Time.timeScale = 0f; // Pause the game
-        enemySpawner.StopSpawner();
+        Time.timeScale = 0f;
+        if (enemySpawner) enemySpawner.StopSpawner();
         Debug.Log($"Game Over! Total Play Time: {playTime} seconds.");
-        // Additional game over logic can be added here
     }
 }

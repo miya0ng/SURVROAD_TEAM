@@ -11,7 +11,7 @@ public class LivingEntity : MonoBehaviour, IDamagable
     public TeamId teamId;
 
     public Action<LivingEntity> onDeath;
-
+    public bool isDead = false;
     protected virtual void Awake()
     {
         if (curHp <= 0f) curHp = maxHp;
@@ -32,6 +32,7 @@ public class LivingEntity : MonoBehaviour, IDamagable
     protected virtual void Die(LivingEntity killer = null)
     {
        // Debug.Log($"== {gameObject.name} is dead ==");
+        isDead = true;
         onDeath?.Invoke(this);
     }
 }

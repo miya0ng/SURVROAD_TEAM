@@ -36,3 +36,8 @@ public struct WeaponContext
     public LivingEntity Owner;
     public ParticleSystem FireFx;
 }
+
+[System.Flags]
+public enum SocketMask { Front = 1 << 0, Back = 1 << 1, Top = 1 << 2, Left = 1 << 3, Right = 1 << 4, Dropper = 1 << 5 }
+
+public enum MountPolicy { Single, PairSymmetric, NonOccupying }
