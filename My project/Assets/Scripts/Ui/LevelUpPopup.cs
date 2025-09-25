@@ -21,10 +21,8 @@ public class LevelUpPopup : MonoBehaviour
 
     void OnEnable()
     {
-        if (equip == null)
-        {
-            return;
-        }
+        if (equip == null) return;
+
         equip.OnLevelUpReady += Show;
         equip.OnPartsGaugeChanged += UpdateGauge;
         if (equipButton != null) equipButton.interactable = false;
@@ -34,10 +32,7 @@ public class LevelUpPopup : MonoBehaviour
     {
         if (isOpen) CloseInternal();
 
-        if (equip == null)
-        {
-            return;
-        }
+        if (equip == null) return;
         equip.OnLevelUpReady -= Show;
         equip.OnPartsGaugeChanged -= UpdateGauge;
     }
@@ -45,16 +40,13 @@ public class LevelUpPopup : MonoBehaviour
     // ===== Events =====
     void UpdateGauge(float cur, float max)
     {
-        // 게이지 UI 반영 (필요시)
+        // 게이지 UI 반영 필요 시 작성
     }
 
     // ===== Show/Hide =====
     void Show()
     {
-        if (equip == null || weaponLibrary == null || weaponIcons == null)
-        {
-            return;
-        }
+        if (equip == null || weaponLibrary == null || weaponIcons == null) return;
 
         var list = equip.GetUpgradeCandidates(choiceCount, weaponLibrary);
         candidates = list?.ToArray() ?? System.Array.Empty<UpgradeCandidate>();
@@ -75,19 +67,16 @@ public class LevelUpPopup : MonoBehaviour
         }
 
         selectedIndex = -1;
-        if (equipButton != null)
-        {
-            equipButton.interactable = false;
-        }
+        if (equipButton != null) equipButton.interactable = false;
 
         if (levelUpDefault != null) levelUpDefault.SetActive(true);
-        Time.timeScale = 0;
+        Time.timeScale = 0;     // 팝업 중 일시정지
         isOpen = true;
     }
 
     private void CloseInternal()
     {
-        Time.timeScale = 1;
+        Time.timeScale = 1;     // 닫으면 재개
         if (levelUpDefault != null) levelUpDefault.SetActive(false);
         selectedIndex = -1;
         isOpen = false;
@@ -100,16 +89,12 @@ public class LevelUpPopup : MonoBehaviour
 
     private void SelectIndex(int idx)
     {
-        if (candidates == null || idx < 0 || idx >= candidates.Length)
-        {
-            return;
-        }
+        if (candidates == null || idx < 0 || idx >= candidates.Length) return;
 
         if (selectedIndex == idx)
         {
             selectedIndex = -1;
             if (equipButton != null) equipButton.interactable = false;
-           
             return;
         }
 
@@ -126,8 +111,7 @@ public class LevelUpPopup : MonoBehaviour
         }
 
         var c = candidates[selectedIndex];
-        equip.EquipOrUpgrade(c);
-
+        equip.EquipOrUpgrade(c);   // 무기/플레이어 업그레이드 모두 처리
         CloseInternal();
     }
 }

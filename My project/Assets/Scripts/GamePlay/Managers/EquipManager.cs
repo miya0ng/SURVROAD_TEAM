@@ -4,45 +4,54 @@ using UnityEngine;
 
 public class EquipManager : MonoBehaviour
 {
+    // ====== Interfaces (선택 사항) ======
+    // 플레이어 쪽에서 이 인터페이스를 구현하면, 업그레이드 누적치를 즉시 반영해줄 수 있음.
+    public interface IPlayerUpgradable
+    {
+        void ApplyMultipliers(float durabilityMul, float maxSpeedMul, float accelerationMul);
+    }
+
+    // ====== Starter Loadout ======
     [Header("Starter Loadout")]
     [SerializeField] private bool equipStarterOnStart = true;
     [SerializeField] private GameObject starterPrefab;
     [SerializeField] private WeaponSO starterSO;
 
-    // === Public Events ===
+    // ====== Events ======
     public event System.Action OnEquipChanged;
     public event System.Action<float, float> OnPartsGaugeChanged;
     public event System.Action OnLevelUpReady;
     public event System.Action<WeaponDriver> OnWeaponLeveled;
     public event System.Action<WeaponDriver> OnWeaponEquipped;
     public event System.Action<WeaponDriver> OnWeaponUnequipped;
+    public event System.Action<PlayerUpgradeOption> OnPlayerUpgraded;
 
-    // === State ===
+    // ====== State ======
     [SerializeField] private int maxEquipCount = 3;
 
     private LivingEntity player;
 
-    // 슬롯 = 논리 장착(가상/물리 포함), driver가 null이면 가상 장착
+    // 슬롯(논리 장착): driver가 null이면 "가상 장착"
     private class EquippedEntry
     {
         public WeaponSO so;
         public int level;
-        public WeaponDriver driver;// 대표 드라이버(하위 호환용)
-        public List<WeaponDriver> drivers = new(); // ★ 모든 인스턴스(좌/우 포함)
-        public List<EquipSocket> sockets;// 점유 소켓(NonOccupying은 null/빈 리스트)
+        public WeaponDriver driver;           // 대표 드라이버(하위 호환)
+        public List<WeaponDriver> drivers = new(); // 모든 인스턴스(좌/우 등)
+        public List<EquipSocket> sockets;     // 점유 소켓들(NonOccupying은 null/빈)
         public bool IsMounted => driver != null;
     }
 
-    private readonly List<EquippedEntry> equips = new(); // UI는 이 리스트를 슬롯으로 봄
+    private readonly List<EquippedEntry> equips = new();
     public int EquippedCount => equips.Count;
 
-    // (하위 호환) 기존처럼 드라이버 배열을 노출 — 가상 슬롯은 null로 표시
+    // 하위 호환: 기존 driver 배열을 노출(가상 슬롯은 null)
     public IReadOnlyList<WeaponDriver> Slot => equips.Select(e => e.driver).ToList();
 
-    // 소켓 인덱스화
+    // 소켓 맵
     private readonly Dictionary<SocketType, List<EquipSocket>> socketMap = new();
 
-    // Parts Gauge
+    // ====== Parts Gauge ======
     [Header("Parts Gauge")]
     [SerializeField] private float parts = 0f;
     public float Parts => parts;
@@ -50,7 +59,29 @@ public class EquipManager : MonoBehaviour
     public float PartsMax => partsMax;
     private bool levelUpPending = false;
 
-    // === DTOs ===
+    // ====== Player Stat Upgrades ======
+    public enum PlayerUpgradeType { Durability = 1, MaxSpeed = 2, Acceleration = 3 }
+
+    public struct PlayerUpgradeOption
+    {
+        public int Id;                // 7101, 7102, 7103
+        public string Name;           // durability_up, speed_up, acceleration_up
+        public PlayerUpgradeType EffectType;
+        public float Value;           // 1.1 (10% 상승)
+        public Sprite Icon;           // UI 썸네일
+    }
+
+    [Header("Player Upgrade Icons")]
+    [SerializeField] private Sprite iconDurability;
+    [SerializeField] private Sprite iconMaxSpeed;
+    [SerializeField] private Sprite iconAcceleration;
+
+    // 누적 멀티플라이어(기본 1.0)
+    private float durabilityMul = 1f;
+    private float maxSpeedMul = 1f;
+    private float accelerationMul = 1f;
+
+    // ====== DTOs ======
     public struct WeaponSlotInfo
     {
         public Sprite Thumbnail;
@@ -59,10 +90,20 @@ public class EquipManager : MonoBehaviour
         public bool IsEmpty => Thumbnail == null && string.IsNullOrEmpty(Name);
     }
 
+    public enum CandidateKind { Weapon, PlayerStat }
+
     public struct UpgradeCandidate
     {
-        public WeaponSO Weapon;
-        public int NextLevel;
+        public CandidateKind Kind;
+
+        // Weapon 선택지
+        public WeaponSO Weapon;   // 무기 SO (무기 선택지일 때만)
+        public int NextLevel;     // 다음 레벨
+
+        // Player 업그레이드
+        public PlayerUpgradeOption PlayerUpgrade;
+
+        // 공통 썸네일
         public Sprite Thumbnail;
     }
 
@@ -71,7 +112,7 @@ public class EquipManager : MonoBehaviour
     {
         player = GetComponentInParent<LivingEntity>();
 
-        // 플레이어 하위에서 EquipSocket 수집 (비활성 포함)
+        // 소켓 수집
         socketMap.Clear();
         var sockets = player ? player.GetComponentsInChildren<EquipSocket>(true)
                              : GetComponentsInChildren<EquipSocket>(true);
@@ -81,14 +122,13 @@ public class EquipManager : MonoBehaviour
             list.Add(s);
         }
 
-        // 스타터 로드아웃 (SO 기반 장착 권장 / 소켓 없으면 "가상 장착")
+        // 스타터 장착
         if (equipStarterOnStart && starterSO != null && player != null)
         {
             EquipWeapon(starterSO, 1);
         }
         else if (equipStarterOnStart && starterPrefab != null && starterSO != null && player != null)
         {
-            // 하위 호환: 직접 프리팹 경로 — 소켓 배정 시도 후 없으면 가상장착
             EquipWeapon(starterPrefab, starterSO, player);
         }
 
@@ -112,47 +152,59 @@ public class EquipManager : MonoBehaviour
         }
     }
 
-    // 팝업 선택(기존 무기 레벨업)
+    // 기존 무기 레벨업(팝업 선택)
     public void ApplyNewEquipExisting(int slotIndex)
     {
         if (!levelUpPending || !IsValidSlotIndex(slotIndex)) return;
 
         var entry = equips[slotIndex];
+        if (entry.level >= 5) { Debug.Log("이미 최대 레벨입니다."); return; }
+
         entry.level = Mathf.Min(entry.level + 1, 5);
 
-        // 물리 장착된 모든 드라이버에 레벨 반영
+        // 물리 인스턴스들 레벨 동기화
         if (entry.drivers != null && entry.drivers.Count > 0)
         {
             foreach (var d in entry.drivers)
                 if (d && d.SetLevel(entry.level)) OnWeaponLeveled?.Invoke(d);
         }
 
-        // 대표 드라이버도 동기화(하위 호환)
         entry.driver = entry.drivers.FirstOrDefault();
         OnEquipChanged?.Invoke();
         ResetPartsGauge();
     }
 
-    // 팝업 선택(신규 장착)
+    // 신규 장착(슬롯 소모)
     public void ApplyNewEquip(GameObject weaponPrefab, WeaponSO so)
     {
         if (!levelUpPending || weaponPrefab == null || so == null) return;
-        EquipNewCore(so, 1, preferPhysical: true); // 소켓 없으면 가상으로 들어감
+        EquipNewCore(so, 1, preferPhysical: true);
         ResetPartsGauge();
     }
 
-    // 통합 선택 API
+    // 통합 선택 (무기/플레이어 업그레이드)
     public void EquipOrUpgrade(UpgradeCandidate c)
     {
-        if (!levelUpPending || c.Weapon == null) return;
+        if (!levelUpPending) return;
+
+        if (c.Kind == CandidateKind.PlayerStat)
+        {
+            ApplyPlayerUpgrade(c.PlayerUpgrade);
+            ResetPartsGauge();
+            return;
+        }
+
+        // Weapon
+        if (c.Weapon == null) return;
 
         int idx = FindIndexBySO(c.Weapon);
         if (idx >= 0)
         {
-            ApplyNewEquipExisting(idx);
+            ApplyNewEquipExisting(idx);   // 레벨업
         }
         else
         {
+            // 신규 장착(슬롯 가득이면 TryMountOrVirtual 내부에서 거부)
             EquipNewCore(c.Weapon, Mathf.Max(1, c.NextLevel), preferPhysical: true);
             ResetPartsGauge();
         }
@@ -164,18 +216,18 @@ public class EquipManager : MonoBehaviour
         int sameIdx = FindIndexBySO(so);
         if (sameIdx >= 0) { ApplyNewEquipExisting(sameIdx); return; }
 
-        // 소켓 시도 → 실패 시 가상 장착
         if (!TryGetLevelData(so, 1, out var data) || data.prefab == null) return;
         TryMountOrVirtual(so, 1, preferPhysical: true);
     }
 
-    // 추천 경로: SO + 레벨 (소켓 없으면 자동 가상)
     public void EquipWeapon(WeaponSO so, int level = 1)
     {
         int sameIdx = FindIndexBySO(so);
         if (sameIdx >= 0)
         {
-            equips[sameIdx].level = Mathf.Min(equips[sameIdx].level + 1, 5);
+            var e = equips[sameIdx];
+            if (e.level >= 5) return;
+            e.level = Mathf.Min(e.level + 1, 5);
             SyncMountedLevel(sameIdx);
             OnEquipChanged?.Invoke();
             return;
@@ -183,7 +235,6 @@ public class EquipManager : MonoBehaviour
         TryMountOrVirtual(so, level, preferPhysical: true);
     }
 
-    // 슬롯 정보(UI 표시용) — 드라이버 없을 때도 SO/레벨로 썸네일/이름 제공
     public WeaponSlotInfo[] GetSlotInfos()
     {
         var list = new List<WeaponSlotInfo>(maxEquipCount);
@@ -191,7 +242,7 @@ public class EquipManager : MonoBehaviour
         {
             if (i >= equips.Count || equips[i] == null)
             {
-                list.Add(new WeaponSlotInfo()); // 빈 슬롯
+                list.Add(new WeaponSlotInfo());
                 continue;
             }
 
@@ -217,14 +268,13 @@ public class EquipManager : MonoBehaviour
         return list.ToArray();
     }
 
-    // 교체: 물리 장착이면 모두 파기 후 재장착, 가상이면 데이터만 변경
     public void ReplaceWeapon(int index, GameObject newWeaponPrefab, WeaponSO so)
     {
         if (!IsValidSlotIndex(index) || newWeaponPrefab == null || so == null) return;
 
         var entry = equips[index];
 
-        // 기존 물리 장착 모두 파괴
+        // 기존 제거
         if (entry.drivers != null)
         {
             foreach (var d in entry.drivers)
@@ -237,11 +287,9 @@ public class EquipManager : MonoBehaviour
         entry.driver = null;
         ReleaseSockets(entry);
 
-        // 데이터 교체
         entry.so = so;
         entry.level = Mathf.Max(1, entry.level);
 
-        // 새 소켓 시도 → 실패 시 가상 유지
         TryMountIntoExistingEntry(entry, preferPhysical: true);
         equips[index] = entry;
         OnEquipChanged?.Invoke();
@@ -253,7 +301,6 @@ public class EquipManager : MonoBehaviour
 
         var entry = equips[index];
 
-        // 모든 드라이버 제거 & 이벤트 발행
         if (entry.drivers != null)
         {
             foreach (var d in entry.drivers)
@@ -284,13 +331,10 @@ public class EquipManager : MonoBehaviour
         levelUpPending = prevPending;
     }
 
-    // 소켓이 생겼을 때(예: 어떤 무기 해제) 가상 장착을 물리화 시도
     public void TryMaterializeMounts()
     {
         foreach (var e in equips.Where(x => !x.IsMounted).ToList())
-        {
             TryMountIntoExistingEntry(e, preferPhysical: true);
-        }
         OnEquipChanged?.Invoke();
     }
 
@@ -315,14 +359,13 @@ public class EquipManager : MonoBehaviour
         {
             var created = CreateDriversByPolicy(so, entry.level, chosen, out var socketsUsed);
             entry.drivers = created;
-            entry.driver = created.FirstOrDefault(); // 대표 드라이버(하위 호환)
+            entry.driver = created.FirstOrDefault();
             entry.sockets = socketsUsed;
 
             foreach (var d in created) OnWeaponEquipped?.Invoke(d);
         }
         else
         {
-            // 가상 장착(소켓 없음)
             entry.driver = null;
             entry.drivers.Clear();
             entry.sockets = null;
@@ -379,23 +422,17 @@ public class EquipManager : MonoBehaviour
                     var drvL = CreateWeaponInstance(data.prefab, so, level, lt);
                     var drvR = CreateWeaponInstance(data.prefab, so, level, rt);
 
-                    // 좌/우 소켓 점유 표시
                     left.occupied = right.occupied = true;
                     socketsUsed.Add(left);
                     socketsUsed.Add(right);
 
-                    // 좌우 차등 로직이 필요하면 여기서 처리(옵션)
-                    // var sockTypeL = left.type; var sockTypeR = right.type;
-                    // ex) 스케일 반전, 회전 방향 등
-
-                    return new List<WeaponDriver> { drvL, drvR }; // ★ 두 개 모두 반환
+                    return new List<WeaponDriver> { drvL, drvR };
                 }
             case MountPolicy.NonOccupying:
                 {
-                    var anchor = chosen[0]; // 점유 X
+                    var anchor = chosen[0];
                     var parent = (anchor != null) ? (anchor.mount ? anchor.mount : anchor.transform) : transform;
                     var drv = CreateWeaponInstance(data.prefab, so, level, parent);
-                    // occupied 안 건드림
                     return new List<WeaponDriver> { drv };
                 }
         }
@@ -479,10 +516,10 @@ public class EquipManager : MonoBehaviour
             case MountPolicy.NonOccupying:
                 EquipSocket anchor = null;
                 if (socketMap.TryGetValue(SocketType.Dropper, out var ds))
-                    anchor = ds.FirstOrDefault(); // 점유X
+                    anchor = ds.FirstOrDefault(); // 점유 X
                 if (anchor == null && socketMap.TryGetValue(SocketType.VehicleRoot, out var roots))
                     anchor = roots.FirstOrDefault();
-                chosen = new List<EquipSocket> { anchor }; // null일 수도 있지만 드라이버가 부모 transform 사용
+                chosen = new List<EquipSocket> { anchor };
                 return true;
         }
         return false;
@@ -498,43 +535,141 @@ public class EquipManager : MonoBehaviour
         RaiseGaugeChanged();
     }
 
-    // ========== 업그레이드 후보 ==========
+    // ========== 플레이어 업그레이드 적용 ==========
+    private void ApplyPlayerUpgrade(PlayerUpgradeOption opt)
+    {
+        switch (opt.EffectType)
+        {
+            case PlayerUpgradeType.Durability: durabilityMul *= opt.Value; break; // 7101
+            case PlayerUpgradeType.MaxSpeed: maxSpeedMul *= opt.Value; break; // 7102
+            case PlayerUpgradeType.Acceleration: accelerationMul *= opt.Value; break; // 7103
+        }
+
+        // 플레이어에 즉시 반영 (선택 사항)
+        if (player != null)
+        {
+            var up = player.GetComponentInChildren<IPlayerUpgradable>();
+            if (up != null)
+            {
+                up.ApplyMultipliers(durabilityMul, maxSpeedMul, accelerationMul);
+            }
+        }
+
+        OnPlayerUpgraded?.Invoke(opt);
+        Debug.Log($"[EquipManager] PlayerUpgrade: {opt.Name} x{opt.Value} -> (Dur {durabilityMul:F2}, Max {maxSpeedMul:F2}, Acc {accelerationMul:F2})");
+    }
+
+    // ========== 업그레이드 후보 생성 ==========
     public List<UpgradeCandidate> GetUpgradeCandidates(int count, WeaponLibrary lib)
     {
-        if (lib == null || lib.weapons == null) return new List<UpgradeCandidate>();
-
-        var all = new List<UpgradeCandidate>(lib.weapons.Count);
-        foreach (var w in lib.weapons)
-            all.Add(BuildCandidate(w, lib));
-
         var result = new List<UpgradeCandidate>(count);
-        var picked = new HashSet<WeaponSO>();
-        int tries = 0, maxTries = all.Count * 3;
+        if (lib == null || lib.weapons == null || lib.weapons.Count == 0) return result;
+
+        // 1) 무기 후보들 구성
+        bool slotsFull = equips.Count >= maxEquipCount;
+
+        var weaponPool = new List<UpgradeCandidate>();
+        foreach (var w in lib.weapons)
+        {
+            if (w == null) continue;
+
+            int next = GetNextLevel(w);
+            if (next <= 0 || next > 5) continue; // 이미 Max면 제외
+
+            bool alreadyEquipped = equips.Any(e => e.so == w);
+
+            // 슬롯 가득찬 경우: 이미 장착된 무기만(=레벨업만)
+            if (slotsFull && !alreadyEquipped) continue;
+
+            // 썸네일 가져오기 (레벨별)
+            Sprite thumb = null;
+            var lvData = w.Levels?.FirstOrDefault(l => l.Level == next);
+            if (lvData != null) thumb = lvData.ThumbNail;
+
+            weaponPool.Add(new UpgradeCandidate
+            {
+                Kind = CandidateKind.Weapon,
+                Weapon = w,
+                NextLevel = next,
+                Thumbnail = thumb
+            });
+        }
+
+        // 2) 플레이어 업그레이드 3종(7101~7103)
+        var playerPool = new List<UpgradeCandidate>();
+        var p1 = new PlayerUpgradeOption { Id = 7101, Name = "durability_up", EffectType = PlayerUpgradeType.Durability, Value = 1.1f, Icon = iconDurability };
+        var p2 = new PlayerUpgradeOption { Id = 7102, Name = "speed_up", EffectType = PlayerUpgradeType.MaxSpeed, Value = 1.1f, Icon = iconMaxSpeed };
+        var p3 = new PlayerUpgradeOption { Id = 7103, Name = "acceleration_up", EffectType = PlayerUpgradeType.Acceleration, Value = 1.1f, Icon = iconAcceleration };
+
+        playerPool.Add(ToCandidate(p1));
+        playerPool.Add(ToCandidate(p2));
+        playerPool.Add(ToCandidate(p3));
+
+        // 3) 통합 풀에서 "중복 없이" 뽑기
+        //    - 같은 무기 SO 중복 X, 같은 PlayerUpgrade Id 중복 X
+        var pool = new List<UpgradeCandidate>();
+        pool.AddRange(weaponPool);
+        pool.AddRange(playerPool);
+
+        var pickedSO = new HashSet<WeaponSO>();
+        var pickedPid = new HashSet<int>();
+
+        int tries = 0;
+        int maxTries = Mathf.Max(50, pool.Count * 3);
 
         while (result.Count < count && tries++ < maxTries)
         {
-            var pick = all[Random.Range(0, all.Count)];
-            if (pick.Weapon == null || picked.Contains(pick.Weapon)) continue;
-            result.Add(pick);
-            picked.Add(pick.Weapon);
+            if (pool.Count == 0) break;
+            var pick = pool[Random.Range(0, pool.Count)];
+
+            if (pick.Kind == CandidateKind.Weapon)
+            {
+                if (pick.Weapon == null || pickedSO.Contains(pick.Weapon)) continue;
+                pickedSO.Add(pick.Weapon);
+                result.Add(pick);
+            }
+            else
+            {
+                int id = pick.PlayerUpgrade.Id;
+                if (pickedPid.Contains(id)) continue;
+                pickedPid.Add(id);
+                result.Add(pick);
+            }
         }
+
+        // 만약 풀에 무기 후보가 거의 없고(예: 전부 Max거나 슬롯 Full+전부 미장착), 남는 자리는 플레이어 업그레이드로 채움
+        int guard = 0;
+        while (result.Count < count && guard++ < 10)
+        {
+            foreach (var pc in playerPool)
+            {
+                if (result.Count >= count) break;
+                if (!pickedPid.Contains(pc.PlayerUpgrade.Id))
+                {
+                    pickedPid.Add(pc.PlayerUpgrade.Id);
+                    result.Add(pc);
+                }
+            }
+        }
+
         return result;
     }
 
-    private UpgradeCandidate BuildCandidate(WeaponSO so, WeaponLibrary lib)
+    private UpgradeCandidate ToCandidate(PlayerUpgradeOption opt)
     {
-        if (so == null || lib == null) return default;
-
-        int next = GetNextLevel(so);
-        var levelData = (so.Levels != null && so.Levels.Count >= next) ? so.Levels[next - 1] : null;
-        var thumb = (levelData != null) ? lib.GetThumbnail(levelData.PrefabIndex, next) : null;
-
-        return new UpgradeCandidate { Weapon = so, NextLevel = next, Thumbnail = thumb };
+        return new UpgradeCandidate
+        {
+            Kind = CandidateKind.PlayerStat,
+            PlayerUpgrade = opt,
+            Thumbnail = opt.Icon
+        };
     }
 
     private int GetNextLevel(WeaponSO so)
     {
         var e = equips.FirstOrDefault(s => s.so == so);
-        return e != null ? Mathf.Min(e.level + 1, 5) : 1;
+        if (e == null) return 1;
+        if (e.level >= 5) return -1; // Max
+        return e.level + 1;
     }
 }

@@ -9,10 +9,10 @@ public sealed class EnemyBullet : MonoBehaviour
     [System.Serializable]
     public class Settings
     {
-        public int capacity = 1024;
+        public int capacity = 100;
         public float defaultSpawnIgnoreTime = 0.05f;
         public float maxLifeSeconds = 5f;        // 안전 상한
-        public float outOfBounds = 2000f;        // 너무 멀어지면 강제 제거
+        public float outOfBounds = 1000f;        // 너무 멀어지면 강제 제거
     }
     public Settings settings = new();
 
@@ -165,16 +165,5 @@ public sealed class EnemyBullet : MonoBehaviour
             if (col.TryGetComponent<IDamagable>(out var dmg)) dmg.OnDamage(damage);
             else le.OnDamage(damage, owner);
         }
-    }
-
-    // 디버그/응급 도구
-    public int CountActive()
-    {
-        int n = 0; for (int i = 0; i < bullets.Count; i++) if (bullets[i].active) n++;
-        return n;
-    }
-    public void ClearAll()
-    {
-        for (int i = 0; i < bullets.Count; i++) if (bullets[i].active) Despawn(i);
     }
 }

@@ -642,6 +642,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6835086774756334737, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+      propertyPath: parts
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6835086774756334737, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+      propertyPath: iconMaxSpeed
+      value: 
+      objectReference: {fileID: 21300000, guid: 09807dfb4ad3a4518b611d0b5b79899d, type: 3}
+    - target: {fileID: 6835086774756334737, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+      propertyPath: iconDurability
+      value: 
+      objectReference: {fileID: 21300000, guid: 822c872374c0546d2b2258f886e06f63, type: 3}
+    - target: {fileID: 6835086774756334737, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+      propertyPath: iconAcceleration
+      value: 
+      objectReference: {fileID: 21300000, guid: a63a1d8c9c21c4f9ba7e6548879c1b78, type: 3}
     - target: {fileID: 7974319632393463753, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: m_Name
       value: PlayerRoot

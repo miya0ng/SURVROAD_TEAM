@@ -55,7 +55,7 @@ public class EnemySetup : MonoBehaviour
                     break;
             }
 
-            baseComp.InitFromData(wrapper); // ★ CSV 전투 파라미터(Attack*, Collision) 주입
+            baseComp.InitFromData(wrapper);
         }
     }
 }
