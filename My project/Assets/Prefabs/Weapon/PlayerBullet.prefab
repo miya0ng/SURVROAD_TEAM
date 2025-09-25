@@ -21,7 +21,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4344220201534235773
 Transform:
   m_ObjectHideFlags: 0
@@ -125,6 +125,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c37cae2592bba3d48b7287417cf996bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  castRadius: 0
+  spawnIgnoreTime: 0.05
+  piercing: 0
+  maxPierce: 5
+  tracer: {fileID: 0}
+  maxTracerPoints: 60
 --- !u!54 &3891137286479202278
 Rigidbody:
   m_ObjectHideFlags: 0

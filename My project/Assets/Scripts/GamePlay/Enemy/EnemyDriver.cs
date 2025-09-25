@@ -17,6 +17,13 @@ public class EnemyDriver : LivingEntity
     [SerializeField] private float shootRange = 30f;
     [SerializeField] private LayerMask losMask;
 
+    [Header("Death FX")]
+    [SerializeField] private GameObject deathVfxPrefab;   // 죽을 때 생성할 VFX 프리팹
+    //[SerializeField] private AudioClip deathSfx;          // 선택: 사운드
+    //[SerializeField, Range(0f, 1f)] private float deathSfxVolume = 0.9f;
+    [SerializeField] private Transform vfxAnchor;         // 선택: 이 위치 기준(없으면 transform)
+    [SerializeField] private bool usePoolForDeathVfx = true;
+
     private ItemManager itemManager;
     private EnemySpec spec;                         // (필드 추가: 내부 전용, 시그니처 영향 없음)
     private float shootCd;
@@ -193,11 +200,30 @@ public class EnemyDriver : LivingEntity
         var flash = GetComponentInChildren<HitFlash>();
         if (flash != null) flash.PlayFlash();
     }
-
     protected override void Die(LivingEntity killer = null)
     {
-        base.Die();
-        if (itemManager) itemManager.DropFromEnemy(transform.position);
+        // VFX/SFX는 반드시 좌표를 먼저 캡처
+        Vector3 pos = (vfxAnchor ? vfxAnchor : transform).position;
+        Quaternion rot = Quaternion.LookRotation(transform.forward, Vector3.up);
+
+        SpawnDeathFx(pos, rot);
+
+        if (itemManager) itemManager.DropFromEnemy(pos);
+
+        // 원래 흐름
+        base.Die(killer);
+    }
+
+    private ObjectPool deathVfxPool;
+    private void SpawnDeathFx(Vector3 pos, Quaternion rot)
+    {
+        if (!deathVfxPrefab) return;
+
+        GameObject fx;
+        if (usePoolForDeathVfx && deathVfxPool != null)
+            fx = deathVfxPool.Pop(pos, rot);
+        else
+            fx = Instantiate(deathVfxPrefab, pos, rot);
     }
 
     public bool TryGetSpec(out EnemySpec s) { s = spec; return spec.Id != 0; }

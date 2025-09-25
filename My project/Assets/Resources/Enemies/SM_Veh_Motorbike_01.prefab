@@ -321,6 +321,9 @@ MonoBehaviour:
   losMask:
     serializedVersion: 2
     m_Bits: 3072
+  deathVfxPrefab: {fileID: 7631800155182713505, guid: fc3b0da243b8b7b44a0d271302345f88, type: 3}
+  vfxAnchor: {fileID: 0}
+  usePoolForDeathVfx: 1
 --- !u!114 &-3751111862992782328
 MonoBehaviour:
   m_ObjectHideFlags: 0

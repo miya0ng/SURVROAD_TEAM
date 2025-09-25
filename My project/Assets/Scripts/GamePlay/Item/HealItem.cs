@@ -6,7 +6,7 @@ public class HealItem : ItemBase
     {
         var hp = player.GetComponent<PlayerBehaviour>();
         if (hp != null)
-            hp.Heal(itemData.Damage); // CSV 값 참조
+            hp.Heal(300); // CSV 값 참조
         Destroy(gameObject);
     }
 }

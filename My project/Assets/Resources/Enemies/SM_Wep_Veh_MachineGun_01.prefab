@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   muzzle: {fileID: 1142633408594696883}
-  projectilePrefab: {fileID: 1613546577212098, guid: d32637487e383e7438b341e5b2e5d886, type: 3}
+  projectilePrefab: {fileID: 1573148338340284, guid: 302a2909aefb2b14a866b5794107ed4b, type: 3}
   muzzleFx: {fileID: 1183308707104473704, guid: d214921ff78362e4fa1006e01d372bc4, type: 3}
   fireInterval: 2
   damage: 5
