@@ -14,7 +14,7 @@ public class PlayerBehaviour : LivingEntity, IDamagable
 
     protected override void Awake()
     {
-        maxHp = 100000;
+        maxHp = 1000;
         curHp = maxHp;
         ui_hpBar = GetComponent<Ui_Slider>();
         ui_hpBar.SetSliderUi(maxHp, maxHp);

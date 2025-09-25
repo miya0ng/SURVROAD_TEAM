@@ -15,9 +15,9 @@ public abstract class EnemyBehaviourBase : LivingEntity
 
     [Header("Common Move")]
     public float desiredRadius = 12f;
-    public float zigzagAmp = 0f;     // Suicide용
-    public float zigzagFreq = 0f;    // Suicide용
-    public float plowForce = 0f;     // Heavy용
+    public float zigzagAmp = 3f;     // Suicide용
+    public float zigzagFreq = 3f;    // Suicide용
+    public float plowForce = 10f;     // Heavy용
 
     // CSV 전투 파라미터
     protected int attackDamage;
@@ -94,7 +94,7 @@ public abstract class EnemyBehaviourBase : LivingEntity
         if (player != null)
         {
             player.OnDamage(collisionDamage, this);
-        }
+        } //TODO: 플레이어 충돌데미지 오류 개선 
     }
 
     protected abstract void TickMove(float dt);

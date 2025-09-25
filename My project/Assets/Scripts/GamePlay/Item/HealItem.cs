@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class HealItem : ItemBase
 {
-    public float healAmount = 20f;
-
     protected override void Collect(GameObject player)
     {
         var hp = player.GetComponent<PlayerBehaviour>();

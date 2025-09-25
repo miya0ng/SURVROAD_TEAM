@@ -178,7 +178,7 @@ MonoBehaviour:
     defaultSpawnIgnoreTime: 0.05
     maxLifeSeconds: 5
     outOfBounds: 2000
-  trailPrefab: {fileID: -1920769221063020250}
+  trailPrefab: {fileID: 0}
   trailParent: {fileID: 4344220201534235773}
   trailPrewarm: 64
 --- !u!96 &-1920769221063020250
