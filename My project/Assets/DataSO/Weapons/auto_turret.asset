@@ -19,8 +19,8 @@ MonoBehaviour:
   Target: 1
   Levels:
   - Level: 1
-    MinDamage: 6
-    MaxDamage: 6
+    MinDamage: 2000
+    MaxDamage: 2000
     ShotCount: 1
     AttackSpeed: 1.5
     AttackRange: 2

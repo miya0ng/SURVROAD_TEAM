@@ -48,7 +48,7 @@ public class EnemyShooter : EnemyBehaviourBase
         if (swapT <= 0f)
         {
             orbitSign *= -1f;
-            swapT = Random.Range(1.5f, 3.5f);
+            swapT = Random.Range(2.0f, 3.5f);
         }
 
         // 사격 로직(쿨다운 등)은 별도 컴포넌트/Update에서 처리 권장

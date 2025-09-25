@@ -443,7 +443,7 @@ MonoBehaviour:
   muzzleFx: {fileID: 5860824924526599728, guid: 68b8630ee877f744ab50c008e7c52c97, type: 3}
   fireInterval: 2
   damage: 5
-  projectileSpeed: 40
+  projectileSpeed: 20
   inaccuracyDeg: 2
   maxRange: 60
   useBurst: 0
@@ -453,9 +453,9 @@ MonoBehaviour:
   requireLineOfSight: 1
   losMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   minDotToFire: -1
-  useLeadShot: 1
+  useLeadShot: 0
   leadMaxSeconds: 1
   useLocalPool: 1
   prewarmCount: 16

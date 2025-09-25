@@ -6,6 +6,9 @@ public class PlayerBehaviour : LivingEntity, IDamagable
     public GameManager gameManager;
     private Ui_Slider ui_hpBar;
 
+
+    private float colDamage = 10;
+    private bool isCol = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     protected override void Awake()
@@ -31,6 +34,18 @@ public class PlayerBehaviour : LivingEntity, IDamagable
         gameObject.SetActive(false);
     }
 
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (isCol) return;
+        var lv = collision.gameObject.GetComponent<LivingEntity>();
+        lv.OnDamage(colDamage, this);
+        isCol = true;
+    }
+
+    public void OnCollisionExit(Collision collision)
+    {
+        isCol = false;
+    }
     public override void OnDamage(float damage, LivingEntity attacker)
     {
         base.OnDamage(damage, attacker);
