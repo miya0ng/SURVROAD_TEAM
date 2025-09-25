@@ -38,9 +38,9 @@ public static class DataTableManger
         waveTable.Load(WaveDataTable.WaveTableId);
         tables.Add(WaveDataTable.WaveTableId, waveTable);
 
-        var enemyCarTable = new EnemyCarDataTable();
-        enemyCarTable.Load(EnemyCarDataTable.EnemyCarTableId);
-        tables.Add(EnemyCarDataTable.EnemyCarTableId, enemyCarTable);
+        var enemyCarTable = new EnemyDataTable();
+        enemyCarTable.Load(EnemyDataTable.EnemyTableId);
+        tables.Add(EnemyDataTable.EnemyTableId, enemyCarTable);
     }
 
     ////public static StringTable StringTable => Get<StringTable>(DataTableIds.String);

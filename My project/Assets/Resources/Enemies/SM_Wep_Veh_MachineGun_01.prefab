@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 5341799689980693092}
   - component: {fileID: 7052801567693326693}
   - component: {fileID: 6079063549185198227}
-  m_Layer: 6
+  - component: {fileID: 4821653932568461391}
+  m_Layer: 8
   m_Name: SM_Wep_Veh_MachineGun_01
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -87,6 +88,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4821653932568461391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85222885766270236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89114278df525ae48a0eb1c86a9682b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  muzzle: {fileID: 1142633408594696883}
+  projectilePrefab: {fileID: 1613546577212098, guid: d32637487e383e7438b341e5b2e5d886, type: 3}
+  muzzleFx: {fileID: 1183308707104473704, guid: d214921ff78362e4fa1006e01d372bc4, type: 3}
+  fireInterval: 2
+  damage: 5
+  projectileSpeed: 18
+  inaccuracyDeg: 2
+  maxRange: 60
 --- !u!1 &2146528302918136386
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,7 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1142633408594696883}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

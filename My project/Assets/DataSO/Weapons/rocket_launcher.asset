@@ -34,7 +34,7 @@ MonoBehaviour:
     PrefabIndex: 4
     ThumbNail: {fileID: 21300000, guid: 39683434fb05a9f41aa6b0006668db5d, type: 3}
     prefab: {fileID: 385623515136055977, guid: 3239842368d158c4d8a80dad90da01fc, type: 3}
-    bulletPrefab: {fileID: 5245207698607943822, guid: dbc88583a9586b94cb4c753ff78f6f5b, type: 3}
+    bulletPrefab: {fileID: 1613546577212098, guid: 873d786761add1e4e9b64570af6e3e4f, type: 3}
     effectPrefab: {fileID: 0}
   - Level: 2
     MinDamage: 20
@@ -52,7 +52,7 @@ MonoBehaviour:
     PrefabIndex: 4
     ThumbNail: {fileID: 21300000, guid: 39683434fb05a9f41aa6b0006668db5d, type: 3}
     prefab: {fileID: 385623515136055977, guid: 3239842368d158c4d8a80dad90da01fc, type: 3}
-    bulletPrefab: {fileID: 5245207698607943822, guid: dbc88583a9586b94cb4c753ff78f6f5b, type: 3}
+    bulletPrefab: {fileID: 1613546577212098, guid: 873d786761add1e4e9b64570af6e3e4f, type: 3}
     effectPrefab: {fileID: 0}
   - Level: 3
     MinDamage: 20
@@ -70,7 +70,7 @@ MonoBehaviour:
     PrefabIndex: 4
     ThumbNail: {fileID: 21300000, guid: 39683434fb05a9f41aa6b0006668db5d, type: 3}
     prefab: {fileID: 385623515136055977, guid: 3239842368d158c4d8a80dad90da01fc, type: 3}
-    bulletPrefab: {fileID: 5245207698607943822, guid: dbc88583a9586b94cb4c753ff78f6f5b, type: 3}
+    bulletPrefab: {fileID: 1613546577212098, guid: 873d786761add1e4e9b64570af6e3e4f, type: 3}
     effectPrefab: {fileID: 0}
   - Level: 4
     MinDamage: 20
@@ -88,7 +88,7 @@ MonoBehaviour:
     PrefabIndex: 4
     ThumbNail: {fileID: 21300000, guid: 39683434fb05a9f41aa6b0006668db5d, type: 3}
     prefab: {fileID: 385623515136055977, guid: 3239842368d158c4d8a80dad90da01fc, type: 3}
-    bulletPrefab: {fileID: 5245207698607943822, guid: dbc88583a9586b94cb4c753ff78f6f5b, type: 3}
+    bulletPrefab: {fileID: 1613546577212098, guid: 873d786761add1e4e9b64570af6e3e4f, type: 3}
     effectPrefab: {fileID: 0}
   - Level: 5
     MinDamage: 30
@@ -106,7 +106,7 @@ MonoBehaviour:
     PrefabIndex: 4
     ThumbNail: {fileID: 21300000, guid: 39683434fb05a9f41aa6b0006668db5d, type: 3}
     prefab: {fileID: 385623515136055977, guid: 3239842368d158c4d8a80dad90da01fc, type: 3}
-    bulletPrefab: {fileID: 5245207698607943822, guid: dbc88583a9586b94cb4c753ff78f6f5b, type: 3}
+    bulletPrefab: {fileID: 1613546577212098, guid: 873d786761add1e4e9b64570af6e3e4f, type: 3}
     effectPrefab: {fileID: 0}
   MountPolicy: 0
   Allowed: 6

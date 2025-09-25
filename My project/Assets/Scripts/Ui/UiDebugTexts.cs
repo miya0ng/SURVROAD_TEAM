@@ -42,7 +42,7 @@ public class UiDebugTexts : MonoBehaviour
 
     void Update()
     {
-#if UNITY_EDITOR
+
         if (!player || !playerController || !playerHp)
             return;
 
@@ -78,9 +78,7 @@ public class UiDebugTexts : MonoBehaviour
         {
             if (weaponSOText) weaponSOText.text = "WeaponSO: None";
         }
-#else
-        if (gameObject.activeSelf) gameObject.SetActive(false);
-#endif
+
     }
 
     private void FillWeaponNames()

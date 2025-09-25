@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-
+using Pathfinding; // A* Pathfinding Project
 public class EnemySpawner : MonoBehaviour
 {
     [Header("Bindings")]
@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
      private string prefabBasePath = "Enemies";            // Resources/Enemies/PrefabName.prefab
 
     [Header("Spawn Settings (defaults/overrides)")]
-    [SerializeField] private float spawnRadius = 100f;
+    [SerializeField] private float spawnRadius = 50f;
     [SerializeField] private int makePoolCount = 50;
     [SerializeField] private int enemyCoSpawnCount = 1;
     [SerializeField] private float spawnInterval = 0.5f;
@@ -44,7 +44,7 @@ public class EnemySpawner : MonoBehaviour
 
     private readonly Dictionary<LivingEntity, GameObject> deathMap = new();
 
-    private EnemyCarDataTable enemyCarTable;
+    private EnemyDataTable enemyDataTable;
 
     public void Register(LivingEntity e) { if (e && !enemies.Contains(e)) enemies.Add(e); }
     public void Unregister(LivingEntity e) { if (e) enemies.Remove(e); }
@@ -55,8 +55,8 @@ public class EnemySpawner : MonoBehaviour
         if (mainCam == null) mainCam = Camera.main;
 
         // 적 차량 데이터 테이블 로드
-        enemyCarTable = new EnemyCarDataTable();
-        enemyCarTable.Load(enemyCarCsvPath);
+        enemyDataTable = new EnemyDataTable();
+        enemyDataTable.Load(enemyCarCsvPath);
 
         if (player == null) Debug.LogWarning("[EnemySpawner] player 미할당(태그 Player 확인)");
         if (mainCam == null) Debug.LogWarning("[EnemySpawner] mainCam 미할당(씬의 MainCamera 확인)");
@@ -83,7 +83,14 @@ public class EnemySpawner : MonoBehaviour
         StopSpawner();
         StartSpawner();
     }
-
+    private GameObject ResolvePrefab(EnemySpec spec)
+    {
+        var file = string.IsNullOrEmpty(spec.PrefabName) ? spec.Name : spec.PrefabName;
+        var path = string.IsNullOrEmpty(prefabBasePath) ? file : $"{prefabBasePath}/{file}";
+        var prefab = Resources.Load<GameObject>(path);
+        if (!prefab) Debug.LogError($"Prefab not found at {path} for EnemyID:{spec.Id} ({spec.Name})");
+        return prefab;
+    }
     private void BuildIdToPrefabForWave(WaveData wave)
     {
         if (wave == null) return;
@@ -92,31 +99,20 @@ public class EnemySpawner : MonoBehaviour
         {
             if (_idToPrefab.ContainsKey(enemyID)) continue;
 
-            var car = enemyCarTable.GetEnemyCarData(enemyID);
-            if (car == null)
+            if (!enemyDataTable.TryGet(enemyID, out var spec))
             {
-                Debug.LogError($"[EnemySpawner] EnemyID {enemyID} 데이터 없음(EnemyCarTable)");
-                continue;
-            }
-            if (string.IsNullOrEmpty(car.PrefabName))
-            {
-                Debug.LogError($"[EnemySpawner] EnemyID {enemyID} PrefabName 비어있음");
+                Debug.LogError($"[EnemySpawner] EnemyID {enemyID} 스펙 없음(EnemyDataTable)");
                 continue;
             }
 
-            // Resources/Enemies/PrefabName
-            var path = string.IsNullOrEmpty(prefabBasePath) ? car.PrefabName : $"{prefabBasePath}/{car.PrefabName}";
-            var prefab = Resources.Load<GameObject>(path);
-            if (prefab == null)
-            {
-                Debug.LogError($"[EnemySpawner] Resources.Load 실패: {path} (EnemyID:{enemyID}, Name:{car.Name})");
-                continue;
-            }
+            var prefab = ResolvePrefab(spec);
+            if (!prefab) continue;
+
             _idToPrefab[enemyID] = prefab;
         }
 
         if (_idToPrefab.Count == 0)
-            Debug.LogError("[EnemySpawner] 현재 웨이브에 필요한 프리팹을 하나도 로드하지 못했습니다.");
+            Debug.LogError("[EnemySpawner] 현재 웨이브용 프리팹 로드 실패");
     }
 
     private void PrewarmPoolsForWave(WaveData wave)
@@ -291,11 +287,14 @@ public class EnemySpawner : MonoBehaviour
     // ========= 스폰 공통 로직 =========
     private bool TryFindSpawnPosition(out Vector3 spawnPos)
     {
-        if (player == null)
-        {
-            spawnPos = Vector3.zero;
-            return false;
-        }
+        spawnPos = Vector3.zero;
+        if (player == null || AstarPath.active == null) return false;
+
+        // 워커블 노드만 허용
+        var nn = NNConstraint.Default;
+        nn.constrainWalkability = true;
+        nn.walkable = true;
+        // 필요하면 특정 그래프/태그 제한도 가능: nn.graphMask = GraphMask.FromGraphName("MyGrid"); nn.constrainTags = true; nn.tags = 1 << 0;
 
         for (int safety = 0; safety < 50; safety++)
         {
@@ -303,26 +302,33 @@ public class EnemySpawner : MonoBehaviour
             Vector3 dir = new(Mathf.Cos(angle), 0f, Mathf.Sin(angle));
             Vector3 candidate = player.position + dir * spawnRadius;
 
-            if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, 50f, NavMesh.AllAreas))
+            // 가까운 워커블 노드 찾기
+            var nnInfo = AstarPath.active.GetNearest(candidate, nn);
+            var node = nnInfo.node;
+
+            // 유효한 워커블 노드 + 화면 밖
+            if (node != null && node.Walkable)
             {
-                if (mainCam == null || !IsOnScreen(mainCam, hit.position))
+                var pos = (Vector3)nnInfo.position;
+                if (mainCam == null || !IsOnScreen(mainCam, pos))
                 {
-                    spawnPos = hit.position;
+                    spawnPos = pos;
                     return true;
                 }
             }
         }
 
-        // 폴백
-        Vector3 fallback = player.position + Random.onUnitSphere * spawnRadius;
-        fallback.y = player.position.y;
-        if (mainCam == null || !IsOnScreen(mainCam, fallback))
+        // 폴백: 그래도 못 찾으면, 플레이어 근처 워커블 노드 한 번 더 강제 탐색
+        var fbInfo = AstarPath.active.GetNearest(player.position + Random.insideUnitSphere * spawnRadius, nn);
+        if (fbInfo.node != null && fbInfo.node.Walkable)
         {
-            spawnPos = fallback;
-            return true;
+            var pos = (Vector3)fbInfo.position;
+            if (mainCam == null || !IsOnScreen(mainCam, pos))
+            {
+                spawnPos = pos;
+                return true;
+            }
         }
-
-        spawnPos = Vector3.zero;
         return false;
     }
 
@@ -335,59 +341,48 @@ public class EnemySpawner : MonoBehaviour
 
     private bool ActivateEnemy(GameObject enemyObj, Vector3 pos, int enemyID)
     {
-        Vector3 finalPos = pos;
-        if (NavMesh.SamplePosition(pos, out var hit, 5f, NavMesh.AllAreas))
-            finalPos = hit.position;
-
-        enemyObj.transform.SetPositionAndRotation(
-            finalPos,
-            (player != null)
-                ? Quaternion.LookRotation((player.position - finalPos).normalized, Vector3.up)
-                : Quaternion.identity
-        );
-
-        var agent = enemyObj.GetComponent<NavMeshAgent>();
-        if (agent)
+        // 1) 위치 세팅 (A*)
+        var ai = enemyObj.GetComponent<IAstarAI>();
+        if (ai != null) { ai.Teleport(pos, true); ai.canMove = true; ai.isStopped = false; }
+        else
         {
-            agent.enabled = true;
-            if (agent.isOnNavMesh)
-            {
-                agent.Warp(finalPos);
-                agent.isStopped = false;
-            }
-            else
-            {
-                Debug.LogWarning("[EnemySpawner] NavMeshAgent 있음, isOnNavMesh=false");
-            }
+            enemyObj.transform.SetPositionAndRotation(
+                pos,
+                player ? Quaternion.LookRotation((player.position - pos).normalized, Vector3.up) : Quaternion.identity
+            );
         }
 
-        var data = enemyCarTable?.GetEnemyCarData(enemyID);
-        if (data != null)
+        // 2) 스펙 적용
+        if (enemyDataTable != null && enemyDataTable.TryGet(enemyID, out var spec))
         {
-            var wrapper = new EnemyCarDataWrapper(data);
+            // 기본 컴포넌트에도 반영 (체력/차량/총기)
+            var le = enemyObj.GetComponent<LivingEntity>();
+            if (le) { le.maxHp = spec.Durability; le.curHp = spec.Durability; }
 
-            // EnemySetup 있으면 그 경로로(행동 프리셋까지)
-            var setup = enemyObj.GetComponent<EnemySetup>();
-            if (setup != null)
+            var car = enemyObj.GetComponent<EnemyCarController>();
+            if (car) { car.maxSpeed = spec.MaxSpeed; car.accel = spec.Accel; car.handling = Mathf.Max(0.5f, spec.Handling); }
+
+            var gun = enemyObj.GetComponent<EnemyGunController>();
+            if (gun) { gun.damage = Mathf.Max(1, spec.AttackDamage); gun.fireInterval = Mathf.Max(0.1f, spec.AttackInterval); }
+
+            // ★ EnemyDriver에도 동일 스펙 주입 (권장)
+            var driver = enemyObj.GetComponent<EnemyDriver>();
+            if (driver)
             {
-                setup.Apply(wrapper);
+                driver.SetEnemyId(enemyID);
+                if (player) driver.SetTarget(player);
+                driver.ApplySpec(spec);
             }
-            else
-            {
-                // 없으면 최소 파라미터만 직접 적용
-                var rb = enemyObj.GetComponent<Rigidbody>();
-                wrapper.ApplyTo(agent, rb, agentAsKinematic: true);
-            }
+        }
+        else
+        {
+            Debug.LogWarning($"[EnemySpawner] EnemyID {enemyID} 스펙 미적용");
         }
 
         enemyObj.SetActive(true);
 
-        var le = enemyObj.GetComponent<LivingEntity>();
-        if (le)
-        {
-            Register(le);
-            HookDeath(le, enemyObj);
-        }
+        var ent = enemyObj.GetComponent<LivingEntity>();
+        if (ent) { Register(ent); HookDeath(ent, enemyObj); }
 
         return true;
     }

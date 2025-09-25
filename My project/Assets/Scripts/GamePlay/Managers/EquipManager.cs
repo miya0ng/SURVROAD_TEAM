@@ -55,7 +55,7 @@ public class EquipManager : MonoBehaviour
     [Header("Parts Gauge")]
     [SerializeField] private float parts = 0f;
     public float Parts => parts;
-    [SerializeField] private float partsMax = 10f;
+    [SerializeField] private float partsMax = 50f;
     public float PartsMax => partsMax;
     private bool levelUpPending = false;
 

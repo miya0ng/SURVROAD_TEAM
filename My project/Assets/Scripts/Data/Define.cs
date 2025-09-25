@@ -41,3 +41,5 @@ public struct WeaponContext
 public enum SocketMask { Front = 1 << 0, Back = 1 << 1, Top = 1 << 2, Left = 1 << 3, Right = 1 << 4, Dropper = 1 << 5 }
 
 public enum MountPolicy { Single, PairSymmetric, NonOccupying }
+
+public enum EnemyAttackType { Charge = 1, Gun = 2, Suicide = 3 }

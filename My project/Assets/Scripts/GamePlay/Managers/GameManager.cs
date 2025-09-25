@@ -56,8 +56,8 @@ public class GameManager : MonoBehaviour
 
     private void HandleWaveCleared()
     {
-        if (!waveManager) return;
-        waveManager.NextWave();
+       
+        // TODO: 클리어 연출/사운드, 점수 정산 등만 처리
     }
 
     public void AddSpecialPart(int amount = 1)

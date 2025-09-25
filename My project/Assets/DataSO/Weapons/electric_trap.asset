@@ -35,7 +35,7 @@ MonoBehaviour:
     PrefabIndex: 0
     ThumbNail: {fileID: 21300000, guid: 98d83c62d8c13e340a12b8c99fe33ced, type: 3}
     prefab: {fileID: 8171487787002607651, guid: e451669df1a4ab64792d5ef97ce0ee8d, type: 3}
-    bulletPrefab: {fileID: 0}
+    bulletPrefab: {fileID: 1613546577212098, guid: 873d786761add1e4e9b64570af6e3e4f, type: 3}
     effectPrefab: {fileID: 0}
   - Level: 2
     MinDamage: 6
@@ -103,7 +103,7 @@ MonoBehaviour:
     PrefabIndex: 0
     ThumbNail: {fileID: 21300000, guid: 98d83c62d8c13e340a12b8c99fe33ced, type: 3}
     prefab: {fileID: 8171487787002607651, guid: e451669df1a4ab64792d5ef97ce0ee8d, type: 3}
-    bulletPrefab: {fileID: 0}
+    bulletPrefab: {fileID: 1613546577212098, guid: 873d786761add1e4e9b64570af6e3e4f, type: 3}
     effectPrefab: {fileID: 0}
   MountPolicy: 2
   Allowed: 32

@@ -108,70 +108,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 14.225605, y: 11.284961, z: 12.389536}
   m_Center: {x: -0.6254444, y: 9.155921, z: -0.30774832}
---- !u!1 &1270360822113663738
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4945550643660950087}
-  - component: {fileID: 1042487283362130999}
-  m_Layer: 0
-  m_Name: NaviMeshSurface
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4945550643660950087
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1270360822113663738}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 26.130184, y: -18, z: 27.528378}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7769822424650675335}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1042487283362130999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1270360822113663738}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SerializedVersion: 0
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: a6812c817f1ed9641b966feb65b596d0, type: 2}
-  m_BuildHeightMesh: 0
 --- !u!1 &1386885894676638701
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,7 +137,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4945550643660950087}
   - {fileID: 4084732088643987311}
   - {fileID: 4334716021844117426}
   - {fileID: 6928189912081475408}
@@ -4700,7 +4635,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6928189912081475408}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Vehicles_Wrecked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6381,7 +6316,7 @@ GameObject:
   - component: {fileID: 4071865434780250847}
   - component: {fileID: 2583533805287885062}
   - component: {fileID: 6966591833993693916}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10267,7 +10202,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1127701705012346, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1127701705012346, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -10275,7 +10210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1465862607380648, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1465862607380648, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -10383,6 +10318,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -14954,7 +14890,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -14962,7 +14898,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -15083,6 +15019,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -19965,7 +19902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -19973,7 +19910,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -20085,6 +20022,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -24742,7 +24680,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1127701705012346, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1127701705012346, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -24750,7 +24688,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1465862607380648, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1465862607380648, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -24862,6 +24800,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -30367,7 +30306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1127701705012346, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1127701705012346, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -30375,7 +30314,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1465862607380648, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1465862607380648, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -30499,6 +30438,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -48997,7 +48937,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1369839499385476, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1369839499385476, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -49005,7 +48945,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1874981837773994, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1874981837773994, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -49122,6 +49062,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -52366,7 +52307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -52374,7 +52315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -52483,6 +52424,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -62833,7 +62775,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -62841,7 +62783,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -62965,6 +62907,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -64107,7 +64050,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -64115,7 +64058,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -64223,6 +64166,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -67964,7 +67908,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -67972,7 +67916,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -68085,6 +68029,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -69171,7 +69116,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1127701705012346, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1127701705012346, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -69179,7 +69124,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1465862607380648, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1465862607380648, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -69291,6 +69236,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -86278,7 +86224,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1555700802272188, guid: e4a0a068c6b359d4c92d88b6b0693664, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1555700802272188, guid: e4a0a068c6b359d4c92d88b6b0693664, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -86391,6 +86337,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -89384,7 +89331,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -89392,7 +89339,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -89501,6 +89448,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -128234,7 +128182,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1369839499385476, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1369839499385476, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -128242,7 +128190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1874981837773994, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1874981837773994, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -128363,6 +128311,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -132995,7 +132944,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -133003,7 +132952,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -133111,6 +133060,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -146023,7 +145973,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -146031,7 +145981,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -146148,6 +146098,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -146330,7 +146281,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -146338,7 +146289,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -146450,6 +146401,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -160430,7 +160382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1160118780968504, guid: 70fb46fb4d63e3340b0f223f24a9af39, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1160118780968504, guid: 70fb46fb4d63e3340b0f223f24a9af39, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -160533,6 +160485,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -163487,7 +163440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -163495,7 +163448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -163607,6 +163560,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -165160,7 +165114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1127701705012346, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1127701705012346, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -165168,7 +165122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1465862607380648, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1465862607380648, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -165285,6 +165239,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -167252,7 +167207,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1369839499385476, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1369839499385476, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -167260,7 +167215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1874981837773994, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1874981837773994, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -167372,6 +167327,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -195031,7 +194987,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1127701705012346, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1127701705012346, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -195039,7 +194995,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1465862607380648, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1465862607380648, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -195155,6 +195111,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -196914,7 +196871,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -196922,7 +196879,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -197043,6 +197000,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -198164,7 +198122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1369839499385476, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1369839499385476, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -198172,7 +198130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1874981837773994, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1874981837773994, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -198289,6 +198247,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -199425,7 +199384,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -199433,7 +199392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -199545,6 +199504,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -199972,7 +199932,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -199980,7 +199940,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -200084,6 +200044,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -208523,7 +208484,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1488448577809418, guid: f6433493c51db7a4c9ea72ac5084e6c6, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1488448577809418, guid: f6433493c51db7a4c9ea72ac5084e6c6, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -208531,7 +208492,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1572569093490736, guid: f6433493c51db7a4c9ea72ac5084e6c6, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1572569093490736, guid: f6433493c51db7a4c9ea72ac5084e6c6, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -208635,6 +208596,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -208872,7 +208834,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -208880,7 +208842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -208997,6 +208959,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -214593,7 +214556,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -214601,7 +214564,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -214717,6 +214680,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -223878,7 +223842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1160118780968504, guid: 70fb46fb4d63e3340b0f223f24a9af39, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1160118780968504, guid: 70fb46fb4d63e3340b0f223f24a9af39, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -223977,6 +223941,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -228620,7 +228585,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1369839499385476, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1369839499385476, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -228628,7 +228593,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1874981837773994, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1874981837773994, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -228745,6 +228710,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -231772,7 +231738,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1160118780968504, guid: 70fb46fb4d63e3340b0f223f24a9af39, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1160118780968504, guid: 70fb46fb4d63e3340b0f223f24a9af39, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -231876,6 +231842,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -235938,7 +235905,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -235946,7 +235913,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -236054,6 +236021,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -246511,7 +246479,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -246519,7 +246487,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -246636,6 +246604,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -247772,7 +247741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1127701705012346, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1127701705012346, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -247780,7 +247749,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1465862607380648, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1465862607380648, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -247896,6 +247865,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -258075,7 +258045,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1369839499385476, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1369839499385476, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -258083,7 +258053,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1874981837773994, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1874981837773994, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -258200,6 +258170,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -261944,7 +261915,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1127701705012346, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1127701705012346, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -261952,7 +261923,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1465862607380648, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1465862607380648, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -262068,6 +262039,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -262495,7 +262467,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -262503,7 +262475,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -262619,6 +262591,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -264408,7 +264381,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -264416,7 +264389,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -264528,6 +264501,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -270486,7 +270460,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1160118780968504, guid: 70fb46fb4d63e3340b0f223f24a9af39, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1160118780968504, guid: 70fb46fb4d63e3340b0f223f24a9af39, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -270585,6 +270559,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -276089,7 +276064,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -276097,7 +276072,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -276213,6 +276188,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -277759,7 +277735,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -277767,7 +277743,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -277879,6 +277855,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -281991,7 +281968,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -281999,7 +281976,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -282103,6 +282080,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -283388,7 +283366,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1127701705012346, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1127701705012346, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -283396,7 +283374,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1465862607380648, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1465862607380648, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -283513,6 +283491,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -287937,7 +287916,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -287945,7 +287924,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1614441491895320, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -288057,6 +288036,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []
@@ -294518,7 +294498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1461443525670046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -294526,7 +294506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1869499381029046, guid: 72c55d02f43923547a5a694f08963584, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -294643,6 +294623,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   teamId: 0
+  isDead: 0
   dropItems: []
   explosionPrefab: {fileID: 198261741210295434, guid: 4a37a1c2d0603c847930e3a0aa77160a, type: 3}
   dropRates: []

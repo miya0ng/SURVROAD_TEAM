@@ -158,7 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponSO: {fileID: 11400000, guid: de784216a8c58aa4aba73c6a3988dd8b, type: 2}
   muzzle: {fileID: 4598817277408900632}
-  fireEffect: {fileID: 0}
+  fireEffect: {fileID: 198862153969099638, guid: e95c1fef6288b9440ab2eeeacac7da05, type: 3}
 --- !u!114 &3117581137168504570
 MonoBehaviour:
   m_ObjectHideFlags: 0

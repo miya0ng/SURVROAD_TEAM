@@ -35,7 +35,7 @@ MonoBehaviour:
     PrefabIndex: 7
     ThumbNail: {fileID: 21300000, guid: 4df001e9281235a46b8ef81865500dc6, type: 3}
     prefab: {fileID: 6066365829197139422, guid: eb0fdb527bf931b4cbb0a1995b37f783, type: 3}
-    bulletPrefab: {fileID: 1199389177536902, guid: 62bd9cb00576bac4fb66f9bcc0adf19d, type: 3}
+    bulletPrefab: {fileID: 0}
     effectPrefab: {fileID: 0}
   - Level: 2
     MinDamage: 60

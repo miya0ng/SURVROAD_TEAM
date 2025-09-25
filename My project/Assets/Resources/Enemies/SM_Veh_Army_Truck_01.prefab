@@ -13,12 +13,15 @@ GameObject:
   - component: {fileID: 7624366868313580392}
   - component: {fileID: 193317264068736490}
   - component: {fileID: 3933423179558627434}
-  - component: {fileID: -963691896247230258}
-  - component: {fileID: -2391388536419627532}
   - component: {fileID: 3156771706240083322}
-  - component: {fileID: -2031157955965970988}
-  - component: {fileID: -8933616669446691462}
-  - component: {fileID: 8559580319495706419}
+  - component: {fileID: 5992424490980644566}
+  - component: {fileID: -6303253674827487202}
+  - component: {fileID: 1499616582618417709}
+  - component: {fileID: -7839139818810352396}
+  - component: {fileID: 5271440956356180183}
+  - component: {fileID: 7971873786341742630}
+  - component: {fileID: 8943485918746689057}
+  - component: {fileID: 1880127592983164412}
   m_Layer: 8
   m_Name: SM_Veh_Army_Truck_01
   m_TagString: Untagged
@@ -91,7 +94,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7c26cf0bfe31c4247ad0de127e8e305f, type: 2}
+  - {fileID: 2100000, guid: eaee2fff52c59be4e9716394562cde00, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -132,8 +135,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.6374419, y: 2.6565561, z: 7.8363767}
-  m_Center: {x: 0, y: 1.6583447, z: -0.41084456}
+  m_Size: {x: 2.6374419, y: 1.45, z: 7.8363767}
+  m_Center: {x: 0, y: 1.05, z: -0.41084456}
 --- !u!54 &3933423179558627434
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -143,7 +146,7 @@ Rigidbody:
   m_GameObject: {fileID: 53427528991549043}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 100
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -159,51 +162,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 1
---- !u!195 &-963691896247230258
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 53427528991549043}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 3.5073438
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 5.9732456
-  m_BaseOffset: 2.9866228
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &-2391388536419627532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 53427528991549043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f1fd0330b003ce4db634ca8bc19c849, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeed: 22
-  accelForce: 28
-  brakeForce: 36
-  lateralFriction: 6
-  steerPower: 6
-  steerAssist: 0.15
-  steerAngleForFull: 45
-  downforce: 10
-  agentRepathRate: 0.2
 --- !u!114 &3156771706240083322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashMat: {fileID: 2100000, guid: dc2e63f961eec314ea3c22a9d4431b31, type: 2}
   flashDuration: 0.1
---- !u!114 &-2031157955965970988
+--- !u!114 &5992424490980644566
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -227,80 +187,177 @@ MonoBehaviour:
   m_GameObject: {fileID: 53427528991549043}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d758f80b18a6a94ba72bdacc3a47b38, type: 3}
+  m_Script: {fileID: 11500000, guid: f15bac5d0dd18314d9840ff0c5fa308a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualRoot: {fileID: 0}
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 3072
+  maxSpeed: 20
+  accel: 8
+  handling: 6
+  desiredRadius: 12
+  baseTurnDeg: 35
+  brakeDecel: 14
+  cornerSlowFactor: 0.6
+  feelerLen: 6
+  feelerSideAngle: 22
+  sideFeelerLen: 4.5
+  avoidWeight: 1.8
+  pursueWeight: 1
+--- !u!114 &-6303253674827487202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53427528991549043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f729b36cc1008f845a1b6a566847d513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 100
   curHp: 0
   teamId: 2
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  traceDist: 9999
-  target: {fileID: 0}
-  desiredRadius: 12
-  zigzagAmp: 0
-  zigzagFreq: 0
-  plowForce: 0
---- !u!114 &-8933616669446691462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 53427528991549043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1bb779706e636440b1f6446ade0490e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHp: 100
-  curHp: 0
-  teamId: 2
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  traceDist: 9999
-  target: {fileID: 0}
-  desiredRadius: 12
-  zigzagAmp: 0
-  zigzagFreq: 0
-  plowForce: 0
-  orbitAngular: 35
-  strafeSpeed: 0.6
---- !u!114 &8559580319495706419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 53427528991549043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7e2fde87afbaac41a87d7cc3df6f93e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  muzzle: {fileID: 6070860498529284319}
-  projectilePrefab: {fileID: 1065218223788492, guid: c27f216dc1a143c49a219e1f0e4a3c67, type: 3}
-  muzzleFx: {fileID: 198651599753370462, guid: 5654cce860a27a7459f80fd466d249c4, type: 3}
-  fireInterval: 2
-  damage: 5
-  projectileSpeed: 40
-  inaccuracyDeg: 2
-  maxRange: 60
-  useBurst: 0
-  shotsPerBurst: 3
-  burstGap: 0.12
-  autoFire: 1
-  requireLineOfSight: 1
+  isDead: 0
+  car: {fileID: 5992424490980644566}
+  gun: {fileID: 1833669586262026787}
+  enemyId: 51101
+  shootRange: 30
   losMask:
     serializedVersion: 2
-    m_Bits: 8
-  minDotToFire: -1
-  useLeadShot: 1
-  leadMaxSeconds: 1
-  useLocalPool: 1
-  prewarmCount: 16
+    m_Bits: 3072
+--- !u!114 &1499616582618417709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53427528991549043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
+--- !u!114 &-7839139818810352396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53427528991549043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
+  radius: 0.5
+  height: 2
+  canMove: 1
+  maxSpeed: 20
+  gravity: {x: NaN, y: NaN, z: NaN}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  repathRateCompatibility: NaN
+  canSearchCompability: 0
+  orientation: 0
+  enableRotation: 1
+  autoRepath:
+    mode: 2
+    interval: 0.5
+    sensitivity: 10
+    maximumInterval: 2
+    visualizeSensitivity: 0
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: 5
+  rotationSpeed: 360
+  slowdownDistance: 10
+  pickNextWaypointDist: 2
+  endReachedDistance: 8
+  alwaysDrawGizmos: 1
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 0
+  constrainInsideGraph: 0
+--- !u!114 &5271440956356180183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53427528991549043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e777435bb8d04347b8be57fbd1383f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7971873786341742630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53427528991549043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9679e68a0f1144e79c664d9a11ca121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  target: {fileID: 0}
+--- !u!114 &8943485918746689057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53427528991549043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d86574df60d996e47a92d8de1fb08b11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ramDistance: 10
+  ramFovDeg: 40
+  ramCooldown: 2
+  aimLeadTime: 0.25
+--- !u!114 &1880127592983164412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53427528991549043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b60a777eb8a923848978511a72ba553b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  car: {fileID: 5992424490980644566}
+  target: {fileID: 0}
+  repathInterval: 0.5
+  waypointReachDist: 2
+  lookAhead: 5
 --- !u!1 &195768003328730259
 GameObject:
   m_ObjectHideFlags: 0
@@ -1695,6 +1752,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Wep_Veh_MachineGun_01
       objectReference: {fileID: 0}
+    - target: {fileID: 4821653932568461391, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
+      propertyPath: damage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4821653932568461391, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
+      propertyPath: fireInterval
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5341799689980693092, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -1746,8 +1811,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5341799689980693092, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
   m_PrefabInstance: {fileID: 6600997714434861676}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6070860498529284319 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1142633408594696883, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
+--- !u!114 &1833669586262026787 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4821653932568461391, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
   m_PrefabInstance: {fileID: 6600997714434861676}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89114278df525ae48a0eb1c86a9682b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

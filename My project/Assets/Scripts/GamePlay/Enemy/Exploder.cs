@@ -21,24 +21,48 @@ public class Exploder : MonoBehaviour
     [Header("FX")]
     [SerializeField] private GameObject vfxPrefab;
     [SerializeField, Range(0f, 1f)] private float sfxVolume = 0.9f;
+    [SerializeField] private AudioClip sfxClip;
 
     [Header("Options")]
     [SerializeField] private bool killSelfAfterExplode = true; // 자기 제거(= 풀 반환 트리거)
     [SerializeField] private float delayBeforeExplode = 0f;    // 점화 후 지연
     [SerializeField] private bool oneShot = true;              // 중복 방지
 
+    // === 보강 옵션 ===
+    [Header("Team/Friendly-Fire")]
+    [SerializeField] private bool ignoreSelf = true;        // 자기 자신 피해 무시
+    [SerializeField] private bool ignoreSameTeam = true;    // 동일 팀 피해 무시
+
+    [Header("Perf/Limit")]
+    [SerializeField] private int maxVictims = 64;         // 최대 타격 대상 수(과도한 연산 안전장치)
+    [SerializeField] private bool useNonAlloc = true;      // OverlapSphereNonAlloc 사용
+    [SerializeField] private int nonAllocBuffer = 128;    // 버퍼 크기
+
     private bool triggered;
-    private Transform _attacker;  // 데미지 가해자(보통 자기 자신)
-    private LivingEntity _selfLE; // 자기 자신 LivingEntity(자폭 처리용)
+    private Transform _attacker;     // 데미지 가해자(보통 자기 자신 Transform)
+    private LivingEntity _selfLE;    // 자기 자신 LivingEntity(자폭 처리용)
     private AudioSource _audioSource;
+
+    // NonAlloc 버퍼
+    private Collider[] _hits;
 
     void Awake()
     {
         _selfLE = GetComponent<LivingEntity>();
+        if (useNonAlloc) _hits = new Collider[Mathf.Max(8, nonAllocBuffer)];
+        if (!_audioSource && (sfxClip != null))
+        {
+            _audioSource = gameObject.AddComponent<AudioSource>();
+            _audioSource.playOnAwake = false;
+            _audioSource.spatialBlend = 1f;
+            _audioSource.rolloffMode = AudioRolloffMode.Linear;
+            _audioSource.maxDistance = radius * 3f;
+        }
     }
 
     /// <summary>
     /// 외부에서 폭발 호출. attacker/레이어/반경/데미지 오버라이드 가능.
+    /// 기존 시그니처 유지.
     /// </summary>
     public void Trigger(int baseDamage, Transform attacker = null,
                         float? radiusOverride = null, LayerMask? maskOverride = null)
@@ -54,6 +78,13 @@ public class Exploder : MonoBehaviour
         else DoExplode(baseDamage);
     }
 
+    // 편의 오버로드(선택): CSV 스펙과 바로 연결할 때 사용 가능
+    public void Trigger(EnemySpec spec, Transform attacker = null,
+                        float? radiusOverride = null, LayerMask? maskOverride = null)
+    {
+        Trigger(Mathf.Max(1, spec.AttackDamage), attacker, radiusOverride, maskOverride);
+    }
+
     private IEnumerator Co_ExplodeAfter(float t, int baseDamage)
     {
         yield return new WaitForSeconds(t);
@@ -64,12 +95,36 @@ public class Exploder : MonoBehaviour
     {
         Vector3 center = transform.position;
 
-        // 1) 데미지 적용
-        var hits = Physics.OverlapSphere(center, radius, damageLayers, QueryTriggerInteraction.Ignore);
-        var visited = new HashSet<LivingEntity>();
-
-        foreach (var col in hits)
+        // 오디오
+        if (_audioSource && sfxClip)
         {
+            _audioSource.volume = sfxVolume;
+            _audioSource.PlayOneShot(sfxClip);
+        }
+
+        // 1) 물체 수집
+        int count = 0;
+        Collider[] cols;
+        if (useNonAlloc)
+        {
+            count = Physics.OverlapSphereNonAlloc(center, radius, _hits, damageLayers, QueryTriggerInteraction.Ignore);
+            cols = _hits;
+        }
+        else
+        {
+            cols = Physics.OverlapSphere(center, radius, damageLayers, QueryTriggerInteraction.Ignore);
+            count = cols.Length;
+        }
+
+        var visited = new HashSet<LivingEntity>();
+        int victims = 0;
+
+        for (int i = 0; i < count; i++)
+        {
+            if (victims >= maxVictims) break;
+            var col = cols[i];
+            if (!col) continue;
+
             // 가장 가까운 포인트 기준 거리 계산
             Vector3 p = col.ClosestPoint(center);
             float d = Vector3.Distance(center, p);
@@ -81,10 +136,16 @@ public class Exploder : MonoBehaviour
             var le = col.GetComponentInParent<LivingEntity>() ?? col.GetComponent<LivingEntity>();
             if (le && !visited.Contains(le))
             {
+                // 자기 자신/동일 팀 무시 옵션
+                if (ignoreSelf && _selfLE && le == _selfLE) goto PHYSICS_ONLY;
+                if (ignoreSameTeam && _selfLE && le.teamId == _selfLE.teamId) goto PHYSICS_ONLY;
+
                 visited.Add(le);
                 le.OnDamage(dmg, _selfLE ? _selfLE : null);
+                victims++;
             }
 
+        PHYSICS_ONLY:
             // 물리 충격
             var rb = col.attachedRigidbody ?? col.GetComponentInParent<Rigidbody>();
             if (rb && rb.isKinematic == false)
@@ -103,7 +164,7 @@ public class Exploder : MonoBehaviour
             else Destroy(gameObject);
         }
 
-        // 재사용 가능하게 만들고 싶으면 triggered=false로 되돌리는 옵션 추가 고려
+        // 재사용형으로 바꾸고 싶다면 oneShot=false + triggered=false 리셋을 외부에서 처리
     }
 
 #if UNITY_EDITOR

@@ -40,7 +40,7 @@ public class TrapMine : MonoBehaviour
     private readonly Collider[] hits = new Collider[64];
     private Collider myCol;
     private float lifeTimer;
-    private float proxTimer;
+    //private float proxTimer;
 
     public void Init(LivingEntity owner, TeamId team)
     {
@@ -61,7 +61,7 @@ public class TrapMine : MonoBehaviour
         exploded = false;
         armed = false;
         lifeTimer = 0f;
-        proxTimer = 0f;
+        //proxTimer = 0f;
 
         if (armingDelay <= 0f) armed = true;
         else Invoke(nameof(ArmNow), armingDelay);
