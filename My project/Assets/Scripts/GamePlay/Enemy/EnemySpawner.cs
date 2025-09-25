@@ -11,11 +11,12 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Camera mainCam;
     [SerializeField] private Transform player;
 
-    [Header("Spawn Settings")]
+
     /*[SerializeField]*/ private float spawnRadius = 100f;
     /*[SerializeField]*/ private int makePoolCount = 100;
-    /*[SerializeField]*/ private int enemyCoSpawnCount = 1;
-    /*[SerializeField]*/ private float spawnInterval = 1f;
+    [Header("SpawnSettings")]
+    [SerializeField] private int enemyCoSpawnCount = 1;
+    [SerializeField] private float spawnInterval = 1f;
 
     public bool IsWaveCleared => curSpawnCount >= waveSpawnCount && ActiveEnemyCount <= 0;
     public event System.Action OnWaveCleared;
