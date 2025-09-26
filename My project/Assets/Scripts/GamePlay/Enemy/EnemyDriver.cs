@@ -208,10 +208,9 @@ public class EnemyDriver : LivingEntity
 
         SpawnDeathFx(pos, rot);
 
-        if (itemManager) itemManager.DropFromEnemy(pos);
-
         // ¿ø·¡ Èå¸§
         base.Die(killer);
+        if (itemManager) itemManager.DropFromEnemy(pos);
     }
 
     private ObjectPool deathVfxPool;

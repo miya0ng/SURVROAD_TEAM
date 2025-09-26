@@ -19,8 +19,8 @@ MonoBehaviour:
   Target: 1
   Levels:
   - Level: 1
-    MinDamage: 2000
-    MaxDamage: 2000
+    MinDamage: 5
+    MaxDamage: 5
     ShotCount: 1
     AttackSpeed: 1.5
     AttackRange: 2
@@ -37,8 +37,8 @@ MonoBehaviour:
     bulletPrefab: {fileID: 1203708572482856, guid: 5ab22cdb58c498c4ea1546bc59061d9c, type: 3}
     effectPrefab: {fileID: 5860824924526599728, guid: 68b8630ee877f744ab50c008e7c52c97, type: 3}
   - Level: 2
-    MinDamage: 10
-    MaxDamage: 10
+    MinDamage: 6
+    MaxDamage: 6
     ShotCount: 1
     AttackSpeed: 1.8
     AttackRange: 2

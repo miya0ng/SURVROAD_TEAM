@@ -20,15 +20,6 @@ public class NormalPartItem : ItemBase
     protected override void Update()
     {
         base.Update();
-        if (OnTimer)
-        {
-            lifeTimer = Time.time;
-        }
-        if (lifeTimer >= 30)
-        {
-            lifeTimer = 0;
-            Destroy(gameObject);
-        }
     }
     protected override void Collect(GameObject player)
     {
