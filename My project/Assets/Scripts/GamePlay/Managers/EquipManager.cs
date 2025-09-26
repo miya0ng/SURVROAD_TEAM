@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EquipManager : MonoBehaviour
 {
-    // ====== Interfaces (선택 사항) ======
+    // ====== Interfaces======
     // 플레이어 쪽에서 이 인터페이스를 구현하면, 업그레이드 누적치를 즉시 반영해줄 수 있음.
     public interface IPlayerUpgradable
     {

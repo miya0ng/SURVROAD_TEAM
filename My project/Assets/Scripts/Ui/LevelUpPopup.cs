@@ -70,13 +70,13 @@ public class LevelUpPopup : MonoBehaviour
         if (equipButton != null) equipButton.interactable = false;
 
         if (levelUpDefault != null) levelUpDefault.SetActive(true);
-        Time.timeScale = 0;     // 팝업 중 일시정지
+        Time.timeScale = 0;
         isOpen = true;
     }
 
     private void CloseInternal()
     {
-        Time.timeScale = 1;     // 닫으면 재개
+        Time.timeScale = 1;
         if (levelUpDefault != null) levelUpDefault.SetActive(false);
         selectedIndex = -1;
         isOpen = false;
