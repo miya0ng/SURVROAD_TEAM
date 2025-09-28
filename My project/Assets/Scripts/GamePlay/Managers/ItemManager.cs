@@ -64,19 +64,19 @@ public class ItemManager : MonoBehaviour
 
     public void DropFromObject(Vector3 pos)
     {
-        SpawnItem(objectDropItems[0], pos);
+        //SpawnItem(objectDropItems[0], pos);
 
-        //float rand = Random.value;
-        //float cumulative = 0f;
-        //foreach (var item in objectDropItems)
-        //{
-        //    cumulative += item.DropRate;
-        //    if (rand <= cumulative)
-        //    {
-        //        SpawnItem(item, pos);
-        //        break;
-        //    }
-        //}
+        float rand = Random.value;
+        float cumulative = 0f;
+        foreach (var item in objectDropItems)
+        {
+            cumulative += item.DropRate;
+            if (rand <= cumulative)
+            {
+                SpawnItem(item, pos);
+                break;
+            }
+        }
     }
 
     private void SpawnItem(ItemData data, Vector3 pos)

@@ -6,6 +6,8 @@ public class CarController : MonoBehaviour
     [Header("Refs")]
     [SerializeField] private Rigidbody rb;
 
+    [SerializeField] private PlayerStatusEffects status;
+
     [Header("Speed/Accel")]
     [SerializeField] private float maxForwardSpeed = 35f;   // m/s (≈126km/h)
     [SerializeField] private float maxReverseSpeed = 10f;   // m/s
@@ -76,10 +78,14 @@ public class CarController : MonoBehaviour
         float dt = Time.fixedDeltaTime;
         Vector3 fwd = transform.forward;
 
+        float turboMul = (status && status.TurboUnlimited) ? 1.4f : 1f; // 원하면 값 조절
+        float accelNow = baseAccel * turboMul;
+        float maxFwdNow = maxForwardSpeed * turboMul;
+
         Vector3 v = rb.linearVelocity;
         float fwdSpeed = Vector3.Dot(v, fwd);
         float speedAbs = Mathf.Abs(fwdSpeed);
-        float norm = Mathf.InverseLerp(0f, maxForwardSpeed, speedAbs);
+        float norm = Mathf.InverseLerp(0f, maxFwdNow, speedAbs);
 
         float acc = 0f;
 

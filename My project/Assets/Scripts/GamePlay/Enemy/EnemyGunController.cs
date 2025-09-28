@@ -4,26 +4,26 @@ using UnityEngine;
 public class EnemyGunController : MonoBehaviour
 {
     [Header("Bindings")]
-    [SerializeField] private Transform muzzle;                 // 반드시 지정
-    [SerializeField] private GameObject projectilePrefab;      // 반드시 Rigidbody+EnemyProjectile 포함
+    [SerializeField] private Transform muzzle;                 // 총구(필수)
+    [SerializeField] private GameObject projectilePrefab;      // Rigidbody + EnemyProjectile(필수)
     [SerializeField] private ParticleSystem muzzleFx;
 
-    [Header("Firing")]
+    [Header("Firing Spec")]
     public float fireInterval = 2.0f;   // CSV: AttackInterval
     public int damage = 5;              // CSV: AttackDamage
     [SerializeField] private float projectileSpeed = 18f;
     [SerializeField] private float inaccuracyDeg = 2f;
     [SerializeField] private float maxRange = 60f;
 
-    // (선택) 풀 사용 시 주석 해제
-    // private ObjectPool pool;
+    [Header("Owner (optional)")]
+    [SerializeField] private LivingEntity ownerLE;
 
-    private LivingEntity ownerLE;
+    private ObjectPool pool;
     private Collider[] ownerCols;
+    private float nextFireTime;
 
     void Awake()
     {
-        // 필수 바인딩 체크
         if (!muzzle)
         {
             Debug.LogError($"[EnemyGunController] muzzle 미할당 on {name}");
@@ -34,79 +34,71 @@ public class EnemyGunController : MonoBehaviour
             Debug.LogError($"[EnemyGunController] projectilePrefab 미할당 on {name}");
             enabled = false; return;
         }
-
-        // 프리팹 구성 예비 점검(한 번만)
         if (!projectilePrefab.GetComponent<Rigidbody>())
             Debug.LogError($"[EnemyGunController] projectilePrefab에 Rigidbody 없음: {projectilePrefab.name}");
         if (!projectilePrefab.GetComponent<EnemyProjectile>())
             Debug.LogError($"[EnemyGunController] projectilePrefab에 EnemyProjectile 없음: {projectilePrefab.name}");
 
-        // 풀 사용 시
-        // pool = ObjectPool.GetOrCreate(projectilePrefab);
+        pool = ObjectPool.GetOrCreate(projectilePrefab);
 
-        ownerLE = GetComponentInParent<LivingEntity>();
+        if (!ownerLE) ownerLE = GetComponentInParent<LivingEntity>();
         ownerCols = ownerLE ? ownerLE.GetComponentsInChildren<Collider>() : null;
+
+        nextFireTime = Time.time + Random.Range(0f, fireInterval); // 스타거
     }
 
-    public void ApplySpec(EnemySpec spec)
+    public void ApplySpec(int dmg, float interval)
     {
-        damage = Mathf.Max(1, spec.AttackDamage);
-        fireInterval = Mathf.Max(0.05f, spec.AttackInterval);
+        damage = Mathf.Max(1, dmg);
+        fireInterval = Mathf.Max(0.05f, interval);
     }
 
-    public void TryFire(Vector3 dirToTarget)
+    public void RemapMuzzle(Transform newMuzzle)
     {
-        if (!enabled) return;
-        if (!muzzle || !projectilePrefab) return; // 안전망
+        if (newMuzzle) muzzle = newMuzzle;
+    }
+
+    public bool CanFire() => Time.time >= nextFireTime && enabled && gameObject.activeInHierarchy;
+
+    public void TickAutoFireToward(Vector3 worldTarget)
+    {
+        if (!CanFire()) return;
+
+        Vector3 dirToTarget = (worldTarget - muzzle.position);
+        dirToTarget.y = 0f;
+        if (dirToTarget.sqrMagnitude < 0.0001f) return;
 
         // 산포 반영
         Vector3 dir = Quaternion.Euler(0f, Random.Range(-inaccuracyDeg, inaccuracyDeg), 0f) * dirToTarget.normalized;
 
         FireOne(dir);
+        nextFireTime = Time.time + fireInterval;
     }
 
-    private void FireOne(Vector3 dir)
+    public void FireOne(Vector3 dir)
     {
-        // 총구 기준 월드 좌표/회전
+        // 1) 총구 기준 스폰 좌표/회전
         Vector3 spawnPos = muzzle.position;
         Quaternion spawnRot = Quaternion.LookRotation(dir, Vector3.up);
 
-        // ── 생성(풀 또는 인스턴스) ──
-        GameObject go = null;
-        // if (pool != null) go = pool.Pop(spawnPos, spawnRot);
-        // else
-        go = Instantiate(projectilePrefab, spawnPos, spawnRot);
-
-        if (!go)
-        {
-            Debug.LogError("[EnemyGunController] Projectile 생성 실패");
-            return;
-        }
-
-        // ── 컴포넌트 잡기 ──
+        // 2) 풀에서 Pop (활성화 전에 위치/회전 세팅됨)
+        GameObject go = pool.Pop(spawnPos, spawnRot);
         var rb = go.GetComponent<Rigidbody>();
         var proj = go.GetComponent<EnemyProjectile>();
 
-        if (!proj)
+        if (!rb || !proj)
         {
-            Debug.LogError($"[EnemyGunController] 생성된 Projectile에 EnemyProjectile 없음: {go.name}");
-            // if (pool != null) pool.Push(go); else Destroy(go);
-            Destroy(go);
-            return;
-        }
-        if (!rb)
-        {
-            Debug.LogError($"[EnemyGunController] 생성된 Projectile에 Rigidbody 없음: {go.name}");
-            // if (pool != null) pool.Push(go); else Destroy(go);
-            Destroy(go);
+            Debug.LogError("[EnemyGunController] Projectile 구성(Rigidbody/EnemyProjectile) 누락");
+            if (rb) { /* nothing */ }
+            // 안전상 제거
+            pool.Push(go);
             return;
         }
 
-        // ── 발사체 세팅 ──
-        proj.Setup(damage, maxRange);
-        //if (ownerLE) proj.SetOwner(ownerLE, ownerLE.teamId, ownerCols);
+        // 3) 발사체 세팅
+        proj.Setup(damage, maxRange, pool, ownerLE, ownerCols);
 
-        // Rigidbody 초기화 후 발사 속도 부여
+        // 4) 물리 발사
         rb.isKinematic = false;
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 #if UNITY_6000_0_OR_NEWER
@@ -116,7 +108,7 @@ public class EnemyGunController : MonoBehaviour
 #endif
         rb.angularVelocity = Vector3.zero;
 
-        // 안전상 위치/회전 한 번 더 보정(풀 사용 시 첫 프레임 0,0,0 플래시 방지)
+        // 풀에서 Pop 직후 한 번 더 보정(원점 플래시 방지용)
         rb.position = spawnPos;
         rb.rotation = spawnRot;
 

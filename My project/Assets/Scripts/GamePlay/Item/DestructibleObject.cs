@@ -8,10 +8,10 @@ public class DestructibleObject : LivingEntity
     public float[] dropRates;
     private ItemManager itemManager;
     private HitFlash hitFlash;
-    public void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         maxHp = 20;
-        curHp = maxHp;
     }
     public void Start()
     {
@@ -45,6 +45,8 @@ public class DestructibleObject : LivingEntity
 
     public void OnBreak()
     {
-        itemManager.DropFromObject(transform.position);
+        var posY = transform.position.y + 2f;
+        var pos = new Vector3(transform.position.x, posY, transform.position.z);
+        itemManager.DropFromObject(pos);
     }
 }

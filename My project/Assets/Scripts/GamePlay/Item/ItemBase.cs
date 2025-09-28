@@ -49,4 +49,10 @@ public abstract class ItemBase : MonoBehaviour
     }
 
     protected abstract void Collect(GameObject player);
+
+    public void ForceCollect(Transform p)
+    {
+        player = p;
+        isCollecting = true;
+    }
 }

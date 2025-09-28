@@ -7,7 +7,7 @@ public class EnemyDriver : LivingEntity
 {
     [Header("Bindings")]
     [SerializeField] private EnemyCarController car;
-    private Transform target;                       // (기존 주석 처리 제거: 필드 유지)
+    private Transform target;
     [SerializeField] private EnemyGunController gun;
 
     [Header("Spec Setup")]
@@ -15,86 +15,122 @@ public class EnemyDriver : LivingEntity
 
     [Header("Combat")]
     [SerializeField] private float shootRange = 30f;
-    [SerializeField] private LayerMask losMask;
+    [SerializeField] private LayerMask losMask = ~0;
 
     [Header("Death FX")]
-    [SerializeField] private GameObject deathVfxPrefab;   // 죽을 때 생성할 VFX 프리팹
-    //[SerializeField] private AudioClip deathSfx;          // 선택: 사운드
-    //[SerializeField, Range(0f, 1f)] private float deathSfxVolume = 0.9f;
-    [SerializeField] private Transform vfxAnchor;         // 선택: 이 위치 기준(없으면 transform)
+    [SerializeField] private GameObject deathVfxPrefab; // 죽을 때 생성할 VFX 프리팹
+    [SerializeField] private Transform vfxAnchor;       // 없으면 this.transform
     [SerializeField] private bool usePoolForDeathVfx = true;
 
     private ItemManager itemManager;
-    private EnemySpec spec;                         // (필드 추가: 내부 전용, 시그니처 영향 없음)
-    private float shootCd;
-
-    // A* 주행용 (동일 컴포넌트에서 찾아 바인딩, 공개 API 변경 없음)
+    private EnemySpec spec;             // 내부 캐시
     private AStarCarMotor motor;
+
+    // 풀 팝 직후 첫 프레임 스킵용
+    private bool armed;
+    private int spawnedFrame;
+
+    // Death VFX 풀
+    private ObjectPool deathVfxPool;
 
     protected override void Awake()
     {
         base.Awake();
-        if (!target) target = GameObject.FindGameObjectWithTag("Player")?.transform;
-        var im = GameObject.FindGameObjectWithTag("ItemManager");
-        if (im) itemManager = im.GetComponent<ItemManager>();
 
         if (!car) car = GetComponent<EnemyCarController>();
         motor = GetComponent<AStarCarMotor>();
 
-        // 이미 스포너에서 주입했다면 생략
-        if (spec.Id != 0) return;
+        // 레퍼런스 찾아두기
+        var p = GameObject.FindGameObjectWithTag("Player");
+        if (p) target = p.transform;
 
-        var table = DataTableManger.Get<EnemyDataTable>(EnemyDataTable.EnemyTableId);
-        if (table == null)
+        var im = GameObject.FindGameObjectWithTag("ItemManager");
+        if (im) itemManager = im.GetComponent<ItemManager>();
+
+        // Death FX 풀 준비(선택)
+        if (usePoolForDeathVfx && deathVfxPrefab)
         {
-            // 폴백(씬 부트스트랩 타이밍 불일치 대비)
-            table = new EnemyDataTable();
-            table.Load(EnemyDataTable.EnemyTableId);
+            deathVfxPool = ObjectPool.GetOrCreate(deathVfxPrefab);
         }
 
-        if (table != null && table.TryGet(enemyId, out spec))
+        // 스펙 로드(스포너에서 미리 주입했다면 생략)
+        if (spec.Id == 0)
         {
-            ApplySpec(spec);
-        }
-        else
-        {
-            Debug.LogWarning($"[EnemyDriver] Spec not found: {enemyId}");
-            maxHp = curHp = 50;
+            var table = DataTableManger.Get<EnemyDataTable>(EnemyDataTable.EnemyTableId);
+            if (table == null)
+            {
+                table = new EnemyDataTable();
+                table.Load(EnemyDataTable.EnemyTableId);
+            }
+
+            if (table != null && table.TryGet(enemyId, out spec))
+            {
+                ApplySpec(spec);
+            }
+            else
+            {
+                Debug.LogWarning($"[EnemyDriver] Spec not found: {enemyId}");
+                maxHp = curHp = 50;
+            }
         }
     }
+
     void OnEnable()
     {
-        shootCd = 0f;
+        // 체력 초기화
         if (spec.Id != 0)
         {
             maxHp = spec.Durability;
             curHp = maxHp;
         }
+
+        // 타겟 보정
         if (!target)
         {
             var p = GameObject.FindGameObjectWithTag("Player");
             if (p) target = p.transform;
         }
+
+        // 이동 바인딩
         if (car && target) car.Bind(target);
         if (motor && car && target) motor.Bind(car, target);
+
+        // 첫 프레임 암세이프
+        armed = false;
+        spawnedFrame = Time.frameCount;
+        StartCoroutine(ArmNextFrame());
     }
+
+    System.Collections.IEnumerator ArmNextFrame()
+    {
+        yield return null;  // 1 프레임 대기 (풀 팝 직후 좌표/의존성 안정화)
+        armed = true;
+    }
+
     void Start()
     {
+        // 씬 직행 스폰 대비(중복 바인딩 무해)
         if (!target)
         {
             var p = GameObject.FindGameObjectWithTag("Player");
             if (p) target = p.transform;
         }
         if (car && target) car.Bind(target);
-
         if (motor && car && target) motor.Bind(car, target);
     }
 
     void Update()
     {
+        if (!armed) return;         // 첫 프레임 동작 금지
         if (!target) return;
 
-        // 타입 분기: 시그니처 변경 없이 EnemyDriver 안에서 처리
+        // 스펙이 런타임 교체될 수 있으면 여기서 갱신
+        if (TryGetSpec(out var s) && s.Id != spec.Id)
+        {
+            spec = s;
+            ApplySpec(spec);
+        }
+
         switch (spec.AttackType)
         {
             case EnemyAttackType.Gun:
@@ -107,16 +143,17 @@ public class EnemyDriver : LivingEntity
 
             case EnemyAttackType.Charge:
             default:
-                // 특수행동 없음: A* 모터가 있으면 알아서 추격, 없으면 기존 Bind 주행
+                // 특수행동 없음: motor/차량이 추격
                 break;
         }
     }
+
     public void ApplySpec(EnemySpec s)
     {
         spec = s;
 
         maxHp = spec.Durability;
-        curHp = maxHp;
+        curHp = Mathf.Min(curHp, maxHp);
 
         if (!car) car = GetComponent<EnemyCarController>();
         if (car)
@@ -128,63 +165,62 @@ public class EnemyDriver : LivingEntity
 
         if (gun)
         {
-            gun.damage = Mathf.Max(1, spec.AttackDamage);
-            gun.fireInterval = Mathf.Max(0.1f, spec.AttackInterval);
+            // 쿨다운/공격력은 Gun이 관리
+            gun.ApplySpec(Mathf.Max(1, spec.AttackDamage), Mathf.Max(0.05f, spec.AttackInterval));
+            // 필요 시 총구 재매핑: gun.RemapMuzzle(driver.MuzzleSocket); // 드라이버에 소켓이 있다면
         }
     }
 
     public void SetEnemyId(int id) => enemyId = id;
+
     public void SetTarget(Transform t)
     {
         target = t;
         if (!car) car = GetComponent<EnemyCarController>();
         if (car && target) car.Bind(target);
-
-        var motor = GetComponent<AStarCarMotor>();
         if (motor && car && target) motor.Bind(car, target);
     }
+
     void HandleGun()
     {
-        if (!gun) return;
-        shootCd -= Time.deltaTime;
+        if (!gun || !target) return;
 
-        Vector3 to = (target.position - transform.position);
-        float dist = to.magnitude;
-        if (dist <= shootRange && shootCd <= 0f)
-        {
-            bool blocked = Physics.Linecast(
-                transform.position + Vector3.up * 0.6f,
-                target.position + Vector3.up * 0.6f,
-                losMask, QueryTriggerInteraction.Ignore
-            );
-            if (!blocked)
-            {
-                gun.TryFire(to.normalized);
-                shootCd = gun.fireInterval;
-            }
-        }
+        // 사거리 체크 (수평 거리)
+        Vector3 to = target.position - transform.position;
+        to.y = 0f;
+        if (to.sqrMagnitude > shootRange * shootRange) return;
+
+        // LOS 체크: 총구(없으면 본체 상단) 기준
+        Vector3 origin = gun ? gun.transform.position : (transform.position + Vector3.up * 0.6f);
+        Vector3 dest = target.position + Vector3.up * 0.6f;
+
+        bool blocked = Physics.Linecast(origin, dest, losMask, QueryTriggerInteraction.Ignore);
+        if (blocked) return;
+
+        // 발사 지시 (쿨타임은 Gun 내부에서 판단)
+        gun.TickAutoFireToward(target.position);
     }
 
     void HandleSuicide()
     {
         if (!target) return;
-        // 간단: 근접 시 폭발(Exploder 있으면 사용)
+
         Vector3 to = target.position - transform.position;
-        if (to.magnitude <= 6f)
+        to.y = 0f;
+        if (to.sqrMagnitude <= 6f * 6f)
         {
             var exploder = GetComponent<Exploder>();
-            if (exploder) exploder.Trigger(Mathf.RoundToInt(spec.AttackDamage), transform);
+            if (exploder) exploder.Trigger(CollisionDamageAsInt(), transform);
             else GetComponent<LivingEntity>()?.OnDamage(999999f, this);
         }
     }
 
     static bool InLayerMask(GameObject go, LayerMask mask)
-    {
-        return (mask.value & (1 << go.layer)) != 0;
-    }
+        => (mask.value & (1 << go.layer)) != 0;
 
     void OnCollisionEnter(Collision c)
     {
+        // LOS 마스크 대상은 접촉 데미지 제외(환경 등)
         if (InLayerMask(c.collider.gameObject, losMask)) return;
 
         var le = c.collider.GetComponentInParent<LivingEntity>();
@@ -200,29 +236,35 @@ public class EnemyDriver : LivingEntity
         var flash = GetComponentInChildren<HitFlash>();
         if (flash != null) flash.PlayFlash();
     }
+
     protected override void Die(LivingEntity killer = null)
     {
-        // VFX/SFX는 반드시 좌표를 먼저 캡처
+        // 좌표/회전 캡처 후 VFX
         Vector3 pos = (vfxAnchor ? vfxAnchor : transform).position;
         Quaternion rot = Quaternion.LookRotation(transform.forward, Vector3.up);
 
         SpawnDeathFx(pos, rot);
 
-        // 원래 흐름
+        // 기본 처리 및 드랍
         base.Die(killer);
         if (itemManager) itemManager.DropFromEnemy(pos);
     }
 
-    private ObjectPool deathVfxPool;
     private void SpawnDeathFx(Vector3 pos, Quaternion rot)
     {
         if (!deathVfxPrefab) return;
 
-        GameObject fx;
-        if (usePoolForDeathVfx && deathVfxPool != null)
-            fx = deathVfxPool.Pop(pos, rot);
+        if (usePoolForDeathVfx)
+        {
+            if (deathVfxPool == null)
+                deathVfxPool = ObjectPool.GetOrCreate(deathVfxPrefab);
+
+            deathVfxPool.Pop(pos, rot);
+        }
         else
-            fx = Instantiate(deathVfxPrefab, pos, rot);
+        {
+            Instantiate(deathVfxPrefab, pos, rot);
+        }
     }
 
     public bool TryGetSpec(out EnemySpec s) { s = spec; return spec.Id != 0; }

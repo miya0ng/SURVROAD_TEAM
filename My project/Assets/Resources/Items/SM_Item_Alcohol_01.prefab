@@ -101,7 +101,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  healAmount: 20
 --- !u!135 &-1933396275535695854
 SphereCollider:
   m_ObjectHideFlags: 0

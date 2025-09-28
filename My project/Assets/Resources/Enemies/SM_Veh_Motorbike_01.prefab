@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33447655609236368}
   - component: {fileID: 23533848463092052}
   - component: {fileID: 135228015059048634}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_Motorbike_Rear_Wheel_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,13 +126,13 @@ GameObject:
   - component: {fileID: 1710932403972969578}
   - component: {fileID: -3751111862992782328}
   - component: {fileID: -5869048297120671576}
-  - component: {fileID: -3605653058230449541}
   - component: {fileID: 8530888687496240571}
   - component: {fileID: 5749882885385980028}
   - component: {fileID: 8647522238459518462}
-  m_Layer: 0
+  - component: {fileID: 391922112497199552}
+  m_Layer: 8
   m_Name: SM_Veh_Motorbike_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -216,7 +216,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1282662244607150}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 800
   m_Drag: 100
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -233,8 +233,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 84
-  m_CollisionDetection: 1
+  m_Constraints: 0
+  m_CollisionDetection: 2
 --- !u!65 &2721790094456088334
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -242,7 +242,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1282662244607150}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d401639732c698c4abacac6a4829d152, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -285,7 +285,7 @@ MonoBehaviour:
   visualRoot: {fileID: 0}
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 3072
+    m_Bits: 3328
   maxSpeed: 20
   accel: 8
   handling: 6
@@ -298,6 +298,15 @@ MonoBehaviour:
   sideFeelerLen: 4.5
   avoidWeight: 1.8
   pursueWeight: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  neighborRadius: 6
+  maxNeighbors: 16
+  separationWeight: 1.25
+  sepFrontBias: 0.2
+  queryEveryN: 3
+  softDepenetrate: 1
 --- !u!114 &1710932403972969578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,18 +403,6 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
---- !u!114 &-3605653058230449541
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1282662244607150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e777435bb8d04347b8be57fbd1383f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8530888687496240571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,7 +432,7 @@ MonoBehaviour:
   gun: {fileID: 4821653932568461391, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
   losMask:
     serializedVersion: 2
-    m_Bits: 3520
+    m_Bits: 3072
   preferMin: 14
   preferMax: 24
   shootRange: 30
@@ -459,6 +456,18 @@ MonoBehaviour:
   repathInterval: 0.5
   waypointReachDist: 2
   lookAhead: 5
+--- !u!114 &391922112497199552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282662244607150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a553b8946d11ce04296e887608a36309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1446894119548954
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,7 +480,7 @@ GameObject:
   - component: {fileID: 33254428489682332}
   - component: {fileID: 23641098334656782}
   - component: {fileID: 135391697899991832}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_Motorbike_Front_Wheel_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -578,7 +587,7 @@ GameObject:
   - component: {fileID: 4924286513171860}
   - component: {fileID: 33237876546340724}
   - component: {fileID: 23998985580258522}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_Motorbike_HandleBars_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -665,7 +674,7 @@ GameObject:
   - component: {fileID: 4265556081190728}
   - component: {fileID: 33111542654876294}
   - component: {fileID: 23381453964108282}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_Motorbike_Rear_Shock_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -752,7 +761,7 @@ GameObject:
   - component: {fileID: 4648880631570698}
   - component: {fileID: 33571909027453694}
   - component: {fileID: 23218057795868640}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_Motorbike_Front_Shock_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -837,7 +846,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9194968981262877277}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: soket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -871,6 +880,14 @@ PrefabInstance:
     - target: {fileID: 85222885766270236, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
       propertyPath: m_Name
       value: SM_Wep_Veh_MachineGun_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 85222885766270236, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2146528302918136386, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4821653932568461391, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
       propertyPath: damage

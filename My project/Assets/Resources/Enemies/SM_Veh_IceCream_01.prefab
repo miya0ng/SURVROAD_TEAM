@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33589235003729138}
   - component: {fileID: 23983069332658616}
   - component: {fileID: 135971746409440678}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_IceCream_Wheel_rr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,13 +126,13 @@ GameObject:
   - component: {fileID: -7454474535974065263}
   - component: {fileID: 673365125281118258}
   - component: {fileID: 4638372764421375414}
-  - component: {fileID: 1187353654561006215}
   - component: {fileID: -911808025648564329}
   - component: {fileID: 6254202897769037730}
   - component: {fileID: 1128339317372170188}
-  m_Layer: 0
+  - component: {fileID: -7709938814422985970}
+  m_Layer: 8
   m_Name: SM_Veh_IceCream_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -221,7 +221,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1319633399095954}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d401639732c698c4abacac6a4829d152, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -243,7 +243,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1319633399095954}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 800
   m_Drag: 100
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -260,8 +260,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 84
-  m_CollisionDetection: 1
+  m_Constraints: 0
+  m_CollisionDetection: 2
 --- !u!114 &989427778000912868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,7 +291,7 @@ MonoBehaviour:
   visualRoot: {fileID: 0}
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 3072
+    m_Bits: 3328
   maxSpeed: 20
   accel: 8
   handling: 6
@@ -304,6 +304,15 @@ MonoBehaviour:
   sideFeelerLen: 4.5
   avoidWeight: 1.8
   pursueWeight: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  neighborRadius: 6
+  maxNeighbors: 16
+  separationWeight: 1.25
+  sepFrontBias: 0.2
+  queryEveryN: 3
+  softDepenetrate: 1
 --- !u!114 &-7454474535974065263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,18 +409,6 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
---- !u!114 &1187353654561006215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1319633399095954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e777435bb8d04347b8be57fbd1383f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-911808025648564329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,6 +462,18 @@ MonoBehaviour:
   repathInterval: 0.5
   waypointReachDist: 2
   lookAhead: 5
+--- !u!114 &-7709938814422985970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319633399095954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a553b8946d11ce04296e887608a36309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1380736521491372
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,7 +485,7 @@ GameObject:
   - component: {fileID: 4482042028466664}
   - component: {fileID: 33194500939153630}
   - component: {fileID: 23976501835164846}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_IceCream_SteeringW
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -562,7 +571,7 @@ GameObject:
   - component: {fileID: 4783068426530296}
   - component: {fileID: 33076316023325122}
   - component: {fileID: 23813223035620490}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_IceCream_Glass_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -648,7 +657,7 @@ GameObject:
   - component: {fileID: 4140006838689932}
   - component: {fileID: 33680719375573530}
   - component: {fileID: 23158362395318954}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_IceCream_Armour_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -734,7 +743,7 @@ GameObject:
   - component: {fileID: 4345339331538990}
   - component: {fileID: 33616120865090620}
   - component: {fileID: 23367346269260140}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_IceCream_Top_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -821,7 +830,7 @@ GameObject:
   - component: {fileID: 33001422220541270}
   - component: {fileID: 23113206794906588}
   - component: {fileID: 135436542765907642}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_IceCream_Wheel_fr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -929,7 +938,7 @@ GameObject:
   - component: {fileID: 33646692904676934}
   - component: {fileID: 23773452930874288}
   - component: {fileID: 135168982149233944}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_IceCream_Wheel_fl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1037,7 +1046,7 @@ GameObject:
   - component: {fileID: 33251394293651170}
   - component: {fileID: 23307753984243292}
   - component: {fileID: 135416957092434354}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_IceCream_Wheel_rl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1144,7 +1153,7 @@ GameObject:
   - component: {fileID: 4847069366355828}
   - component: {fileID: 33000306589857430}
   - component: {fileID: 23538755203282298}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_IceCream_Glass_Armour_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

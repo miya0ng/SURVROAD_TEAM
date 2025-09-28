@@ -25,7 +25,7 @@ public class EnemySpawner : MonoBehaviour
     public bool IsWaveCleared => _spawnedInWave >= _waveTotalToSpawn && ActiveEnemyCount <= 0;
     public event System.Action OnWaveCleared;
 
-    // ³»ºÎ »óÅÂ
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private readonly Dictionary<int, GameObject> _idToPrefab = new();
     private readonly Dictionary<int, Queue<GameObject>> _poolQ = new();
     private readonly Dictionary<int, HashSet<GameObject>> _poolSet = new();
@@ -54,15 +54,15 @@ public class EnemySpawner : MonoBehaviour
         if (player == null) player = GameObject.FindWithTag("Player")?.transform;
         if (mainCam == null) mainCam = Camera.main;
 
-        // Àû Â÷·® µ¥ÀÌÅÍ Å×ÀÌºí ·Îµå
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Îµï¿½
         enemyDataTable = new EnemyDataTable();
         enemyDataTable.Load(enemyCarCsvPath);
 
-        if (player == null) Debug.LogWarning("[EnemySpawner] player ¹ÌÇÒ´ç(ÅÂ±× Player È®ÀÎ)");
-        if (mainCam == null) Debug.LogWarning("[EnemySpawner] mainCam ¹ÌÇÒ´ç(¾ÀÀÇ MainCamera È®ÀÎ)");
+        if (player == null) Debug.LogWarning("[EnemySpawner] player ï¿½ï¿½ï¿½Ò´ï¿½(ï¿½Â±ï¿½ Player È®ï¿½ï¿½)");
+        if (mainCam == null) Debug.LogWarning("[EnemySpawner] mainCam ï¿½ï¿½ï¿½Ò´ï¿½(ï¿½ï¿½ï¿½ï¿½ MainCamera È®ï¿½ï¿½)");
     }
 
-    // ========= ¿þÀÌºê ÁÖÀÔ =========
+    // ========= ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ =========
     public void SetWave(WaveData wave, int? coSpawnOverride = null, float? intervalOverride = null)
     {
         _currentWave = wave;
@@ -72,12 +72,12 @@ public class EnemySpawner : MonoBehaviour
         if (coSpawnOverride.HasValue) enemyCoSpawnCount = Mathf.Max(1, coSpawnOverride.Value);
         if (intervalOverride.HasValue) spawnInterval = Mathf.Max(0.01f, intervalOverride.Value);
 
-        // ÇöÀç ¿þÀÌºê¿¡ ÇÊ¿äÇÑ ID¸¸ ·Îµå/¸ÅÇÎ
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºê¿¡ ï¿½Ê¿ï¿½ï¿½ï¿½ IDï¿½ï¿½ ï¿½Îµï¿½/ï¿½ï¿½ï¿½ï¿½
         BuildIdToPrefabForWave(wave);
 
         _batchEnumerator = WaveDataTable.BuildBatches(_currentWave, enemyCoSpawnCount).GetEnumerator();
 
-        // IDº° Ç® ÁØºñ/º¸Ãæ
+        // IDï¿½ï¿½ Ç® ï¿½Øºï¿½/ï¿½ï¿½ï¿½ï¿½
         PrewarmPoolsForWave(_currentWave);
 
         StopSpawner();
@@ -101,7 +101,7 @@ public class EnemySpawner : MonoBehaviour
 
             if (!enemyDataTable.TryGet(enemyID, out var spec))
             {
-                Debug.LogError($"[EnemySpawner] EnemyID {enemyID} ½ºÆå ¾øÀ½(EnemyDataTable)");
+                Debug.LogError($"[EnemySpawner] EnemyID {enemyID} ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(EnemyDataTable)");
                 continue;
             }
 
@@ -112,7 +112,7 @@ public class EnemySpawner : MonoBehaviour
         }
 
         if (_idToPrefab.Count == 0)
-            Debug.LogError("[EnemySpawner] ÇöÀç ¿þÀÌºê¿ë ÇÁ¸®ÆÕ ·Îµå ½ÇÆÐ");
+            Debug.LogError("[EnemySpawner] ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½");
     }
 
     private void PrewarmPoolsForWave(WaveData wave)
@@ -122,17 +122,17 @@ public class EnemySpawner : MonoBehaviour
             EnsurePool(enemyID, Mathf.Max(makePoolCount, Mathf.Min(amount, makePoolCount)));
     }
 
-    // ========= ½ºÆù Á¦¾î =========
+    // ========= ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ =========
     public void StartSpawner()
     {
         if (_currentWave == null || _waveTotalToSpawn <= 0)
         {
-            Debug.LogError("[EnemySpawner] ÇöÀç ¿þÀÌºê Á¤º¸ ¾øÀ½/ÃÑ·® 0 ¡æ ½ÃÀÛ ºÒ°¡");
+            Debug.LogError("[EnemySpawner] ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½Ñ·ï¿½ 0 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½");
             return;
         }
         if (player == null)
         {
-            Debug.LogError("[EnemySpawner] player ÂüÁ¶ ¾øÀ½ ¡æ ½ºÆù ºÒ°¡");
+            Debug.LogError("[EnemySpawner] player ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½");
             return;
         }
 
@@ -159,16 +159,16 @@ public class EnemySpawner : MonoBehaviour
             int success = SpawnOneBatchTick();
 
             if (success == 0 && lastSpawned == _spawnedInWave)
-                Debug.LogWarning("[EnemySpawner] ÀÌ¹ø Æ½ ½ºÆù 0°Ç ¡æ NavMesh/Ä«¸Þ¶ó/¹Ý°æ/Ç® È®ÀÎ");
+                Debug.LogWarning("[EnemySpawner] ï¿½Ì¹ï¿½ Æ½ ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ ï¿½ï¿½ NavMesh/Ä«ï¿½Þ¶ï¿½/ï¿½Ý°ï¿½/Ç® È®ï¿½ï¿½");
 
             lastSpawned = _spawnedInWave;
             yield return new WaitForSeconds(spawnInterval);
         }
 
-        Debug.Log("[EnemySpawner] ¸ñÇ¥ ¼ö¸¸Å­ ½ºÆù ¿Ï·á");
+        Debug.Log("[EnemySpawner] ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½");
     }
 
-    // ¹èÄ¡ ÇÏ³ª(ÇÑ Æ½) ½ºÆù
+    // ï¿½ï¿½Ä¡ ï¿½Ï³ï¿½(ï¿½ï¿½ Æ½) ï¿½ï¿½ï¿½ï¿½
     private int SpawnOneBatchTick()
     {
         if (_batchEnumerator == null) return 0;
@@ -199,12 +199,12 @@ public class EnemySpawner : MonoBehaviour
         return spawnedThisTick;
     }
 
-    // ========= Ç® °ü¸® (IDº°) =========
+    // ========= Ç® ï¿½ï¿½ï¿½ï¿½ (IDï¿½ï¿½) =========
     private void EnsurePool(int enemyID, int initialCount)
     {
         if (!_idToPrefab.TryGetValue(enemyID, out var prefab) || prefab == null)
         {
-            Debug.LogError($"[EnemySpawner] EnemyID {enemyID} ÇÁ¸®ÆÕ ¸ÅÇÎ ¾øÀ½");
+            Debug.LogError($"[EnemySpawner] EnemyID {enemyID} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
             return;
         }
 
@@ -225,7 +225,7 @@ public class EnemySpawner : MonoBehaviour
 
             _poolQ[enemyID].Enqueue(e);
             _poolSet[enemyID].Add(e);
-            _instanceToId[e] = enemyID; // ¿ª¸ÅÇÎ µî·Ï
+            _instanceToId[e] = enemyID; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         }
     }
 
@@ -279,34 +279,30 @@ public class EnemySpawner : MonoBehaviour
     {
         if (IsWaveCleared)
         {
-            Debug.Log("[EnemySpawner] ¿þÀÌºê Å¬¸®¾î");
+            Debug.Log("[EnemySpawner] ï¿½ï¿½ï¿½Ìºï¿½ Å¬ï¿½ï¿½ï¿½ï¿½");
             OnWaveCleared?.Invoke();
         }
     }
 
-    // ========= ½ºÆù °øÅë ·ÎÁ÷ =========
-    private bool TryFindSpawnPosition(out Vector3 spawnPos)
+    // ========= ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ =========
+        private bool TryFindSpawnPosition(out Vector3 spawnPos)
     {
         spawnPos = Vector3.zero;
         if (player == null || AstarPath.active == null) return false;
 
-        // ¿öÄ¿ºí ³ëµå¸¸ Çã¿ë
         var nn = NNConstraint.Default;
         nn.constrainWalkability = true;
         nn.walkable = true;
-        // ÇÊ¿äÇÏ¸é Æ¯Á¤ ±×·¡ÇÁ/ÅÂ±× Á¦ÇÑµµ °¡´É: nn.graphMask = GraphMask.FromGraphName("MyGrid"); nn.constrainTags = true; nn.tags = 1 << 0;
 
-        for (int safety = 0; safety < 50; safety++)
+        for (int safety = 0; safety < 40; safety++)
         {
             float angle = Random.Range(0f, Mathf.PI * 2f);
             Vector3 dir = new(Mathf.Cos(angle), 0f, Mathf.Sin(angle));
             Vector3 candidate = player.position + dir * spawnRadius;
 
-            // °¡±î¿î ¿öÄ¿ºí ³ëµå Ã£±â
             var nnInfo = AstarPath.active.GetNearest(candidate, nn);
             var node = nnInfo.node;
 
-            // À¯È¿ÇÑ ¿öÄ¿ºí ³ëµå + È­¸é ¹Û
             if (node != null && node.Walkable)
             {
                 var pos = (Vector3)nnInfo.position;
@@ -317,31 +313,19 @@ public class EnemySpawner : MonoBehaviour
                 }
             }
         }
-
-        // Æú¹é: ±×·¡µµ ¸ø Ã£À¸¸é, ÇÃ·¹ÀÌ¾î ±ÙÃ³ ¿öÄ¿ºí ³ëµå ÇÑ ¹ø ´õ °­Á¦ Å½»ö
-        var fbInfo = AstarPath.active.GetNearest(player.position + Random.insideUnitSphere * spawnRadius, nn);
-        if (fbInfo.node != null && fbInfo.node.Walkable)
-        {
-            var pos = (Vector3)fbInfo.position;
-            if (mainCam == null || !IsOnScreen(mainCam, pos))
-            {
-                spawnPos = pos;
-                return true;
-            }
-        }
         return false;
     }
-
-    private bool IsOnScreen(Camera cam, Vector3 worldPos)
+   private bool IsOnScreen(Camera cam, Vector3 worldPos)
     {
-        if (cam == null) return false;
+        if (!cam) return false;
         Vector3 v = cam.WorldToViewportPoint(worldPos);
         return (v.z > 0f && v.x >= 0f && v.x <= 1f && v.y >= 0f && v.y <= 1f);
     }
 
+
     private bool ActivateEnemy(GameObject enemyObj, Vector3 pos, int enemyID)
     {
-        // 1) À§Ä¡ ¼¼ÆÃ (A*)
+        // 1) ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ (A*)
         var ai = enemyObj.GetComponent<IAstarAI>();
         if (ai != null) { ai.Teleport(pos, true); ai.canMove = true; ai.isStopped = false; }
         else
@@ -352,10 +336,10 @@ public class EnemySpawner : MonoBehaviour
             );
         }
 
-        // 2) ½ºÆå Àû¿ë
+        // 2) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (enemyDataTable != null && enemyDataTable.TryGet(enemyID, out var spec))
         {
-            // ±âº» ÄÄÆ÷³ÍÆ®¿¡µµ ¹Ý¿µ (Ã¼·Â/Â÷·®/ÃÑ±â)
+            // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¿ï¿½ (Ã¼ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½/ï¿½Ñ±ï¿½)
             var le = enemyObj.GetComponent<LivingEntity>();
             if (le) { le.maxHp = spec.Durability; le.curHp = spec.Durability; }
 
@@ -365,7 +349,7 @@ public class EnemySpawner : MonoBehaviour
             var gun = enemyObj.GetComponent<EnemyGunController>();
             if (gun) { gun.damage = Mathf.Max(1, spec.AttackDamage); gun.fireInterval = Mathf.Max(0.1f, spec.AttackInterval); }
 
-            // ¡Ú EnemyDriver¿¡µµ µ¿ÀÏ ½ºÆå ÁÖÀÔ (±ÇÀå)
+            // ï¿½ï¿½ EnemyDriverï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½)
             var driver = enemyObj.GetComponent<EnemyDriver>();
             if (driver)
             {
@@ -376,7 +360,7 @@ public class EnemySpawner : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"[EnemySpawner] EnemyID {enemyID} ½ºÆå ¹ÌÀû¿ë");
+            Debug.LogWarning($"[EnemySpawner] EnemyID {enemyID} ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
         }
 
         enemyObj.SetActive(true);
@@ -407,14 +391,14 @@ public class EnemySpawner : MonoBehaviour
         {
             if (!_instanceToId.TryGetValue(go, out var id))
             {
-                Debug.LogWarning("[EnemySpawner] instance->id ¿ª¸ÅÇÎ ¾øÀ½, ¾ÈÀü»§ 0À¸·Î Ã³¸®");
+                Debug.LogWarning("[EnemySpawner] instance->id ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½");
                 id = 0;
             }
             Return(id, go);
         }
         else
         {
-            Debug.LogWarning("[EnemySpawner] onDeath ¸ÅÇÎ ¾øÀ½(ÀÌ¹Ì ¹ÝÈ¯µÆÀ» ¼ö ÀÖÀ½)");
+            Debug.LogWarning("[EnemySpawner] onDeath ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Ì¹ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)");
         }
     }
 }

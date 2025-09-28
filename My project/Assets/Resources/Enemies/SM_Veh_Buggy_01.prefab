@@ -406,13 +406,13 @@ GameObject:
   - component: {fileID: -1352566215845622623}
   - component: {fileID: -819868533515884507}
   - component: {fileID: -2319525943291440970}
-  - component: {fileID: -7972976413473855728}
   - component: {fileID: 2619569430264161328}
   - component: {fileID: 6850950962073002471}
   - component: {fileID: -5035317781524038952}
+  - component: {fileID: -3443515493653888818}
   m_Layer: 8
   m_Name: SM_Veh_Buggy_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -500,7 +500,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1665187737447004}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d401639732c698c4abacac6a4829d152, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -522,7 +522,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1665187737447004}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 800
   m_Drag: 100
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -539,8 +539,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 84
-  m_CollisionDetection: 1
+  m_Constraints: 0
+  m_CollisionDetection: 2
 --- !u!114 &-9038105922671249960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,7 +570,7 @@ MonoBehaviour:
   visualRoot: {fileID: 0}
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 3072
+    m_Bits: 3328
   maxSpeed: 15
   accel: 8
   handling: 6
@@ -583,6 +583,15 @@ MonoBehaviour:
   sideFeelerLen: 4.5
   avoidWeight: 1.8
   pursueWeight: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  neighborRadius: 6
+  maxNeighbors: 16
+  separationWeight: 1.25
+  sepFrontBias: 0.2
+  queryEveryN: 3
+  softDepenetrate: 1
 --- !u!114 &-1352566215845622623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,18 +688,6 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
---- !u!114 &-7972976413473855728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1665187737447004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e777435bb8d04347b8be57fbd1383f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2619569430264161328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -738,6 +735,18 @@ MonoBehaviour:
   repathInterval: 0.5
   waypointReachDist: 2
   lookAhead: 5
+--- !u!114 &-3443515493653888818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665187737447004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a553b8946d11ce04296e887608a36309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1712449046460942
 GameObject:
   m_ObjectHideFlags: 0

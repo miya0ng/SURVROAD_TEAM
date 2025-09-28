@@ -190,13 +190,13 @@ GameObject:
   - component: {fileID: -3416546386484521305}
   - component: {fileID: -295812430705267378}
   - component: {fileID: 1946310085841925186}
-  - component: {fileID: -1239495743288832972}
   - component: {fileID: -3813903371574464126}
   - component: {fileID: 630317105382369385}
   - component: {fileID: -287927271088624989}
+  - component: {fileID: 2824112688621476009}
   m_Layer: 8
   m_Name: SM_Veh_Car_Medium_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -289,7 +289,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1757462388246459875}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d401639732c698c4abacac6a4829d152, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -301,8 +301,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.3655274, y: 1.6393872, z: 4.968237}
-  m_Center: {x: 0, y: 1.0645186, z: -0.22994387}
+  m_Size: {x: 2.3655274, y: 6.04, z: 4.968237}
+  m_Center: {x: 0, y: 2.33, z: -0.22994387}
 --- !u!54 &-7772521693415484668
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -311,7 +311,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1757462388246459875}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 800
   m_Drag: 100
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -328,8 +328,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 84
-  m_CollisionDetection: 1
+  m_Constraints: 0
+  m_CollisionDetection: 2
 --- !u!114 &2658124999434235756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,7 +359,7 @@ MonoBehaviour:
   visualRoot: {fileID: 0}
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 3072
+    m_Bits: 3328
   maxSpeed: 20
   accel: 8
   handling: 6
@@ -370,8 +370,17 @@ MonoBehaviour:
   feelerLen: 6
   feelerSideAngle: 22
   sideFeelerLen: 4.5
-  avoidWeight: 1.8
+  avoidWeight: 10
   pursueWeight: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  neighborRadius: 6
+  maxNeighbors: 16
+  separationWeight: 1.25
+  sepFrontBias: 0.2
+  queryEveryN: 3
+  softDepenetrate: 1
 --- !u!114 &-3416546386484521305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,18 +477,6 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
---- !u!114 &-1239495743288832972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1757462388246459875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e777435bb8d04347b8be57fbd1383f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-3813903371574464126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -527,6 +524,18 @@ MonoBehaviour:
   repathInterval: 0.5
   waypointReachDist: 2
   lookAhead: 5
+--- !u!114 &2824112688621476009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757462388246459875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a553b8946d11ce04296e887608a36309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1836649720722421060
 GameObject:
   m_ObjectHideFlags: 0
@@ -1210,6 +1219,14 @@ PrefabInstance:
     - target: {fileID: 85222885766270236, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
       propertyPath: m_Name
       value: SM_Wep_Veh_MachineGun_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 85222885766270236, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2146528302918136386, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4821653932568461391, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
       propertyPath: damage
