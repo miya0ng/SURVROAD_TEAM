@@ -3,6 +3,11 @@ using UnityEngine;
 
 public class DropSpawn : MonoBehaviour, IProjectileSpawn
 {
+
+    [Header("투척무기")]
+    [SerializeField] private GameObject trapPrefabOverride;
+
+
     [Header("Drop Point (없으면 Owner 기준)")]
     [SerializeField] private Transform dropPoint;
 
@@ -26,6 +31,8 @@ public class DropSpawn : MonoBehaviour, IProjectileSpawn
 
     public void Spawn(WeaponContext ctx)
     {
+        Debug.Log($"[DropSpawn] placed '{gameObject.name}' at {transform.position} parent={(trapsRoot ? trapsRoot.name : "WorldRoot")}");
+
         if (ctx.Level == null || !ctx.Level.prefab)
         {
             Debug.LogWarning("[DropSpawn] Level or prefab is null");

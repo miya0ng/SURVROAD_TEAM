@@ -467,6 +467,8 @@ public class EquipManager : MonoBehaviour
 
     private WeaponDriver CreateWeaponInstance(GameObject prefab, WeaponSO so, int level, Transform parent)
     {
+        Debug.Log($"[Equip] '{prefab.name}' parent={parent?.name}");
+
         var obj = Instantiate(prefab, parent);
         obj.transform.localPosition = Vector3.zero;
         obj.transform.localRotation = Quaternion.identity;

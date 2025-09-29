@@ -22,7 +22,7 @@ public class PlayerStatusEffects : MonoBehaviour
     [Header("Turbo")]
     [SerializeField] private bool turboUnlocked = false;
     [SerializeField] private float turboDuration = 5f;   // 효과 지속
-    [SerializeField] private float turboCooldown = 8f;   // 쿨다운 길이
+    [SerializeField] private float turboCooldown = 1f;   // 쿨다운 길이
 
     float _turboCdEnd;    // 쿨다운 종료 시각(Time.time)
     float _turboCdStart;  // 쿨다운 시작 시각

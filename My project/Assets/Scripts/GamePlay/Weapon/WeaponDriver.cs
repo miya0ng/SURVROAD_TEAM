@@ -29,7 +29,7 @@ public class WeaponDriver : WeaponBase
         OnLevelChanged?.Invoke(CurLevel, CurLevelData);
 
         // 총기류만 조준 사용 (Type 1/2)
-        isGunType = (weaponSO != null) && (weaponSO.Type == 1 || weaponSO.Type == 2);
+        isGunType = (weaponSO != null) && (weaponSO.Type == 1 || weaponSO.Type == 2 || weaponSO.Type == 3);
         fire?.Reset();
         return true;
     }
@@ -47,7 +47,7 @@ public class WeaponDriver : WeaponBase
         }
 
         // 2) 발사는 무기 타입 관계없이 IFireStrategy가 붙어 있으면 실행
-        //    (총: CooldownFire / 트랩: IntervalFire / 근접: TickFire 등)
+
         if (fire != null && fire.ShouldFire(Time.deltaTime, CurLevelData))
         {
             spawn?.Spawn(BuildCtx());

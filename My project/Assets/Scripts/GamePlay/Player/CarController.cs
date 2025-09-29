@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody))]
 public class CarController : MonoBehaviour
@@ -9,11 +11,23 @@ public class CarController : MonoBehaviour
     [SerializeField] private PlayerStatusEffects status;
 
     [Header("Speed/Accel")]
-    [SerializeField] private float maxForwardSpeed = 35f;   // m/s (≈126km/h)
+    [SerializeField] private float normalMaxSpeed = 35f;
+    [SerializeField] private float boostedMaxSpeed = 60f;
+    [SerializeField] private float maxForwardSpeed = 35f; // 현재 적용값
     [SerializeField] private float maxReverseSpeed = 10f;   // m/s
     [SerializeField] private float baseAccel = 12f;         // 가속 기본 가속도
     [SerializeField] private float baseBrake = 20f;         // 브레이크 기본 감속도
     [SerializeField] private float engineBrake = 3.5f;      // 엑셀 OFF 시 감속
+
+    [Header("Booster State")]
+    public bool IsBoosterOn { get; private set; }
+
+    public event Action<bool> OnBoosterStateChanged;
+    // 인스펙터에서 연결 (애니/사운드/아이콘 토글 등)
+    [SerializeField] private UnityEvent onBoosterTurnedOn;
+    [SerializeField] private UnityEvent onBoosterTurnedOff;
+    [SerializeField] private GameObject boosterFx;   // 파티클 루트(차량 자식)
+    [SerializeField] private AudioSource boosterLoop; // 루프 사운드(선택)
 
     [Header("Steer")]
     [SerializeField] private float turnRate = 140f;         // deg/sec (조향 기본값)
@@ -50,7 +64,32 @@ public class CarController : MonoBehaviour
 
     void Reset() { rb = GetComponent<Rigidbody>(); }
 
+    void OnEnable()
+    {
+        if (!rb) rb = GetComponent<Rigidbody>();
+        if (status)
+            status.OnTurboActiveChanged += SetBooster;
+    }
 
+    void OnDisable()
+    {
+        if (status)
+            status.OnTurboActiveChanged -= SetBooster;
+    }
+
+    public void SetBooster(bool on)
+    {
+        if (IsBoosterOn == on) return;
+        IsBoosterOn = on;
+        maxForwardSpeed = on ? boostedMaxSpeed : normalMaxSpeed;
+
+        if (boosterFx) boosterFx.SetActive(on);
+        if (boosterLoop) { boosterLoop.loop = true; if (on) boosterLoop.Play(); else boosterLoop.Stop(); }
+
+        OnBoosterStateChanged?.Invoke(on);
+        if (on) onBoosterTurnedOn?.Invoke();
+        else onBoosterTurnedOff?.Invoke();
+    }
     public void ButtonState(UiPlayButton.ButtonType button, bool isHeld)
     {
         switch (button)
@@ -87,33 +126,33 @@ public class CarController : MonoBehaviour
         float speedAbs = Mathf.Abs(fwdSpeed);
         float norm = Mathf.InverseLerp(0f, maxFwdNow, speedAbs);
 
+        bool accelEffective = IsBoosterOn || isAccel || Input.GetKey(KeyCode.W);
         float acc = 0f;
 
-        if (isLeft || Input.GetKey(KeyCode.A))
-            hAxis = -1f;
-        else if (isRight || Input.GetKey(KeyCode.D))
-            hAxis = 1f;
-        else
-            hAxis = 0f;
+        if (isLeft || Input.GetKey(KeyCode.A)) hAxis = -1f;
+        else if (isRight || Input.GetKey(KeyCode.D)) hAxis = 1f;
+        else hAxis = 0f;
 
-        if (isAccel || Input.GetKey(KeyCode.W))
+
+        if (accelEffective)
         {
             float aMul = accelCurve.Evaluate(norm);
-            acc += baseAccel * aMul;
+            acc += accelNow * aMul;
         }
         else
         {
-            float ebMul = engineBrakeCurve.Evaluate(norm);
-            acc -= engineBrake * ebMul * Mathf.Sign(fwdSpeed);
+            if (!IsBoosterOn)
+            {
+                float ebMul = engineBrakeCurve.Evaluate(norm);
+                acc -= engineBrake * ebMul * Mathf.Sign(fwdSpeed);
+            }
         }
 
         if (isBrake || Input.GetKey(KeyCode.S))
         {
             float bMul = brakeCurve.Evaluate(norm);
-            if (fwdSpeed > 0.5f)
-                acc -= baseBrake * bMul;
-            else
-                acc -= baseAccel * 0.6f;
+            if (fwdSpeed > 0.5f) acc -= baseBrake * bMul;
+            else acc -= baseAccel * 0.6f;
         }
 
         float targetMax = (fwdSpeed >= 0f) ? maxForwardSpeed : maxReverseSpeed;

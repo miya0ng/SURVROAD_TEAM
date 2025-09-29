@@ -132,6 +132,8 @@ public class Ui_BoosterButton : MonoBehaviour, IPointerClickHandler
 
         if (status.TryUseTurbo())
         {
+            status.gameObject.GetComponent<CarController>().SetBooster(true);
+            
             // 성공 시 PlayerStatusEffects가 즉시 OnTurboActiveChanged(true)를 쏘며
             // defaultImage가 켜지고, 슬라이더는 0으로 떨어짐(쿨다운 시작)
         }

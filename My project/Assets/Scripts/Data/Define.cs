@@ -18,7 +18,12 @@ public enum ItemType
     NormalPart,   // 플레이 도중 강화용
     SpecialPart,  // 게임 종료 후 업그레이드용
     Heal,         // 수리키트 같은 소모 아이템
-    Booster          // 부스터
+    Booster,        // 부스터
+    EMP,
+    Shockwave,
+    AttackBuff,
+    CoRocketFlare,
+    HyperMagnet
 }
 
 public enum TeamId

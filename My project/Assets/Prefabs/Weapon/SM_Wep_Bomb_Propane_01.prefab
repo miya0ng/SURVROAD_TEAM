@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3965619974343928661}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,11 +43,11 @@ GameObject:
   - component: {fileID: 4626390528555576201}
   - component: {fileID: 1653047422597615567}
   - component: {fileID: -5587680525385365839}
-  - component: {fileID: 1463056825197488707}
   - component: {fileID: 8984875188087305017}
   - component: {fileID: 5520749344709666055}
+  - component: {fileID: 6601117685676223862}
   - component: {fileID: 270236787542648037}
-  m_Layer: 6
+  m_Layer: 13
   m_Name: SM_Wep_Bomb_Propane_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,18 +138,6 @@ MonoBehaviour:
   weaponSO: {fileID: 11400000, guid: c1278569db2dcee498de002398cd5fad, type: 2}
   muzzle: {fileID: 3965619974343928661}
   fireEffect: {fileID: 198278458255326934, guid: b872966978318a147a2c447a23fefc4e, type: 3}
---- !u!114 &1463056825197488707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6066365829197139422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6e9de2bfddcd314892ad9862016754c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &8984875188087305017
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -190,7 +178,34 @@ MonoBehaviour:
   castHeight: 5
   maxCastDown: 200
   yOffset: 0.05
-  fallbackToOwnerPosIfNoHit: 1
+  alignToGroundNormal: 1
+  minPlaceGap: 3
+  overlapCheckRadius: 3
+  overlapBlockMask:
+    serializedVersion: 2
+    m_Bits: 8192
+  usePool: 1
+  trapsRoot: {fileID: 3915280200126749698}
+--- !u!114 &6601117685676223862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6066365829197139422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0717479251b2d4697e5511bf90d899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mode: 0
+  minInterval: 0.01
+  levelScale: 1
+  fixedTick: 0.2
+  jitterRatio: 0
+  useBurst: 0
+  burstCount: 3
+  burstGap: 0.1
 --- !u!114 &270236787542648037
 MonoBehaviour:
   m_ObjectHideFlags: 0
