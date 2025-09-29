@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening.Core.Easing;
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -7,8 +8,8 @@ public class WaveManager : MonoBehaviour
     private string waveCsvPath = "WaveTable";
     private int[] waveOrder; // 비우면 CSV의 ID 오름차순으로 플레이
 
-    [Header("Spawner Binding")]
-    [SerializeField] private EnemySpawner enemySpawner;
+    private EnemySpawner enemySpawner;
+    private GameManager gameManager;
 
     [Header("Timing Overrides (선택)")]
     [SerializeField] private int coSpawnPerTick = 1;    // 웨이브 공통 override
@@ -33,6 +34,8 @@ public class WaveManager : MonoBehaviour
     {
         if (enemySpawner == null)
             enemySpawner = GameObject.FindGameObjectWithTag("EnemySpawner")?.GetComponent<EnemySpawner>();
+        if (gameManager == null)
+            gameManager = GameObject.FindGameObjectWithTag("GameManager")?.GetComponent<GameManager>();
 
         waveTable = new WaveDataTable();
         waveTable.Load(waveCsvPath);
@@ -49,6 +52,8 @@ public class WaveManager : MonoBehaviour
         if (enemySpawner != null)
             enemySpawner.OnWaveCleared += NextWave;
 
+        if (gameManager != null)
+            OnAllWavesCompleted += gameManager.StageClear;
         NextWave(); // 첫 웨이브 시작
     }
 

@@ -142,6 +142,5 @@ public class EnemyProjectile : MonoBehaviour, IPoolable
     private void ReturnToPool()
     {
         if (pool != null) pool.Push(gameObject);
-        else Destroy(gameObject); // 이론상 없어야 하지만 방어적 처리
     }
 }

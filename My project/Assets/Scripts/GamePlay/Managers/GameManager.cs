@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     private bool isGameOver = false;
     private bool subscribed = false;
-
+    public event System.Action<bool> OnGameOver;
     void Awake()
     {
         var esObj = GameObject.FindGameObjectWithTag("EnemySpawner");
@@ -42,21 +42,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        // 이전 코드:
-        // if (enemySpawner.curSpawnCount >= enemySpawner.waveSpawnCount && enemySpawner.ActiveEnemyCount <= 0)
-        //     waveManager.NextWave();
-
         playTime += Time.deltaTime;
-
-        if (Input.anyKey && isGameOver)
-        {
-            GameStart();
-        }
     }
 
     private void HandleWaveCleared()
     {
-       
+        //StageClear();
         // TODO: 클리어 연출/사운드, 점수 정산 등만 처리
     }
 
@@ -80,12 +71,23 @@ public class GameManager : MonoBehaviour
         string currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene);
     }
+    public void StageClear()
+    {
+        if (isGameOver) return;
+        isGameOver = true;
+        Time.timeScale = 0f;
+        if (enemySpawner) enemySpawner.StopSpawner();
+        Debug.Log($"Stage Clear! Total Play Time: {playTime} seconds.");
+        OnGameOver?.Invoke(true);
+    }
 
     public void GameOver()
     {
+        if (isGameOver) return;
         isGameOver = true;
         Time.timeScale = 0f;
         if (enemySpawner) enemySpawner.StopSpawner();
         Debug.Log($"Game Over! Total Play Time: {playTime} seconds.");
+        OnGameOver?.Invoke(false);
     }
 }

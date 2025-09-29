@@ -55,7 +55,7 @@ public class TrapMine : MonoBehaviour
     }
 void OnEnable()
 {
-    if (groundMask == 0) groundMask = LayerMask.GetMask("Ground","Road","Default"); // 안전 기본값
+    if (groundMask == 0) groundMask = LayerMask.GetMask("Ground"); // 안전 기본값
     SnapToGround();
 
     exploded = false;

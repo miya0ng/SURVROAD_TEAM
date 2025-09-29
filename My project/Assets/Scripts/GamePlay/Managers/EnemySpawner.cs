@@ -62,7 +62,6 @@ public class EnemySpawner : MonoBehaviour
         if (mainCam == null) Debug.LogWarning("[EnemySpawner] mainCam ���Ҵ�(���� MainCamera Ȯ��)");
     }
 
-    // ========= ���̺� ���� =========
     public void SetWave(WaveData wave, int? coSpawnOverride = null, float? intervalOverride = null)
     {
         _currentWave = wave;
@@ -72,12 +71,10 @@ public class EnemySpawner : MonoBehaviour
         if (coSpawnOverride.HasValue) enemyCoSpawnCount = Mathf.Max(1, coSpawnOverride.Value);
         if (intervalOverride.HasValue) spawnInterval = Mathf.Max(0.01f, intervalOverride.Value);
 
-        // ���� ���̺꿡 �ʿ��� ID�� �ε�/����
         BuildIdToPrefabForWave(wave);
 
         _batchEnumerator = WaveDataTable.BuildBatches(_currentWave, enemyCoSpawnCount).GetEnumerator();
 
-        // ID�� Ǯ �غ�/����
         PrewarmPoolsForWave(_currentWave);
 
         StopSpawner();

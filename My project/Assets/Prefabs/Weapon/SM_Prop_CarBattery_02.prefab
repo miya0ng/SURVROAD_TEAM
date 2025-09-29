@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4598817277408900632}
+  - component: {fileID: 582318394287795731}
   m_Layer: 13
   m_Name: muzzle
   m_TagString: Untagged
@@ -31,6 +32,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6010177375103131376}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &582318394287795731
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395839924185548719}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 3.55
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8171487787002607651
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,6 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd937904295d26b499a9cd6159290b8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trapPrefabOverride: {fileID: 8171487787002607651}
   dropPoint: {fileID: 4598817277408900632}
   groundMask:
     serializedVersion: 2
@@ -182,7 +205,7 @@ MonoBehaviour:
   castHeight: 5
   maxCastDown: 200
   yOffset: 0.05
-  alignToGroundNormal: 1
+  alignToGroundNormal: 0
   minPlaceGap: 3
   overlapCheckRadius: 3
   overlapBlockMask:
@@ -222,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 451b68540a0a45e4c86579a876c3cd39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zone: {fileID: 0}
+  zone: {fileID: 8058129414564246621}
   enemyMask:
     serializedVersion: 2
     m_Bits: 2304
@@ -354,7 +377,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5454413459793171138, guid: aee489795106c2641b59bd3ee45597b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8058129414564246621}
   m_SourcePrefab: {fileID: 100100000, guid: aee489795106c2641b59bd3ee45597b1, type: 3}
 --- !u!1 &3185361087910615811 stripped
 GameObject:
@@ -366,6 +392,32 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6398514410480885930, guid: aee489795106c2641b59bd3ee45597b1, type: 3}
   m_PrefabInstance: {fileID: 1818926727985427807}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5949211248877643677 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5454413459793171138, guid: aee489795106c2641b59bd3ee45597b1, type: 3}
+  m_PrefabInstance: {fileID: 1818926727985427807}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &8058129414564246621
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5949211248877643677}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.69
+  m_Center: {x: -0.011398631, y: 0.001700983, z: -0.016151223}
 --- !u!1001 &5362142875459502798
 PrefabInstance:
   m_ObjectHideFlags: 0

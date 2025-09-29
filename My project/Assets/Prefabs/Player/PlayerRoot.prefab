@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 7587718835494761279}
-  status: {fileID: 0}
+  status: {fileID: 8713720367335812828}
   normalMaxSpeed: 35
   boostedMaxSpeed: 60
   maxForwardSpeed: 35
@@ -204,7 +204,7 @@ MonoBehaviour:
   onBoosterTurnedOff:
     m_PersistentCalls:
       m_Calls: []
-  boosterFx: {fileID: 1854854489728914, guid: f086548ecf013804791e07e88975befd, type: 3}
+  boosterFx: {fileID: 5569951104529247438}
   boosterLoop: {fileID: 0}
   turnRate: 140
   stability: 4
@@ -483,6 +483,11 @@ PrefabInstance:
 --- !u!4 &4440597285567340614 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5329385120361006913, guid: bdfd4200b994ff443910c9f029a07cd4, type: 3}
+  m_PrefabInstance: {fileID: 8382865989210007303}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5569951104529247438 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4114492594788125641, guid: bdfd4200b994ff443910c9f029a07cd4, type: 3}
   m_PrefabInstance: {fileID: 8382865989210007303}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9007998847588690427
