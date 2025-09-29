@@ -11,6 +11,6 @@ public class TurboBoosterItem : ItemBase
             float cooldown = 1f;
             booster.UnlockTurbo(duration, cooldown);
         }
-        Destroy(gameObject);
+        Destroy(gameObject, 0.5f);
     }
 }

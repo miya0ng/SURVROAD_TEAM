@@ -6,6 +6,7 @@ public class ReinforcedShieldItem : ItemBase
     {
         var status = player.GetComponent<PlayerStatusEffects>();
         if (status) status.ApplyInvulnerability(itemData.Duration > 0 ? itemData.Duration : 3f);
-        Destroy(gameObject);
+        player.GetComponent<PlayerBehaviour>().PlayReinforcedShieldItemFx();
+        Destroy(gameObject, 0.5f);
     }
 }

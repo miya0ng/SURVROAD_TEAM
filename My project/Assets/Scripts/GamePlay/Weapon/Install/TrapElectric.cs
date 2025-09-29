@@ -37,7 +37,16 @@ public class TrapElectric : MonoBehaviour
         else
             _loopSystems = System.Array.Empty<ParticleSystem>();
     }
-
+    private void Start()
+    {
+        var check = GetComponentInParent<EquipSocket>();
+        if (check != null)
+        {
+            var effects = GameObject.FindGameObjectsWithTag("VFX");
+            foreach (var effect in effects)
+                effect.SetActive(false);
+        }
+    }
     public void Init(LivingEntity owner, TeamId team, WeaponLevelData lv)
     {
         _owner = owner; _team = team;
@@ -88,7 +97,8 @@ public class TrapElectric : MonoBehaviour
             Destroy(end.gameObject, end.main.duration + end.main.startLifetime.constantMax);
         }
 
-        gameObject.SetActive(false); // Ç® »ç¿ë
+        //gameObject.SetActive(false);
+        Destroy(gameObject);
     }
     void Update()
     {
@@ -105,7 +115,7 @@ public class TrapElectric : MonoBehaviour
             }
         }
 
-        if (_tLife >= _duration)
+        if (_tLife >= _duration && _duration != 0)
         {
             if (fxEnd) Instantiate(fxEnd, transform.position, Quaternion.identity);
             CleanupAndDespawn();

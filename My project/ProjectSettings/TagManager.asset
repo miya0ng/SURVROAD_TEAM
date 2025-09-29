@@ -17,6 +17,7 @@ TagManager:
   - EquipManager
   - Undefined
   - Enemy
+  - VFX
   layers:
   - Default
   - TransparentFX

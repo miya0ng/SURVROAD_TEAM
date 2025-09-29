@@ -16,6 +16,7 @@ public class HyperMagnetItem : ItemBase
             if (!it || it == this) continue;
             it.ForceCollect(me);
         }
-        Destroy(gameObject);
+        player.GetComponent<PlayerBehaviour>().PlayMagnetItemFx();
+        Destroy(gameObject, 0.5f);
     }
 }

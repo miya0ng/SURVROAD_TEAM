@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4598817277408900632}
-  - component: {fileID: 582318394287795731}
   m_Layer: 13
   m_Name: muzzle
   m_TagString: Untagged
@@ -32,27 +31,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6010177375103131376}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &582318394287795731
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 395839924185548719}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 3.55
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8171487787002607651
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,7 +48,6 @@ GameObject:
   - component: {fileID: 1129685777561591261}
   - component: {fileID: 6446807280347639391}
   - component: {fileID: -2776569596515310912}
-  - component: {fileID: -1730259754221805573}
   m_Layer: 13
   m_Name: SM_Prop_CarBattery_02
   m_TagString: Untagged
@@ -95,7 +72,7 @@ Transform:
   - {fileID: 7735897785504203389}
   - {fileID: 4751920807853594101}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 106, z: 0}
 --- !u!33 &9122732733300453446
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -210,9 +187,9 @@ MonoBehaviour:
   overlapCheckRadius: 3
   overlapBlockMask:
     serializedVersion: 2
-    m_Bits: 0
-  usePool: 1
-  trapsRoot: {fileID: 6010177375103131376}
+    m_Bits: 1
+  usePool: 0
+  trapsRoot: {fileID: 0}
 --- !u!114 &1129685777561591261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,38 +243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbf5925e5534d22429b1953e19db0f42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-1730259754221805573
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8171487787002607651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94f6cd40d1f51f44caa539337a013072, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 50
-  radius: 4
-  hitMask:
-    serializedVersion: 2
-    m_Bits: 2304
-  lineOfSightCheck: 0
-  armingDelay: 0.3
-  lifeTime: 10
-  explodeOnTrigger: 1
-  explodeOnProximity: 1
-  proximityPoll: 0.1
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 512
-  castHeight: 2.5
-  maxCastDown: 50
-  yOffset: 0.03
-  maxSlopeDeg: 55
-  explodeVfxPrefab: {fileID: 0}
-  vfxLifetime: 2
 --- !u!1001 &1818926727985427807
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -314,6 +259,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 3009536890108921212, guid: aee489795106c2641b59bd3ee45597b1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3822022473361878620, guid: aee489795106c2641b59bd3ee45597b1, type: 3}
       propertyPath: m_Name
       value: ElectricVFX
@@ -321,6 +270,26 @@ PrefabInstance:
     - target: {fileID: 3822022473361878620, guid: aee489795106c2641b59bd3ee45597b1, type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822022473361878620, guid: aee489795106c2641b59bd3ee45597b1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822022473361878620, guid: aee489795106c2641b59bd3ee45597b1, type: 3}
+      propertyPath: m_TagString
+      value: VFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288630560318367835, guid: aee489795106c2641b59bd3ee45597b1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288630560318367835, guid: aee489795106c2641b59bd3ee45597b1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288630560318367835, guid: aee489795106c2641b59bd3ee45597b1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5454413459793171138, guid: aee489795106c2641b59bd3ee45597b1, type: 3}
       propertyPath: m_Layer
@@ -432,7 +401,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2391770417058693299, guid: 744fe17d61cb11742a41ff161d727e1c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.99
       objectReference: {fileID: 0}
     - target: {fileID: 2391770417058693299, guid: 744fe17d61cb11742a41ff161d727e1c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -477,6 +446,14 @@ PrefabInstance:
     - target: {fileID: 2394262467306036827, guid: 744fe17d61cb11742a41ff161d727e1c, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2394262467306036827, guid: 744fe17d61cb11742a41ff161d727e1c, type: 3}
+      propertyPath: m_TagString
+      value: VFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 2558542282961403515, guid: 744fe17d61cb11742a41ff161d727e1c, type: 3}
+      propertyPath: looping
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6758459678240719674, guid: 744fe17d61cb11742a41ff161d727e1c, type: 3}
       propertyPath: m_Layer

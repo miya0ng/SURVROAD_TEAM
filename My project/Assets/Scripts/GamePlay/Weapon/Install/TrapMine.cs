@@ -94,6 +94,7 @@ void OnEnable()
     // ���� Ground Snap ����������������������������������������������������������������������������������������������������������������������������
     private void SnapToGround()
     {
+        Debug.Log("SnaToGround");
         Vector3 origin = transform.position + Vector3.up * castHeight;
 
         // 1) ����Ʒ� ����ĳ��Ʈ�� ���� ã��

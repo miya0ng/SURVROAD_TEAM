@@ -1,9 +1,10 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StunItem : ItemBase
 {
-    [SerializeField] float radius = 12f;
-    [SerializeField] float force = 40f;
+    [SerializeField] float radius = 60f;
+    [SerializeField] float force = 400f;
 
     protected override void Collect(GameObject player)
     {
@@ -18,7 +19,8 @@ public class StunItem : ItemBase
 
             var le = c.GetComponent<LivingEntity>();
             if (le) le.OnDamage(dmg, player.GetComponent<LivingEntity>());
+            player.GetComponent<PlayerBehaviour>().PlayStunItemFx();
         }
-        Destroy(gameObject);
+        Destroy(gameObject, 0.5f);
     }
 }

@@ -14,6 +14,6 @@ public class RocketFlareItem : ItemBase
                 if (le) le.OnDamage(dmg, player.GetComponent<LivingEntity>());
             }
         }
-        Destroy(gameObject);
+        Destroy(gameObject, 0.5f);
     }
 }
