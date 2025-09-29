@@ -6,8 +6,10 @@ using UnityEngine.AI;
 public class TrapMine : MonoBehaviour
 {
     [Header("Damage")]
-    [SerializeField] private float damage = 50f;
-    [SerializeField] private float radius = 4f;
+    [SerializeField] private float minDamage = 50f;
+    [SerializeField] private float maxDamage = 50f;
+    [SerializeField] private SphereCollider zone;      // isTrigger = true
+
     [SerializeField] private LayerMask hitMask = ~0;
     [SerializeField] private bool lineOfSightCheck = false;
 
@@ -29,6 +31,7 @@ public class TrapMine : MonoBehaviour
     [SerializeField] private GameObject explodeVfxPrefab;
     [SerializeField] private float vfxLifetime = 2f;
 
+
     private LivingEntity owner;
     private TeamId teamId;
 
@@ -42,10 +45,22 @@ public class TrapMine : MonoBehaviour
     private float lifeTimer;
     //private float proxTimer;
 
-    public void Init(LivingEntity owner, TeamId team)
+    public void Init(LivingEntity owner, TeamId team, WeaponLevelData lv)
     {
         this.owner = owner;
         this.teamId = team;
+
+        minDamage = Mathf.Max(0, lv.MinDamage);
+        maxDamage = Mathf.Max(minDamage, lv.MaxDamage);
+        lifeTime = Mathf.Max(0.5f, lv.Duration);
+
+        if (!zone) zone = GetComponent<SphereCollider>();
+        zone.isTrigger = true;
+        zone.radius = Mathf.Max(0.5f, lv.EffectiveRange);
+
+        // 레벨이 높을수록 더 강한 슬로우(1~5 가정)
+        int level = Mathf.Max(1, lv.Level);
+        float t = Mathf.Clamp01((level - 1) / 4f); // 1→5를 0→1로 정규화
     }
 
     void Awake()
@@ -53,17 +68,17 @@ public class TrapMine : MonoBehaviour
         myCol = GetComponent<Collider>();
         myCol.isTrigger = true;
     }
-void OnEnable()
-{
-    if (groundMask == 0) groundMask = LayerMask.GetMask("Ground"); // 안전 기본값
-    SnapToGround();
+    void OnEnable()
+    {
+        if (groundMask == 0) groundMask = LayerMask.GetMask("Ground"); // 안전 기본값
+        SnapToGround();
 
-    exploded = false;
-    armed = false;
-    lifeTimer = 0f;
-    if (armingDelay <= 0f) armed = true;
-    else Invoke(nameof(ArmNow), armingDelay);
-}
+        exploded = false;
+        armed = false;
+        lifeTimer = 0f;
+        if (armingDelay <= 0f) armed = true;
+        else Invoke(nameof(ArmNow), armingDelay);
+    }
 
     void OnDisable()
     {
@@ -146,12 +161,12 @@ void OnEnable()
         if (exploded) return;
         exploded = true;
 
-        int n = Physics.OverlapSphereNonAlloc(transform.position, radius, hits, hitMask, QueryTriggerInteraction.Ignore);
+        int n = Physics.OverlapSphereNonAlloc(transform.position, zone.radius, hits, hitMask, QueryTriggerInteraction.Ignore);
         for (int i = 0; i < n; i++)
         {
             var le = hits[i].GetComponentInParent<LivingEntity>();
             if (!IsValidTarget(le)) continue;
-            le.OnDamage(damage, owner);
+            le.OnDamage(minDamage, owner);
         }
 
         if (explodeVfxPrefab)
@@ -162,19 +177,23 @@ void OnEnable()
 
         Despawn();
     }
-private void Despawn()
-{
-    if (OnDespawnToPool != null) { OnDespawnToPool(this); return; }
-    // 풀을 안 쓰면 기본 파괴
-    gameObject.SetActive(false); // 눈에 보이던 비가시 전환 최소화
-}
+    private void Despawn()
+    {
+        if (OnDespawnToPool != null) { OnDespawnToPool(this); return; }
+        // 풀을 안 쓰면 기본 파괴
+        //gameObject.SetActive(false); // 눈에 보이던 비가시 전환 최소화
+        if (lifeTime <= lifeTimer && lifeTimer != lifeTime)
+        {
+            Destroy(gameObject, 2f); // 폭발 이펙트가 남아있을 수 있으므로 약간 여유를 두고 파괴
+        }
+    }
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(1f, 0.4f, 0.1f, 0.25f);
-        Gizmos.DrawSphere(transform.position, radius);
+        Gizmos.DrawSphere(transform.position, zone.radius);
         Gizmos.color = new Color(1f, 0.4f, 0.1f, 1f);
-        Gizmos.DrawWireSphere(transform.position, radius);
+        Gizmos.DrawWireSphere(transform.position, zone.radius);
 
         // Ground snap ray
         Gizmos.color = Color.cyan;

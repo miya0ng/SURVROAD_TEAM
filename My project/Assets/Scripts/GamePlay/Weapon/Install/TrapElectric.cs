@@ -96,6 +96,10 @@ public class TrapElectric : MonoBehaviour
             end.Play(true);
             Destroy(end.gameObject, end.main.duration + end.main.startLifetime.constantMax);
         }
+        if (fxLoopRoot)
+        {
+            Destroy(fxLoopRoot);
+        }
 
         //gameObject.SetActive(false);
         Destroy(gameObject);

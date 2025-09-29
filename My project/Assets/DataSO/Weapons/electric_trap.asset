@@ -106,5 +106,5 @@ MonoBehaviour:
     bulletPrefab: {fileID: 0}
     effectPrefab: {fileID: 0}
   MountPolicy: 2
-  Allowed: 32
+  Allowed: 0
   PreferenceOrder: 06000000

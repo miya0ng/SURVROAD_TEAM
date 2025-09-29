@@ -239,6 +239,7 @@ public class EnemyDriver : LivingEntity
 
     protected override void Die(LivingEntity killer = null)
     {
+        Debug.Log("Enemy Die: " + gameObject.name);
         // ÁÂÇ¥/È¸Àü Ä¸Ã³ ÈÄ VFX
         Vector3 pos = (vfxAnchor ? vfxAnchor : transform).position;
         Quaternion rot = Quaternion.LookRotation(transform.forward, Vector3.up);

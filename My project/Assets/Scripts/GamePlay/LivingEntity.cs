@@ -19,6 +19,8 @@ public class LivingEntity : MonoBehaviour, IDamagable
 
     public virtual void OnDamage(float damage, LivingEntity attacker)
     {
+        if (!gameObject.activeInHierarchy || !isActiveAndEnabled || isDead) return;
+
         curHp -= damage;
         if (curHp <= 0f)
             Die(attacker);

@@ -4860,6 +4860,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
+  partsValue: 10
 --- !u!135 &6617882622466068688
 SphereCollider:
   m_ObjectHideFlags: 0

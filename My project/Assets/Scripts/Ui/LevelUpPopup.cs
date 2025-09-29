@@ -2,7 +2,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using static EquipManager;
-
+using TMPro;
 public class LevelUpPopup : MonoBehaviour
 {
     [SerializeField] private EquipManager equip;
@@ -14,6 +14,9 @@ public class LevelUpPopup : MonoBehaviour
     [SerializeField] private Image[] weaponIcons;
     [SerializeField] private GameObject levelUpDefault;
     [SerializeField] private GameObject DetailPopUp;
+
+    [SerializeField] private TextMeshProUGUI[] weaponNameLabels;
+    [SerializeField] private TextMeshProUGUI[] weaponTypeLabels;
 
     private int selectedIndex = -1;
     private UpgradeCandidate[] candidates;
@@ -52,17 +55,36 @@ public class LevelUpPopup : MonoBehaviour
         candidates = list?.ToArray() ?? System.Array.Empty<UpgradeCandidate>();
 
         int n = Mathf.Min(candidates.Length, weaponIcons.Length);
+
         for (int i = 0; i < weaponIcons.Length; i++)
         {
-            if (i < n && candidates[i].Thumbnail != null)
+            bool visible = i < n;
+            var icon = weaponIcons[i];
+
+            if (visible)
             {
-                weaponIcons[i].sprite = candidates[i].Thumbnail;
-                weaponIcons[i].gameObject.SetActive(true);
+                var c = candidates[i];
+
+                // === 아이콘 ===
+                icon.sprite = c.Thumbnail;
+                icon.gameObject.SetActive(true);
+
+                // === 이름 ===
+                if (weaponNameLabels != null && i < weaponNameLabels.Length && weaponNameLabels[i] != null)
+                    weaponNameLabels[i].text = GetDisplayName(c);
+
+                // === 타입 ===
+                if (weaponTypeLabels != null && i < weaponTypeLabels.Length && weaponTypeLabels[i] != null)
+                    weaponTypeLabels[i].text = GetDisplayType(c);
             }
             else
             {
-                weaponIcons[i].sprite = null;
-                weaponIcons[i].gameObject.SetActive(false);
+                icon.sprite = null;
+                icon.gameObject.SetActive(false);
+                if (weaponNameLabels != null && i < weaponNameLabels.Length && weaponNameLabels[i] != null)
+                    weaponNameLabels[i].text = string.Empty;
+                if (weaponTypeLabels != null && i < weaponTypeLabels.Length && weaponTypeLabels[i] != null)
+                    weaponTypeLabels[i].text = string.Empty;
             }
         }
 
@@ -113,5 +135,46 @@ public class LevelUpPopup : MonoBehaviour
         var c = candidates[selectedIndex];
         equip.EquipOrUpgrade(c);   // 무기/플레이어 업그레이드 모두 처리
         CloseInternal();
+    }
+    private static string GetDisplayName(UpgradeCandidate c)
+    {
+        if (c.Kind == CandidateKind.Weapon && c.Weapon != null)
+        {
+            // 요구사항: "이름은 Name 프로퍼티 사용"
+            return c.Weapon.Name;
+        }
+        // Player 업그레이드: "durability_up" → "Durability Up" 등
+        var raw = c.PlayerUpgrade.Name ?? "";
+        return ToTitleFromSnake(raw);
+    }
+
+    private static string GetDisplayType(UpgradeCandidate c)
+    {
+        if (c.Kind == CandidateKind.Weapon && c.Weapon != null)
+            return TypeToString(c.Weapon.Type);
+        return "Player";
+    }
+
+    private static string TypeToString(int type)
+    {
+        switch (type)
+        {
+            case 1: return "Gun";
+            case 2: return "Melee";
+            case 3: return "Trap";
+            default: return "Unknown";
+        }
+    }
+
+    private static string ToTitleFromSnake(string s)
+    {
+        if (string.IsNullOrEmpty(s)) return "";
+        var parts = s.Split('_');
+        for (int i = 0; i < parts.Length; i++)
+        {
+            if (parts[i].Length == 0) continue;
+            parts[i] = char.ToUpper(parts[i][0]) + (parts[i].Length > 1 ? parts[i].Substring(1) : "");
+        }
+        return string.Join(" ", parts);
     }
 }

@@ -14,7 +14,7 @@ public class NormalPartItem : ItemBase
     {
         base.Start();
         OnTimer = true;
-        lifeTimer = 0;
+        lifeTimer = 6;
     }
 
     protected override void Update()

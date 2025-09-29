@@ -107,7 +107,7 @@ public class DropSpawn : MonoBehaviour, IProjectileSpawn
             }
             if (go.TryGetComponent<TrapMine>(out var mine))
             {
-                mine.Init(ctx.Owner, ctx.TeamId);
+                mine.Init(ctx.Owner, ctx.TeamId, ctx.Level);
                 recognized = true;
             }
             if (!recognized)
