@@ -22,17 +22,22 @@ public class PlayerStatusEffects : MonoBehaviour
     [SerializeField] private float turboCooldown = 10f;   // 기본 쿨: 10초
 
     // ==== 임시 스펙(아이템 효과) ====
-    float _specUntil;           // 임시 스펙 종료 시각
-    float _overrideDuration;    // 임시 지속
-    float _overrideCooldown;    // 임시 쿨
-    public bool IsInSpecWindow => Time.time < _specUntil;
+    float specUntill;           // 임시 스펙 종료 시각
+    float overrideDuration;    // 임시 지속
+    float overrideCooldown;    // 임시 쿨
+    public bool IsInSpecWindow => Time.time < specUntill;
 
     // ==== 쿨다운 상태 ====
-    float _turboCdEnd;          // 쿨다운 종료 시각(Time.time)
-    float _turboCdStart;        // 쿨다운 시작 시각
-    float _activeCooldown;      // 이번 쿨다운에 실제 사용된 쿨 값(진행바 정규화 기준)
+    float turboCooldownEnd;          // 쿨다운 종료 시각(Time.time)
+    float turboCooldownStart;        // 쿨다운 시작 시각
+    float activeCooldown;      // 이번 쿨다운에 실제 사용된 쿨 값(진행바 정규화 기준)
     bool isTurboActive;        // 현재 활성 중인지
 
+
+    private void Start()
+    {
+        UnlockTurbo(3f, 10f); // 테스트용, 시작부터 해제
+    }
     void Update()
     {
         if (turboUnlocked)
@@ -57,15 +62,15 @@ public class PlayerStatusEffects : MonoBehaviour
     // windowSec 동안 지속/쿨다운을 임시 값으로 사용
     public void GrantTurboSpecWindow(float windowSec, float newDuration = 3f, float newCooldown = 0.2f)
     {
-        _specUntil = Mathf.Max(_specUntil, Time.time + windowSec);
-        _overrideDuration = newDuration;
-        _overrideCooldown = newCooldown;
+        specUntill = Mathf.Max(specUntill, Time.time + windowSec);
+        overrideDuration = newDuration;
+        overrideCooldown = newCooldown;
 
         // 이미 쿨다운 중이면, 임시 쿨이 더 짧을 수 있으니 종료시각을 당겨줌
-        if (Time.time < _turboCdEnd)
+        if (Time.time < turboCooldownEnd)
         {
-            float newEnd = _turboCdStart + EffectiveCooldown;
-            if (newEnd < _turboCdEnd) _turboCdEnd = newEnd;
+            float newEnd = turboCooldownStart + EffectiveCooldown;
+            if (newEnd < turboCooldownEnd) turboCooldownEnd = newEnd;
         }
 
         RaiseTurboEvent(); // UI 즉시 반영
@@ -79,19 +84,19 @@ public class PlayerStatusEffects : MonoBehaviour
         if (cooldown > 0f) turboCooldown = cooldown;
 
         // 시작부터 Ready로
-        _turboCdStart = _turboCdEnd = Time.time;
-        _activeCooldown = 0f;
+        turboCooldownStart = turboCooldownEnd = Time.time;
+        activeCooldown = 0f;
         RaiseTurboEvent();
     }
 
     // 현재 시점의 ‘적용될’ 스펙
-    float EffectiveDuration => IsInSpecWindow ? (_overrideDuration > 0f ? _overrideDuration : turboDuration) : turboDuration;
-    float EffectiveCooldown => IsInSpecWindow ? (_overrideCooldown > 0f ? _overrideCooldown : turboCooldown) : turboCooldown;
+    float EffectiveDuration => IsInSpecWindow ? (overrideDuration > 0f ? overrideDuration : turboDuration) : turboDuration;
+    float EffectiveCooldown => IsInSpecWindow ? (overrideCooldown > 0f ? overrideCooldown : turboCooldown) : turboCooldown;
 
     public bool IsTurboReady()
     {
         if (!turboUnlocked) return false;
-        return Time.time >= _turboCdEnd;
+        return Time.time >= turboCooldownEnd;
     }
 
     /// <summary>버튼 눌렀을 때 실제 사용</summary>
@@ -100,9 +105,9 @@ public class PlayerStatusEffects : MonoBehaviour
         if (!IsTurboReady()) return false;
 
         // 현재 시점의 스펙으로 쿨다운 확정(임시 스펙이면 0.2초 반영)
-        _activeCooldown = Mathf.Max(0.0001f, EffectiveCooldown);
-        _turboCdStart = Time.time;
-        _turboCdEnd = Time.time + _activeCooldown;
+        activeCooldown = Mathf.Max(0.0001f, EffectiveCooldown);
+        turboCooldownStart = Time.time;
+        turboCooldownEnd = Time.time + activeCooldown;
 
         RaiseTurboEvent();
 
@@ -139,8 +144,8 @@ public class PlayerStatusEffects : MonoBehaviour
         }
 
         // 쿨다운 진행 중: 이번 쿨다운에 ‘확정된’ 값을 기준으로 정규화
-        max = (_activeCooldown > 0f) ? _activeCooldown : EffectiveCooldown;
-        value = Mathf.Clamp(Time.time - _turboCdStart, 0f, max);
+        max = (activeCooldown > 0f) ? activeCooldown : EffectiveCooldown;
+        value = Mathf.Clamp(Time.time - turboCooldownStart, 0f, max);
     }
 
     void RaiseTurboEvent()

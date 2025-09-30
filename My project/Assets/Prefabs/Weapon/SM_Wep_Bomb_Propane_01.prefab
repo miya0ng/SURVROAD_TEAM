@@ -232,9 +232,6 @@ MonoBehaviour:
   explodeOnTrigger: 1
   explodeOnProximity: 1
   proximityPoll: 0.1
-  fitTriggerToBounds: 1
-  triggerPadding: 1.05
-  explosionRadius: 3
   groundMask:
     serializedVersion: 2
     m_Bits: 512
@@ -560,9 +557,6 @@ MonoBehaviour:
   explodeOnTrigger: 1
   explodeOnProximity: 1
   proximityPoll: 0.1
-  fitTriggerToBounds: 1
-  triggerPadding: 1.05
-  explosionRadius: 3
   groundMask:
     serializedVersion: 2
     m_Bits: 512
@@ -817,7 +811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minDamage: 50
   maxDamage: 50
-  zone: {fileID: 0}
+  zone: {fileID: 8984875188087305017}
   hitMask:
     serializedVersion: 2
     m_Bits: 256
@@ -827,9 +821,6 @@ MonoBehaviour:
   explodeOnTrigger: 1
   explodeOnProximity: 1
   proximityPoll: 0.1
-  fitTriggerToBounds: 1
-  triggerPadding: 1.05
-  explosionRadius: 3
   groundMask:
     serializedVersion: 2
     m_Bits: 512
