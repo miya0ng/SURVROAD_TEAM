@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -7686248178693125263}
   - component: {fileID: -2384711124607296225}
   - component: {fileID: 4132449975259739821}
+  - component: {fileID: -8789209747640108103}
   m_Layer: 6
   m_Name: SM_Wep_Veh_Rocket_Launcher_01
   m_TagString: Untagged
@@ -127,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponSO: {fileID: 11400000, guid: eb54284070abd8a4a80adbc168d7fdfa, type: 2}
   muzzle: {fileID: 7436234783485238973}
-  fireEffect: {fileID: 0}
+  fireEffect: {fileID: 198094002163677414, guid: 4e152ca1e7a661b479178990865ca8ba, type: 3}
 --- !u!114 &-7686248178693125263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +165,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88e46d708fa8b414da5db4dd06ca661f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8789209747640108103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385623515136055977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd7e0dca988db3445b686daee81a3c62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radiusMultiplier: 5
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &8649498414374061709
 GameObject:
   m_ObjectHideFlags: 0

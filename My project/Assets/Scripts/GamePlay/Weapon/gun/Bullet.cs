@@ -23,12 +23,6 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float castRadius = 0f;                 // 0이면 RayCast, >0이면 SphereCast
     [SerializeField] private float spawnIgnoreTime = 0.05f;         // 스폰 직후 자기충돌 방지
 
-    [Header("Piercing")]
-    [SerializeField] private bool piercing = false;
-    [SerializeField] private int maxPierce = 5;
-    private int pierceCount = 0;
-    private readonly HashSet<Collider> hitOnce = new();
-
     [Header("Tracer")]
     [SerializeField] private LineRenderer tracer;  // null 가능
     [SerializeField] private int maxTracerPoints = 60; // 1초 60fps 가정
@@ -42,6 +36,7 @@ public class Bullet : MonoBehaviour
     private bool running;
     private Coroutine co;
 
+    private  WeaponContext ctx;
     // 풀링 훅(선택)
     public System.Action<Bullet> OnDespawnToPool;
 
@@ -54,21 +49,16 @@ public class Bullet : MonoBehaviour
 
     /// <summary>공용 초기화</summary>
     public void Init(
-        float speed, float lifeTime, float damage,
-        TeamId team, LivingEntity owner,
-        bool piercing = false, int maxPierce = 1)
+        WeaponContext ctx, LivingEntity owner)
     {
-        this.speed = speed;
-        this.lifeTime = lifeTime;
-        this.damage = damage;
-        this.ownerTeam = team;
+        this.speed = ctx.Level.BulletSpeed;
+        this.lifeTime = ctx.Level.Duration;
+        this.damage = ctx.Level.MaxDamage;
+        this.ownerTeam = ctx.TeamId;
         this.owner = owner;
-        this.piercing = piercing;
-        this.maxPierce = Mathf.Max(1, maxPierce);
+        this.ctx = ctx;
 
         elapsed = 0f;
-        pierceCount = 0;
-        hitOnce.Clear();
         running = true;
         spawnTime = Time.time;
 
@@ -113,7 +103,9 @@ public class Bullet : MonoBehaviour
                 if (hitSomething)
                 {
                     nextPos = hit.point;
-                    if (!piercing) { transform.position = nextPos; Despawn(); yield break; }
+                    transform.position = nextPos;
+                    Despawn(); 
+                    yield break; 
                 }
             }
 
@@ -134,7 +126,7 @@ public class Bullet : MonoBehaviour
         if (!running) return;
         if (Time.time - spawnTime < spawnIgnoreTime) return; // 스폰 직후 자기/총구 충돌 무시
 
-        if (HandleHit(other, transform.position) && !piercing)
+        if (HandleHit(other, transform.position))
             Despawn();
     }
 
@@ -142,7 +134,6 @@ public class Bullet : MonoBehaviour
     {
         if (!running || other == null) return false;
         if (owner && other.gameObject == owner.gameObject) return false; // 자신 무시
-        if (hitOnce.Contains(other)) return false;
 
         // LivingEntity 데미지
         if (other.TryGetComponent(out LivingEntity entity))
@@ -156,6 +147,10 @@ public class Bullet : MonoBehaviour
             {
                 dmg.OnDamage(damage);
                 damaged = true;
+                if (TryGetComponent<ExplodeAttack>(out var rocketWeapon))
+                {
+                    rocketWeapon.Explode(ctx);//TODO 
+                }
             }
             else
             {
@@ -166,9 +161,6 @@ public class Bullet : MonoBehaviour
 
             if (damaged)
             {
-                hitOnce.Add(other);
-                pierceCount++;
-                if (piercing && pierceCount < maxPierce) return true;
                 return true;
             }
         }
@@ -205,6 +197,5 @@ public class Bullet : MonoBehaviour
         if (co != null) StopCoroutine(co);
         running = false;
         if (tracer) { tracer.positionCount = 0; points.Clear(); }
-        hitOnce.Clear();
     }
 }

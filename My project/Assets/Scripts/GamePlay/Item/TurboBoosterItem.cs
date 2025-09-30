@@ -15,6 +15,6 @@ public class TurboBoosterItem : ItemBase
             status.GrantTurboSpecWindow(effectWindow, itemDuration, itemCooldown);
         }
 
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject);
     }
 }

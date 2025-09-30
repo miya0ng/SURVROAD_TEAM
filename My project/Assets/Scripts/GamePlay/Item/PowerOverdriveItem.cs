@@ -12,6 +12,6 @@ public class PowerOverdriveItem : ItemBase
             status.ApplyAttackSpeedBuff(mul, sec);
         }
         player.GetComponent<PlayerBehaviour>().PlayPowerOverdriveItemFx();
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject);
     }
 }

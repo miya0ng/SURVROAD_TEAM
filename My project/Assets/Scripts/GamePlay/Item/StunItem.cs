@@ -21,6 +21,6 @@ public class StunItem : ItemBase
             if (le) le.OnDamage(dmg, player.GetComponent<LivingEntity>());
             player.GetComponent<PlayerBehaviour>().PlayStunItemFx();
         }
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject);
     }
 }
