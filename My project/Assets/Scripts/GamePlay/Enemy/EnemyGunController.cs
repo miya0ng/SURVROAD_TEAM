@@ -4,8 +4,8 @@ using UnityEngine;
 public class EnemyGunController : MonoBehaviour
 {
     [Header("Bindings")]
-    [SerializeField] private Transform muzzle;                 // 총구(필수)
-    [SerializeField] private GameObject projectilePrefab;      // Rigidbody + EnemyProjectile(필수)
+    [SerializeField] private Transform muzzle;
+    [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private ParticleSystem muzzleFx;
 
     [Header("Firing Spec")]

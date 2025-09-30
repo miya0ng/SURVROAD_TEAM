@@ -19,10 +19,10 @@ MonoBehaviour:
   Target: 1
   Levels:
   - Level: 1
-    MinDamage: 5
-    MaxDamage: 5
+    MinDamage: 6
+    MaxDamage: 6
     ShotCount: 1
-    AttackSpeed: 1.5
+    AttackSpeed: 0.4
     AttackRange: 2
     BulletSpeed: 5
     EffectiveRange: 1
@@ -35,12 +35,12 @@ MonoBehaviour:
     ThumbNail: {fileID: 21300000, guid: 8911dd3486906a74291abf02b6b8d75c, type: 3}
     prefab: {fileID: 85222885766270236, guid: b373eafe822046e46b26d52fb92f636d, type: 3}
     bulletPrefab: {fileID: 1203708572482856, guid: 5ab22cdb58c498c4ea1546bc59061d9c, type: 3}
-    effectPrefab: {fileID: 5860824924526599728, guid: 68b8630ee877f744ab50c008e7c52c97, type: 3}
+    effectPrefab: {fileID: 0}
   - Level: 2
-    MinDamage: 6
-    MaxDamage: 6
+    MinDamage: 10
+    MaxDamage: 10
     ShotCount: 1
-    AttackSpeed: 1.8
+    AttackSpeed: 0.35
     AttackRange: 2
     BulletSpeed: 5
     EffectiveRange: 1
@@ -53,12 +53,12 @@ MonoBehaviour:
     ThumbNail: {fileID: 21300000, guid: 8911dd3486906a74291abf02b6b8d75c, type: 3}
     prefab: {fileID: 85222885766270236, guid: b373eafe822046e46b26d52fb92f636d, type: 3}
     bulletPrefab: {fileID: 1203708572482856, guid: 5ab22cdb58c498c4ea1546bc59061d9c, type: 3}
-    effectPrefab: {fileID: 5860824924526599728, guid: 68b8630ee877f744ab50c008e7c52c97, type: 3}
+    effectPrefab: {fileID: 0}
   - Level: 3
     MinDamage: 7
     MaxDamage: 7
     ShotCount: 2
-    AttackSpeed: 1.8
+    AttackSpeed: 0.33
     AttackRange: 2
     BulletSpeed: 5
     EffectiveRange: 1
@@ -71,12 +71,12 @@ MonoBehaviour:
     ThumbNail: {fileID: 21300000, guid: d343b3cacd00811469c7e05a81ee52f7, type: 3}
     prefab: {fileID: 66346167838963107, guid: d16d57ed0ec7c214bba84c4f88510da5, type: 3}
     bulletPrefab: {fileID: 1203708572482856, guid: 5ab22cdb58c498c4ea1546bc59061d9c, type: 3}
-    effectPrefab: {fileID: 5860824924526599728, guid: 68b8630ee877f744ab50c008e7c52c97, type: 3}
+    effectPrefab: {fileID: 0}
   - Level: 4
     MinDamage: 9
     MaxDamage: 9
     ShotCount: 2
-    AttackSpeed: 2.2
+    AttackSpeed: 0.3
     AttackRange: 2
     BulletSpeed: 5
     EffectiveRange: 1
@@ -89,12 +89,12 @@ MonoBehaviour:
     ThumbNail: {fileID: 21300000, guid: d343b3cacd00811469c7e05a81ee52f7, type: 3}
     prefab: {fileID: 66346167838963107, guid: d16d57ed0ec7c214bba84c4f88510da5, type: 3}
     bulletPrefab: {fileID: 1203708572482856, guid: 5ab22cdb58c498c4ea1546bc59061d9c, type: 3}
-    effectPrefab: {fileID: 5860824924526599728, guid: 68b8630ee877f744ab50c008e7c52c97, type: 3}
+    effectPrefab: {fileID: 0}
   - Level: 5
     MinDamage: 10
     MaxDamage: 10
     ShotCount: 1
-    AttackSpeed: 5
+    AttackSpeed: 0.2
     AttackRange: 2
     BulletSpeed: 5
     EffectiveRange: 1
@@ -107,7 +107,7 @@ MonoBehaviour:
     ThumbNail: {fileID: 21300000, guid: 5cd1e9c1f917a8947977dda4271c2d2d, type: 3}
     prefab: {fileID: 6717230239203858784, guid: 861d3bb2ed9625540a375fb69e788197, type: 3}
     bulletPrefab: {fileID: 1203708572482856, guid: 5ab22cdb58c498c4ea1546bc59061d9c, type: 3}
-    effectPrefab: {fileID: 5860824924526599728, guid: 68b8630ee877f744ab50c008e7c52c97, type: 3}
+    effectPrefab: {fileID: 0}
   MountPolicy: 0
   Allowed: 6
   PreferenceOrder: 0100000002000000

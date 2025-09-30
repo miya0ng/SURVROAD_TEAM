@@ -11,6 +11,7 @@ public class PooledProjectileSpawn : MonoBehaviour, IProjectileSpawn
             var bulletObj = pool.Pop(ctx.Muzzle.position, ctx.Muzzle.rotation);
             var b = bulletObj.GetComponent<Bullet>();
             b.Init(ctx.Level.BulletSpeed, ctx.Level.Duration, ctx.Level.MaxDamage, ctx.TeamId, ctx.Owner);
+            Debug.Log(ctx.Level.BulletSpeed +"," + ctx.Level.Duration + "," +ctx.Level.MaxDamage + "," +ctx.TeamId + ","+ctx.Owner);
             bulletObj.SetActive(true);
         }
         if (ctx.FireFx) ctx.FireFx.Play();

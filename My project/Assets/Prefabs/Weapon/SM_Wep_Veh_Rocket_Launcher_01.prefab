@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSO: {fileID: 11400000, guid: eb54284070abd8a4a80adbc168d7fdfa, type: 2}
-  muzzle: {fileID: 0}
+  muzzle: {fileID: 7436234783485238973}
   fireEffect: {fileID: 0}
 --- !u!114 &-7686248178693125263
 MonoBehaviour:

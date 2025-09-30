@@ -22,7 +22,7 @@ MonoBehaviour:
     MinDamage: 3
     MaxDamage: 3
     ShotCount: 1
-    AttackSpeed: 1
+    AttackSpeed: 3
     AttackRange: 4
     BulletSpeed: 0
     EffectiveRange: 4
@@ -41,7 +41,7 @@ MonoBehaviour:
     MinDamage: 6
     MaxDamage: 6
     ShotCount: 1
-    AttackSpeed: 1.3
+    AttackSpeed: 2.5
     AttackRange: 4
     BulletSpeed: 0
     EffectiveRange: 5
@@ -58,7 +58,7 @@ MonoBehaviour:
     MinDamage: 10
     MaxDamage: 10
     ShotCount: 1
-    AttackSpeed: 1.5
+    AttackSpeed: 2
     AttackRange: 4
     BulletSpeed: 0
     EffectiveRange: 6
@@ -75,7 +75,7 @@ MonoBehaviour:
     MinDamage: 14
     MaxDamage: 14
     ShotCount: 1
-    AttackSpeed: 1.8
+    AttackSpeed: 1.5
     AttackRange: 4
     BulletSpeed: 0
     EffectiveRange: 7
@@ -92,7 +92,7 @@ MonoBehaviour:
     MinDamage: 14
     MaxDamage: 14
     ShotCount: 1
-    AttackSpeed: 3
+    AttackSpeed: 1
     AttackRange: 4
     BulletSpeed: 0
     EffectiveRange: 7
@@ -105,6 +105,6 @@ MonoBehaviour:
     prefab: {fileID: 8171487787002607651, guid: e451669df1a4ab64792d5ef97ce0ee8d, type: 3}
     bulletPrefab: {fileID: 0}
     effectPrefab: {fileID: 0}
-  MountPolicy: 2
-  Allowed: 0
+  MountPolicy: 0
+  Allowed: 32
   PreferenceOrder: 06000000

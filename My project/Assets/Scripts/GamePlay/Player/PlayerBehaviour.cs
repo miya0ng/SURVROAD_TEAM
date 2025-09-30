@@ -9,12 +9,11 @@ public class PlayerBehaviour : LivingEntity, IDamagable
 
     [Header("Collision Damage")]
     [SerializeField] private float colDamage = 10f;
-    [SerializeField] private LayerMask damageableLayers = ~0; // 필요시 설정(예: Enemy, Destructible)
     private bool isCol = false;
 
     [Header("FX")]
-    [SerializeField] private Transform fxAnchor;// 없으면 null로 두기
-    [SerializeField] private Transform magnetAnchor;// 없으면 null로 두기
+    [SerializeField] private Transform fxAnchor;
+    [SerializeField] private Transform magnetAnchor;
     [SerializeField] private ParticleSystem healFxPrefab;
     [SerializeField] private ParticleSystem stunFxPrefab;
     [SerializeField] private ParticleSystem sheildFxPrefab;
@@ -33,7 +32,6 @@ public class PlayerBehaviour : LivingEntity, IDamagable
         base.Heal(amount);
         ui_hpBar.UpdateHpSlider(curHp);
 
-        // 힐 이펙트/사운드 재생
         PlayHealFx();
     }
 
@@ -42,57 +40,36 @@ public class PlayerBehaviour : LivingEntity, IDamagable
         if (!stunFxPrefab) return;
 
         Transform parent = fxAnchor ? fxAnchor : transform;
-        // 이펙트 생성 + 플레이어에 붙이기
-        var fx = Instantiate(stunFxPrefab, parent.position, Quaternion.identity, parent);
+        var fx = Instantiate(stunFxPrefab, parent.position, stunFxPrefab.transform.rotation, parent);
         fx.Play();
 
-        // 총 재생 시간 계산 후 자동 파괴
-        var main = fx.main;
-        float life = main.duration;
-        if (main.startLifetime.mode == ParticleSystemCurveMode.TwoConstants)
-            life += main.startLifetime.constantMax;
-        else if (main.startLifetime.mode == ParticleSystemCurveMode.Constant)
-            life += main.startLifetime.constant;
+        float totalDuration = fx.main.duration + fx.main.startLifetime.constantMax;
 
-        Destroy(fx.gameObject, life + 0.1f);
+        Destroy(fx.gameObject, totalDuration);
     }
     public void PlayReinforcedShieldItemFx()
     {
         if (!sheildFxPrefab) return;
 
         Transform parent = fxAnchor ? fxAnchor : transform;
-        // 이펙트 생성 + 플레이어에 붙이기
-        var fx = Instantiate(sheildFxPrefab, parent.position, Quaternion.identity, parent);
+        var fx = Instantiate(sheildFxPrefab, parent.position, sheildFxPrefab.transform.rotation, parent);
         fx.Play();
 
-        // 총 재생 시간 계산 후 자동 파괴
-        var main = fx.main;
-        float life = main.duration;
-        if (main.startLifetime.mode == ParticleSystemCurveMode.TwoConstants)
-            life += main.startLifetime.constantMax;
-        else if (main.startLifetime.mode == ParticleSystemCurveMode.Constant)
-            life += main.startLifetime.constant;
+        float totalDuration = fx.main.duration + fx.main.startLifetime.constantMax;
 
-        Destroy(fx.gameObject, life + 0.1f);
+        Destroy(fx.gameObject, totalDuration);
     }
     public void PlayMagnetItemFx()
     {
         if (!magnetFxPrefab) return;
 
         Transform parent = magnetAnchor ? magnetAnchor : transform;
-        // 이펙트 생성 + 플레이어에 붙이기
         var fx = Instantiate(magnetFxPrefab, parent.position, magnetFxPrefab.transform.rotation, parent);
         fx.Play();
 
-        // 총 재생 시간 계산 후 자동 파괴
-        var main = fx.main;
-        float life = main.duration;
-        if (main.startLifetime.mode == ParticleSystemCurveMode.TwoConstants)
-            life += main.startLifetime.constantMax;
-        else if (main.startLifetime.mode == ParticleSystemCurveMode.Constant)
-            life += main.startLifetime.constant;
+        float totalDuration = fx.main.duration + fx.main.startLifetime.constantMax;
 
-        Destroy(fx.gameObject, life + 0.1f);
+        Destroy(fx.gameObject, totalDuration);
     }
 
 
@@ -101,38 +78,24 @@ public class PlayerBehaviour : LivingEntity, IDamagable
         if (!healFxPrefab) return;
 
         Transform parent = fxAnchor ? fxAnchor : transform;
-        // 이펙트 생성 + 플레이어에 붙이기
-        var fx = Instantiate(healFxPrefab, parent.position, Quaternion.identity, parent);
+        var fx = Instantiate(healFxPrefab, parent.position, healFxPrefab.transform.rotation, parent);
         fx.Play();
 
-        // 총 재생 시간 계산 후 자동 파괴
-        var main = fx.main;
-        float life = main.duration;
-        if (main.startLifetime.mode == ParticleSystemCurveMode.TwoConstants)
-            life += main.startLifetime.constantMax;
-        else if (main.startLifetime.mode == ParticleSystemCurveMode.Constant)
-            life += main.startLifetime.constant;
+        float totalDuration = fx.main.duration + fx.main.startLifetime.constantMax;
 
-        Destroy(fx.gameObject, life + 0.1f);
+        Destroy(fx.gameObject, totalDuration);
     }
     public void PlayPowerOverdriveItemFx()
     {
         if (!overPowerFxPrefab) return;
 
         Transform parent = fxAnchor ? fxAnchor : transform;
-        // 이펙트 생성 + 플레이어에 붙이기
-        var fx = Instantiate(overPowerFxPrefab, parent.position, Quaternion.identity, parent);
+        var fx = Instantiate(overPowerFxPrefab, parent.position, overPowerFxPrefab.transform.rotation, parent);
         fx.Play();
 
-        // 총 재생 시간 계산 후 자동 파괴
-        var main = fx.main;
-        float life = main.duration;
-        if (main.startLifetime.mode == ParticleSystemCurveMode.TwoConstants)
-            life += main.startLifetime.constantMax;
-        else if (main.startLifetime.mode == ParticleSystemCurveMode.Constant)
-            life += main.startLifetime.constant;
+        float totalDuration = fx.main.duration + fx.main.startLifetime.constantMax;
 
-        Destroy(fx.gameObject, life + 0.1f);
+        Destroy(fx.gameObject, totalDuration);
     }
 
     protected override void Die(LivingEntity killer)
@@ -140,7 +103,6 @@ public class PlayerBehaviour : LivingEntity, IDamagable
         base.Die();
         gameManager.GameOver();
         Destroy(gameObject);
-        gameObject.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision collision)

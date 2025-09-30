@@ -29,17 +29,13 @@ public class DestructibleObject : LivingEntity
         base.Die();
         OnBreak();
 
-        // 폭발 프리팹을 따로 Instantiate 해서 재생
-        var explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        var explosion = Instantiate(explosionPrefab, transform.position, explosionPrefab.transform.rotation);
         explosion.Play();
 
-        // 전체 재생 시간 계산
         float totalDuration = explosion.main.duration + explosion.main.startLifetime.constantMax;
 
-        // 재생 끝나면 폭발 이펙트 파괴
         Destroy(explosion.gameObject, totalDuration);
 
-        // 자기 자신도 제거
         Destroy(gameObject);
     }
 

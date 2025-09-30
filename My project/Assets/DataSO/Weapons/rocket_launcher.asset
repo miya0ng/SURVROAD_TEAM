@@ -22,7 +22,7 @@ MonoBehaviour:
     MinDamage: 20
     MaxDamage: 20
     ShotCount: 1
-    AttackSpeed: 0.3
+    AttackSpeed: 3
     AttackRange: 2
     BulletSpeed: 3
     EffectiveRange: 2
@@ -40,7 +40,7 @@ MonoBehaviour:
     MinDamage: 20
     MaxDamage: 20
     ShotCount: 2
-    AttackSpeed: 0.3
+    AttackSpeed: 2.8
     AttackRange: 2
     BulletSpeed: 3
     EffectiveRange: 2
@@ -58,7 +58,7 @@ MonoBehaviour:
     MinDamage: 20
     MaxDamage: 20
     ShotCount: 3
-    AttackSpeed: 0.33
+    AttackSpeed: 2.5
     AttackRange: 2
     BulletSpeed: 3
     EffectiveRange: 2
@@ -76,7 +76,7 @@ MonoBehaviour:
     MinDamage: 20
     MaxDamage: 20
     ShotCount: 4
-    AttackSpeed: 0.35
+    AttackSpeed: 2.3
     AttackRange: 2
     BulletSpeed: 3
     EffectiveRange: 2
@@ -94,7 +94,7 @@ MonoBehaviour:
     MinDamage: 30
     MaxDamage: 30
     ShotCount: 4
-    AttackSpeed: 0.37
+    AttackSpeed: 1.5
     AttackRange: 2
     BulletSpeed: 3
     EffectiveRange: 2
@@ -110,4 +110,4 @@ MonoBehaviour:
     effectPrefab: {fileID: 0}
   MountPolicy: 0
   Allowed: 6
-  PreferenceOrder: 0200000001000000
+  PreferenceOrder: 0100000002000000

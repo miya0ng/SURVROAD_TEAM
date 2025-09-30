@@ -11,7 +11,7 @@ public class EnemyDriver : LivingEntity
     [SerializeField] private EnemyGunController gun;
 
     [Header("Spec Setup")]
-    [SerializeField] private int enemyId = 51101;
+    [SerializeField] private int enemyId;
 
     [Header("Combat")]
     [SerializeField] private float shootRange = 30f;
@@ -53,7 +53,6 @@ public class EnemyDriver : LivingEntity
             deathVfxPool = ObjectPool.GetOrCreate(deathVfxPrefab);
         }
 
-        // 스펙 로드(스포너에서 미리 주입했다면 생략)
         if (spec.Id == 0)
         {
             var table = DataTableManger.Get<EnemyDataTable>(EnemyDataTable.EnemyTableId);
@@ -77,7 +76,6 @@ public class EnemyDriver : LivingEntity
 
     void OnEnable()
     {
-        // 체력 초기화
         if (spec.Id != 0)
         {
             maxHp = spec.Durability;
@@ -91,11 +89,9 @@ public class EnemyDriver : LivingEntity
             if (p) target = p.transform;
         }
 
-        // 이동 바인딩
         if (car && target) car.Bind(target);
         if (motor && car && target) motor.Bind(car, target);
 
-        // 첫 프레임 암세이프
         armed = false;
         spawnedFrame = Time.frameCount;
         StartCoroutine(ArmNextFrame());
@@ -103,13 +99,12 @@ public class EnemyDriver : LivingEntity
 
     System.Collections.IEnumerator ArmNextFrame()
     {
-        yield return null;  // 1 프레임 대기 (풀 팝 직후 좌표/의존성 안정화)
+        yield return null;
         armed = true;
     }
 
     void Start()
     {
-        // 씬 직행 스폰 대비(중복 바인딩 무해)
         if (!target)
         {
             var p = GameObject.FindGameObjectWithTag("Player");
@@ -121,10 +116,9 @@ public class EnemyDriver : LivingEntity
 
     void Update()
     {
-        if (!armed) return;         // 첫 프레임 동작 금지
+        if (!armed) return;
         if (!target) return;
 
-        // 스펙이 런타임 교체될 수 있으면 여기서 갱신
         if (TryGetSpec(out var s) && s.Id != spec.Id)
         {
             spec = s;
@@ -165,9 +159,7 @@ public class EnemyDriver : LivingEntity
 
         if (gun)
         {
-            // 쿨다운/공격력은 Gun이 관리
             gun.ApplySpec(Mathf.Max(1, spec.AttackDamage), Mathf.Max(0.05f, spec.AttackInterval));
-            // 필요 시 총구 재매핑: gun.RemapMuzzle(driver.MuzzleSocket); // 드라이버에 소켓이 있다면
         }
     }
 

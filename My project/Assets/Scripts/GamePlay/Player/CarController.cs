@@ -67,12 +67,14 @@ public class CarController : MonoBehaviour
     void OnEnable()
     {
         if (!rb) rb = GetComponent<Rigidbody>();
+        maxForwardSpeed = normalMaxSpeed;
         if (status)
             status.OnTurboActiveChanged += SetBooster;
     }
 
     void OnDisable()
     {
+
         if (status)
             status.OnTurboActiveChanged -= SetBooster;
     }
@@ -117,7 +119,7 @@ public class CarController : MonoBehaviour
         float dt = Time.fixedDeltaTime;
         Vector3 fwd = transform.forward;
 
-        float turboMul = (status && status.TurboUnlimited) ? 1.4f : 1f; // 원하면 값 조절
+        float turboMul = (status && status.IsInSpecWindow) ? 1.4f : 1f;
         float accelNow = baseAccel * turboMul;
         float maxFwdNow = maxForwardSpeed * turboMul;
 

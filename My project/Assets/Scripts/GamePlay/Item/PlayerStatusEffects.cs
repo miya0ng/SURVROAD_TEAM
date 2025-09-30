@@ -13,41 +13,38 @@ public class PlayerStatusEffects : MonoBehaviour
     public bool IsInvulnerable => Time.time < _invulnUntil;
     public bool IsTurboActive() => isTurboActive;
     public float AttackSpeedMul { get; private set; } = 1f;
-    public bool TurboUnlimited => Time.time < _turboUntil;
-
     float _invulnUntil;
-    float _turboUntil;
 
-    // ==== 터보 Unlock/쿨다운 진행 ====
-    [Header("Turbo")]
-    [SerializeField] private bool turboUnlocked = false;
-    [SerializeField] private float turboDuration = 5f;   // 효과 지속
-    [SerializeField] private float turboCooldown = 1f;   // 쿨다운 길이
+    // ==== 기본 스펙 ====
+    [Header("Turbo (Base Spec)")]
+    [SerializeField] private bool turboUnlocked = true;   // 시작부터 사용 가능
+    [SerializeField] private float turboDuration = 2f;    // 기본 지속: 2초
+    [SerializeField] private float turboCooldown = 10f;   // 기본 쿨: 10초
 
-    float _turboCdEnd;    // 쿨다운 종료 시각(Time.time)
-    float _turboCdStart;  // 쿨다운 시작 시각
-    bool isTurboActive;   // 활성 중 여부 내부 상태
+    // ==== 임시 스펙(아이템 효과) ====
+    float _specUntil;           // 임시 스펙 종료 시각
+    float _overrideDuration;    // 임시 지속
+    float _overrideCooldown;    // 임시 쿨
+    public bool IsInSpecWindow => Time.time < _specUntil;
+
+    // ==== 쿨다운 상태 ====
+    float _turboCdEnd;          // 쿨다운 종료 시각(Time.time)
+    float _turboCdStart;        // 쿨다운 시작 시각
+    float _activeCooldown;      // 이번 쿨다운에 실제 사용된 쿨 값(진행바 정규화 기준)
+    bool isTurboActive;        // 현재 활성 중인지
 
     void Update()
     {
-        // 쿨다운 진행 이벤트 갱신 (UI 슬라이더용)
         if (turboUnlocked)
-        {
-            RaiseTurboEvent();
-        }
+            RaiseTurboEvent(); // UI 진행도 갱신
     }
 
-    // === 외부 시스템에서 참조할 공개 메서드/프로퍼티 ===
+    // === 버프/효과 유틸 ===
     public void ApplyInvulnerability(float seconds) =>
         _invulnUntil = Mathf.Max(_invulnUntil, Time.time + seconds);
 
-    public void ApplyAttackSpeedBuff(float mul, float seconds)
-    {
+    public void ApplyAttackSpeedBuff(float mul, float seconds) =>
         StartCoroutine(CoAttackSpeedBuff(mul, seconds));
-    }
-
-    public void ApplyTurboUnlimited(float seconds) =>
-        _turboUntil = Mathf.Max(_turboUntil, Time.time + seconds);
 
     IEnumerator CoAttackSpeedBuff(float mul, float seconds)
     {
@@ -56,19 +53,44 @@ public class PlayerStatusEffects : MonoBehaviour
         AttackSpeedMul /= mul;
     }
 
-    /// <summary>아이템으로 터보를 언락(버튼 활성 조건 충족)</summary>
+    // === 임시 스펙 윈도우 부여(아이템 효과) ===
+    // windowSec 동안 지속/쿨다운을 임시 값으로 사용
+    public void GrantTurboSpecWindow(float windowSec, float newDuration = 3f, float newCooldown = 0.2f)
+    {
+        _specUntil = Mathf.Max(_specUntil, Time.time + windowSec);
+        _overrideDuration = newDuration;
+        _overrideCooldown = newCooldown;
+
+        // 이미 쿨다운 중이면, 임시 쿨이 더 짧을 수 있으니 종료시각을 당겨줌
+        if (Time.time < _turboCdEnd)
+        {
+            float newEnd = _turboCdStart + EffectiveCooldown;
+            if (newEnd < _turboCdEnd) _turboCdEnd = newEnd;
+        }
+
+        RaiseTurboEvent(); // UI 즉시 반영
+    }
+
+    // (하위 호환/별칭) 이전 코드에서 썼다면 그대로 연결 가능
+    public void ApplyTurboUnlimited(float seconds) =>
+        GrantTurboSpecWindow(seconds, 3f, 0.2f);
+
+    // 필요시 외부에서 기본값 재설정
     public void UnlockTurbo(float duration, float cooldown)
     {
         turboUnlocked = true;
         if (duration > 0f) turboDuration = duration;
         if (cooldown > 0f) turboCooldown = cooldown;
 
-        // 언락 즉시 '준비완료' 상태로 세팅
+        // 시작부터 Ready로
         _turboCdStart = _turboCdEnd = Time.time;
-
-        // UI 즉시 반영
+        _activeCooldown = 0f;
         RaiseTurboEvent();
     }
+
+    // 현재 시점의 ‘적용될’ 스펙
+    float EffectiveDuration => IsInSpecWindow ? (_overrideDuration > 0f ? _overrideDuration : turboDuration) : turboDuration;
+    float EffectiveCooldown => IsInSpecWindow ? (_overrideCooldown > 0f ? _overrideCooldown : turboCooldown) : turboCooldown;
 
     public bool IsTurboReady()
     {
@@ -81,19 +103,14 @@ public class PlayerStatusEffects : MonoBehaviour
     {
         if (!IsTurboReady()) return false;
 
-        // 효과 적용 시간(무적/공격속도 증감 등은 게임 규칙에 맞춰 추가 가능)
-        // 여기서는 "무제한 부스트 판정" 타이머도 함께 세팅
-        _turboUntil = Time.time + turboDuration;
-
-        // 쿨다운 시작 즉시 기록
+        // 현재 시점의 스펙으로 쿨다운 확정(임시 스펙이면 0.2초 반영)
+        _activeCooldown = Mathf.Max(0.0001f, EffectiveCooldown);
         _turboCdStart = Time.time;
-        _turboCdEnd = Time.time + turboCooldown;
+        _turboCdEnd = Time.time + _activeCooldown;
 
-        // UI 즉시 반영(슬라이더 0으로 떨어짐)
         RaiseTurboEvent();
 
-        // 지속시간 코루틴으로 활성 시작/종료 이벤트 브로드캐스트
-        StartCoroutine(CoTurbo());
+        if (!isTurboActive) StartCoroutine(CoTurbo());
         return true;
     }
 
@@ -102,12 +119,11 @@ public class PlayerStatusEffects : MonoBehaviour
         isTurboActive = true;
         OnTurboActiveChanged?.Invoke(true);
 
-        // 실제 지속시간(타임스케일 정책은 프로젝트 규칙에 맞춰 WaitForSeconds/Unscaled로 조정)
-        yield return new WaitForSeconds(turboDuration);
+        // 현재 시점의 지속시간(임시 스펙이면 3초 반영)
+        yield return new WaitForSeconds(EffectiveDuration);
 
         isTurboActive = false;
         OnTurboActiveChanged?.Invoke(false);
-        // 이후 쿨다운은 Update에서 RaiseTurboEvent로 계속 갱신됨
     }
 
     /// <summary>UI 슬라이더에 넣을 값 계산: (value=경과, max=총쿨)</summary>
@@ -118,16 +134,17 @@ public class PlayerStatusEffects : MonoBehaviour
             value = 0f; max = 1f; return;
         }
 
-        max = Mathf.Max(0.0001f, turboCooldown);
+        // Ready 상태면 현재 적용 스펙 기준으로 가득 참
         if (IsTurboReady())
         {
-            value = max;   // 준비완료 → 슬라이더 가득 참
+            max = EffectiveCooldown;
+            value = max;
+            return;
         }
-        else
-        {
-            float elapsed = Mathf.Clamp(Time.time - _turboCdStart, 0f, turboCooldown);
-            value = elapsed;
-        }
+
+        // 쿨다운 진행 중: 이번 쿨다운에 ‘확정된’ 값을 기준으로 정규화
+        max = (_activeCooldown > 0f) ? _activeCooldown : EffectiveCooldown;
+        value = Mathf.Clamp(Time.time - _turboCdStart, 0f, max);
     }
 
     void RaiseTurboEvent()

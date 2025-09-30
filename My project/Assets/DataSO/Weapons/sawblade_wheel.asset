@@ -19,8 +19,8 @@ MonoBehaviour:
   Target: 2
   Levels:
   - Level: 1
-    MinDamage: 4
-    MaxDamage: 4
+    MinDamage: 2
+    MaxDamage: 2
     ShotCount: 0
     AttackSpeed: 4
     AttackRange: 1
@@ -35,11 +35,11 @@ MonoBehaviour:
     PrefabIndex: 5
     ThumbNail: {fileID: 21300000, guid: 3866113dbab4f4a49bd8db1074fd80d5, type: 3}
     prefab: {fileID: 1021201032924741099, guid: d4b4cc12de5953242ae4b24a5919be18, type: 3}
-    bulletPrefab: {fileID: 1613546577212098, guid: 873d786761add1e4e9b64570af6e3e4f, type: 3}
+    bulletPrefab: {fileID: 0}
     effectPrefab: {fileID: 0}
   - Level: 2
-    MinDamage: 7
-    MaxDamage: 7
+    MinDamage: 4
+    MaxDamage: 4
     ShotCount: 0
     AttackSpeed: 4
     AttackRange: 1
@@ -56,8 +56,8 @@ MonoBehaviour:
     bulletPrefab: {fileID: 0}
     effectPrefab: {fileID: 0}
   - Level: 3
-    MinDamage: 8
-    MaxDamage: 8
+    MinDamage: 6
+    MaxDamage: 6
     ShotCount: 0
     AttackSpeed: 5
     AttackRange: 1
@@ -74,8 +74,8 @@ MonoBehaviour:
     bulletPrefab: {fileID: 0}
     effectPrefab: {fileID: 0}
   - Level: 4
-    MinDamage: 12
-    MaxDamage: 12
+    MinDamage: 8
+    MaxDamage: 8
     ShotCount: 0
     AttackSpeed: 5
     AttackRange: 1
@@ -92,8 +92,8 @@ MonoBehaviour:
     bulletPrefab: {fileID: 0}
     effectPrefab: {fileID: 0}
   - Level: 5
-    MinDamage: 12
-    MaxDamage: 12
+    MinDamage: 10
+    MaxDamage: 10
     ShotCount: 0
     AttackSpeed: 8
     AttackRange: 1
@@ -107,7 +107,7 @@ MonoBehaviour:
     PrefabIndex: 5
     ThumbNail: {fileID: 21300000, guid: 3866113dbab4f4a49bd8db1074fd80d5, type: 3}
     prefab: {fileID: 1021201032924741099, guid: d4b4cc12de5953242ae4b24a5919be18, type: 3}
-    bulletPrefab: {fileID: 1613546577212098, guid: 873d786761add1e4e9b64570af6e3e4f, type: 3}
+    bulletPrefab: {fileID: 0}
     effectPrefab: {fileID: 0}
   MountPolicy: 1
   Allowed: 24

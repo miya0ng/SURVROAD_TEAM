@@ -4,13 +4,17 @@ public class TurboBoosterItem : ItemBase
 {
     protected override void Collect(GameObject player)
     {
-        var booster = player.GetComponent<PlayerStatusEffects>();
-        if (booster)
+        var status = player.GetComponent<PlayerStatusEffects>();
+        if (status)
         {
-            float duration = (itemData != null && itemData.Duration > 0f) ? itemData.Duration : 5f;
-            float cooldown = 1f;
-            booster.UnlockTurbo(duration, cooldown);
+            // 아이템 효과: 5초 동안 쿨 0.2초 / 지속 3초
+            float effectWindow = (itemData != null && itemData.Duration > 0f) ? itemData.Duration : 5f;
+            float itemCooldown = 0.2f;
+            float itemDuration = 3f;
+
+            status.GrantTurboSpecWindow(effectWindow, itemDuration, itemCooldown);
         }
+
         Destroy(gameObject, 0.5f);
     }
 }
