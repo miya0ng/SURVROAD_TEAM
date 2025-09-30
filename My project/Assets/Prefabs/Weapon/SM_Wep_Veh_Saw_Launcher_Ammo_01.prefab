@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7120700820928657327}
   - component: {fileID: 8180260217806388689}
   - component: {fileID: 1737004901178076691}
+  - component: {fileID: -9039038403892807008}
   m_Layer: 6
   m_Name: SM_Wep_Veh_Saw_Launcher_Ammo_01
   m_TagString: Untagged
@@ -162,3 +163,15 @@ MonoBehaviour:
   useBurst: 0
   burstCount: 3
   burstGap: 0.1
+--- !u!114 &-9039038403892807008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021201032924741099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8146ced97b17252419e13d2dd8f1c4c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

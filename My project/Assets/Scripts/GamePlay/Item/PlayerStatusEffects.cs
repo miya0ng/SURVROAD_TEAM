@@ -71,10 +71,6 @@ public class PlayerStatusEffects : MonoBehaviour
         RaiseTurboEvent(); // UI 즉시 반영
     }
 
-    // (하위 호환/별칭) 이전 코드에서 썼다면 그대로 연결 가능
-    public void ApplyTurboUnlimited(float seconds) =>
-        GrantTurboSpecWindow(seconds, 3f, 0.2f);
-
     // 필요시 외부에서 기본값 재설정
     public void UnlockTurbo(float duration, float cooldown)
     {

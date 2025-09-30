@@ -1,4 +1,4 @@
-using Unity.VisualScripting.Dependencies.Sqlite;
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -19,7 +19,7 @@ public class Ui_BoosterButton : MonoBehaviour, IPointerClickHandler
     [Header("Visuals")]
     [Tooltip("아이템 기본 이미지(아이콘). 터보 '활성 중'에만 보였다가, 지속시간 종료 시 자동으로 꺼짐")]
     [SerializeField] private GameObject defaultImage;
-    [SerializeField] private GameObject iconFocus;
+    [SerializeField] private GameObject Active;
 
     bool unlocked;
 
@@ -52,7 +52,7 @@ public class Ui_BoosterButton : MonoBehaviour, IPointerClickHandler
         }
 
         if (defaultImage) defaultImage.SetActive(true);
-        if (iconFocus) iconFocus.SetActive(false);
+        if (Active) Active.SetActive(true);
     }
 
     void Start()
@@ -95,7 +95,7 @@ public class Ui_BoosterButton : MonoBehaviour, IPointerClickHandler
         }
 
         SetClickable(ready);
-        if (iconFocus) iconFocus.SetActive(ready);
+        if (Active) Active.SetActive(ready);
     }
 
     void HandleTurboActive(bool isActive)
@@ -106,18 +106,12 @@ public class Ui_BoosterButton : MonoBehaviour, IPointerClickHandler
         {
             bool stillReady = status != null && status.IsTurboReady();
             SetClickable(stillReady);
-            if (iconFocus) iconFocus.SetActive(stillReady);
+            if (hitArea) hitArea.gameObject.SetActive(stillReady);
         }
     }
 
     void SetClickable(bool on)
     {
-        if (canvasGroup)
-        {
-            canvasGroup.interactable = on;
-            canvasGroup.blocksRaycasts = on;
-        }
-
         if (hitArea) hitArea.raycastTarget = on;
     }
 

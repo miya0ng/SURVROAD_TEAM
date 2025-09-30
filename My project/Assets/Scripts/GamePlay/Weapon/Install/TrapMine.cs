@@ -5,7 +5,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Collider))]
 public class TrapMine : MonoBehaviour
 {
-    [Header("Damage")]
+   [Header("Damage")]
     [SerializeField] private float minDamage = 50f;
     [SerializeField] private float maxDamage = 50f;
     [SerializeField] private SphereCollider zone;      // isTrigger = true
@@ -58,9 +58,6 @@ public class TrapMine : MonoBehaviour
         zone.isTrigger = true;
         zone.radius = Mathf.Max(0.5f, lv.EffectiveRange);
 
-        // 레벨이 높을수록 더 강한 슬로우(1~5 가정)
-        int level = Mathf.Max(1, lv.Level);
-        float t = Mathf.Clamp01((level - 1) / 4f); // 1→5를 0→1로 정규화
     }
 
     void Awake()
@@ -158,10 +155,16 @@ public class TrapMine : MonoBehaviour
 
     private void Explode()
     {
+        var EquipWeapon = GetComponent<EquipSocket>();
+        if( EquipWeapon != null)
+        {
+            return;
+        }
+
         if (exploded) return;
         exploded = true;
 
-        int n = Physics.OverlapSphereNonAlloc(transform.position, zone.radius, hits, hitMask, QueryTriggerInteraction.Ignore);
+        int n = Physics.OverlapSphereNonAlloc(transform.position, zone.radius*3, hits, hitMask, QueryTriggerInteraction.Ignore);
         for (int i = 0; i < n; i++)
         {
             var le = hits[i].GetComponentInParent<LivingEntity>();
@@ -179,13 +182,21 @@ public class TrapMine : MonoBehaviour
     }
     private void Despawn()
     {
+        var EquipWeapon = GetComponent<EquipSocket>();
+        if (EquipWeapon != null)
+        {
+            Debug.Log(EquipWeapon);
+            return;
+        }
+
         if (OnDespawnToPool != null) { OnDespawnToPool(this); return; }
         // 풀을 안 쓰면 기본 파괴
         //gameObject.SetActive(false); // 눈에 보이던 비가시 전환 최소화
         if (lifeTime <= lifeTimer && lifeTimer != lifeTime)
         {
-            Destroy(gameObject, 2f); // 폭발 이펙트가 남아있을 수 있으므로 약간 여유를 두고 파괴
+            Destroy(gameObject,0.3f); // 폭발 이펙트가 남아있을 수 있으므로 약간 여유를 두고 파괴
         }
+        Destroy(gameObject, 0.3f);
     }
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
