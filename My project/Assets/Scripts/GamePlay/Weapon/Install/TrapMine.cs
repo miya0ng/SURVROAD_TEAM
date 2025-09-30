@@ -8,7 +8,8 @@ public class TrapMine : MonoBehaviour
    [Header("Damage")]
     [SerializeField] private float minDamage = 50f;
     [SerializeField] private float maxDamage = 50f;
-    [SerializeField] private SphereCollider zone;      // isTrigger = true
+   
+    private SphereCollider zone;      // isTrigger = true
 
     [SerializeField] private LayerMask hitMask = ~0;
     [SerializeField] private bool lineOfSightCheck = false;
@@ -155,7 +156,7 @@ public class TrapMine : MonoBehaviour
 
     private void Explode()
     {
-        var EquipWeapon = GetComponent<EquipSocket>();
+        var EquipWeapon = GetComponentInParent<EquipSocket>();
         if( EquipWeapon != null)
         {
             return;
@@ -196,23 +197,23 @@ public class TrapMine : MonoBehaviour
         {
             Destroy(gameObject,0.3f); // 폭발 이펙트가 남아있을 수 있으므로 약간 여유를 두고 파괴
         }
-        Destroy(gameObject, 0.3f);
+      Destroy(gameObject, 0.3f);
     }
-#if UNITY_EDITOR
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = new Color(1f, 0.4f, 0.1f, 0.25f);
-        Gizmos.DrawSphere(transform.position, zone.radius);
-        Gizmos.color = new Color(1f, 0.4f, 0.1f, 1f);
-        Gizmos.DrawWireSphere(transform.position, zone.radius);
+//#if UNITY_EDITOR
+//    private void OnDrawGizmosSelected()
+//    {
+//        Gizmos.color = new Color(1f, 0.4f, 0.1f, 0.25f);
+//        Gizmos.DrawSphere(transform.position, zone.radius);
+//        Gizmos.color = new Color(1f, 0.4f, 0.1f, 1f);
+//        Gizmos.DrawWireSphere(transform.position, zone.radius);
 
-        // Ground snap ray
-        Gizmos.color = Color.cyan;
-        Vector3 origin = transform.position + Vector3.up * castHeight;
-        Gizmos.DrawLine(origin, origin + Vector3.down * (castHeight + maxCastDown));
-        Gizmos.DrawWireSphere(origin, 0.06f);
-    }
+//        // Ground snap ray
+//        Gizmos.color = Color.cyan;
+//        Vector3 origin = transform.position + Vector3.up * castHeight;
+//        Gizmos.DrawLine(origin, origin + Vector3.down * (castHeight + maxCastDown));
+//        Gizmos.DrawWireSphere(origin, 0.06f);
+//    }
 
 
-#endif
+//#endif
 }

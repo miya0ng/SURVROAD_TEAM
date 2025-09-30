@@ -186,7 +186,7 @@ MonoBehaviour:
   overlapCheckRadius: 3
   overlapBlockMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   usePool: 0
   trapsRoot: {fileID: 0}
 --- !u!114 &1129685777561591261

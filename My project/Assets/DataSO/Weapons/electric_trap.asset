@@ -107,4 +107,4 @@ MonoBehaviour:
     effectPrefab: {fileID: 0}
   MountPolicy: 0
   Allowed: 32
-  PreferenceOrder: 06000000
+  PreferenceOrder: 0500000006000000

@@ -20001,11 +20001,11 @@ PrefabInstance:
     - target: {fileID: 6835086774756334737, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: starterSO
       value: 
-      objectReference: {fileID: 11400000, guid: eb54284070abd8a4a80adbc168d7fdfa, type: 2}
+      objectReference: {fileID: 11400000, guid: c1278569db2dcee498de002398cd5fad, type: 2}
     - target: {fileID: 6835086774756334737, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: starterPrefab
       value: 
-      objectReference: {fileID: 385623515136055977, guid: 3239842368d158c4d8a80dad90da01fc, type: 3}
+      objectReference: {fileID: 6066365829197139422, guid: eb0fdb527bf931b4cbb0a1995b37f783, type: 3}
     - target: {fileID: 7425593743219392115, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
