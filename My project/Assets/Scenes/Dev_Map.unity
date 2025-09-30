@@ -271,6 +271,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+      propertyPath: steerCurve.m_Curve.Array.data[1].time
+      value: 0.08215332
+      objectReference: {fileID: 0}
+    - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+      propertyPath: steerCurve.m_Curve.Array.data[1].value
+      value: 0.6982422
+      objectReference: {fileID: 0}
+    - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+      propertyPath: steerCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+      propertyPath: steerCurve.m_Curve.Array.data[1].outSlope
+      value: -0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 4363016265159077599, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
