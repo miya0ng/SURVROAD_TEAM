@@ -19,12 +19,14 @@ public class EquipManager : MonoBehaviour
 
     // ====== Events ======
     public event System.Action OnEquipChanged;
+    public event System.Action OnCandidate;
+    //public event System.Action OnPartsCandidate;
     public event System.Action<float, float> OnPartsGaugeChanged;
     public event System.Action OnLevelUpReady;
     public event System.Action<WeaponDriver> OnWeaponLeveled;
     public event System.Action<WeaponDriver> OnWeaponEquipped;
     public event System.Action<WeaponDriver> OnWeaponUnequipped;
-    public event System.Action<PlayerUpgradeOption> OnPlayerUpgraded;
+    public event System.Action<PlayerUpgradeOption> OnPlayerUpgrade;
 
     // ====== State ======
     [SerializeField] private int maxEquipCount = 3;
@@ -81,6 +83,8 @@ public class EquipManager : MonoBehaviour
     private float maxSpeedMul = 1f;
     private float accelerationMul = 1f;
 
+    private Ui_Slider partsGaugeUi;
+
     // ====== DTOs ======
     public struct WeaponSlotInfo
     {
@@ -111,7 +115,7 @@ public class EquipManager : MonoBehaviour
     void Awake()
     {
         player = GetComponentInParent<LivingEntity>();
-
+        partsGaugeUi = GameObject.FindWithTag("PartsGuage")?.GetComponent<Ui_Slider>();
         // 소켓 수집
         socketMap.Clear();
         var sockets = player ? player.GetComponentsInChildren<EquipSocket>(true)
@@ -171,6 +175,7 @@ public class EquipManager : MonoBehaviour
 
         entry.driver = entry.drivers.FirstOrDefault();
         OnEquipChanged?.Invoke();
+
         ResetPartsGauge();
     }
 
@@ -186,6 +191,8 @@ public class EquipManager : MonoBehaviour
     public void EquipOrUpgrade(UpgradeCandidate c)
     {
         if (!levelUpPending) return;
+        OnCandidate.Invoke();
+        ChangePartsGuage();
 
         if (c.Kind == CandidateKind.PlayerStat)
         {
@@ -550,14 +557,19 @@ public class EquipManager : MonoBehaviour
         // 플레이어에 즉시 반영 (선택 사항)
         if (player != null)
         {
-            var up = player.GetComponentInChildren<IPlayerUpgradable>();
+            var up = player.GetComponent<CarController>();
+            var up2 = player.GetComponent<PlayerBehaviour>();
             if (up != null)
             {
                 up.ApplyMultipliers(durabilityMul, maxSpeedMul, accelerationMul);
             }
+            if (up2 != null)
+            {
+                up2.ApplyMultipliers(durabilityMul, maxSpeedMul, accelerationMul);
+            }
         }
 
-        OnPlayerUpgraded?.Invoke(opt);
+        OnPlayerUpgrade?.Invoke(opt);
         Debug.Log($"[EquipManager] PlayerUpgrade: {opt.Name} x{opt.Value} -> (Dur {durabilityMul:F2}, Max {maxSpeedMul:F2}, Acc {accelerationMul:F2})");
     }
 
@@ -673,5 +685,12 @@ public class EquipManager : MonoBehaviour
         if (e == null) return 1;
         if (e.level >= 5) return -1; // Max
         return e.level + 1;
+    }
+
+    private void ChangePartsGuage()
+    {
+        Debug.Log("ChangePartsGuage");
+        partsMax += 10;
+        partsGaugeUi.SetSliderUi(parts, partsMax);
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Events;
+using static EquipManager;
 
 [RequireComponent(typeof(Rigidbody))]
-public class CarController : MonoBehaviour
+public class CarController : MonoBehaviour, IPlayerUpgradable
 {
     [Header("Refs")]
     [SerializeField] private Rigidbody rb;
@@ -51,6 +52,7 @@ public class CarController : MonoBehaviour
         new Keyframe(1f, 1.05f)
     );
 
+    private EquipManager equipManager;
 
     private bool isLeft;
     private bool isRight;
@@ -62,7 +64,15 @@ public class CarController : MonoBehaviour
     public Vector3 velLocal;
     public float hAxis = 1f;
 
+    float maxSpeedMul;
+    float accelerationMul;
+
     void Reset() { rb = GetComponent<Rigidbody>(); }
+
+    private void Awake()
+    {
+        equipManager = GameObject.FindWithTag("EquipManager").GetComponent<EquipManager>();
+    }
 
     void OnEnable()
     {
@@ -70,13 +80,26 @@ public class CarController : MonoBehaviour
         maxForwardSpeed = normalMaxSpeed;
         if (status)
             status.OnTurboActiveChanged += SetBooster;
+        Debug.Log($"Player: maxSpeed x{maxSpeedMul}, accel x{accelerationMul}");
     }
+
+    //private void OnPlayerMaxSpeedUpgraded(EquipManager.PlayerUpgradeOption obj)
+    //{
+    //    normalMaxSpeed = 35f * obj.Value; 
+    //    boostedMaxSpeed = 60f * obj.Value; 
+    //    maxForwardSpeed = IsBoosterOn ? boostedMaxSpeed : normalMaxSpeed; 
+    //}
+    //private void OnPlayerAccelUpgraded(EquipManager.PlayerUpgradeOption obj)
+    //{
+    //    baseAccel *= obj.Value; 
+    //}
 
     void OnDisable()
     {
 
         if (status)
             status.OnTurboActiveChanged -= SetBooster;
+
     }
 
     public void SetBooster(bool on)
@@ -184,5 +207,18 @@ public class CarController : MonoBehaviour
         }
 
         rb.AddForce(-transform.up * (downforce * norm), ForceMode.Acceleration);
+    }
+
+    public void ApplyMultipliers(float durabilityMul, float maxSpeedMul, float accelerationMul)
+    {
+        if (this.maxSpeedMul != maxSpeedMul)
+        {
+            boostedMaxSpeed*= maxSpeedMul;
+            normalMaxSpeed*= maxSpeedMul;
+        }
+
+        if (this.accelerationMul != accelerationMul)
+            baseAccel *= accelerationMul;
+        Debug.Log($"Apply Player Multipliers: maxSpeed x{maxSpeedMul}, accel x{accelerationMul}");
     }
 }

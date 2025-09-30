@@ -12,6 +12,7 @@ public abstract class ItemBase : MonoBehaviour
 
     protected float lifeTimer =0;
     protected bool OnTimer = false;
+
     public virtual void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
@@ -30,6 +31,7 @@ public abstract class ItemBase : MonoBehaviour
             {
                 Collect(player.gameObject);
             }
+
         }
     }
 

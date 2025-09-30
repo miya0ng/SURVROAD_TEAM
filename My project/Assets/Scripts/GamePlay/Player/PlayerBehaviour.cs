@@ -1,10 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 using static Bullet;
+using static EquipManager;
 
-public class PlayerBehaviour : LivingEntity, IDamagable
+public class PlayerBehaviour : LivingEntity, IDamagable, IPlayerUpgradable
 {
-    public GameManager gameManager;
+    private GameManager gameManager;
+    private EquipManager equipManager;
+
     private Ui_Slider ui_hpBar;
 
     [Header("Collision Damage")]
@@ -25,8 +28,27 @@ public class PlayerBehaviour : LivingEntity, IDamagable
         curHp = maxHp;
         ui_hpBar = GetComponent<Ui_Slider>();
         ui_hpBar.SetSliderUi(maxHp, maxHp);
+
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        equipManager = GameObject.FindWithTag("EquipManager").GetComponent<EquipManager>();
     }
 
+    public void OnEnable()
+    {
+        equipManager.OnCandidate += LevelPopUpHp;
+    }
+    public void OnDisable()
+    {
+        equipManager.OnCandidate -= LevelPopUpHp;
+    }
+
+
+    public void LevelPopUpHp()
+    {
+        curHp *= 1.3f;
+        if (curHp > maxHp) curHp = maxHp;
+        ui_hpBar.UpdateHpSlider(curHp);
+    }
     public override void Heal(float amount)
     {
         base.Heal(amount);
@@ -121,5 +143,12 @@ public class PlayerBehaviour : LivingEntity, IDamagable
     {
         base.OnDamage(damage, attacker);
         ui_hpBar.UpdateHpSlider(curHp);
+    }
+
+    public void ApplyMultipliers(float durabilityMul, float maxSpeedMul, float accelerationMul)
+    {
+        Debug.Log($"Apply Player Multipliers: durability x{durabilityMul}");
+        maxHp *= durabilityMul;
+        ui_hpBar.SetSliderUi(curHp, maxHp);
     }
 }
