@@ -20,16 +20,16 @@ public class Ui_Slider : MonoBehaviour
         slider.maxValue = maxValue;
         slider.value = curValue;
         Slider = slider.GetComponentInChildren<TextMeshProUGUI>();
-        Slider.text = $"{curValue} <#ffc9d6> / {maxValue}";
+        Slider.text = $"{curValue:0} <#ffc9d6> / {maxValue:0}";
     }
     public void UpdateHpSlider(float curValue)
     {
         slider.value = curValue;
-        Slider.text = $"{curValue} <#ffc9d6> / {slider.maxValue}";
+        Slider.text = $"{curValue:0} <#ffc9d6> / {slider.maxValue:0}";
     }
     public void UpdatePartsSlider(float amount)
     {
         slider.value += amount;
-        Slider.text = $"{slider.value} <#ffc9d6> / {slider.maxValue}";
+        Slider.text = $"{slider.value:0} <#ffc9d6> / {slider.maxValue:0}";
     }
 }

@@ -2,6 +2,7 @@
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ResultPopup : MonoBehaviour
@@ -103,8 +104,14 @@ public class ResultPopup : MonoBehaviour
         }
     }
 
-    private void OnClickRestart()
+    public void OnClickRestart()
     {
         gameManager?.GameStart();
+    }
+
+    public void OnExitButton()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Title");
     }
 }

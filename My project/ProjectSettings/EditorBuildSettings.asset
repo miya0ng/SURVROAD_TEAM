@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Dev_Editor.unity
     guid: 5e6fdf32e8b5b114a99d6bac878be0c0
+  - enabled: 1
+    path: Assets/Scenes/Title.unity
+    guid: 6ff2fbf603d931340aebf11f4ef65220
+  - enabled: 1
+    path: Assets/Scenes/Loading.unity
+    guid: 228b8a5430caa814da0558824c9d8ecb
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 08bc8c66424fd9a4fb93c679300b8ddb, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}

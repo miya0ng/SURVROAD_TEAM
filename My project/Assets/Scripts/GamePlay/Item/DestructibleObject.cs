@@ -8,6 +8,9 @@ public class DestructibleObject : LivingEntity
     public float[] dropRates;
     private ItemManager itemManager;
     private HitFlash hitFlash;
+
+    public ParticleSystem VFX;
+    
     protected override void Awake()
     {
         base.Awake();
@@ -17,6 +20,13 @@ public class DestructibleObject : LivingEntity
     {
         itemManager = GameObject.FindWithTag("ItemManager").GetComponent<ItemManager>();
         hitFlash = GetComponent<HitFlash>();
+    }
+
+    public void OnEnable()
+    {
+        VFX = Instantiate(VFX, transform.position, VFX.transform.rotation);
+        VFX.transform.parent = transform;
+        VFX.Play();
     }
 
     public override void OnDamage(float damage, LivingEntity attacker)
@@ -37,6 +47,7 @@ public class DestructibleObject : LivingEntity
         Destroy(explosion.gameObject, totalDuration);
 
         Destroy(gameObject);
+        Destroy(VFX.gameObject);
     }
 
     public void OnBreak()
