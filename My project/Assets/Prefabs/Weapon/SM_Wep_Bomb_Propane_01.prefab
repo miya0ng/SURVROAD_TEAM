@@ -772,7 +772,7 @@ MonoBehaviour:
   overlapCheckRadius: 3
   overlapBlockMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 7360
   usePool: 0
   trapsRoot: {fileID: 0}
 --- !u!114 &6601117685676223862

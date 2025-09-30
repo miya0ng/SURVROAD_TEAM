@@ -4929,6 +4929,7 @@ GameObject:
   - component: {fileID: 5383827214676478329}
   - component: {fileID: 8229374016823449045}
   - component: {fileID: 3979830469262661818}
+  - component: {fileID: -3419695005336174648}
   m_Layer: 0
   m_Name: Player_RocketMissileYellow
   m_TagString: Untagged
@@ -10101,10 +10102,24 @@ MonoBehaviour:
     m_Bits: 2304
   castRadius: 0
   spawnIgnoreTime: 0.05
-  piercing: 0
-  maxPierce: 5
   tracer: {fileID: 8229374016823449045}
   maxTracerPoints: 60
+--- !u!114 &-3419695005336174648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613546577212098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd7e0dca988db3445b686daee81a3c62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radiusMultiplier: 5
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &1914677583627016
 GameObject:
   m_ObjectHideFlags: 0

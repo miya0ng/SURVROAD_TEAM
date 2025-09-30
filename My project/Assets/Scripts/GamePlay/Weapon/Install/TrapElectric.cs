@@ -87,15 +87,15 @@ public class TrapElectric : MonoBehaviour
     {
         CleanupTokens();
 
-        if (fxEnd)
-        {
-            // 풀 객체가 바로 비활성화돼도 엔딩 이펙트가 보이도록, 잠깐 떼어낸 뒤 재생
-            var end = fxEnd;
-            end.transform.SetParent(null, true);
-            end.transform.position = transform.position;
-            end.Play(true);
-            Destroy(end.gameObject, end.main.duration + end.main.startLifetime.constantMax);
-        }
+        //if (fxEnd)
+        //{
+        //    // 풀 객체가 바로 비활성화돼도 엔딩 이펙트가 보이도록, 잠깐 떼어낸 뒤 재생
+        //    var end = fxEnd;
+        //    end.transform.SetParent(null, true);
+        //    end.transform.position = transform.position;
+        //    end.Play(true);
+        //    Destroy(end.gameObject, end.main.duration + end.main.startLifetime.constantMax);
+        //}
         if (fxLoopRoot)
         {
             Destroy(fxLoopRoot);

@@ -183,7 +183,7 @@ public class TrapMine : MonoBehaviour
     }
     private void Despawn()
     {
-        var EquipWeapon = GetComponent<EquipSocket>();
+        var EquipWeapon = GetComponentInParent<EquipSocket>();
         if (EquipWeapon != null)
         {
             Debug.Log(EquipWeapon);
@@ -193,11 +193,8 @@ public class TrapMine : MonoBehaviour
         if (OnDespawnToPool != null) { OnDespawnToPool(this); return; }
         // 풀을 안 쓰면 기본 파괴
         //gameObject.SetActive(false); // 눈에 보이던 비가시 전환 최소화
-        if (lifeTime <= lifeTimer && lifeTimer != lifeTime)
-        {
-            Destroy(gameObject,0.3f); // 폭발 이펙트가 남아있을 수 있으므로 약간 여유를 두고 파괴
-        }
-      Destroy(gameObject, 0.3f);
+
+      Destroy(gameObject, 0.1f);
     }
 //#if UNITY_EDITOR
 //    private void OnDrawGizmosSelected()
