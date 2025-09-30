@@ -19599,19 +19599,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: turnRate
-      value: 180
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: baseAccel
       value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+      propertyPath: downforce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: lateralDamp
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+      propertyPath: normalMaxSpeed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: driftBlendSpeed
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: maxForwardSpeed
@@ -19687,11 +19695,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: driftGripCurve.m_Curve.Array.data[1].time
-      value: 0.045887828
+      value: 0.053166747
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: driftGripCurve.m_Curve.Array.data[2].time
-      value: 0.17034718
+      value: 0.14022633
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: brakeCurve.m_Curve.Array.data[1].outWeight
@@ -19707,11 +19715,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: driftGripCurve.m_Curve.Array.data[1].value
-      value: 0.15343326
+      value: 0.26104635
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: driftGripCurve.m_Curve.Array.data[2].value
-      value: 0.2396381
+      value: 0.39094424
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: brakeCurve.m_Curve.Array.data[0].tangentMode
@@ -19723,27 +19731,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: driftGripCurve.m_Curve.Array.data[0].inSlope
-      value: 3.3436594
+      value: 4.9099555
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: driftGripCurve.m_Curve.Array.data[1].inSlope
-      value: 1.1500819
+      value: 2.4666297
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: driftGripCurve.m_Curve.Array.data[2].inSlope
-      value: 0.69263446
+      value: 1.4920573
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: driftGripCurve.m_Curve.Array.data[0].outSlope
-      value: 3.3436594
+      value: 4.9099555
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: driftGripCurve.m_Curve.Array.data[1].inWeight
-      value: 0.45757538
+      value: 0.31915832
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: driftGripCurve.m_Curve.Array.data[1].outSlope
-      value: 1.1500819
+      value: 2.4666297
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: driftGripCurve.m_Curve.Array.data[2].inWeight
@@ -19751,7 +19759,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: driftGripCurve.m_Curve.Array.data[2].outSlope
-      value: 0.69263446
+      value: 1.4920573
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: driftGripCurve.m_Curve.Array.data[0].outWeight
@@ -19759,7 +19767,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: driftGripCurve.m_Curve.Array.data[1].outWeight
-      value: 0.14253621
+      value: 0.22859412
       objectReference: {fileID: 0}
     - target: {fileID: 524147772993732965, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: driftGripCurve.m_Curve.Array.data[0].tangentMode
@@ -19828,11 +19836,11 @@ PrefabInstance:
     - target: {fileID: 6835086774756334737, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: starterSO
       value: 
-      objectReference: {fileID: 11400000, guid: b70e429230039e14c8c3ade8f7a637cb, type: 2}
+      objectReference: {fileID: 11400000, guid: eb54284070abd8a4a80adbc168d7fdfa, type: 2}
     - target: {fileID: 6835086774756334737, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: starterPrefab
       value: 
-      objectReference: {fileID: 85222885766270236, guid: b373eafe822046e46b26d52fb92f636d, type: 3}
+      objectReference: {fileID: 385623515136055977, guid: 3239842368d158c4d8a80dad90da01fc, type: 3}
     - target: {fileID: 7425593743219392115, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -21132,11 +21140,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3342796251749860470, guid: 21bf4754ca74594458eb545e47451542, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 320.2
+      value: 382.7
       objectReference: {fileID: 0}
     - target: {fileID: 3342796251749860470, guid: 21bf4754ca74594458eb545e47451542, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1
+      value: -1.8499756
       objectReference: {fileID: 0}
     - target: {fileID: 3342796251749860470, guid: 21bf4754ca74594458eb545e47451542, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -21157,6 +21165,10 @@ PrefabInstance:
     - target: {fileID: 3901976613408484559, guid: 21bf4754ca74594458eb545e47451542, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5394556741320208227, guid: 21bf4754ca74594458eb545e47451542, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5450006059612212835, guid: 21bf4754ca74594458eb545e47451542, type: 3}
       propertyPath: m_Name
@@ -21221,6 +21233,10 @@ PrefabInstance:
     - target: {fileID: 8062715196354392474, guid: 21bf4754ca74594458eb545e47451542, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8380130318679373231, guid: 21bf4754ca74594458eb545e47451542, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8552754572770583419, guid: 21bf4754ca74594458eb545e47451542, type: 3}
       propertyPath: m_AnchorMax.y

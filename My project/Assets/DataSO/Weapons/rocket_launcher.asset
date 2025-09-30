@@ -22,9 +22,9 @@ MonoBehaviour:
     MinDamage: 20
     MaxDamage: 20
     ShotCount: 1
-    AttackSpeed: 3
+    AttackSpeed: 2.5
     AttackRange: 2
-    BulletSpeed: 3
+    BulletSpeed: 5
     EffectiveRange: 2
     ExplosionRange: 2.5
     Duration: 3
@@ -40,9 +40,9 @@ MonoBehaviour:
     MinDamage: 20
     MaxDamage: 20
     ShotCount: 2
-    AttackSpeed: 2.8
+    AttackSpeed: 5
     AttackRange: 2
-    BulletSpeed: 3
+    BulletSpeed: 5
     EffectiveRange: 2
     ExplosionRange: 2.5
     Duration: 3
@@ -58,9 +58,9 @@ MonoBehaviour:
     MinDamage: 20
     MaxDamage: 20
     ShotCount: 3
-    AttackSpeed: 2.5
+    AttackSpeed: 2
     AttackRange: 2
-    BulletSpeed: 3
+    BulletSpeed: 5
     EffectiveRange: 2
     ExplosionRange: 2.5
     Duration: 3
@@ -76,9 +76,9 @@ MonoBehaviour:
     MinDamage: 20
     MaxDamage: 20
     ShotCount: 4
-    AttackSpeed: 2.3
+    AttackSpeed: 1.8
     AttackRange: 2
-    BulletSpeed: 3
+    BulletSpeed: 5
     EffectiveRange: 2
     ExplosionRange: 2.5
     Duration: 3
@@ -96,7 +96,7 @@ MonoBehaviour:
     ShotCount: 4
     AttackSpeed: 1.5
     AttackRange: 2
-    BulletSpeed: 3
+    BulletSpeed: 5
     EffectiveRange: 2
     ExplosionRange: 3
     Duration: 3
