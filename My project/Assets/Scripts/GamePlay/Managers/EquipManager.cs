@@ -109,6 +109,8 @@ public class EquipManager : MonoBehaviour
 
         // 공통 썸네일
         public Sprite Thumbnail;
+
+        public string SelectInfo;
     }
 
     // ========= Unity =========

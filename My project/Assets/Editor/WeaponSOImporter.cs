@@ -76,7 +76,8 @@ public class WeaponSOImporter : EditorWindow
                     ExplosionRange = record.ExplosionRange,
                     Duration = record.Duration,
                     Piercing = record.Piercing,
-                    Info = record.Info
+                    Info = record.Info,
+                    SelectionInfo = record.SelectionInfo
                 };
 
                 if (!string.IsNullOrEmpty(record.PrefabName) &&

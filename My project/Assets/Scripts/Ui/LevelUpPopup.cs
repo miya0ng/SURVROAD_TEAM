@@ -15,8 +15,10 @@ public class LevelUpPopup : MonoBehaviour
     [SerializeField] private GameObject levelUpDefault;
     [SerializeField] private GameObject DetailPopUp;
 
+    [Header("Selection Info")]
     [SerializeField] private TextMeshProUGUI[] weaponNameLabels;
     [SerializeField] private TextMeshProUGUI[] weaponTypeLabels;
+    [SerializeField] private TextMeshProUGUI[] selectionInfoLabels;
 
     private int selectedIndex = -1;
     private UpgradeCandidate[] candidates;
@@ -39,7 +41,7 @@ public class LevelUpPopup : MonoBehaviour
         equip.OnLevelUpReady -= Show;
         equip.OnPartsGaugeChanged -= UpdateGauge;
     }
-
+ 
     // ===== Events =====
     void UpdateGauge(float cur, float max)
     {
@@ -53,7 +55,6 @@ public class LevelUpPopup : MonoBehaviour
 
         var list = equip.GetUpgradeCandidates(choiceCount, weaponLibrary);
         candidates = list?.ToArray() ?? System.Array.Empty<UpgradeCandidate>();
-
         int n = Mathf.Min(candidates.Length, weaponIcons.Length);
 
         for (int i = 0; i < weaponIcons.Length; i++)
@@ -64,27 +65,33 @@ public class LevelUpPopup : MonoBehaviour
             if (visible)
             {
                 var c = candidates[i];
+                c.SelectInfo = GetSelectionInfoSafe(c);
+                candidates[i] = c;
 
-                // === 아이콘 ===
+                // === 아이콘/텍스트 바인딩 ===
                 icon.sprite = c.Thumbnail;
                 icon.gameObject.SetActive(true);
 
-                // === 이름 ===
                 if (weaponNameLabels != null && i < weaponNameLabels.Length && weaponNameLabels[i] != null)
                     weaponNameLabels[i].text = GetDisplayName(c);
 
-                // === 타입 ===
                 if (weaponTypeLabels != null && i < weaponTypeLabels.Length && weaponTypeLabels[i] != null)
                     weaponTypeLabels[i].text = GetDisplayType(c);
+
+                if (selectionInfoLabels != null && i < selectionInfoLabels.Length && selectionInfoLabels[i] != null)
+                    selectionInfoLabels[i].text = c.SelectInfo;
             }
             else
             {
                 icon.sprite = null;
                 icon.gameObject.SetActive(false);
+
                 if (weaponNameLabels != null && i < weaponNameLabels.Length && weaponNameLabels[i] != null)
                     weaponNameLabels[i].text = string.Empty;
                 if (weaponTypeLabels != null && i < weaponTypeLabels.Length && weaponTypeLabels[i] != null)
                     weaponTypeLabels[i].text = string.Empty;
+                if (selectionInfoLabels != null && i < selectionInfoLabels.Length && selectionInfoLabels[i] != null)
+                    selectionInfoLabels[i].text = string.Empty;
             }
         }
 
@@ -176,5 +183,26 @@ public class LevelUpPopup : MonoBehaviour
             parts[i] = char.ToUpper(parts[i][0]) + (parts[i].Length > 1 ? parts[i].Substring(1) : "");
         }
         return string.Join(" ", parts);
+    }
+
+    private string GetSelectionInfoSafe(UpgradeCandidate c)
+    {
+        // 플레이어 업그레이드
+        if (c.Kind == CandidateKind.PlayerStat)
+        {
+            var raw = c.PlayerUpgrade.Name ?? "";
+            var display = ToTitleFromSnake(raw);
+            var pct = (c.PlayerUpgrade.Value - 1f) * 100f;
+            return $"{display} + {pct:F1}%";
+        }
+
+        // 무기: SO의 해당 레벨에서 SelectionInfo 사용
+        if (c.Kind != CandidateKind.Weapon || c.Weapon == null)
+            return string.Empty;
+
+        int level = Mathf.Max(1, c.NextLevel);
+        var lv = c.Weapon.Levels?.FirstOrDefault(l => l.Level == level);
+
+        return string.IsNullOrEmpty(lv?.SelectionInfo) ? string.Empty : lv.SelectionInfo;
     }
 }

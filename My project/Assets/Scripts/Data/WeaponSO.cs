@@ -37,6 +37,7 @@ public class WeaponLevelData
     public float Duration;
     public bool Piercing;
     public string Info;
+    public string SelectionInfo;
 
     public WeaponIndex PrefabIndex;
     public Sprite ThumbNail;

@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77361b4588e5a8c49b866f2cfa86c6bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSO: {fileID: 11400000, guid: b70e429230039e14c8c3ade8f7a637cb, type: 2}
+  weaponSO: {fileID: 11400000, guid: c0378e2e0d2db6c438430eb2ff73ba4b, type: 2}
   muzzle: {fileID: 4276981357438476150}
   fireEffect: {fileID: 1183308707104473704, guid: d214921ff78362e4fa1006e01d372bc4, type: 3}
 --- !u!114 &429365266853849530
@@ -143,7 +143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ce6b1471cfa964fb634122f88d6f72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolOverride: {fileID: 0}
 --- !u!1 &2884584131196250800
 GameObject:
   m_ObjectHideFlags: 0

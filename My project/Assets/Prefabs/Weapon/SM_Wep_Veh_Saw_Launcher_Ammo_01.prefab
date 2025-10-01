@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77361b4588e5a8c49b866f2cfa86c6bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSO: {fileID: 11400000, guid: b72217001f24b294cb3816b49de9a388, type: 2}
+  weaponSO: {fileID: 11400000, guid: 4a67a2c84ab713f4a9093fecc5a5fd5a, type: 2}
   muzzle: {fileID: 0}
   fireEffect: {fileID: 198862153969099638, guid: e95c1fef6288b9440ab2eeeacac7da05, type: 3}
 --- !u!65 &7120700820928657327

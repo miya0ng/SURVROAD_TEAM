@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77361b4588e5a8c49b866f2cfa86c6bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSO: {fileID: 11400000, guid: de784216a8c58aa4aba73c6a3988dd8b, type: 2}
+  weaponSO: {fileID: 11400000, guid: c184d91fee48a574a90c436858f0c2f2, type: 2}
   muzzle: {fileID: 4598817277408900632}
   fireEffect: {fileID: 0}
 --- !u!114 &3117581137168504570

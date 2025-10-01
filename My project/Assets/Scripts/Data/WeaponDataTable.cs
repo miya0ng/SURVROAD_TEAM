@@ -23,15 +23,23 @@ public class WeaponData
     public bool Piercing {  get; set; }
     public string Info { get; set; }
     public string PrefabName { get; set; }
+    public string SelectionInfo { get; set; }
 }
 public class WeaponDataTable : DataTable
 {
-    public static readonly string WeaponTableId = "WeaponTable";
+    public static readonly string WeaponTableId = "WeaponDataTable";
 
     private Dictionary<int, WeaponData> weapons = new Dictionary<int, WeaponData>();
+
+    private readonly Dictionary<string, WeaponData> byIdLevel = new();
+    private static string IK(int id, int level) => $"{id}_{level}";
+
     public override void Load(string fileName)
     {
         weapons.Clear();
+        byIdLevel.Clear();
+        // byKindLevel.Clear(); // »ç¿ë ÁßÀÌ¸é À¯Áö
+
         var path = string.Format(dataTablePath, fileName);
         var textAsset = Resources.Load<TextAsset>(path);
 
@@ -49,15 +57,25 @@ public class WeaponDataTable : DataTable
         }
 
         weapons = records.ToDictionary(r => r.ID, r => r);
+
+        // ¡Ú (ID, Level) ÀÎµ¦½Ì
+        foreach (var r in records)
+        {
+            if (r.ID <= 0 || r.Level <= 0) continue;
+            byIdLevel[IK(r.ID, r.Level)] = r;
+        }
     }
 
     public WeaponData GetWeaponData(int key)
     {
-        if (weapons.TryGetValue(key, out var value))
-        {
-            return value;
-        }
+        if (weapons.TryGetValue(key, out var value)) return value;
         Debug.LogWarning($"Item key not found: {key}");
         return null;
+    }
+
+    public WeaponData GetWeaponDataByIdLevel(int id, int level)
+    {
+        if (id <= 0 || level <= 0) return null;
+        return byIdLevel.TryGetValue(IK(id, level), out var v) ? v : null;
     }
 }

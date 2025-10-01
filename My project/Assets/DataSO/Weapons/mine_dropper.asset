@@ -32,6 +32,7 @@ MonoBehaviour:
     Info: "\uCC28\uB7C9 \uB4A4\uC5D0 \uC9C0\uB8B0\uB97C \uB5A8\uC5B4\uB728\uB824,
       \uC77C\uC815 \uC2DC\uAC04 \uB4A4 \uD639\uC740 \uC801 \uCC28\uB7C9\uACFC \uC811\uCD09
       \uC2DC \uD3ED\uBC1C\uD558\uB294 \uBB34\uAE30"
+    SelectionInfo: New!
     PrefabIndex: 7
     ThumbNail: {fileID: 21300000, guid: 4df001e9281235a46b8ef81865500dc6, type: 3}
     prefab: {fileID: 6066365829197139422, guid: eb0fdb527bf931b4cbb0a1995b37f783, type: 3}
@@ -50,6 +51,7 @@ MonoBehaviour:
     Piercing: 0
     Info: "\uD53C\uD574\uB7C9\uC774 \uC99D\uAC00\uD558\uACE0 \uC124\uCE58 \uC9C0\uB8B0\uC758
       \uD3ED\uBC1C \uBC18\uACBD\uC774 \uCEE4\uC9D0"
+    SelectionInfo: dps + 80%
     PrefabIndex: 7
     ThumbNail: {fileID: 21300000, guid: 4df001e9281235a46b8ef81865500dc6, type: 3}
     prefab: {fileID: 6066365829197139422, guid: eb0fdb527bf931b4cbb0a1995b37f783, type: 3}
@@ -67,6 +69,7 @@ MonoBehaviour:
     Duration: 10
     Piercing: 0
     Info: "\uC9C0\uB8B0\uB97C \uD55C \uBC88\uC5D0 2\uAC1C \uB4DC\uB78D\uD568"
+    SelectionInfo: dps + 66%
     PrefabIndex: 7
     ThumbNail: {fileID: 21300000, guid: 4df001e9281235a46b8ef81865500dc6, type: 3}
     prefab: {fileID: 6066365829197139422, guid: eb0fdb527bf931b4cbb0a1995b37f783, type: 3}
@@ -85,6 +88,7 @@ MonoBehaviour:
     Piercing: 0
     Info: "Lv3 \uBCF4\uB2E4 \uD53C\uD574\uB7C9\uC774 \uC99D\uAC00\uD558\uACE0 \uC124\uCE58
       \uC9C0\uB8B0\uC758 \uD3ED\uBC1C \uBC18\uACBD\uC774 \uCEE4\uC9D0"
+    SelectionInfo: dps + 66%
     PrefabIndex: 7
     ThumbNail: {fileID: 21300000, guid: 4df001e9281235a46b8ef81865500dc6, type: 3}
     prefab: {fileID: 6066365829197139422, guid: eb0fdb527bf931b4cbb0a1995b37f783, type: 3}
@@ -102,11 +106,12 @@ MonoBehaviour:
     Duration: 10
     Piercing: 0
     Info: "\uC9C0\uB8B0\uB97C \uD55C \uBC88\uC5D0 3\uAC1C \uB4DC\uB78D\uD568"
+    SelectionInfo: dps + 80%
     PrefabIndex: 7
     ThumbNail: {fileID: 21300000, guid: 4df001e9281235a46b8ef81865500dc6, type: 3}
     prefab: {fileID: 6066365829197139422, guid: eb0fdb527bf931b4cbb0a1995b37f783, type: 3}
     bulletPrefab: {fileID: 0}
     effectPrefab: {fileID: 0}
-  MountPolicy: 0
+  MountPolicy: 2
   Allowed: 32
-  PreferenceOrder: 06000000
+  PreferenceOrder: 
