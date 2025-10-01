@@ -1,23 +1,38 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+
 public class ClearExitButton : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private string titleSceneName = "Title"; // 타이틀 씬 이름
-    [SerializeField] private float waitSeconds = 3f;          // 대기 시간(초)
-    // "아무 키나 누르세요" 안내 오브젝트(선택)
+    [SerializeField] private float waitSeconds = 3f;          // 대기 시간(초, 이 동안은 입력 무시)
 
-    bool loading;
+    [Header("UI (Optional)")]
+    [Tooltip("3초 경과 후에만 보이게 될 '아무 키나 누르세요' 안내 오브젝트")]
+    [SerializeField] private GameObject pressAnyKeyHint;
+
+    private bool loading;
+    private Coroutine co;
 
     void OnEnable()
     {
-        StartCoroutine(CoWaitThenListen());
+        co = StartCoroutine(CoWaitThenListen());
     }
 
-    IEnumerator CoWaitThenListen()
+    void OnDisable()
     {
-        // 입력 대기
+        if (co != null) StopCoroutine(co);
+        co = null;
+    }
+
+    private IEnumerator CoWaitThenListen()
+    {
+        if (pressAnyKeyHint) pressAnyKeyHint.SetActive(false);
+        yield return new WaitForSecondsRealtime(waitSeconds);
+
+        if (pressAnyKeyHint) pressAnyKeyHint.SetActive(true);
+
         while (!loading)
         {
             if (AnyPressed())
@@ -31,7 +46,7 @@ public class ClearExitButton : MonoBehaviour
         }
     }
 
-    bool AnyPressed()
+    private bool AnyPressed()
     {
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
         // New Input System

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public int specialPartCount = 0;
 
     [SerializeField]
-    private float playTime = 0f;
+    public float playTime = 0f;
 
     private bool isGameOver = false;
     private bool subscribed = false;

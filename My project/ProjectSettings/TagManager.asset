@@ -18,6 +18,8 @@ TagManager:
   - Undefined
   - Enemy
   - VFX
+  - LoadingProgressBar
+  - LoadingPercentText
   layers:
   - Default
   - TransparentFX

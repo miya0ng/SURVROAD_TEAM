@@ -12,11 +12,15 @@ public class AsyncSceneLoader : MonoBehaviour
 
     private void Awake()
     {
+
+    }
+
+    public void OnEnable()
+    {
         if (progressBar) progressBar.value = 0f;
         if (progressText) progressText.text = "0%";
         LoadAsync();
     }
-
     public void LoadAsync()
     {
         Time.timeScale = 1f;

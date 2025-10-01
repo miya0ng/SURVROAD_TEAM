@@ -1,6 +1,7 @@
 // Assets/Scripts/Common/Combat/Bullet.cs
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 /// <summary>
@@ -127,9 +128,19 @@ public class Bullet : MonoBehaviour
         if (Time.time - spawnTime < spawnIgnoreTime) return; // 스폰 직후 자기/총구 충돌 무시
 
         if (HandleHit(other, transform.position))
-            Despawn();
-    }
+        {
+            Vector3 hitPoint = other.ClosestPoint(transform.position);
+            if (ctx.FireFx != null)
+            {
+                var fx = Instantiate(ctx.FireFx, hitPoint, Quaternion.identity);
+                fx.Play();
+                // 자동 파괴(StopAction=Destroy 로 프리팹 설정해두면 더 깔끔)
+                Destroy(fx.gameObject, fx.main.duration + fx.main.startLifetime.constantMax + 0.2f);
+            }
 
+            Despawn();
+        }
+    }
     private bool HandleHit(Collider other, Vector3 hitPoint)
     {
         if (!running || other == null) return false;
@@ -190,6 +201,8 @@ public class Bullet : MonoBehaviour
 
         if (OnDespawnToPool != null) OnDespawnToPool(this);
         else Destroy(gameObject);
+
+        //Destroy(ctx.FireFx.gameObject);
     }
 
     private void OnDisable()

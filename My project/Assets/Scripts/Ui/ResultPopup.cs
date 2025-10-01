@@ -25,6 +25,10 @@ public class ResultPopup : MonoBehaviour
     [SerializeField] private GameObject clear;
     [SerializeField] private GameObject fail;
 
+    [Header("ClearPopUpRef")]
+    [SerializeField] private TextMeshProUGUI killCount;
+    [SerializeField] private TextMeshProUGUI playTime;
+
     private bool wired;
 
     void Awake()
@@ -75,6 +79,10 @@ public class ResultPopup : MonoBehaviour
         FillWeaponsFromEquipManager();
         fail.SetActive(!cleared);
         clear.SetActive(cleared);
+        var count = 97;
+        killCount.text = $"KILL {count} ENEMIES";
+        var ts = System.TimeSpan.FromSeconds(gameManager.playTime);
+        playTime.text = ts.ToString(@"mm\:ss\:fff");
     }
 
     private void FillWeaponsFromEquipManager()

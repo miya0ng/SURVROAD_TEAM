@@ -11,6 +11,7 @@ public class ExplodeAttack : MonoBehaviour
 
     public void Explode(WeaponContext ctx)
     {
+        Debug.Log("Explode");
         float r = ctx.Level.AttackRange * radiusMultiplier;
         int n = Physics.OverlapSphereNonAlloc(transform.position, r, hits, enemyMask, QueryTriggerInteraction.Ignore);
 
@@ -21,6 +22,6 @@ public class ExplodeAttack : MonoBehaviour
 
             le.OnDamage(ctx.Level.MaxDamage, null);
         }
-        if (ctx.FireFx) ctx.FireFx.Play();
+        //if (ctx.FireFx) ctx.FireFx.Play();
     }
 }

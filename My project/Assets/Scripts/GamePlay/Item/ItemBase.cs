@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class ItemBase : MonoBehaviour
 {
     [Header("공통 설정")]
-    public float moveSpeed = 300f;
+    public float moveSpeed = 20f;
     protected Transform player;
     protected bool isCollecting = false;
 
