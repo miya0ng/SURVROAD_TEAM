@@ -1,8 +1,7 @@
-﻿// Assets/Scripts/Enemy/Movement/EnemyCarController.cs
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class EnemyCarController : MonoBehaviour
+public class EnemyCarController : MonoBehaviour, IExternalSpeedScale
 {
     [Header("Bindings")]
     public Transform visualRoot;
@@ -27,33 +26,38 @@ public class EnemyCarController : MonoBehaviour
     public float pursueWeight = 1.0f;
 
     [Header("Crowd (Anti-bumping)")]
-    [SerializeField] private LayerMask enemyLayer;     // 적 차량 레이어
+    [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private float neighborRadius = 6f;
     [SerializeField] private int maxNeighbors = 16;
     [SerializeField] private float separationWeight = 1.25f;
-    [SerializeField] private float sepFrontBias = 0.2f;   // 전방에 가중치
-    [SerializeField] private int queryEveryN = 3;         // 타임슬라이스
-    [SerializeField] private bool softDepenetrate = true; // 겹침 최소보정 여부
+    [SerializeField] private float sepFrontBias = 0.2f;
+    [SerializeField] private int queryEveryN = 3;
+    [SerializeField] private bool softDepenetrate = true;
 
     private Rigidbody rb;
     private Transform target;
 
-    // === 외부 입력(예: A* 모터/행동AI)이 잠깐 덮어쓰게 하는 버퍼 ===
-    float extSteer;          // -1..1
-    float extThrottle;       // 0..1
-    float extHold = 0f;      // 남은 적용 시간(초)
-    const float ExtApplyWindow = 0.15f; // 최근 프레임 입력을 0.15초간 유지
+    // === 외부 입력 버퍼 ===
+    float extSteer;
+    float extThrottle;
+    float extHold = 0f;
+    const float ExtApplyWindow = 0.15f;
 
     // === Crowd 계산 버퍼 ===
     static readonly Collider[] _neighBuf = new Collider[64];
     int _frameSeed;
+
+    // === 🆕 외부 감속 시스템 (전기 트랩용) ===
+    private float externalSpeedScale = 1f;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         rb.interpolation = RigidbodyInterpolation.Interpolate;
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-        rb.constraints = RigidbodyConstraints.FreezeRotationX  | RigidbodyConstraints.FreezePositionY |RigidbodyConstraints.FreezeRotationZ;
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | 
+                         RigidbodyConstraints.FreezePositionY | 
+                         RigidbodyConstraints.FreezeRotationZ;
 
         _frameSeed = Random.Range(0, Mathf.Max(1, queryEveryN));
     }
@@ -63,20 +67,46 @@ public class EnemyCarController : MonoBehaviour
         this.target = target;
     }
 
+    public void SetExternalSpeedScale(float scale)
+    {
+        externalSpeedScale = Mathf.Clamp(scale, 0.05f, 1f);
+        
+        // 디버그 로그 (테스트 후 제거 가능)
+        if (scale < 0.99f)
+        {
+            Debug.Log($"[{gameObject.name}] 감속 적용: {(1f - scale) * 100:F0}% (scale={scale:F2})");
+        }
+    }
+
     void FixedUpdate()
     {
         float dt = Time.fixedDeltaTime;
         Vector3 pos = rb.position;
         Vector3 forward = transform.forward;
 
+        float effectiveMaxSpeed = maxSpeed * externalSpeedScale;
+        float effectiveAccel = accel * externalSpeedScale;
+
         // ── 공통: 센서(회피/브레이크 판정) 먼저 계산 ──
         bool needBrake = false;
         Vector3 avoidDir = Vector3.zero;
-        if (RayHit(forward, feelerLen, out var hitC)) { avoidDir += Vector3.Reflect(forward, hitC.normal); needBrake = true; }
+        if (RayHit(forward, feelerLen, out var hitC)) 
+        { 
+            avoidDir += Vector3.Reflect(forward, hitC.normal); 
+            needBrake = true; 
+        }
         Vector3 leftDir = Quaternion.Euler(0f, -feelerSideAngle, 0f) * forward;
-        if (RayHit(leftDir, sideFeelerLen, out var hitL)) { avoidDir += Vector3.Reflect(leftDir, hitL.normal); needBrake = true; }
+        if (RayHit(leftDir, sideFeelerLen, out var hitL)) 
+        { 
+            avoidDir += Vector3.Reflect(leftDir, hitL.normal); 
+            needBrake = true; 
+        }
         Vector3 rightDir = Quaternion.Euler(0f, feelerSideAngle, 0f) * forward;
-        if (RayHit(rightDir, sideFeelerLen, out var hitR)) { avoidDir += Vector3.Reflect(rightDir, hitR.normal); needBrake = true; }
+        if (RayHit(rightDir, sideFeelerLen, out var hitR)) 
+        { 
+            avoidDir += Vector3.Reflect(rightDir, hitR.normal); 
+            needBrake = true; 
+        }
 
         float speed = rb.linearVelocity.magnitude;
 
@@ -85,17 +115,19 @@ public class EnemyCarController : MonoBehaviour
         {
             extHold -= dt;
 
-            float turnLimit = Mathf.Lerp(baseTurnDeg, baseTurnDeg * 0.33f, Mathf.InverseLerp(0f, maxSpeed, speed));
+            float turnLimit = Mathf.Lerp(baseTurnDeg, baseTurnDeg * 0.33f, 
+                Mathf.InverseLerp(0f, effectiveMaxSpeed, speed)); // 🆕 감속 반영
+
             float turnDeg = Mathf.Clamp(extSteer, -1f, 1f) * turnLimit;
 
             Quaternion q = Quaternion.AngleAxis(turnDeg * handling * dt, Vector3.up);
             rb.MoveRotation(rb.rotation * q);
 
-            float targetSpeed = Mathf.Lerp(0f, maxSpeed, Mathf.Clamp01(extThrottle));
+            float targetSpeed = Mathf.Lerp(0f, effectiveMaxSpeed, Mathf.Clamp01(extThrottle)); // 🆕 감속 반영
             if (needBrake) targetSpeed *= cornerSlowFactor;
 
             float dv = targetSpeed - speed;
-            float a = dv >= 0f ? accel : brakeDecel;
+            float a = dv >= 0f ? effectiveAccel : brakeDecel; // 🆕 감속 반영
             float newSpeed = Mathf.MoveTowards(speed, targetSpeed, a * dt);
 
             Vector3 vel = transform.forward * newSpeed;
@@ -147,20 +179,21 @@ public class EnemyCarController : MonoBehaviour
             ? (pursueDir * pursueWeight + avoidDir.normalized * avoidWeight + sepDir * separationWeight).normalized
             : (pursueDir * pursueWeight + sepDir * separationWeight).normalized;
 
-        float turnLimit2 = Mathf.Lerp(baseTurnDeg, baseTurnDeg * 0.33f, Mathf.InverseLerp(0f, maxSpeed, speed));
+        float turnLimit2 = Mathf.Lerp(baseTurnDeg, baseTurnDeg * 0.33f, 
+            Mathf.InverseLerp(0f, effectiveMaxSpeed, speed)); // 🆕 감속 반영
         float turn2 = Mathf.Clamp(Vector3.SignedAngle(forward, steerDir, Vector3.up), -turnLimit2, turnLimit2);
 
         Quaternion q2 = Quaternion.AngleAxis(turn2 * handling * dt, Vector3.up);
         rb.MoveRotation(rb.rotation * q2);
 
-        float targetSpeed2 = maxSpeed;
+        float targetSpeed2 = effectiveMaxSpeed; // 🆕 감속 반영
         if (needBrake) targetSpeed2 *= cornerSlowFactor;
 
         // 밀집 시 꼬리물기 방지용 소감속
         if (neighs >= 3) targetSpeed2 *= 0.85f;
 
         float dv2 = targetSpeed2 - speed;
-        float a2 = dv2 >= 0f ? accel : brakeDecel;
+        float a2 = dv2 >= 0f ? effectiveAccel : brakeDecel; // 🆕 감속 반영
         float newSpeed2 = Mathf.MoveTowards(speed, targetSpeed2, a2 * dt);
 
         Vector3 vel2 = transform.forward * newSpeed2;
@@ -177,22 +210,18 @@ public class EnemyCarController : MonoBehaviour
 
     bool RayHit(Vector3 dir, float len, out RaycastHit hit)
     {
-        return Physics.Raycast(rb.position + Vector3.up * 0.5f, dir, out hit, len, obstacleMask, QueryTriggerInteraction.Ignore);
+        return Physics.Raycast(rb.position + Vector3.up * 0.5f, dir, out hit, len, 
+            obstacleMask, QueryTriggerInteraction.Ignore);
     }
 
-    // === 외부에서 주는 “의도”를 차량 스펙에 맞게 즉시 적용 가능하도록 큐잉 ===
+    /// <summary>
+    /// 외부에서 주는 "의도"를 차량 스펙에 맞게 즉시 적용
+    /// </summary>
     public void SetDesired(float steerInput, float throttleInput)
     {
-        // 입력 정규화
         extSteer = Mathf.Clamp(steerInput, -1f, 1f);
         extThrottle = Mathf.Clamp01(throttleInput);
-
-        // 최근 의도를 짧게 유지(프레임 누락 대비)
         extHold = ExtApplyWindow;
-        // 매핑 원리:
-        // - extSteer     : 조향각 = baseTurnDeg * handling * 속도별 언더스티어 보정
-        // - extThrottle  : 목표속도 = maxSpeed * throttle (회피 상황이면 cornerSlowFactor 적용)
-        // - 가/감속은 accel/brakeDecel로 MoveTowards 처리
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -221,7 +250,7 @@ public class EnemyCarController : MonoBehaviour
             float d2 = toMe.sqrMagnitude;
             if (d2 < 0.0001f) continue;
 
-            // 전방 반구 가중치(뒤쪽 이웃 영향 축소)
+            // 전방 반구 가중치
             float front = Mathf.Max(0f, Vector3.Dot(fwd, (-toMe).normalized));
             float w = (1.0f / Mathf.Max(0.5f, d2)) * Mathf.Lerp(sepFrontBias, 1f, front);
 
@@ -234,7 +263,7 @@ public class EnemyCarController : MonoBehaviour
     }
 
     // ─────────────────────────────────────────────────────────────
-    // 겹침 최소 보정(선택): 너무 많이 밀지 않도록 소량만
+    // 겹침 최소 보정
     // ─────────────────────────────────────────────────────────────
     void SoftDepenetrate()
     {
@@ -256,7 +285,6 @@ public class EnemyCarController : MonoBehaviour
                 otherCol, otherCol.transform.position, otherCol.transform.rotation,
                 out Vector3 dir, out float dist))
             {
-                // 과도한 튐 방지: 아주 소량(2cm)만 보정
                 float push = Mathf.Min(dist, 0.02f);
                 if (push > 0f)
                     rb.MovePosition(rb.position + dir * push);
@@ -264,22 +292,29 @@ public class EnemyCarController : MonoBehaviour
         }
     }
 
-//#if UNITY_EDITOR
-//    void OnDrawGizmosSelected()
-//    {
-//        // 군집 반경 가시화
-//        Gizmos.color = new Color(0.3f, 0.9f, 1f, 0.2f);
-//        Gizmos.DrawWireSphere(Application.isPlaying ? rb.position : transform.position, neighborRadius);
+#if UNITY_EDITOR
+    void OnDrawGizmosSelected()
+    {
+        // 군집 반경 가시화
+        Gizmos.color = new Color(0.3f, 0.9f, 1f, 0.2f);
+        Gizmos.DrawWireSphere(Application.isPlaying ? rb.position : transform.position, neighborRadius);
 
-//        // 센서 가시화
-//        Vector3 pos = Application.isPlaying ? rb.position : transform.position;
-//        Vector3 fwd = transform.forward;
-//        Gizmos.color = Color.yellow;
-//        Gizmos.DrawRay(pos + Vector3.up * 0.5f, fwd * feelerLen);
-//        Vector3 leftDir = Quaternion.Euler(0f, -feelerSideAngle, 0f) * fwd;
-//        Vector3 rightDir = Quaternion.Euler(0f, feelerSideAngle, 0f) * fwd;
-//        Gizmos.DrawRay(pos + Vector3.up * 0.5f, leftDir * sideFeelerLen);
-//        Gizmos.DrawRay(pos + Vector3.up * 0.5f, rightDir * sideFeelerLen);
-//    }
-//#endif
+        // 센서 가시화
+        Vector3 pos = Application.isPlaying ? rb.position : transform.position;
+        Vector3 fwd = transform.forward;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawRay(pos + Vector3.up * 0.5f, fwd * feelerLen);
+        Vector3 leftDir = Quaternion.Euler(0f, -feelerSideAngle, 0f) * fwd;
+        Vector3 rightDir = Quaternion.Euler(0f, feelerSideAngle, 0f) * fwd;
+        Gizmos.DrawRay(pos + Vector3.up * 0.5f, leftDir * sideFeelerLen);
+        Gizmos.DrawRay(pos + Vector3.up * 0.5f, rightDir * sideFeelerLen);
+        
+        // 감속 상태 표시
+        if (Application.isPlaying && externalSpeedScale < 0.99f)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(pos + Vector3.up * 2f, 0.5f);
+        }
+    }
+#endif
 }

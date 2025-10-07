@@ -6,23 +6,23 @@ public class TrapElectric : MonoBehaviour
 {
     [Header("Zone")]
     [SerializeField] SphereCollider zone;      // isTrigger = true
-    [SerializeField] LayerMask enemyMask = ~0; // Enemy ·¹ÀÌ¾î¸¸
+    [SerializeField] LayerMask enemyMask = ~0; // Enemy ï¿½ï¿½ï¿½Ì¾î¸¸
 
     [Header("Effects")]
-    [Tooltip("Lv1 ½½·Î¿ì ¹è¼ö(0.4=60%°¨¼Ó)")]
+    [Tooltip("Lv1 ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½(0.4=60%ï¿½ï¿½ï¿½ï¿½)")]
     [Range(0.05f, 1f)]
     [SerializeField] float slowAtLv1 = 0.40f;
-    [Tooltip("Lv5 ½½·Î¿ì ¹è¼ö(0.1=90%°¨¼Ó)")]
+    [Tooltip("Lv5 ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½(0.1=90%ï¿½ï¿½ï¿½ï¿½)")]
     [Range(0.05f, 1f)]
     [SerializeField] float slowAtLv5 = 0.10f;
     [SerializeField] float tickInterval = 0.25f;
 
-    // µÎ ·çÇÁ ÆÄÆ¼Å¬À» °¨½Î´Â ºÎ¸ğ¸¸ ÂüÁ¶ (ÀÚ½Ä¿¡ ParticleSystem 2°³ ÀÌ»ó)
+    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½Î´ï¿½ ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ú½Ä¿ï¿½ ParticleSystem 2ï¿½ï¿½ ï¿½Ì»ï¿½)
     [SerializeField] GameObject fxLoopRoot;
-    // Á¾·á ¿¬Ãâ(Æø¹ß µî)ÀÌ ·çÆ®ÀÇ ¶Ç´Ù¸¥ ÀÚ½ÄÀÌ¸é ÀÌ·¸°Ô
-    [SerializeField] ParticleSystem fxEnd;  // ÇÊ¿ä ¾øÀ¸¸é Á¦°Å °¡´É
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ç´Ù¸ï¿½ ï¿½Ú½ï¿½ï¿½Ì¸ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½
+    [SerializeField] ParticleSystem fxEnd;  // ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     ParticleSystem[] _loopSystems;
-    // ÁÖÀÔ
+    // ï¿½ï¿½ï¿½ï¿½
     private LivingEntity _owner;
     private TeamId _team;
     private float _minDmg, _maxDmg;
@@ -59,9 +59,9 @@ public class TrapElectric : MonoBehaviour
         zone.isTrigger = true;
         zone.radius = Mathf.Max(0.5f, lv.EffectiveRange);
 
-        // ·¹º§ÀÌ ³ôÀ»¼ö·Ï ´õ °­ÇÑ ½½·Î¿ì(1~5 °¡Á¤)
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½(1~5 ï¿½ï¿½ï¿½ï¿½)
         int level = Mathf.Max(1, lv.Level);
-        float t = Mathf.Clamp01((level - 1) / 4f); // 1¡æ5¸¦ 0¡æ1·Î Á¤±ÔÈ­
+        float t = Mathf.Clamp01((level - 1) / 4f); // 1ï¿½ï¿½5ï¿½ï¿½ 0ï¿½ï¿½1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­
         _slowMult = Mathf.Lerp(slowAtLv1, slowAtLv5, t);
 
         _tLife = _tTick = 0f;
@@ -89,7 +89,7 @@ public class TrapElectric : MonoBehaviour
 
         //if (fxEnd)
         //{
-        //    // Ç® °´Ã¼°¡ ¹Ù·Î ºñÈ°¼ºÈ­µÅµµ ¿£µù ÀÌÆåÆ®°¡ º¸ÀÌµµ·Ï, Àá±ñ ¶¼¾î³½ µÚ Àç»ı
+        //    // Ç® ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ï¿½Åµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³½ ï¿½ï¿½ ï¿½ï¿½ï¿½
         //    var end = fxEnd;
         //    end.transform.SetParent(null, true);
         //    end.transform.position = transform.position;
@@ -126,27 +126,48 @@ public class TrapElectric : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (((1 << other.gameObject.layer) & enemyMask) == 0) return;
-        var le = other.GetComponentInParent<LivingEntity>();
-        if (!IsValid(le)) return;
+  void OnTriggerEnter(Collider other)
+{
+    // ë ˆì´ì–´ ì²´í¬ (ë¹„íŠ¸ë§ˆìŠ¤í¬ ì—°ì‚°)
+    if (((1 << other.gameObject.layer) & enemyMask) == 0) return;
+    
+    var le = other.GetComponentInParent<LivingEntity>();
+    if (!IsValid(le)) return;
 
-        if (_inside.Add(le))
+    if (_inside.Add(le))
+    {
+        var token = le.GetComponent<TrapSlowToken>();
+        if (!token)
         {
-            var token = le.GetComponent<TrapSlowToken>();
-            if (!token) token = le.gameObject.AddComponent<TrapSlowToken>();
-            token.AddRef(_slowMult);
+            token = le.gameObject.AddComponent<TrapSlowToken>();
+            
+            if (le.GetComponent<IExternalSpeedScale>() == null)
+            {
+                Debug.LogWarning($"[TrapElectric] {le.name}ì— IExternalSpeedScale ë¯¸êµ¬í˜„");
+            }
+        }
+        
+        token.AddRef(_slowMult);
+        
+        Debug.Log($"[TrapElectric] {le.name} ê°ì† ì ìš©: {_slowMult:F2} (ë ˆë²¨ {_slowMult})");
+    }
+}
+
+void OnTriggerExit(Collider other)
+{
+    var le = other.GetComponentInParent<LivingEntity>();
+    if (!le) return;
+    
+    if (_inside.Remove(le))
+    {
+        var token = le.GetComponent<TrapSlowToken>();
+        if (token != null)
+        {
+            token.RemoveRef(_slowMult);
+            Debug.Log($"[TrapElectric] {le.name} ê°ì† í•´ì œ");
         }
     }
-
-    void OnTriggerExit(Collider other)
-    {
-        var le = other.GetComponentInParent<LivingEntity>();
-        if (!le) return;
-        if (_inside.Remove(le))
-            le.GetComponent<TrapSlowToken>()?.RemoveRef(_slowMult);
-    }
+}
 
     bool IsValid(LivingEntity le) => le && le != _owner && le.teamId != _team;
 

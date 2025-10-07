@@ -2,47 +2,88 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Àü±â Æ®·¦ ½½·Î¿ì¸¦ Â÷·® ÀÌµ¿°è¿¡ °öÇØÁÖ´Â ÅäÅ«.
-/// NavMeshAgent ºÒÇÊ¿ä. A* ±â¹İ Â÷·®¿¡µµ µ¿ÀÛ.
+/// ì „ê¸° íŠ¸ë© ê°ì†ì„ ì°¨ëŸ‰ ì´ë™ì²´ì— ì ìš©í•˜ëŠ” í† í°.
+/// ì°¸ì¡° ì¹´ìš´íŒ…ìœ¼ë¡œ ì—¬ëŸ¬ íŠ¸ë© ì¤‘ì²© ì§€ì›.
 /// </summary>
 public class TrapSlowToken : MonoBehaviour
 {
-    private readonly List<float> _stacks = new(); // ¿©·¯ Æ®·¦ ÁßÃ¸ ´ëÀÀ
+    private readonly List<float> _stacks = new();
     private IExternalSpeedScale _vehicle;
     private float _currentScale = 1f;
-
+    
     void Awake()
     {
         _vehicle = GetComponent<IExternalSpeedScale>();
         if (_vehicle == null)
-            Debug.LogWarning("[TrapSlowToken] IExternalSpeedScale ±¸ÇöÃ¼°¡ ¾ø¾î ½½·Î¿ì°¡ º¸ÀÌÁö ¾ÊÀ» ¼ö ÀÖÀ½.");
+        {
+            Debug.LogError($"[TrapSlowToken] {gameObject.name}ì— IExternalSpeedScaleì´ ì—†ì–´ ê°ì† ë¶ˆê°€!");
+            enabled = false; // ì‘ë™ ì¤‘ì§€
+        }
     }
-
-    public void AddRef(float mult) { _stacks.Add(Mathf.Clamp(mult, 0.05f, 1f)); Apply(); }
-    public void RemoveRef(float mult) { _stacks.Remove(mult); Apply(); }
-    public void RemoveAll() { _stacks.Clear(); Apply(); Destroy(this); }
-
+    
+    public void AddRef(float mult)
+    {
+        if (mult < 0.05f || mult > 1f)
+        {
+            Debug.LogWarning($"[TrapSlowToken] ë¹„ì •ìƒ ê°ì†ê°’: {mult}, í´ë¨í•‘ë¨");
+        }
+        _stacks.Add(Mathf.Clamp(mult, 0.05f, 1f));
+        Apply();
+    }
+    
+    public void RemoveRef(float mult)
+    {
+        _stacks.Remove(mult);
+        Apply();
+        
+        // ìŠ¤íƒì´ ë¹„ë©´ í† í° ì œê±°
+        if (_stacks.Count == 0)
+        {
+            Destroy(this);
+        }
+    }
+    
+    public void RemoveAll()
+    {
+        _stacks.Clear();
+        Apply();
+        Destroy(this);
+    }
+    
     void Apply()
     {
+        // ëª¨ë“  ìŠ¤íƒì„ ê³±ì…ˆ (0.5 * 0.5 = 0.25 = 75% ê°ì†)
         float m = 1f;
-        for (int i = 0; i < _stacks.Count; i++) m *= _stacks[i]; // °ö¿¬»ê(°­ÇÏ°Ô °ãÄ§)
-        m = Mathf.Clamp(m, 0.05f, 1f);
-
+        foreach (float stack in _stacks)
+        {
+            m *= stack;
+        }
+        
+        m = Mathf.Clamp(m, 0.05f, 1f); // ìµœì†Œ 5% ì†ë„ëŠ” ë³´ì¥
         _currentScale = m;
-        _vehicle?.SetExternalSpeedScale(m);
+        
+        if (_vehicle != null)
+        {
+            _vehicle.SetExternalSpeedScale(m);
+        }
     }
-
+    
     void OnDestroy()
     {
-        // ¿øº¹
+        // ì•ˆì „ì¥ì¹˜: ì œê±° ì‹œ ë°˜ë“œì‹œ ì›ë˜ ì†ë„ë¡œ ë³µêµ¬
         _vehicle?.SetExternalSpeedScale(1f);
     }
-}
-
-/// <summary>
-/// Â÷·®/Àû ÀÌµ¿ ÄÁÆ®·Ñ·¯°¡ ±¸Çö: ¿ÜºÎ ½½·Î¿ì ¹èÀ²À» °öÇØÁØ´Ù.
-/// </summary>
-public interface IExternalSpeedScale
-{
-    void SetExternalSpeedScale(float scale);
+    
+    // ë””ë²„ê·¸ìš©
+    void OnGUI()
+    {
+        if (!Application.isPlaying || _stacks.Count == 0) return;
+        
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 2f);
+        if (screenPos.z > 0)
+        {
+            GUI.Label(new Rect(screenPos.x, Screen.height - screenPos.y, 200, 30),
+                $"Slow: {(1f - _currentScale) * 100:F0}% ({_stacks.Count} stacks)");
+        }
+    }
 }
