@@ -76,6 +76,7 @@ public class CarController : MonoBehaviour, IPlayerUpgradable
 
     void OnEnable()
     {
+        IsBoosterOn = false;
         if (!rb) rb = GetComponent<Rigidbody>();
         maxForwardSpeed = normalMaxSpeed;
         if (status)

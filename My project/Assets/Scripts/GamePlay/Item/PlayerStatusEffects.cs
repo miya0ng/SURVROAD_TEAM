@@ -1,4 +1,3 @@
-// ÆÄÀÏ »ó´Ü usingµé ±×´ë·Î À¯Áö
 using System;
 using System.Collections;
 using UnityEngine;
@@ -6,136 +5,199 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerBehaviour))]
 public class PlayerStatusEffects : MonoBehaviour
 {
-    public event System.Action<bool> OnTurboActiveChanged; // true=È°¼º ½ÃÀÛ, false=È°¼º Á¾·á
-    /// <summary>ÁøÇàµµ ÀÌº¥Æ®: (value, max, isReady)</summary>
+    public event Action<bool> OnTurboActiveChanged;
     public event Action<float, float, bool> OnTurboCooldownChanged;
 
     public bool IsInvulnerable => Time.time < _invulnUntil;
     public bool IsTurboActive() => isTurboActive;
     public float AttackSpeedMul { get; private set; } = 1f;
-    float _invulnUntil;
+    
+    private float _invulnUntil;
 
-    // ==== ±âº» ½ºÆå ====
+    // ==== ê¸°ë³¸ ìŠ¤í™ ====
     [Header("Turbo (Base Spec)")]
-    [SerializeField] private bool turboUnlocked = true;   // ½ÃÀÛºÎÅÍ »ç¿ë °¡´É
-    [SerializeField] private float turboDuration = 2f;    // ±âº» Áö¼Ó: 2ÃÊ
-    [SerializeField] private float turboCooldown = 10f;   // ±âº» Äğ: 10ÃÊ
+    [SerializeField] private bool turboUnlocked = true;
+    [SerializeField] private float turboDuration = 2f;
+    [SerializeField] private float turboCooldown = 10f;
 
-    // ==== ÀÓ½Ã ½ºÆå(¾ÆÀÌÅÛ È¿°ú) ====
-    float specUntill;           // ÀÓ½Ã ½ºÆå Á¾·á ½Ã°¢
-    float overrideDuration;    // ÀÓ½Ã Áö¼Ó
-    float overrideCooldown;    // ÀÓ½Ã Äğ
-    public bool IsInSpecWindow => Time.time < specUntill;
+    // ==== ì„ì‹œ ìŠ¤í™(ì•„ì´í…œ íš¨ê³¼) ====
+    private float specUntil;  // âœ… ì˜¤íƒ€ ìˆ˜ì •
+    private float overrideDuration;
+    private float overrideCooldown;
+    public bool IsInSpecWindow => Time.time < specUntil;
 
-    // ==== Äğ´Ù¿î »óÅÂ ====
-    float turboCooldownEnd;          // Äğ´Ù¿î Á¾·á ½Ã°¢(Time.time)
-    float turboCooldownStart;        // Äğ´Ù¿î ½ÃÀÛ ½Ã°¢
-    float activeCooldown;      // ÀÌ¹ø Äğ´Ù¿î¿¡ ½ÇÁ¦ »ç¿ëµÈ Äğ °ª(ÁøÇà¹Ù Á¤±ÔÈ­ ±âÁØ)
-    bool isTurboActive;        // ÇöÀç È°¼º ÁßÀÎÁö
-
+    // ==== ì¿¨ë‹¤ìš´ ìƒíƒœ ====
+    private float turboCooldownEnd;
+    private float turboCooldownStart;
+    private float activeCooldown;
+    private bool isTurboActive;
+    
+    private Coroutine turboCoroutine;
+    
+    // âœ… Update ìµœì í™”ìš©
+    private float lastEventValue = -1f;
+    private bool lastEventReady = false;
 
     private void Start()
     {
-        UnlockTurbo(3f, 10f); // Å×½ºÆ®¿ë, ½ÃÀÛºÎÅÍ ÇØÁ¦
+        // âœ… ì´ˆê¸° ì¿¨ë‹¤ìš´ ìƒíƒœ ì„¤ì •
+        UnlockTurbo(turboDuration, turboCooldown);
+        
+        // âœ… ëª…ì‹œì ìœ¼ë¡œ ë¹„í™œì„± ìƒíƒœì„ì„ ì•Œë¦¼
+        Debug.Log("[PlayerStatusEffects] ì´ˆê¸°í™” ì™„ë£Œ - í„°ë³´ ë¹„í™œì„± ìƒíƒœ");
     }
+
     void Update()
     {
-        if (turboUnlocked)
-            RaiseTurboEvent(); // UI ÁøÇàµµ °»½Å
+        if (!turboUnlocked) return;
+        
+        // âœ… ê°’ì´ ë³€í–ˆì„ ë•Œë§Œ ì´ë²¤íŠ¸ ë°œìƒ
+        float v, m;
+        GetTurboProgress(out v, out m);
+        bool ready = IsTurboReady();
+        
+        // 0.01ì´ˆ(ì•½ 1 í”„ë ˆì„) ë‹¨ìœ„ë¡œë§Œ ì—…ë°ì´íŠ¸
+        if (Mathf.Abs(v - lastEventValue) > 0.01f || ready != lastEventReady)
+        {
+            lastEventValue = v;
+            lastEventReady = ready;
+            OnTurboCooldownChanged?.Invoke(v, m, ready);
+        }
     }
 
-    // === ¹öÇÁ/È¿°ú À¯Æ¿ ===
-    public void ApplyInvulnerability(float seconds) =>
+    // === ë²„í”„/íš¨ê³¼ ê´€ë ¨ ===
+    public void ApplyInvulnerability(float seconds)
+    {
         _invulnUntil = Mathf.Max(_invulnUntil, Time.time + seconds);
+        Debug.Log($"[Invuln] {seconds}ì´ˆ ë¬´ì  ì ìš©");
+    }
 
-    public void ApplyAttackSpeedBuff(float mul, float seconds) =>
+    public void ApplyAttackSpeedBuff(float mul, float seconds)
+    {
         StartCoroutine(CoAttackSpeedBuff(mul, seconds));
+    }
 
     IEnumerator CoAttackSpeedBuff(float mul, float seconds)
     {
         AttackSpeedMul *= mul;
+        Debug.Log($"[AttackSpeed] {mul}ë°° ë²„í”„ ì‹œì‘ (í˜„ì¬: {AttackSpeedMul})");
+        
         yield return new WaitForSeconds(seconds);
+        
         AttackSpeedMul /= mul;
+        Debug.Log($"[AttackSpeed] ë²„í”„ ì¢…ë£Œ (í˜„ì¬: {AttackSpeedMul})");
     }
 
-    // === ÀÓ½Ã ½ºÆå À©µµ¿ì ºÎ¿©(¾ÆÀÌÅÛ È¿°ú) ===
-    // windowSec µ¿¾È Áö¼Ó/Äğ´Ù¿îÀ» ÀÓ½Ã °ªÀ¸·Î »ç¿ë
+    // === ì„ì‹œ ìŠ¤í™ ë¶€ì—¬(ì•„ì´í…œ íš¨ê³¼) ===
     public void GrantTurboSpecWindow(float windowSec, float newDuration = 3f, float newCooldown = 0.2f)
     {
-        specUntill = Mathf.Max(specUntill, Time.time + windowSec);
+        // ìŠ¤í™ ìœˆë„ìš° ì—°ì¥
+        specUntil = Mathf.Max(specUntil, Time.time + windowSec);
         overrideDuration = newDuration;
         overrideCooldown = newCooldown;
 
-        // ÀÌ¹Ì Äğ´Ù¿î ÁßÀÌ¸é, ÀÓ½Ã ÄğÀÌ ´õ ÂªÀ» ¼ö ÀÖÀ¸´Ï Á¾·á½Ã°¢À» ´ç°ÜÁÜ
+        // í˜„ì¬ ì¿¨ë‹¤ìš´ ì¤‘ì´ë©´ ìƒˆë¡œìš´ ì¿¨íƒ€ì„ìœ¼ë¡œ ë‹¨ì¶• ê°€ëŠ¥
         if (Time.time < turboCooldownEnd)
         {
             float newEnd = turboCooldownStart + EffectiveCooldown;
-            if (newEnd < turboCooldownEnd) turboCooldownEnd = newEnd;
+            if (newEnd < turboCooldownEnd)
+            {
+                turboCooldownEnd = newEnd;
+                Debug.Log($"[TurboSpec] ì¿¨ë‹¤ìš´ {turboCooldownEnd - Time.time:F2}ì´ˆë¡œ ë‹¨ì¶•");
+            }
         }
 
-        RaiseTurboEvent(); // UI Áï½Ã ¹İ¿µ
+        RaiseTurboEvent();
     }
 
-    // ÇÊ¿ä½Ã ¿ÜºÎ¿¡¼­ ±âº»°ª Àç¼³Á¤
     public void UnlockTurbo(float duration, float cooldown)
     {
         turboUnlocked = true;
         if (duration > 0f) turboDuration = duration;
         if (cooldown > 0f) turboCooldown = cooldown;
 
-        // ½ÃÀÛºÎÅÍ Ready·Î
+        // âœ… ì´ˆê¸° ìƒíƒœ: ì¿¨ë‹¤ìš´ ì™„ë£Œ (ë°”ë¡œ ì‚¬ìš© ê°€ëŠ¥)
         turboCooldownStart = turboCooldownEnd = Time.time;
         activeCooldown = 0f;
+        
+        Debug.Log($"[Turbo] ì–¸ë½: {turboDuration}ì´ˆ ì§€ì†, {turboCooldown}ì´ˆ ì¿¨ë‹¤ìš´");
         RaiseTurboEvent();
     }
 
-    // ÇöÀç ½ÃÁ¡ÀÇ ¡®Àû¿ëµÉ¡¯ ½ºÆå
-    float EffectiveDuration => IsInSpecWindow ? (overrideDuration > 0f ? overrideDuration : turboDuration) : turboDuration;
-    float EffectiveCooldown => IsInSpecWindow ? (overrideCooldown > 0f ? overrideCooldown : turboCooldown) : turboCooldown;
+    private float EffectiveDuration => IsInSpecWindow ? (overrideDuration > 0f ? overrideDuration : turboDuration) : turboDuration;
+    private float EffectiveCooldown => IsInSpecWindow ? (overrideCooldown > 0f ? overrideCooldown : turboCooldown) : turboCooldown;
 
     public bool IsTurboReady()
     {
         if (!turboUnlocked) return false;
+        if (isTurboActive) return false;
         return Time.time >= turboCooldownEnd;
     }
 
-    /// <summary>¹öÆ° ´­·¶À» ¶§ ½ÇÁ¦ »ç¿ë</summary>
+    /// <summary>í„°ë³´ ì‚¬ìš© ì‹œë„ (UI ë²„íŠ¼ ë“±ì—ì„œ í˜¸ì¶œ)</summary>
     public bool TryUseTurbo()
     {
-        if (!IsTurboReady()) return false;
+        if (isTurboActive)
+        {
+            Debug.LogWarning("[Turbo] ì´ë¯¸ í™œì„±í™” ì¤‘!");
+            return false;
+        }
 
-        // ÇöÀç ½ÃÁ¡ÀÇ ½ºÆåÀ¸·Î Äğ´Ù¿î È®Á¤(ÀÓ½Ã ½ºÆåÀÌ¸é 0.2ÃÊ ¹İ¿µ)
+        if (!IsTurboReady())
+        {
+            float remaining = turboCooldownEnd - Time.time;
+            Debug.LogWarning($"[Turbo] ì•„ì§ ì¤€ë¹„ ì•ˆë¨! ({remaining:F1}ì´ˆ ë‚¨ìŒ)");
+            return false;
+        }
+
+        Debug.Log("[Turbo] ì‚¬ìš© ì‹œì‘!");
+
+        // ì¿¨ë‹¤ìš´ ì„¤ì •
         activeCooldown = Mathf.Max(0.0001f, EffectiveCooldown);
         turboCooldownStart = Time.time;
         turboCooldownEnd = Time.time + activeCooldown;
 
-        RaiseTurboEvent();
+        // ì½”ë£¨í‹´ ì‹œì‘
+        if (turboCoroutine != null)
+        {
+            StopCoroutine(turboCoroutine);
+        }
+        turboCoroutine = StartCoroutine(CoTurbo());
 
-        if (!isTurboActive) StartCoroutine(CoTurbo());
         return true;
     }
 
     IEnumerator CoTurbo()
     {
         isTurboActive = true;
-        OnTurboActiveChanged?.Invoke(true);
+        Debug.Log("[Turbo] âœ… í™œì„±í™” ì´ë²¤íŠ¸ ë°œë™");
+        OnTurboActiveChanged?.Invoke(true);  // â­ CarControllerì—ì„œ ì´ê±¸ ë°›ìŠµë‹ˆë‹¤!
+        
+        RaiseTurboEvent();
 
-        // ÇöÀç ½ÃÁ¡ÀÇ Áö¼Ó½Ã°£(ÀÓ½Ã ½ºÆåÀÌ¸é 3ÃÊ ¹İ¿µ)
-        yield return new WaitForSeconds(EffectiveDuration);
+        float duration = EffectiveDuration;
+        Debug.Log($"[Turbo] {duration}ì´ˆ ëŒ€ê¸°...");
+        yield return new WaitForSeconds(duration);
 
         isTurboActive = false;
-        OnTurboActiveChanged?.Invoke(false);
+        Debug.Log("[Turbo] âŒ ë¹„í™œì„±í™” ì´ë²¤íŠ¸ ë°œë™");
+        OnTurboActiveChanged?.Invoke(false);  // â­ ì—¬ê¸°ì„œ ë•ë‹ˆë‹¤!
+        
+        RaiseTurboEvent();
+        
+        turboCoroutine = null;
     }
 
-    /// <summary>UI ½½¶óÀÌ´õ¿¡ ³ÖÀ» °ª °è»ê: (value=°æ°ú, max=ÃÑÄğ)</summary>
+    /// <summary>UI ìŠ¬ë¼ì´ë”ìš© ì§„í–‰ë„</summary>
     public void GetTurboProgress(out float value, out float max)
     {
         if (!turboUnlocked)
         {
-            value = 0f; max = 1f; return;
+            value = 0f;
+            max = 1f;
+            return;
         }
 
-        // Ready »óÅÂ¸é ÇöÀç Àû¿ë ½ºÆå ±âÁØÀ¸·Î °¡µæ Âü
         if (IsTurboReady())
         {
             max = EffectiveCooldown;
@@ -143,18 +205,17 @@ public class PlayerStatusEffects : MonoBehaviour
             return;
         }
 
-        // Äğ´Ù¿î ÁøÇà Áß: ÀÌ¹ø Äğ´Ù¿î¿¡ ¡®È®Á¤µÈ¡¯ °ªÀ» ±âÁØÀ¸·Î Á¤±ÔÈ­
         max = (activeCooldown > 0f) ? activeCooldown : EffectiveCooldown;
         value = Mathf.Clamp(Time.time - turboCooldownStart, 0f, max);
     }
 
-    void RaiseTurboEvent()
+    private void RaiseTurboEvent()
     {
         if (OnTurboCooldownChanged == null) return;
 
         float v, m;
         GetTurboProgress(out v, out m);
-        bool ready = v >= m - 0.0001f;
+        bool ready = IsTurboReady();
         OnTurboCooldownChanged.Invoke(v, m, ready);
     }
 }

@@ -10,23 +10,21 @@ public class EnemyGunBrain : MonoBehaviour
     [SerializeField] private LayerMask losMask = ~0;
 
     [Header("Ranges")]
-    [SerializeField] private float preferMin = 14f;   // ¼±È£ »ç°Å¸® ÇÏÇÑ
-    [SerializeField] private float preferMax = 24f;   // ¼±È£ »ç°Å¸® »óÇÑ
-    [SerializeField] private float shootRange = 30f;  // »ç°Ý ÃÖ´ë °Å¸®
+    [SerializeField] private float preferMin = 14f;   // ï¿½ï¿½È£ ï¿½ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private float preferMax = 24f;   // ï¿½ï¿½È£ ï¿½ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private float shootRange = 30f;  // ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Å¸ï¿½
 
     [Header("Motion")]
-    [SerializeField] private float orbitStrength = 0.55f; // ¿ø¿îµ¿ ¼ººÐ °¡ÁßÄ¡
-    [SerializeField] private float strafeJitter = 0.5f;   // ÁÂ¿ì °¡°¨(¹Ì¼¼ ¿äµ¿)
-    [SerializeField] private float aimThrottle = 0.65f;   // Á¶ÁØ ½Ã ½º·ÎÆ²(Áß°Å¸®¿¡¼­ °¨¼Ó)
+    [SerializeField] private float orbitStrength = 0.55f; // ï¿½ï¿½ï¿½îµ¿ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡
+    [SerializeField] private float strafeJitter = 0.5f;   // ï¿½Â¿ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Ì¼ï¿½ ï¿½äµ¿)
+    [SerializeField] private float aimThrottle = 0.65f;   // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ²(ï¿½ß°Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 
     private EnemyCarController car;
     private Transform target;
 
-    // ¿ø¿îµ¿/ÁöÅÍ
     private float jitterSign = 1f;
     private float jitterT;
 
-    // Ç® ÆË Á÷ÈÄ Ã¹ ÇÁ·¹ÀÓ ¾Ï¼¼ÀÌÇÁ
     private bool armed;
 
     void Reset()
@@ -44,25 +42,15 @@ public class EnemyGunBrain : MonoBehaviour
 
     void OnEnable()
     {
-        // Ç®¿¡¼­ PopµÈ Á÷ÈÄ ÁÂÇ¥/ÂüÁ¶ ¾ÈÁ¤È­¸¦ À§ÇØ 1ÇÁ·¹ÀÓ ´ë±â
+        // Ç®ï¿½ï¿½ï¿½ï¿½ Popï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         armed = false;
         StartCoroutine(ArmNextFrame());
     }
 
     System.Collections.IEnumerator ArmNextFrame()
     {
-        yield return null; // ÇÑ ÇÁ·¹ÀÓ ´ë±â
+        yield return null; // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         armed = true;
-    }
-
-    void Start()
-    {
-        // CSV ½ºÆå ¡æ ÃÑ±â ¹Ý¿µ
-        var drv = GetComponent<EnemyDriver>();
-        if (drv != null && gun != null && drv.TryGetSpec(out var s))
-        {
-            gun.ApplySpec(Mathf.Max(1, s.AttackDamage), Mathf.Max(0.05f, s.AttackInterval));
-        }
     }
 
     void Update()
@@ -76,7 +64,7 @@ public class EnemyGunBrain : MonoBehaviour
         float dist = to.magnitude;
         if (dist < 0.001f) return;
 
-        // ===== ¿ø¿îµ¿ ¹æÇâ(ÁÂ/¿ì) ·£´ý ÀüÈ¯ =====
+        // ===== ï¿½ï¿½ï¿½îµ¿ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½/ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ =====
         jitterT -= Time.deltaTime;
         if (jitterT <= 0f)
         {
@@ -84,37 +72,37 @@ public class EnemyGunBrain : MonoBehaviour
             jitterSign = Random.value < 0.5f ? -1f : 1f;
         }
 
-        // ===== »ç°Å¸® À¯Áö¸¦ À§ÇÑ Á¶Çâ/½º·ÎÆ² =====
+        // ===== ï¿½ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½Æ² =====
         float throttle = 1f;
         float steer = 0f;
 
-        // ¸ñÇ¥¿¡ ´ëÇÑ ¿À¸¥ÂÊ ¹æÇâ º¤ÅÍ(¼öÆò)
+        // ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
         Vector3 right = Vector3.Cross(Vector3.up, to.normalized);
         Vector3 orbitDir = right * orbitStrength * jitterSign;
 
-        // A*°¡ Ãß°Ý ÁßÀÌ¶ó °¡Á¤ÇÏ°í, ¿©±â¼± ¹Ì¼¼ Á¶Çâ¸¸ ´õÇØÁØ´Ù.
+        // A*ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½â¼± ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½â¸¸ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
         Vector3 desiredDir = (to.normalized + orbitDir).normalized;
         float orbitSteer = Vector3.SignedAngle(transform.forward, desiredDir, Vector3.up) / 45f;
         steer = Mathf.Clamp(orbitSteer + (strafeJitter * jitterSign * 0.15f), -1f, 1f);
 
-        // ¼±È£ »ç°Å¸®´ë¿¡ µû¶ó ½º·ÎÆ² °¡°¨
-        if (dist < preferMin) throttle = 0.5f;   // »ìÂ¦ ÈÄÅð ´À³¦(È¸Àü + °¨¼Ó)
-        else if (dist > preferMax) throttle = 1.0f;   // Á» ´õ Á¢±Ù
+        // ï¿½ï¿½È£ ï¿½ï¿½Å¸ï¿½ï¿½ë¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ² ï¿½ï¿½ï¿½ï¿½
+        if (dist < preferMin) throttle = 0.5f;   // ï¿½ï¿½Â¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(È¸ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½)
+        else if (dist > preferMax) throttle = 1.0f;   // ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         else throttle = aimThrottle;
 
         car.SetDesired(steer, throttle);
 
-        // ===== »ç°Ý =====
+        // ===== ï¿½ï¿½ï¿½ =====
         if (gun && dist <= shootRange)
         {
-            // LOS: °¡´ÉÇÏ¸é ÃÑ(=ÃÑ±¸ ÀÚ½Ä)ÀÇ À§Ä¡ ±âÁØ
+            // LOS: ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½(=ï¿½Ñ±ï¿½ ï¿½Ú½ï¿½)ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
             Vector3 origin = gun.transform.position;
             Vector3 dest = target.position + Vector3.up * 0.6f;
 
             bool blocked = Physics.Linecast(origin, dest, losMask, QueryTriggerInteraction.Ignore);
             if (!blocked)
             {
-                // ÄðÅ¸ÀÓ/¹ß»ç Å¸ÀÌ¹ÖÀº GunÀÌ °ü¸® ¡æ BrainÀº Áö½Ã¸¸
+                // ï¿½ï¿½Å¸ï¿½ï¿½/ï¿½ß»ï¿½ Å¸ï¿½Ì¹ï¿½ï¿½ï¿½ Gunï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Brainï¿½ï¿½ ï¿½ï¿½ï¿½Ã¸ï¿½
                 gun.TickAutoFireToward(target.position);
             }
         }

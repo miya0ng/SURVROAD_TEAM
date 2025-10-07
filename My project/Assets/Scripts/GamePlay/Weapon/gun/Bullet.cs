@@ -1,12 +1,9 @@
-// Assets/Scripts/Common/Combat/Bullet.cs
 using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 /// <summary>
-/// ºü¸¥ ÃÑ¾Ë¿ë: ½ºÀ¬ Ãæµ¹(Raycast/SphereCast)
-/// Player/Enemy °ø¿ë. ownerTeamÀ¸·Î ¾Æ±ºÇÇÇØ ¹æÁö.
+/// ë°œì‚¬ ì´ì•Œìš©: ì¦‰ì‹œ ì¶©ëŒ(Raycast/SphereCast)
+/// Player/Enemy ê³µìš©. ownerTeamìœ¼ë¡œ ì•„êµ°íŒë³„ ê°€ëŠ¥.
 /// </summary>
 [RequireComponent(typeof(Collider))]
 public class Bullet : MonoBehaviour
@@ -14,22 +11,19 @@ public class Bullet : MonoBehaviour
     [Header("Runtime")]
     private TeamId ownerTeam;
     private LivingEntity owner;
-
     private float lifeTime = 1f;
     private float damage = 10f;
     private float speed = 30f;
 
     [Header("Collision")]
     [SerializeField] private LayerMask hitMask = ~0;
-    [SerializeField] private float castRadius = 0f;                 // 0ÀÌ¸é RayCast, >0ÀÌ¸é SphereCast
-    [SerializeField] private float spawnIgnoreTime = 0.05f;         // ½ºÆù Á÷ÈÄ ÀÚ±âÃæµ¹ ¹æÁö
+    [SerializeField] private float castRadius = 0f;
+    [SerializeField] private float spawnIgnoreTime = 0.05f;
+    [Header("Tracer - TrailRenderer")]
+    [SerializeField] private TrailRenderer tracer;
+    [SerializeField] private float trailTime = 0.3f;
+    [SerializeField] private float trailWidth = 0.1f;
 
-    [Header("Tracer")]
-    [SerializeField] private LineRenderer tracer;  // null °¡´É
-    [SerializeField] private int maxTracerPoints = 60; // 1ÃÊ 60fps °¡Á¤
-    private readonly List<Vector3> points = new();
-
-    // State
     private Vector3 dir;
     private Vector3 prevPos;
     private float elapsed;
@@ -37,20 +31,27 @@ public class Bullet : MonoBehaviour
     private bool running;
     private Coroutine co;
 
-    private  WeaponContext ctx;
-    // Ç®¸µ ÈÅ(¼±ÅÃ)
+    private WeaponContext ctx;
+    
     public System.Action<Bullet> OnDespawnToPool;
 
     void Awake()
     {
-        if (!tracer) tracer = GetComponent<LineRenderer>();
+        if (!tracer) tracer = GetComponent<TrailRenderer>();
+        
+        if (tracer)
+        {
+            tracer.time = trailTime;
+            tracer.startWidth = trailWidth;
+            tracer.endWidth = trailWidth * 0.5f;
+            tracer.autodestruct = false;
+        }
+
         var col = GetComponent<Collider>();
-        col.isTrigger = true; // ½ºÀ¬ ÁÖÀÌ¹Ç·Î Trigger ±ÇÀå
+        col.isTrigger = true;
     }
 
-    /// <summary>°ø¿ë ÃÊ±âÈ­</summary>
-    public void Init(
-        WeaponContext ctx, LivingEntity owner)
+    public void Init(WeaponContext ctx, LivingEntity owner)
     {
         this.speed = ctx.Level.BulletSpeed;
         this.lifeTime = ctx.Level.Duration;
@@ -68,8 +69,8 @@ public class Bullet : MonoBehaviour
 
         if (tracer)
         {
-            points.Clear();
-            AddTracerPoint(prevPos);
+            tracer.Clear();
+            tracer.emitting = true;
         }
 
         if (co != null) StopCoroutine(co);
@@ -83,7 +84,7 @@ public class Bullet : MonoBehaviour
             float dt = Time.deltaTime;
             Vector3 nextPos = prevPos + dir * speed * dt;
 
-            // ½ºÀ¬ Ãæµ¹
+            // ë¬¼ë¦¬ ì¶©ëŒ
             float dist = (nextPos - prevPos).magnitude;
             if (dist > 0f)
             {
@@ -113,8 +114,6 @@ public class Bullet : MonoBehaviour
             transform.position = nextPos;
             prevPos = nextPos;
 
-            if (tracer) AddTracerPoint(nextPos);
-
             elapsed += dt;
             yield return null;
         }
@@ -125,7 +124,7 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!running) return;
-        if (Time.time - spawnTime < spawnIgnoreTime) return; // ½ºÆù Á÷ÈÄ ÀÚ±â/ÃÑ±¸ Ãæµ¹ ¹«½Ã
+        if (Time.time - spawnTime < spawnIgnoreTime) return;
 
         if (HandleHit(other, transform.position))
         {
@@ -134,38 +133,35 @@ public class Bullet : MonoBehaviour
             {
                 var fx = Instantiate(ctx.FireFx, hitPoint, Quaternion.identity);
                 fx.Play();
-                // ÀÚµ¿ ÆÄ±«(StopAction=Destroy ·Î ÇÁ¸®ÆÕ ¼³Á¤ÇØµÎ¸é ´õ ±ò²û)
                 Destroy(fx.gameObject, fx.main.duration + fx.main.startLifetime.constantMax + 0.2f);
             }
 
             Despawn();
         }
     }
+
     private bool HandleHit(Collider other, Vector3 hitPoint)
     {
         if (!running || other == null) return false;
-        if (owner && other.gameObject == owner.gameObject) return false; // ÀÚ½Å ¹«½Ã
+        if (owner && other.gameObject == owner.gameObject) return false;
 
-        // LivingEntity µ¥¹ÌÁö
         if (other.TryGetComponent(out LivingEntity entity))
         {
-            if (entity.teamId == ownerTeam) return false; // ¾Æ±º¹«½Ã
+            if (entity.teamId == ownerTeam) return false;
 
             bool damaged = false;
 
-            // IDamagable ¿ì¼±
             if (other.TryGetComponent<IDamagable>(out var dmg))
             {
                 dmg.OnDamage(damage);
                 damaged = true;
                 if (TryGetComponent<ExplodeAttack>(out var rocketWeapon))
                 {
-                    rocketWeapon.Explode(ctx);//TODO 
+                    rocketWeapon.Explode(ctx);
                 }
             }
             else
             {
-                // ¾øÀ¸¸é LivingEntity Á÷Á¢
                 entity.OnDamage(damage, owner);
                 damaged = true;
             }
@@ -176,39 +172,34 @@ public class Bullet : MonoBehaviour
             }
         }
 
-        // º®/ÁöÇü µî
         if (((1 << other.gameObject.layer) & hitMask.value) != 0)
             return true;
 
         return false;
     }
 
-    private void AddTracerPoint(Vector3 p)
-    {
-        points.Add(p);
-        if (points.Count > maxTracerPoints)
-            points.RemoveAt(0);
-
-        tracer.positionCount = points.Count;
-        for (int i = 0; i < points.Count; i++)
-            tracer.SetPosition(i, points[i]);
-    }
-
     private void Despawn()
     {
         running = false;
-        if (tracer) { tracer.positionCount = 0; points.Clear(); }
+   
+        if (tracer)
+        {
+            tracer.emitting = false;
+        }
 
         if (OnDespawnToPool != null) OnDespawnToPool(this);
         else Destroy(gameObject);
-
-        //Destroy(ctx.FireFx.gameObject);
     }
 
     private void OnDisable()
     {
         if (co != null) StopCoroutine(co);
         running = false;
-        if (tracer) { tracer.positionCount = 0; points.Clear(); }
+
+        if (tracer)
+        {
+            tracer.Clear();
+            tracer.emitting = false;
+        }
     }
 }
