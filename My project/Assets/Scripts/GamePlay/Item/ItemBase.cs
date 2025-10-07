@@ -3,9 +3,9 @@ using System.Collections;
 
 public abstract class ItemBase : MonoBehaviour
 {
-    [Header("∞¯≈Î º≥¡§")]
+    [Header("Í≥µÌÜµ ÏÑ§Ï†ï")]
     public float moveSpeed = 20f;
-    [SerializeField] private float collectTimeout = 2.5f;
+    [SerializeField] private float collectTimeout = 1.5f;
     [SerializeField] private float collectDistance = 3f;
 
     protected Transform player;
@@ -13,11 +13,9 @@ public abstract class ItemBase : MonoBehaviour
 
     private bool collectInvoked = false;
     private Coroutine timeoutCo;
+    private bool isInsideTrigger = false;
 
-    private bool timeoutActive = false;
-    private bool leftAfterTimeout = false;
-
-    [Header("æ∆¿Ã≈€ µ•¿Ã≈Õ")]
+    [Header("ÏïÑÏù¥ÌÖú Îç∞Ïù¥ÌÑ∞")]
     public ItemData itemData;
 
     protected float lifeTimer = 0;
@@ -39,15 +37,10 @@ public abstract class ItemBase : MonoBehaviour
                 moveSpeed * Time.deltaTime
             );
 
-            // Collect¥¬ «— π¯∏∏
             if (!collectInvoked && Vector3.Distance(transform.position, player.position) <= collectDistance)
             {
                 collectInvoked = true;
                 Collect(player.gameObject);
-
-                // 4√  µøæ» ∆ƒ±´µ«¡ˆ æ ¿∏∏È √ﬂ¿˚ ¡ﬂ¥‹(≈∏¿”æ∆øÙ)
-                if (timeoutCo != null) StopCoroutine(timeoutCo);
-                timeoutCo = StartCoroutine(StopFollowingIfNotDestroyed(collectTimeout));
             }
         }
     }
@@ -55,32 +48,29 @@ public abstract class ItemBase : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
+
         player = other.transform;
+        isInsideTrigger = true;
 
-        if (timeoutActive && !leftAfterTimeout)
+        if (timeoutCo != null)
         {
-            return;
+            StopCoroutine(timeoutCo);
+            timeoutCo = null;
         }
-
         isCollecting = true;
         collectInvoked = false;
-        timeoutActive = false;
-        leftAfterTimeout = false;
-
-        // √π «¡∑π¿” ∫∏¡§ ¿Ãµø
-        transform.position = Vector3.MoveTowards(
-            transform.position,
-            player.position,
-            moveSpeed * Time.deltaTime
-        );
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (!other.CompareTag("Player")) return;
+        
+        isInsideTrigger = false;
 
-        if (timeoutActive)
-            leftAfterTimeout = true;
+        if (isCollecting && timeoutCo == null)
+        {
+            timeoutCo = StartCoroutine(TimeoutCoroutine());
+        }
     }
 
     protected abstract void Collect(GameObject player);
@@ -88,24 +78,27 @@ public abstract class ItemBase : MonoBehaviour
     public void ForceCollect(Transform p)
     {
         player = p;
+        isInsideTrigger = true;
+        
+        if (timeoutCo != null)
+        {
+            StopCoroutine(timeoutCo);
+            timeoutCo = null;
+        }
+        
         isCollecting = true;
         collectInvoked = false;
-        timeoutActive = false;
-        leftAfterTimeout = false;
     }
 
-    private IEnumerator StopFollowingIfNotDestroyed(float seconds)
+    private IEnumerator TimeoutCoroutine()
     {
-        float t = 0f;
-        while (t < seconds)
+        yield return new WaitForSeconds(collectTimeout);
+        
+        if (!isInsideTrigger)
         {
-            t += Time.deltaTime;
-            yield return null;
+            isCollecting = false;
         }
-
-        isCollecting = false;
-        timeoutActive = true;
-        leftAfterTimeout = false;
-
+        
+        timeoutCo = null;
     }
 }

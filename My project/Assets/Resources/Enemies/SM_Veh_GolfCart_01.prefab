@@ -215,7 +215,6 @@ GameObject:
   - component: {fileID: -427575682424746635}
   - component: {fileID: 3447564563051349250}
   - component: {fileID: -7869223428462971138}
-  - component: {fileID: 3361848818136098837}
   m_Layer: 8
   m_Name: SM_Veh_GolfCart_01
   m_TagString: Enemy
@@ -541,18 +540,6 @@ MonoBehaviour:
   repathInterval: 0.5
   waypointReachDist: 2
   lookAhead: 5
---- !u!114 &3361848818136098837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1170052622600160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a553b8946d11ce04296e887608a36309, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1280873926634338
 GameObject:
   m_ObjectHideFlags: 0

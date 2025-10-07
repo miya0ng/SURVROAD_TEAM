@@ -154,7 +154,6 @@ GameObject:
   - component: {fileID: 3027358182954053562}
   - component: {fileID: 8122228278971574470}
   - component: {fileID: 9149146893395123238}
-  - component: {fileID: 795700532533970248}
   m_Layer: 6
   m_Name: SM_Wep_AAGun_Body_01
   m_TagString: Untagged
@@ -234,27 +233,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &795700532533970248
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2884584131196250800}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.67709464, y: 0.2305733, z: 1.7659311}
-  m_Center: {x: -0.00759688, y: 0.029538572, z: 0.24181938}
 --- !u!1 &5703461215237614707
 GameObject:
   m_ObjectHideFlags: 0

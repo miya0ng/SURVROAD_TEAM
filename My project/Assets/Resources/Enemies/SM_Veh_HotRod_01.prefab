@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: -2692207107925152216}
   - component: {fileID: 7591960703388475582}
   - component: {fileID: 1318951359916975927}
-  - component: {fileID: -7831138008277161824}
   m_Layer: 8
   m_Name: SM_Veh_HotRod_01
   m_TagString: Enemy
@@ -412,18 +411,6 @@ MonoBehaviour:
   maxVictims: 64
   useNonAlloc: 1
   nonAllocBuffer: 128
---- !u!114 &-7831138008277161824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 678195991667389860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a553b8946d11ce04296e887608a36309, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1766055951683269104
 GameObject:
   m_ObjectHideFlags: 0

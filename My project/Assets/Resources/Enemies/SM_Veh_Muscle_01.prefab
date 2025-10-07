@@ -666,7 +666,6 @@ GameObject:
   - component: {fileID: 7049115807619213532}
   - component: {fileID: -6147310627363642487}
   - component: {fileID: -6335142122133473855}
-  - component: {fileID: -8359465577469934119}
   m_Layer: 8
   m_Name: SM_Veh_Muscle_01
   m_TagString: Enemy
@@ -1002,18 +1001,6 @@ MonoBehaviour:
   repathInterval: 0.5
   waypointReachDist: 2
   lookAhead: 5
---- !u!114 &-8359465577469934119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5466287286214634517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a553b8946d11ce04296e887608a36309, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5574206098416111893
 GameObject:
   m_ObjectHideFlags: 0

@@ -183,7 +183,6 @@ GameObject:
   - component: {fileID: 4996624452343824}
   - component: {fileID: 33288650754095596}
   - component: {fileID: 23820665872226838}
-  - component: {fileID: 135176379715913606}
   m_Layer: 8
   m_Name: SM_Veh_Buggy_Wheel_fr
   m_TagString: Untagged
@@ -259,27 +258,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &135176379715913606
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1467170628924414}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.51572645
-  m_Center: {x: -0.0000004991889, y: -0.00000014901161, z: -0.0000005066395}
 --- !u!1 &1572266532443468
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +269,6 @@ GameObject:
   - component: {fileID: 4373160285334050}
   - component: {fileID: 33766475092269194}
   - component: {fileID: 23219825171273268}
-  - component: {fileID: 135926188892498744}
   m_Layer: 8
   m_Name: SM_Veh_Buggy_Wheel_rr
   m_TagString: Untagged
@@ -367,27 +344,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &135926188892498744
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1572266532443468}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.51572526
-  m_Center: {x: -0.0000008791685, y: -0.00000014901161, z: 0.0000008046627}
 --- !u!1 &1665187737447004
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +365,6 @@ GameObject:
   - component: {fileID: 2619569430264161328}
   - component: {fileID: 6850950962073002471}
   - component: {fileID: -5035317781524038952}
-  - component: {fileID: -3443515493653888818}
   m_Layer: 8
   m_Name: SM_Veh_Buggy_01
   m_TagString: Enemy
@@ -512,8 +467,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.0963776, y: 1.7263615, z: 4.2056427}
-  m_Center: {x: 0.03573227, y: 1.2152525, z: -0.0036666393}
+  m_Size: {x: 2.0963776, y: 6, z: 4.2056427}
+  m_Center: {x: 0.03573227, y: 2.48, z: -0.0036666393}
 --- !u!54 &-7851568607968131107
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -735,18 +690,6 @@ MonoBehaviour:
   repathInterval: 0.5
   waypointReachDist: 2
   lookAhead: 5
---- !u!114 &-3443515493653888818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1665187737447004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a553b8946d11ce04296e887608a36309, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1712449046460942
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,7 +701,6 @@ GameObject:
   - component: {fileID: 4733625110626478}
   - component: {fileID: 33324842356460662}
   - component: {fileID: 23709149694619720}
-  - component: {fileID: 135239963356691352}
   m_Layer: 8
   m_Name: SM_Veh_Buggy_Wheel_fl
   m_TagString: Untagged
@@ -834,27 +776,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &135239963356691352
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1712449046460942}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.51572645
-  m_Center: {x: 0.0000007599592, y: -0.00000014901161, z: -0.0000005066395}
 --- !u!1 &1828773218425442
 GameObject:
   m_ObjectHideFlags: 0
@@ -1038,7 +959,6 @@ GameObject:
   - component: {fileID: 4805425053841394}
   - component: {fileID: 33663032772482086}
   - component: {fileID: 23282452011082980}
-  - component: {fileID: 135400024632832244}
   m_Layer: 8
   m_Name: SM_Veh_Buggy_Wheel_rl
   m_TagString: Untagged
@@ -1114,24 +1034,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &135400024632832244
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1888123023810674}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5157257
-  m_Center: {x: 0.0000007599592, y: -0.00000014901161, z: 0.00000017881393}

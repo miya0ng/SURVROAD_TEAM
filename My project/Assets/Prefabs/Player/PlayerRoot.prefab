@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &47975389456306131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2586245152066094807}
+  m_Layer: 3
+  m_Name: DriftTrail
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2586245152066094807
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47975389456306131}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7700421055076219799}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2418038408412848550
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,11 +77,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipStarterOnStart: 1
   starterPrefab: {fileID: 85222885766270236, guid: b373eafe822046e46b26d52fb92f636d, type: 3}
-  starterSO: {fileID: 11400000, guid: b70e429230039e14c8c3ade8f7a637cb, type: 2}
+  starterSO: {fileID: 11400000, guid: c0378e2e0d2db6c438430eb2ff73ba4b, type: 2}
   maxEquipCount: 3
   parts: 0
   partsMax: 50
-  iconDurability: {fileID: 21300000, guid: 822c872374c0546d2b2258f886e06f63, type: 3}
+  iconDurability: {fileID: 21300000, guid: c4da904b2a6b44c3e86422500728b5f3, type: 3}
   iconMaxSpeed: {fileID: 21300000, guid: 09807dfb4ad3a4518b611d0b5b79899d, type: 3}
   iconAcceleration: {fileID: 21300000, guid: a63a1d8c9c21c4f9ba7e6548879c1b78, type: 3}
 --- !u!1 &3913793669249295203
@@ -77,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3913793669249295203}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -114,6 +145,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5123896136409139560}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5691364064945079185
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1405086722823993922}
+  m_Layer: 3
+  m_Name: DriftTrail
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1405086722823993922
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5691364064945079185}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5685068240891010210}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7974319632393463753
 GameObject:
@@ -173,11 +235,7 @@ MonoBehaviour:
   curHp: 0
   teamId: 1
   isDead: 0
-  gameManager: {fileID: 0}
   colDamage: 10
-  damageableLayers:
-    serializedVersion: 2
-    m_Bits: 2304
   fxAnchor: {fileID: 7425593743219392115}
   magnetAnchor: {fileID: 4675123297354762080}
   healFxPrefab: {fileID: 198057331819699378, guid: 26c3de69d1605a2458a657f4df818a57, type: 3}
@@ -260,11 +318,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 7587718835494761279}
   status: {fileID: 8713720367335812828}
-  normalMaxSpeed: 35
+  normalMaxSpeed: 30
   boostedMaxSpeed: 60
-  maxForwardSpeed: 35
+  maxForwardSpeed: 30
   maxReverseSpeed: 10
-  baseAccel: 12
+  baseAccel: 14
   baseBrake: 20
   engineBrake: 3.5
   onBoosterTurnedOn:
@@ -275,11 +333,11 @@ MonoBehaviour:
       m_Calls: []
   boosterFx: {fileID: 5569951104529247438}
   boosterLoop: {fileID: 0}
-  turnRate: 140
+  turnRate: 170
   stability: 4
-  lateralDamp: 8
-  downforce: 5
-  driftBlendSpeed: 6
+  lateralDamp: 5
+  downforce: 1
+  driftBlendSpeed: 8
   accelCurve:
     serializedVersion: 2
     m_Curve:
@@ -423,21 +481,30 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.45
-      inSlope: 0
-      outSlope: 0.19999999
-      tangentMode: 0
+      value: 0
+      inSlope: 4.9099555
+      outSlope: 4.9099555
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
-      value: 0.65
-      inSlope: 0.19999999
-      outSlope: 0
+      time: 0.053166747
+      value: 0.26104635
+      inSlope: 2.4666297
+      outSlope: 2.4666297
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.31915832
+      outWeight: 0.22859412
+    - serializedVersion: 3
+      time: 0.14022633
+      value: 0.39094424
+      inSlope: 1.4920573
+      outSlope: 1.4920573
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -504,6 +571,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.91
       objectReference: {fileID: 0}
+    - target: {fileID: 3834515959350658981, guid: bdfd4200b994ff443910c9f029a07cd4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.359
+      objectReference: {fileID: 0}
     - target: {fileID: 5329385120361006913, guid: bdfd4200b994ff443910c9f029a07cd4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -550,7 +621,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4229028768992803749, guid: bdfd4200b994ff443910c9f029a07cd4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1405086722823993922}
+    - targetCorrespondingSourceObject: {fileID: 2200158042925915280, guid: bdfd4200b994ff443910c9f029a07cd4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2586245152066094807}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdfd4200b994ff443910c9f029a07cd4, type: 3}
 --- !u!4 &4440597285567340614 stripped
@@ -561,6 +638,16 @@ Transform:
 --- !u!1 &5569951104529247438 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4114492594788125641, guid: bdfd4200b994ff443910c9f029a07cd4, type: 3}
+  m_PrefabInstance: {fileID: 8382865989210007303}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5685068240891010210 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4229028768992803749, guid: bdfd4200b994ff443910c9f029a07cd4, type: 3}
+  m_PrefabInstance: {fileID: 8382865989210007303}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7700421055076219799 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2200158042925915280, guid: bdfd4200b994ff443910c9f029a07cd4, type: 3}
   m_PrefabInstance: {fileID: 8382865989210007303}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9007998847588690427

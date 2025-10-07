@@ -633,7 +633,6 @@ GameObject:
   - component: {fileID: -5813320321287844017}
   - component: {fileID: 264902302008703147}
   - component: {fileID: 227133714918726392}
-  - component: {fileID: 2857569969756173609}
   m_Layer: 8
   m_Name: SM_Veh_Prison_Bus_01
   m_TagString: Enemy
@@ -753,7 +752,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4525291019885026736}
   serializedVersion: 4
-  m_Mass: 800
+  m_Mass: 950
   m_Drag: 100
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -806,7 +805,7 @@ MonoBehaviour:
   accel: 8
   handling: 6
   desiredRadius: 12
-  baseTurnDeg: 35
+  baseTurnDeg: 15
   brakeDecel: 14
   cornerSlowFactor: 0.6
   feelerLen: 6
@@ -966,18 +965,6 @@ MonoBehaviour:
   repathInterval: 0.5
   waypointReachDist: 2
   lookAhead: 5
---- !u!114 &2857569969756173609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4525291019885026736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a553b8946d11ce04296e887608a36309, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4757401793571370048
 GameObject:
   m_ObjectHideFlags: 0

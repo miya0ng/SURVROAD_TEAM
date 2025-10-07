@@ -107,7 +107,6 @@ GameObject:
   - component: {fileID: 3853494958198533931}
   - component: {fileID: -825699720976862081}
   - component: {fileID: 5555996222698915263}
-  - component: {fileID: -7133666083722813238}
   m_Layer: 8
   m_Name: SM_Veh_Ute_01
   m_TagString: Enemy
@@ -438,18 +437,6 @@ MonoBehaviour:
   repathInterval: 0.5
   waypointReachDist: 2
   lookAhead: 5
---- !u!114 &-7133666083722813238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1364802344601326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a553b8946d11ce04296e887608a36309, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1450049056625770
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,7 +448,6 @@ GameObject:
   - component: {fileID: 4871934782089392}
   - component: {fileID: 33518481388944342}
   - component: {fileID: 23195502293422272}
-  - component: {fileID: 135637612675385438}
   m_Layer: 8
   m_Name: SM_Veh_Ute_Wheel_fr
   m_TagString: Untagged
@@ -537,27 +523,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &135637612675385438
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1450049056625770}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.59091866
-  m_Center: {x: -0.00000063329935, y: 0.00000011920929, z: -0.00000047683716}
 --- !u!1 &1462446582065014
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,7 +878,6 @@ GameObject:
   - component: {fileID: 4041648663735254}
   - component: {fileID: 33975252975310128}
   - component: {fileID: 23408549208140344}
-  - component: {fileID: 135192955397277776}
   m_Layer: 8
   m_Name: SM_Veh_Ute_Wheel_rr
   m_TagString: Untagged
@@ -989,27 +953,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &135192955397277776
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1610185386056818}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5909194
-  m_Center: {x: -0.00000063329935, y: 0.00000011920929, z: -0.0000009536743}
 --- !u!1 &1690622342910214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1279,7 +1222,6 @@ GameObject:
   - component: {fileID: 4737960874604932}
   - component: {fileID: 33177135210171300}
   - component: {fileID: 23052676668203916}
-  - component: {fileID: 135672805212711800}
   m_Layer: 8
   m_Name: SM_Veh_Ute_Wheel_fl
   m_TagString: Untagged
@@ -1355,27 +1297,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &135672805212711800
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1905258391716014}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5909188
-  m_Center: {x: -0.0000010877848, y: 0.00000011920929, z: -0.0000003874302}
 --- !u!1 &1917329904419148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1473,7 +1394,6 @@ GameObject:
   - component: {fileID: 4693198498839746}
   - component: {fileID: 33964766443407166}
   - component: {fileID: 23126999937359592}
-  - component: {fileID: 135526320395035150}
   m_Layer: 8
   m_Name: SM_Veh_Ute_Wheel_rl
   m_TagString: Untagged
@@ -1549,24 +1469,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &135526320395035150
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1982055561728664}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5909194
-  m_Center: {x: -0.0000010877848, y: 0.00000011920929, z: -0.0000009536743}

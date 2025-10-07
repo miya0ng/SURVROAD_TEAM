@@ -158,30 +158,56 @@ public class EquipManager : MonoBehaviour
         }
     }
 
-    // 기존 무기 레벨업(팝업 선택)
-    public void ApplyNewEquipExisting(int slotIndex)
+public void ApplyNewEquipExisting(int slotIndex)
+{
+    if (!levelUpPending || !IsValidSlotIndex(slotIndex)) return;
+
+    var entry = equips[slotIndex];
+    if (entry.level >= 5) { Debug.Log("이미 최대 레벨입니다."); return; }
+
+    entry.level = Mathf.Min(entry.level + 1, 5);
+
+    if (entry.IsMounted)
     {
-        if (!levelUpPending || !IsValidSlotIndex(slotIndex)) return;
-
-        var entry = equips[slotIndex];
-        if (entry.level >= 5) { Debug.Log("이미 최대 레벨입니다."); return; }
-
-        entry.level = Mathf.Min(entry.level + 1, 5);
-
-        // 물리 인스턴스들 레벨 동기화
-        if (entry.drivers != null && entry.drivers.Count > 0)
+        // ✅ 기존 드라이버 제거
+        foreach (var d in entry.drivers)
         {
-            foreach (var d in entry.drivers)
-                if (d && d.SetLevel(entry.level)) OnWeaponLeveled?.Invoke(d);
+            if (d) Destroy(d.gameObject);
         }
+        entry.drivers.Clear();
 
-        entry.driver = entry.drivers.FirstOrDefault();
-        OnEquipChanged?.Invoke();
+        ReleaseSockets(entry);
 
-        ResetPartsGauge();
+        if (TryGetLevelData(entry.so, entry.level, out var newData) && newData.prefab != null)
+        {
+            if (TryAssignMount(entry.so, out var newSockets))
+            {
+                var created = CreateDriversByPolicy(entry.so, entry.level, newSockets, out var socketsUsed);
+                entry.drivers = created;
+                entry.driver = created.FirstOrDefault();
+                entry.sockets = socketsUsed;
+
+                foreach (var d in created)
+                    OnWeaponLeveled?.Invoke(d);
+            }
+            else
+            {
+                Debug.LogWarning($"[EquipManager] 레벨업 실패: 소켓을 찾을 수 없습니다 - {entry.so.Name}");
+                entry.driver = null;
+                entry.drivers.Clear();
+                entry.sockets = null;
+            }
+        }
+    }
+    else
+    {
+        entry.driver = null;
     }
 
-    // 신규 장착(슬롯 소모)
+    OnEquipChanged?.Invoke();
+    ResetPartsGauge();
+}
+
     public void ApplyNewEquip(GameObject weaponPrefab, WeaponSO so)
     {
         if (!levelUpPending || weaponPrefab == null || so == null) return;
@@ -189,7 +215,6 @@ public class EquipManager : MonoBehaviour
         ResetPartsGauge();
     }
 
-    // 통합 선택 (무기/플레이어 업그레이드)
     public void EquipOrUpgrade(UpgradeCandidate c)
     {
         if (!levelUpPending) return;
@@ -203,23 +228,20 @@ public class EquipManager : MonoBehaviour
             return;
         }
 
-        // Weapon
         if (c.Weapon == null) return;
 
         int idx = FindIndexBySO(c.Weapon);
         if (idx >= 0)
         {
-            ApplyNewEquipExisting(idx);   // 레벨업
+            ApplyNewEquipExisting(idx);
         }
         else
         {
-            // 신규 장착(슬롯 가득이면 TryMountOrVirtual 내부에서 거부)
             EquipNewCore(c.Weapon, Mathf.Max(1, c.NextLevel), preferPhysical: true);
             ResetPartsGauge();
         }
     }
 
-    // 외부에서 직접 장착 호출(동일 SO면 자동 레벨업)
     public void EquipWeapon(GameObject weaponPrefab, WeaponSO so, LivingEntity owner)
     {
         int sameIdx = FindIndexBySO(so);
@@ -283,7 +305,6 @@ public class EquipManager : MonoBehaviour
 
         var entry = equips[index];
 
-        // 기존 제거
         if (entry.drivers != null)
         {
             foreach (var d in entry.drivers)
@@ -458,16 +479,38 @@ public class EquipManager : MonoBehaviour
         }
     }
 
-    private void SyncMountedLevel(int index)
+private void SyncMountedLevel(int index)
+{
+    var e = equips[index];
+    if (e.drivers != null && e.drivers.Count > 0)
     {
-        var e = equips[index];
-        if (e.drivers != null && e.drivers.Count > 0)
+        foreach (var d in e.drivers)
         {
-            foreach (var d in e.drivers)
-                if (d && d.SetLevel(e.level)) OnWeaponLeveled?.Invoke(d);
+            if (d) Destroy(d.gameObject);
         }
-        e.driver = e.drivers.FirstOrDefault();
+        e.drivers.Clear();
+
+        ReleaseSockets(e);
+
+        if (TryGetLevelData(e.so, e.level, out var newData) && newData.prefab != null)
+        {
+            if (TryAssignMount(e.so, out var newSockets))
+            {
+                var created = CreateDriversByPolicy(e.so, e.level, newSockets, out var socketsUsed);
+                e.drivers = created;
+                e.driver = created.FirstOrDefault();
+                e.sockets = socketsUsed;
+
+                foreach (var d in created)
+                    OnWeaponLeveled?.Invoke(d);
+            }
+            else
+            {
+                Debug.LogWarning($"[EquipManager] SyncLevel 실패: 소켓 부족 - {e.so.Name}");
+            }
+        }
     }
+}
 
     private bool IsValidSlotIndex(int index) => index >= 0 && index < equips.Count;
 

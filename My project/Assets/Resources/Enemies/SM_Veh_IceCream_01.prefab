@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4528583904665292}
   - component: {fileID: 33589235003729138}
   - component: {fileID: 23983069332658616}
-  - component: {fileID: 135971746409440678}
   m_Layer: 8
   m_Name: SM_Veh_IceCream_Wheel_rr
   m_TagString: Untagged
@@ -87,27 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &135971746409440678
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263145287893392}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.40800026
-  m_Center: {x: -0.000000052154064, y: 0, z: -0.0000007748604}
 --- !u!1 &1319633399095954
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,7 +107,6 @@ GameObject:
   - component: {fileID: -911808025648564329}
   - component: {fileID: 6254202897769037730}
   - component: {fileID: 1128339317372170188}
-  - component: {fileID: -7709938814422985970}
   m_Layer: 8
   m_Name: SM_Veh_IceCream_01
   m_TagString: Enemy
@@ -331,7 +308,7 @@ MonoBehaviour:
   teamId: 2
   isDead: 0
   car: {fileID: 2489722972587888703}
-  gun: {fileID: 0}
+  gun: {fileID: 7933276997197709210}
   enemyId: 51101
   shootRange: 30
   losMask:
@@ -463,18 +440,6 @@ MonoBehaviour:
   repathInterval: 0.5
   waypointReachDist: 2
   lookAhead: 5
---- !u!114 &-7709938814422985970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1319633399095954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a553b8946d11ce04296e887608a36309, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1380736521491372
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,7 +795,6 @@ GameObject:
   - component: {fileID: 4919523167117870}
   - component: {fileID: 33001422220541270}
   - component: {fileID: 23113206794906588}
-  - component: {fileID: 135436542765907642}
   m_Layer: 8
   m_Name: SM_Veh_IceCream_Wheel_fr
   m_TagString: Untagged
@@ -906,27 +870,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &135436542765907642
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552818264866096}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.40800026
-  m_Center: {x: -0.000000052154064, y: 0, z: -0.0000004172325}
 --- !u!1 &1595463364507874
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,7 +881,6 @@ GameObject:
   - component: {fileID: 4416332760435906}
   - component: {fileID: 33646692904676934}
   - component: {fileID: 23773452930874288}
-  - component: {fileID: 135168982149233944}
   m_Layer: 8
   m_Name: SM_Veh_IceCream_Wheel_fl
   m_TagString: Untagged
@@ -1014,27 +956,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &135168982149233944
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1595463364507874}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.40800026
-  m_Center: {x: 0.000000052154064, y: 0, z: -0.0000004172325}
 --- !u!1 &1626491941060690
 GameObject:
   m_ObjectHideFlags: 0
@@ -1046,7 +967,6 @@ GameObject:
   - component: {fileID: 4264692251214814}
   - component: {fileID: 33251394293651170}
   - component: {fileID: 23307753984243292}
-  - component: {fileID: 135416957092434354}
   m_Layer: 8
   m_Name: SM_Veh_IceCream_Wheel_rl
   m_TagString: Untagged
@@ -1122,27 +1042,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &135416957092434354
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1626491941060690}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.40800026
-  m_Center: {x: 0.000000052154064, y: 0, z: -0.0000007748604}
 --- !u!1 &1813629835354940
 GameObject:
   m_ObjectHideFlags: 0
@@ -1254,7 +1153,7 @@ Transform:
   m_GameObject: {fileID: 8527726181950439301}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.2441463, y: -0.13261686, z: -0.10127586}
+  m_LocalPosition: {x: 0.563, y: 1.55, z: 2.415}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1273,17 +1172,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Wep_Veh_MachineGun_01
       objectReference: {fileID: 0}
+    - target: {fileID: 4821653932568461391, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
+      propertyPath: fireInterval
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5341799689980693092, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0.095
       objectReference: {fileID: 0}
     - target: {fileID: 5341799689980693092, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.035
       objectReference: {fileID: 0}
     - target: {fileID: 5341799689980693092, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1.293
       objectReference: {fileID: 0}
     - target: {fileID: 5341799689980693092, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1323,3 +1226,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5341799689980693092, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
   m_PrefabInstance: {fileID: 3238472759590059989}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7933276997197709210 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4821653932568461391, guid: 052df1ecb0b772143a4803ff9ee489f9, type: 3}
+  m_PrefabInstance: {fileID: 3238472759590059989}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89114278df525ae48a0eb1c86a9682b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

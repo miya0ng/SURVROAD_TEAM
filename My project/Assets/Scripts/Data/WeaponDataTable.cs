@@ -27,7 +27,7 @@ public class WeaponData
 }
 public class WeaponDataTable : DataTable
 {
-    public static readonly string WeaponTableId = "WeaponDataTable";
+    public static readonly string WeaponTableId = "WeaponTable";
 
     private Dictionary<int, WeaponData> weapons = new Dictionary<int, WeaponData>();
 
@@ -38,7 +38,7 @@ public class WeaponDataTable : DataTable
     {
         weapons.Clear();
         byIdLevel.Clear();
-        // byKindLevel.Clear(); // »ç¿ë ÁßÀÌ¸é À¯Áö
+        // byKindLevel.Clear(); // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         var path = string.Format(dataTablePath, fileName);
         var textAsset = Resources.Load<TextAsset>(path);
@@ -58,7 +58,7 @@ public class WeaponDataTable : DataTable
 
         weapons = records.ToDictionary(r => r.ID, r => r);
 
-        // ¡Ú (ID, Level) ÀÎµ¦½Ì
+        // ï¿½ï¿½ (ID, Level) ï¿½Îµï¿½ï¿½ï¿½
         foreach (var r in records)
         {
             if (r.ID <= 0 || r.Level <= 0) continue;
