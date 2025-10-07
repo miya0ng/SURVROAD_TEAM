@@ -5,57 +5,189 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyCarController))]
 public class EnemyChargeBrain : MonoBehaviour
 {
-    [Header("Tuning")]
-    [SerializeField] private float ramDistance = 10f;     // µπ¡¯ Ω√¿€ ∞≈∏Æ
-    [SerializeField] private float ramFovDeg = 40f;       // ¡§∏È ∞¢µµ «„øÎ
-    [SerializeField] private float ramCooldown = 2.0f;    // µπ¡¯ ∞£∞›
-    [SerializeField] private float aimLeadTime = 0.25f;   // øπ√¯ ¡∂¡ÿ Ω√∞£
+    [Header("Specs from CSV")]
+    public float attackInterval = 3f;     // CSV: AttackInterval (ÎèåÏßÑ Ï£ºÍ∏∞, Ï¥à)
+    public float attackRange = 15f;       // CSV: AttackRange or ÏÇ¨Ï†ïÍ±∞Î¶¨ (Í∏∞Î≥∏Í∞í)
+    public float maxSpeed = 25f;          // CSV: MaxSpeed
+    public float handling = 7f;           // CSV: Handling
+
+    [Header("Charge Pattern")]
+    [SerializeField] private float reverseDuration = 0.8f;  // ÌõÑÏßÑ ÏãúÍ∞Ñ
+    [SerializeField] private float chargeDuration = 1.5f;   // ÎèåÏßÑ ÏãúÍ∞Ñ
+    [SerializeField] private float ramFovDeg = 40f;         // ÎèåÏßÑ Í∞ÄÎä• Í∞ÅÎèÑ
+
+    [Header("Prediction")]
+    [SerializeField] private float aimLeadTime = 0.25f;     // ÏòàÏ∏° ÏÑ†Ìñâ ÏãúÍ∞Ñ
 
     private EnemyCarController car;
     private Transform target;
-    private float cd;
+    private Rigidbody targetRb;
+
+    // ÏÉÅÌÉú Î®∏Ïã†
+    private enum ChargeState { Idle, Reversing, Charging }
+    private ChargeState state = ChargeState.Idle;
+    private float stateTimer;
+    private float attackTimer;
 
     void Awake()
     {
         car = GetComponent<EnemyCarController>();
         target = GameObject.FindGameObjectWithTag("Player")?.transform;
+        if (target) targetRb = target.GetComponent<Rigidbody>();
+    }
+
+    void OnEnable()
+    {
+        state = ChargeState.Idle;
+        stateTimer = 0f;
+        attackTimer = 0f; // ÌôúÏÑ±Ìôî ÏßÅÌõÑ Î∞îÎ°ú Í≥µÍ≤© Ï§ÄÎπÑ
+    }
+
+    public void ApplySpec(float speed, float handle, float interval, float range)
+    {
+        maxSpeed = Mathf.Max(1f, speed);
+        handling = Mathf.Max(0.5f, handle);
+        attackInterval = Mathf.Max(0.5f, interval);
+        attackRange = Mathf.Max(5f, range);
+
+        if (car)
+        {
+            car.maxSpeed = maxSpeed;
+            car.handling = handling;
+        }
     }
 
     void Update()
     {
-        if (!target) return;
-        cd -= Time.deltaTime;
+        if (!target || !car) return;
 
         Vector3 pos = transform.position;
         Vector3 fwd = transform.forward;
-        Vector3 to = target.position - pos; to.y = 0f;
-        float dist = to.magnitude;
+        Vector3 toTarget = target.position - pos;
+        toTarget.y = 0f;
+        float dist = toTarget.magnitude;
+
         if (dist < 0.001f) return;
 
-        // ¡§∏È ∞¢µµ √º≈©
-        float ang = Vector3.Angle(fwd, to.normalized);
+        float angle = Vector3.Angle(fwd, toTarget.normalized);
 
-        // µπ¡¯ ¡∂∞«
-        if (dist <= ramDistance && ang <= ramFovDeg && cd <= 0f)
+        switch (state)
         {
-            // æ‡∞£¿« øπ√¯(«√∑π¿ÃæÓ rigidbody º”µµ ªÁøÎ)
-            var trb = target.GetComponent<Rigidbody>();
-            Vector3 aim = target.position;
-            if (trb) aim += trb.linearVelocity * aimLeadTime;
+            case ChargeState.Idle:
+                UpdateIdle(dist, angle, toTarget);
+                break;
+            case ChargeState.Reversing:
+                UpdateReversing();
+                break;
+            case ChargeState.Charging:
+                UpdateCharging(toTarget);
+                break;
+        }
+    }
 
-            Vector3 dir = (aim - pos); dir.y = 0f;
+    private void UpdateIdle(float dist, float angle, Vector3 toTarget)
+    {
+        attackTimer += Time.deltaTime;
+
+        if (dist <= attackRange && angle <= ramFovDeg && attackTimer >= attackInterval)
+        {
+            state = ChargeState.Reversing;
+            stateTimer = 0f;
+            attackTimer = 0f;
+        }
+        else
+        {
+            Vector3 dir = toTarget.normalized;
+            float steer = Mathf.Clamp(Vector3.SignedAngle(transform.forward, dir, Vector3.up) / 45f, -1f, 1f);
+            car.SetDesired(steer, 1f);
+        }
+    }
+
+    private void UpdateReversing()
+    {
+        stateTimer += Time.deltaTime;
+
+        Vector3 toTarget = (target.position - transform.position);
+        toTarget.y = 0f;
+        Vector3 reverseDir = -toTarget.normalized;
+
+        float targetAngle = Mathf.Atan2(reverseDir.x, reverseDir.z) * Mathf.Rad2Deg;
+        float currentAngle = transform.eulerAngles.y;
+        float deltaAngle = Mathf.DeltaAngle(currentAngle, targetAngle);
+        float steer = Mathf.Clamp(deltaAngle / 45f, -1f, 1f);
+
+        var rb = car.GetComponent<Rigidbody>();
+        if (rb)
+        {
+            Vector3 backwardVel = -transform.forward * (maxSpeed * 0.4f);
+            rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, backwardVel, Time.deltaTime * 5f);
+        }
+
+        car.SetDesired(steer, 0f);
+
+        if (stateTimer >= reverseDuration)
+        {
+            state = ChargeState.Charging;
+            stateTimer = 0f;
+        }
+    }
+
+    private void UpdateCharging(Vector3 toTarget)
+    {
+        stateTimer += Time.deltaTime;
+
+        Vector3 aim = target.position;
+        if (targetRb)
+        {
+            aim += targetRb.linearVelocity * aimLeadTime;
+        }
+
+        Vector3 dir = (aim - transform.position);
+        dir.y = 0f;
+
+        if (dir.sqrMagnitude < 0.001f)
+        {
+            car.SetDesired(0f, 1f);
+        }
+        else
+        {
             dir.Normalize();
 
-            // ∞≠«— Ω∫∑Œ∆≤ + ¡˜¡¢ ¡∂«‚(øﬁ/ø¿ Ω∫∆ºæÓ)
-            float steer = Mathf.Clamp(Vector3.SignedAngle(fwd, dir, Vector3.up) / 45f, -1f, 1f);
-            float throttle = 1.0f;
+            float targetAngle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
+            float currentAngle = transform.eulerAngles.y;
+            float deltaAngle = Mathf.DeltaAngle(currentAngle, targetAngle);
+            float steer = Mathf.Clamp(deltaAngle / 45f, -1f, 1f);
 
-            // ≥ π´ ±ﬁ«œ∏È ªÏ¬¶ ∞®º”(√Êµπ ºæº≠¥¬ CarController∞° ¥„¥Á)
-            if (ang > 25f) throttle = 0.8f;
+            float angle = Vector3.Angle(transform.forward, dir);
+            float throttle = (angle > 25f) ? 0.8f : 1.0f;
 
             car.SetDesired(steer, throttle);
-            cd = ramCooldown * 0.5f; // ¬™∞‘ ¿Ø¡ˆ(√Êµπ/»∏««øÕ ºØ¿Ã∞‘)
         }
-        // ±◊ ø‹ ±∏∞£¿∫ A*∞° SetDesired∏¶ ∞Ëº” π–æÓ¡÷π«∑Œ ±‚∫ª √ﬂ∞› ¿Ø¡ˆ
+
+        if (stateTimer >= chargeDuration)
+        {
+            state = ChargeState.Idle;
+            stateTimer = 0f;
+        }
     }
+
+#if UNITY_EDITOR
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = new Color(1f, 0.5f, 0f, 0.3f);
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        Vector3 fwd = transform.forward;
+        Vector3 left = Quaternion.Euler(0, -ramFovDeg, 0) * fwd;
+        Vector3 right = Quaternion.Euler(0, ramFovDeg, 0) * fwd;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawRay(transform.position, left * attackRange);
+        Gizmos.DrawRay(transform.position, right * attackRange);
+
+        UnityEditor.Handles.Label(
+            transform.position + Vector3.up * 2.5f,
+            $"State: {state}\nTimer: {stateTimer:F1}s\nAttack: {attackTimer:F1}/{attackInterval:F1}s"
+        );
+    }
+#endif
 }

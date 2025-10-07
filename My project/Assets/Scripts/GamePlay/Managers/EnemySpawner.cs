@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Transform player;
     
      private string enemyCarCsvPath = "EnemyCarTable";
-     private string prefabBasePath = "Enemies";            // Resources/Enemies/PrefabName.prefab
+     private string prefabBasePath = "Enemies";
 
     [Header("Spawn Settings (defaults/overrides)")]
     [SerializeField] private float spawnRadius = 50f;
@@ -281,7 +281,6 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    // ========= ���� ���� ���� =========
         private bool TryFindSpawnPosition(out Vector3 spawnPos)
     {
         spawnPos = Vector3.zero;
@@ -320,53 +319,62 @@ public class EnemySpawner : MonoBehaviour
     }
 
 
-    private bool ActivateEnemy(GameObject enemyObj, Vector3 pos, int enemyID)
+   private bool ActivateEnemy(GameObject enemyObj, Vector3 pos, int enemyID)
+{
+    var ai = enemyObj.GetComponent<IAstarAI>();
+    if (ai != null) { ai.Teleport(pos, true); ai.canMove = true; ai.isStopped = false; }
+    else
     {
-        // 1) ��ġ ���� (A*)
-        var ai = enemyObj.GetComponent<IAstarAI>();
-        if (ai != null) { ai.Teleport(pos, true); ai.canMove = true; ai.isStopped = false; }
-        else
+        enemyObj.transform.SetPositionAndRotation(
+            pos,
+            player ? Quaternion.LookRotation((player.position - pos).normalized, Vector3.up) : Quaternion.identity
+        );
+    }
+
+    if (enemyDataTable != null && enemyDataTable.TryGet(enemyID, out var spec))
+    {
+        var le = enemyObj.GetComponent<LivingEntity>();
+        if (le) { le.maxHp = spec.Durability; le.curHp = spec.Durability; }
+
+        var car = enemyObj.GetComponent<EnemyCarController>();
+        if (car) { car.maxSpeed = spec.MaxSpeed; car.accel = spec.Accel; car.handling = Mathf.Max(0.5f, spec.Handling); }
+
+        var gun = enemyObj.GetComponent<EnemyGunController>();
+        if (gun) { gun.damage = Mathf.Max(1, spec.AttackDamage); gun.fireInterval = Mathf.Max(0.1f, spec.AttackInterval); }
+
+        var driver = enemyObj.GetComponent<EnemyDriver>();
+        if (driver)
         {
-            enemyObj.transform.SetPositionAndRotation(
-                pos,
-                player ? Quaternion.LookRotation((player.position - pos).normalized, Vector3.up) : Quaternion.identity
-            );
+            driver.SetEnemyId(enemyID);
+            if (player) driver.SetTarget(player);
+            driver.ApplySpec(spec);
         }
 
-        // 2) ���� ����
-        if (enemyDataTable != null && enemyDataTable.TryGet(enemyID, out var spec))
+        bool isGunCar = (enemyID == 51201 || enemyID == 52201 || enemyID == 52202);
+        bool isSuicideCar = (enemyID == 51301);
+
+        if (!isGunCar && !isSuicideCar)
         {
-            // �⺻ ������Ʈ���� �ݿ� (ü��/����/�ѱ�)
-            var le = enemyObj.GetComponent<LivingEntity>();
-            if (le) { le.maxHp = spec.Durability; le.curHp = spec.Durability; }
-
-            var car = enemyObj.GetComponent<EnemyCarController>();
-            if (car) { car.maxSpeed = spec.MaxSpeed; car.accel = spec.Accel; car.handling = Mathf.Max(0.5f, spec.Handling); }
-
-            var gun = enemyObj.GetComponent<EnemyGunController>();
-            if (gun) { gun.damage = Mathf.Max(1, spec.AttackDamage); gun.fireInterval = Mathf.Max(0.1f, spec.AttackInterval); }
-
-            // �� EnemyDriver���� ���� ���� ���� (����)
-            var driver = enemyObj.GetComponent<EnemyDriver>();
-            if (driver)
+            var charge = enemyObj.GetComponent<EnemyChargeBrain>();
+            if (charge)
             {
-                driver.SetEnemyId(enemyID);
-                if (player) driver.SetTarget(player);
-                driver.ApplySpec(spec);
+                float range = 15f;
+                charge.ApplySpec(spec.MaxSpeed, spec.Handling, spec.AttackInterval, range);
             }
         }
-        else
-        {
-            Debug.LogWarning($"[EnemySpawner] EnemyID {enemyID} ���� ������");
-        }
-
-        enemyObj.SetActive(true);
-
-        var ent = enemyObj.GetComponent<LivingEntity>();
-        if (ent) { Register(ent); HookDeath(ent, enemyObj); }
-
-        return true;
     }
+    else
+    {
+        Debug.LogWarning($"[EnemySpawner] EnemyID {enemyID} 데이터 테이블에서 찾을 수 없음");
+    }
+
+    enemyObj.SetActive(true);
+
+    var ent = enemyObj.GetComponent<LivingEntity>();
+    if (ent) { Register(ent); HookDeath(ent, enemyObj); }
+
+    return true;
+}
 
     private void HookDeath(LivingEntity le, GameObject go)
     {
