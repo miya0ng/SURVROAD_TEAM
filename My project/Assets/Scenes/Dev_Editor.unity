@@ -860,6 +860,28 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4193843087219660707, guid: 35ffbb0b9295c324ca03fb98c7350881, type: 3}
   m_PrefabInstance: {fileID: 1632179300345468946}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &704350909 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5701949881765194912, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+  m_PrefabInstance: {fileID: 1510633157}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &704350913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704350909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 231236f7dc7f8ac4b953f6a90c5a852f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axle: 1
+  wheelRadius: 0.32
+  maxSteerAngle: 28
+  steerLerp: 12
+  visual: {fileID: 1510633164}
 --- !u!1 &729539168
 GameObject:
   m_ObjectHideFlags: 0
@@ -2284,6 +2306,33 @@ MonoBehaviour:
   hitArea: {fileID: 546027797}
   defaultImage: {fileID: 556714967}
   Active: {fileID: 1453874117}
+--- !u!1 &1430316716 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8345551993548905902, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+  m_PrefabInstance: {fileID: 1510633157}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1430316717 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7700421055076219799, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+  m_PrefabInstance: {fileID: 1510633157}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1430316720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430316716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 231236f7dc7f8ac4b953f6a90c5a852f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axle: 1
+  wheelRadius: 0.32
+  maxSteerAngle: 28
+  steerLerp: 12
+  visual: {fileID: 1430316717}
 --- !u!1 &1453874117 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5130333078070535058, guid: 21bf4754ca74594458eb545e47451542, type: 3}
@@ -2373,9 +2422,21 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4334020665076566383, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1571444510}
+    - targetCorrespondingSourceObject: {fileID: 7628200913325988772, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1712267268}
+    - targetCorrespondingSourceObject: {fileID: 5701949881765194912, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 704350913}
     - targetCorrespondingSourceObject: {fileID: 5691364064945079185, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1510633162}
+    - targetCorrespondingSourceObject: {fileID: 8345551993548905902, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1430316720}
     - targetCorrespondingSourceObject: {fileID: 47975389456306131, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1510633161}
@@ -2495,6 +2556,11 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
+--- !u!4 &1510633164 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1405086722823993922, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+  m_PrefabInstance: {fileID: 1510633157}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1532986250
 GameObject:
   m_ObjectHideFlags: 0
@@ -2631,6 +2697,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1532986250}
   m_CullTransparentMesh: 1
+--- !u!1 &1571444506 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4334020665076566383, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+  m_PrefabInstance: {fileID: 1510633157}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1571444507 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3152512998720600187, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+  m_PrefabInstance: {fileID: 1510633157}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1571444510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571444506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 231236f7dc7f8ac4b953f6a90c5a852f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axle: 0
+  wheelRadius: 0.32
+  maxSteerAngle: 28
+  steerLerp: 12
+  visual: {fileID: 1571444507}
 --- !u!114 &1627278133 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8035726274706330863, guid: 35ffbb0b9295c324ca03fb98c7350881, type: 3}
@@ -2642,6 +2735,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d71151c29418c754d8f67477a9697b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1712267264 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7628200913325988772, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+  m_PrefabInstance: {fileID: 1510633157}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1712267265 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4435519757248945493, guid: b121b2a0ddb654d468fef961382c4ab9, type: 3}
+  m_PrefabInstance: {fileID: 1510633157}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1712267268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1712267264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 231236f7dc7f8ac4b953f6a90c5a852f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axle: 0
+  wheelRadius: 0.32
+  maxSteerAngle: 28
+  steerLerp: 12
+  visual: {fileID: 1712267265}
 --- !u!1001 &1922141051
 PrefabInstance:
   m_ObjectHideFlags: 0
