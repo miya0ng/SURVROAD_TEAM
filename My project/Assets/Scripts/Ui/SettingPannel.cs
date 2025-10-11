@@ -23,12 +23,8 @@ public class SettingsPanel : MonoBehaviour
     const string K_VIBE = "vibration";
     const string K_QUAL = "quality";
 
-    bool _booting;
-
     void Awake()
     {
-        _booting = true;
-
         // defaults
         float master = PlayerPrefs.GetFloat(K_MASTER, 0.8f);
         float bgm = PlayerPrefs.GetFloat(K_BGM, 0.8f);
@@ -60,8 +56,6 @@ public class SettingsPanel : MonoBehaviour
 
         if (saveButton) saveButton.onClick.AddListener(SavePrefs);
         if (resetButton) resetButton.onClick.AddListener(ResetToDefault);
-
-        _booting = false;
     }
 
     void OnMasterChanged(float v)
