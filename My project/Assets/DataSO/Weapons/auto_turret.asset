@@ -33,7 +33,7 @@ MonoBehaviour:
       \uC5F0\uC0AC \uACF5\uACA9\uD558\uB294 \uBB34\uAE30"
     SelectionInfo: New!
     PrefabIndex: 1
-    ThumbNail: {fileID: 21300000, guid: 8911dd3486906a74291abf02b6b8d75c, type: 3}
+    ThumbNail: {fileID: 21300000, guid: d4ad89d2d3912a94bb8aa0bed7c98ade, type: 3}
     prefab: {fileID: 85222885766270236, guid: b373eafe822046e46b26d52fb92f636d, type: 3}
     bulletPrefab: {fileID: 1203708572482856, guid: 5ab22cdb58c498c4ea1546bc59061d9c, type: 3}
     effectPrefab: {fileID: 0}
@@ -52,7 +52,7 @@ MonoBehaviour:
       \uB298\uC5B4\uB0A8"
     SelectionInfo: dps + 33%
     PrefabIndex: 1
-    ThumbNail: {fileID: 21300000, guid: 8911dd3486906a74291abf02b6b8d75c, type: 3}
+    ThumbNail: {fileID: 21300000, guid: d4ad89d2d3912a94bb8aa0bed7c98ade, type: 3}
     prefab: {fileID: 85222885766270236, guid: b373eafe822046e46b26d52fb92f636d, type: 3}
     bulletPrefab: {fileID: 1203708572482856, guid: 5ab22cdb58c498c4ea1546bc59061d9c, type: 3}
     effectPrefab: {fileID: 0}
@@ -71,7 +71,7 @@ MonoBehaviour:
       \uB450\uBC1C\uC529 \uBC1C\uC0AC\uB428"
     SelectionInfo: dps + 36%
     PrefabIndex: 2
-    ThumbNail: {fileID: 21300000, guid: d343b3cacd00811469c7e05a81ee52f7, type: 3}
+    ThumbNail: {fileID: 21300000, guid: 191d00e33bf64254d97ca2e46d3b1504, type: 3}
     prefab: {fileID: 66346167838963107, guid: d16d57ed0ec7c214bba84c4f88510da5, type: 3}
     bulletPrefab: {fileID: 1203708572482856, guid: 5ab22cdb58c498c4ea1546bc59061d9c, type: 3}
     effectPrefab: {fileID: 0}
@@ -90,7 +90,7 @@ MonoBehaviour:
       \uB298\uC5B4\uB0A8"
     SelectionInfo: dps + 46%
     PrefabIndex: 2
-    ThumbNail: {fileID: 21300000, guid: d343b3cacd00811469c7e05a81ee52f7, type: 3}
+    ThumbNail: {fileID: 21300000, guid: 191d00e33bf64254d97ca2e46d3b1504, type: 3}
     prefab: {fileID: 66346167838963107, guid: d16d57ed0ec7c214bba84c4f88510da5, type: 3}
     bulletPrefab: {fileID: 1203708572482856, guid: 5ab22cdb58c498c4ea1546bc59061d9c, type: 3}
     effectPrefab: {fileID: 0}
@@ -109,7 +109,7 @@ MonoBehaviour:
       \uB098\uAC00\uC9C0\uB9CC \uACF5\uC18D\uC774 \uB9E4\uC6B0 \uBE68\uB77C\uC9D0"
     SelectionInfo: dps + 62%
     PrefabIndex: 3
-    ThumbNail: {fileID: 21300000, guid: 5cd1e9c1f917a8947977dda4271c2d2d, type: 3}
+    ThumbNail: {fileID: 21300000, guid: d83404aa0851d4b4db190d540560a942, type: 3}
     prefab: {fileID: 6717230239203858784, guid: 861d3bb2ed9625540a375fb69e788197, type: 3}
     bulletPrefab: {fileID: 1203708572482856, guid: 5ab22cdb58c498c4ea1546bc59061d9c, type: 3}
     effectPrefab: {fileID: 0}

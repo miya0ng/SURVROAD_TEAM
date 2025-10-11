@@ -34,7 +34,7 @@ MonoBehaviour:
       \uC9C0\uC18D \uD53C\uD574\uB97C \uC8FC\uB294 \uBB34\uAE30"
     SelectionInfo: New!
     PrefabIndex: 0
-    ThumbNail: {fileID: 21300000, guid: 98d83c62d8c13e340a12b8c99fe33ced, type: 3}
+    ThumbNail: {fileID: 21300000, guid: bbfe692f35ce06b448b7578add40683a, type: 3}
     prefab: {fileID: 8171487787002607651, guid: e451669df1a4ab64792d5ef97ce0ee8d, type: 3}
     bulletPrefab: {fileID: 0}
     effectPrefab: {fileID: 0}
@@ -52,7 +52,7 @@ MonoBehaviour:
     Info: "(\uC791\uC5C5\uC911)"
     SelectionInfo: dps + 140%
     PrefabIndex: 0
-    ThumbNail: {fileID: 21300000, guid: 98d83c62d8c13e340a12b8c99fe33ced, type: 3}
+    ThumbNail: {fileID: 21300000, guid: bbfe692f35ce06b448b7578add40683a, type: 3}
     prefab: {fileID: 8171487787002607651, guid: e451669df1a4ab64792d5ef97ce0ee8d, type: 3}
     bulletPrefab: {fileID: 0}
     effectPrefab: {fileID: 0}
@@ -70,7 +70,7 @@ MonoBehaviour:
     Info: "(\uC791\uC5C5\uC911)"
     SelectionInfo: dps + 108%
     PrefabIndex: 0
-    ThumbNail: {fileID: 21300000, guid: 98d83c62d8c13e340a12b8c99fe33ced, type: 3}
+    ThumbNail: {fileID: 21300000, guid: bbfe692f35ce06b448b7578add40683a, type: 3}
     prefab: {fileID: 8171487787002607651, guid: e451669df1a4ab64792d5ef97ce0ee8d, type: 3}
     bulletPrefab: {fileID: 0}
     effectPrefab: {fileID: 0}
@@ -88,7 +88,7 @@ MonoBehaviour:
     Info: "(\uC791\uC5C5\uC911)"
     SelectionInfo: dps + 87%
     PrefabIndex: 0
-    ThumbNail: {fileID: 21300000, guid: 98d83c62d8c13e340a12b8c99fe33ced, type: 3}
+    ThumbNail: {fileID: 21300000, guid: bbfe692f35ce06b448b7578add40683a, type: 3}
     prefab: {fileID: 8171487787002607651, guid: e451669df1a4ab64792d5ef97ce0ee8d, type: 3}
     bulletPrefab: {fileID: 0}
     effectPrefab: {fileID: 0}
@@ -106,7 +106,7 @@ MonoBehaviour:
     Info: "(\uC791\uC5C5\uC911)"
     SelectionInfo: dps + 50%
     PrefabIndex: 0
-    ThumbNail: {fileID: 21300000, guid: 98d83c62d8c13e340a12b8c99fe33ced, type: 3}
+    ThumbNail: {fileID: 21300000, guid: bbfe692f35ce06b448b7578add40683a, type: 3}
     prefab: {fileID: 8171487787002607651, guid: e451669df1a4ab64792d5ef97ce0ee8d, type: 3}
     bulletPrefab: {fileID: 0}
     effectPrefab: {fileID: 0}
