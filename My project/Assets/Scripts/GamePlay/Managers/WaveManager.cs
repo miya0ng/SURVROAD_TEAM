@@ -1,10 +1,14 @@
 ﻿using DG.Tweening.Core.Easing;
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
+    // public AudioClip waveStartSFX;
+    public AudioClip waveMainBGM;
+
     private string waveCsvPath = "WaveTable";
     private int[] waveOrder; // 비우면 CSV의 ID 오름차순으로 플레이
 
@@ -30,6 +34,8 @@ public class WaveManager : MonoBehaviour
     /// <summary>모든 웨이브 완료</summary>
     public event Action OnAllWavesCompleted;
 
+    public float warningPanelDuration = 5.0f; // wave duration to start
+
     void Awake()
     {
         if (enemySpawner == null)
@@ -47,13 +53,26 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    void Start()
+    IEnumerator Start()
     {
         if (enemySpawner != null)
             enemySpawner.OnWaveCleared += NextWave;
-
         if (gameManager != null)
             OnAllWavesCompleted += gameManager.StageClear;
+
+        // 씬 전환 직후 한 프레임 대기 (DontDestroyOnLoad 싱글톤/믹서 준비시간 확보)
+        yield return null;
+
+        // 안전 가드 & 실제 재생 (한 번만)
+        if (AudioManager.I == null) { Debug.LogError("[WaveManager] AudioManager가 없습니다."); }
+        else if (!waveMainBGM) { Debug.LogError("[WaveManager] waveMainBGM 미할당"); }
+        else
+        {
+            AudioManager.I.SetMasterVolume(1f);
+            AudioManager.I.SetBgmVolume(1f);
+            AudioManager.I.PlayBGMIfDifferent(waveMainBGM, 0.7f);
+        }
+
         NextWave(); // 첫 웨이브 시작
     }
 

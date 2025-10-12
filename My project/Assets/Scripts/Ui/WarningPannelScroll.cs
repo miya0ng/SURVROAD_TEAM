@@ -1,18 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 public class WarningPanelScroll_CameraBound : MonoBehaviour
 {
-    [Header("Parent Group (타일들의 공통 부모)")]
-    [SerializeField] private RectTransform group;
+    private WaveManager waveManager;
 
-    [Header("BG Arrow Tiles (좌→우 순 권장, 개수 자유)")]
+    [Header("Parent Group")]
+    [SerializeField] private RectTransform group;
+    [SerializeField] private GameObject pannel;
+
+    [Header("BG Arrow Tiles")]
     [SerializeField] private List<RectTransform> tiles = new();
     [SerializeField] private float speed = -120f;   // px/sec (음수=왼쪽)
 
-    [Header("Text Tiles (씬에 미리 2개 배치해서 넣기)")]
+    [Header("Text Tile")]
     [SerializeField] private List<RectTransform> textTiles = new(); // 최소 2개
     [SerializeField] private float textSpeed = -220f;
 
@@ -32,6 +36,8 @@ public class WarningPanelScroll_CameraBound : MonoBehaviour
     Vector2 camLeftRight;     // (leftX, rightX) in group local space
     float tPulse;
 
+    bool isShow = false;
+    float timer = 0f;
     void Reset()
     {
         group = transform as RectTransform;
@@ -40,6 +46,10 @@ public class WarningPanelScroll_CameraBound : MonoBehaviour
 
     void Awake()
     {
+        if (!waveManager)
+            waveManager = GameObject.FindGameObjectWithTag("WaveManager")?.GetComponent<WaveManager>();
+        waveManager.OnWaveChanged += (cw, tw) => Open();
+
         if (!group) group = transform as RectTransform;
 
         rootCanvas = GetComponentInParent<Canvas>();
@@ -63,8 +73,31 @@ public class WarningPanelScroll_CameraBound : MonoBehaviour
         }
     }
 
+    public void Open()
+    {
+        Debug.Log("Warning Panel Opened");
+        if (pannel) pannel.SetActive(true);
+        isShow = true;
+        timer = 0f;
+        tPulse = 0f;
+        if (glowGroup) glowGroup.alpha = glowMin;
+    }
+
     void Update()
     {
+        RAYCHECK();
+
+        timer += Time.deltaTime;
+        if (isShow)
+        {
+            if (timer >= waveManager.warningPanelDuration)
+            {
+                isShow = false;
+                pannel.SetActive(false);
+            }
+        }
+
+        RAYCHECK();
         float dt = useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
 
         UpdateCameraBounds();
@@ -146,5 +179,19 @@ public class WarningPanelScroll_CameraBound : MonoBehaviour
     {
         float w = Width(rt);
         rt.anchoredPosition = new Vector2(rightX - (1f - rt.pivot.x) * w, rt.anchoredPosition.y);
+    }
+    public GraphicRaycaster raycaster;
+    public EventSystem eventSystem;
+
+    void RAYCHECK()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            var ped = new PointerEventData(eventSystem) { position = Input.mousePosition };
+            var results = new List<RaycastResult>();
+            raycaster.Raycast(ped, results);
+            Debug.Log("---- UI Raycast ----");
+            foreach (var r in results) Debug.Log(r.gameObject.name);
+        }
     }
 }

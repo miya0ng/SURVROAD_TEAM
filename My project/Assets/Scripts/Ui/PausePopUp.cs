@@ -16,21 +16,37 @@ public class PausePopUp : MonoBehaviour
     [Header("Title Scene")]
     [SerializeField] private string titleSceneName = "Title";
 
-    readonly List<GameObject> _focuses = new();
-
-    private void Start()
+    public void Open()
     {
-        if (resumeBtn)
-            resumeBtn.onClick.AddListener(OnClickResume);
-        if (titleBtn)
-            titleBtn.onClick.AddListener(OnClickTitle);
-        if (restartBtn)
-            restartBtn.onClick.AddListener(OnClickRestart);
+        Time.timeScale = 0f;
+        if (pauseRoot) pauseRoot.SetActive(true);
+        gameObject.SetActive(true);
     }
 
+    public void Close()
+    {
+        Time.timeScale = 1f;
+        if (pauseRoot) pauseRoot.SetActive(false);
+    }
+    void Start()
+    {
+        // 버튼 바인딩
+        resumeBtn?.onClick.AddListener(Close);
+        titleBtn?.onClick.AddListener(() =>
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(titleSceneName);
+        });
+        restartBtn?.onClick.AddListener(() =>
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        });
+    }
     // === 버튼 동작 ===
     public void OnClickResume()
     {
+        AudioManager.I.PlaySFX("ButtonDefault");
         Debug.Log("Resume Clicked");
         Time.timeScale = 1f;
         if (pauseRoot) pauseRoot.SetActive(false);
@@ -38,12 +54,14 @@ public class PausePopUp : MonoBehaviour
 
     public void OnClickTitle()
     {
+        AudioManager.I.PlaySFX("ButtonDefault");
         Time.timeScale = 1f;
         SceneManager.LoadScene(titleSceneName);
     }
 
     public void OnClickRestart()
     {
+        AudioManager.I.PlaySFX("ButtonDefault");
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

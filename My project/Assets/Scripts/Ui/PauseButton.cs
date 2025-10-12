@@ -2,15 +2,14 @@ using UnityEngine;
 
 public class PauseButton : MonoBehaviour
 {
-    public GameObject PausePopUpRoot;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject popupGO;
 
-public void OnClickPauseButton()
+    public void OnClickPauseButton()
     {
-        if (Time.timeScale == 1)
-        {
-            Time.timeScale = 0;
-        }
-        PausePopUpRoot.SetActive(true);
+        AudioManager.I?.PlaySFX("ButtonDefault");
+        var popup = popupGO.GetComponentInParent<PausePopUp>();
+        if (popup && !popup.gameObject.activeSelf) popup.Open();
+        else if (popup && popup.gameObject.activeSelf == false) popup.Open();
+        else if (popup) popup.Open();
     }
 }

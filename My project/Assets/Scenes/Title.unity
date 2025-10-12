@@ -2006,7 +2006,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 515d3652942d04e4fbba375fb5a009b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TitleBGM: {fileID: 8300000, guid: 9d432188f282fdb4dae925fa64d1c912, type: 3}
   mixer: {fileID: 24100000, guid: dae6d98f697439c4e860e96df3c29cdd, type: 2}
   bgmGroup: {fileID: 3540110184522759701, guid: dae6d98f697439c4e860e96df3c29cdd, type: 2}
   sfxGroup: {fileID: 3027407707625744016, guid: dae6d98f697439c4e860e96df3c29cdd, type: 2}
@@ -2015,6 +2014,8 @@ MonoBehaviour:
   initialSfxSources: 16
   sfxDefs:
   - {fileID: 11400000, guid: d90bc52fe98ceef469004f763d12c4cf, type: 2}
+  - {fileID: 11400000, guid: 462fa58bc9f2cbf45b36fb57d39e58f4, type: 2}
+  - {fileID: 11400000, guid: b737b2a5a0aba03489c26f08c1254a96, type: 2}
 --- !u!1 &1947229215
 GameObject:
   m_ObjectHideFlags: 0
@@ -2310,7 +2311,7 @@ GameObject:
   - component: {fileID: 2093281025}
   - component: {fileID: 2093281024}
   m_Layer: 0
-  m_Name: System
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2328,6 +2329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d5adfee52fb8c409448121b806ce40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TitleBGM: {fileID: 8300000, guid: 4ca1ae6208445e94da5f684d5dca83a6, type: 3}
   gameSceneName: Game
   loadingGroup: {fileID: 0}
   progressBar: {fileID: 0}

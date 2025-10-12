@@ -6,10 +6,18 @@ using UnityEngine.UI;
 
 public class TitleMenu: MonoBehaviour
 {
+    public AudioClip TitleBGM;
+
     [SerializeField] private string gameSceneName = "Game";
     [Header("Loading UI (¿É¼Ç)")]
     [SerializeField] private CanvasGroup loadingGroup;
     [SerializeField] private Slider progressBar;
+
+
+    private void Start()
+    {
+        AudioManager.I?.PlayBGM(TitleBGM);
+    }
 
     public void PlayGame()
     {

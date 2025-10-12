@@ -4,7 +4,6 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioClip TitleBGM;
     public static AudioManager I { get; private set; }
     [Header("Mixer")]
     public AudioMixer mixer;         
@@ -45,11 +44,6 @@ public class AudioManager : MonoBehaviour
         _activeBGM = bgmA;
     }
 
-    void Start()
-    {
-        PlayBGM(TitleBGM);
-    }
-
     AudioSource MakeSfxSource()
     {
         var go = new GameObject("SFX");
@@ -79,7 +73,9 @@ public class AudioManager : MonoBehaviour
 
     public void PlayBGM(AudioClip clip, float fadeSec = -1f)
     {
+       // Debug.Log($"[AudioManager] PlayBGM: {clip?.name}, fadeSec={fadeSec}");
         if (!clip) return;
+        Debug.Log($"[AudioManager] Success");
         var next = (_activeBGM == bgmA) ? bgmB : bgmA;
         next.clip = clip; next.volume = 0f; next.Play();
         StartCoroutine(FadeSwap(_activeBGM, next, fadeSec > 0 ? fadeSec : _bgmFadeSec));
