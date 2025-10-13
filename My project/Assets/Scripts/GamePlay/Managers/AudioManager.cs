@@ -6,7 +6,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager I { get; private set; }
     [Header("Mixer")]
-    public AudioMixer mixer;         
+    public AudioMixer mixer;
     public AudioMixerGroup bgmGroup, sfxGroup;
 
     [Header("BGM")]
@@ -32,8 +32,10 @@ public class AudioManager : MonoBehaviour
         sfxMap = new();
         foreach (var d in sfxDefs) if (d) sfxMap[d.id] = d;
 
+        // 풀 초기화
         for (int i = 0; i < initialSfxSources; i++) sfxPool.Enqueue(MakeSfxSource());
 
+        //BGM 소스 설정
         if (!bgmA) bgmA = gameObject.AddComponent<AudioSource>();
         if (!bgmB) bgmB = gameObject.AddComponent<AudioSource>();
         foreach (var s in new[] { bgmA, bgmB })
@@ -73,9 +75,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayBGM(AudioClip clip, float fadeSec = -1f)
     {
-       // Debug.Log($"[AudioManager] PlayBGM: {clip?.name}, fadeSec={fadeSec}");
         if (!clip) return;
-        Debug.Log($"[AudioManager] Success");
         var next = (_activeBGM == bgmA) ? bgmB : bgmA;
         next.clip = clip; next.volume = 0f; next.Play();
         StartCoroutine(FadeSwap(_activeBGM, next, fadeSec > 0 ? fadeSec : _bgmFadeSec));

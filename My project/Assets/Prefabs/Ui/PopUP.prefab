@@ -8453,7 +8453,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7736670641552148137}
   - component: {fileID: 1185522306236989569}
-  - component: {fileID: 3079992954126432816}
   m_Layer: 5
   m_Name: Setting
   m_TagString: Untagged
@@ -8501,26 +8500,6 @@ MonoBehaviour:
   highToggle: {fileID: 631736468997361557}
   saveButton: {fileID: 0}
   resetButton: {fileID: 0}
---- !u!114 &3079992954126432816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5096845451443746695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99275bdd9f5d1ce4a9dd679e1aafaf16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bgmSlider: {fileID: 631736469363152131}
-  sfxSlider: {fileID: 631736469225647568}
-  vibrationToggle: {fileID: 0}
-  lowToggle: {fileID: 631736469359832843}
-  mediumToggle: {fileID: 631736468859166382}
-  highToggle: {fileID: 631736468997361557}
-  saveButton: {fileID: 1031351779647183866}
-  resetButton: {fileID: 1218794213225505678}
 --- !u!1 &5118716063819685836
 GameObject:
   m_ObjectHideFlags: 0
@@ -12941,6 +12920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   group: {fileID: 963079593341311747}
+  pannel: {fileID: 0}
   tiles:
   - {fileID: 2153986698781423832}
   - {fileID: 7768615450608313363}
@@ -12989,6 +12969,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   useUnscaledTime: 1
+  raycaster: {fileID: 0}
+  eventSystem: {fileID: 0}
 --- !u!1 &5834553587378037677
 GameObject:
   m_ObjectHideFlags: 0

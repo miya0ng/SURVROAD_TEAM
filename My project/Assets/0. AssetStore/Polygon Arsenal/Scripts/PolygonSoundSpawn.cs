@@ -13,7 +13,7 @@ namespace PolygonArsenal
         public bool soundPrefabIsChild = false;
         [Range(0.01f, 10f)]
         public float pitchRandomMultiplier = 1f;
-
+        public bool autoPitchLoudnessComp = true;
         // Use this for initialization
         void Start()
         {
@@ -25,19 +25,36 @@ namespace PolygonArsenal
             if (am)
             {
                 m_Source.outputAudioMixerGroup = am.sfxGroup;
-                m_Source.priority = 200;          // BGM은 0, SFX는 낮은 우선순위
-                m_Source.ignoreListenerPause = false;
+                //m_Source.priority = 200;          // BGM은 0, SFX는 낮은 우선순위
+                //m_Source.ignoreListenerPause = false;
             }
+
+
+            //if (m_Source.spatialBlend > 0.01f)
+            //{
+            //    m_Source.rolloffMode = AudioRolloffMode.Linear;
+            //    m_Source.minDistance = 8;      // 예: 8~12
+            //    m_Source.maxDistance = 25;      // 예: 25~35
+            //    m_Source.dopplerLevel = 0f;
+            //}
 
             // 2D/3D 정책(원하는대로)
             // m_Source.spatialBlend = 1f; // 3D면
-            m_Source.dopplerLevel = 0f;
+            //m_Source.dopplerLevel = 0f;
+
+            m_Source.spatialBlend = 0f;
+            //m_Source.volume = 1f;
 
             // 피치 랜덤
-            if (pitchRandomMultiplier != 1)
+            //if (pitchRandomMultiplier != 1)
+            //{
+            //    if (Random.value < .5f) m_Source.pitch *= Random.Range(1 / pitchRandomMultiplier, 1);
+            //    else m_Source.pitch *= Random.Range(1, pitchRandomMultiplier);
+            //}
+            if (autoPitchLoudnessComp)
             {
-                if (Random.value < .5f) m_Source.pitch *= Random.Range(1 / pitchRandomMultiplier, 1);
-                else m_Source.pitch *= Random.Range(1, pitchRandomMultiplier);
+                // 피치가 높을수록 체감 작아지니 역비례 보정(간단 근사)
+                m_Source.volume = Mathf.Clamp01(m_Source.volume * (1f / m_Source.pitch));
             }
 
             // PlayOnAwake 안 돼있을 수 있으니 보장

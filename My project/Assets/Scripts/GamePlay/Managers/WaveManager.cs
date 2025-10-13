@@ -68,9 +68,6 @@ public class WaveManager : MonoBehaviour
         else if (!waveMainBGM) { Debug.LogError("[WaveManager] waveMainBGM 미할당"); }
         else
         {
-            Debug.Log("music play");
-            AudioManager.I.SetMasterVolume(1f);
-            AudioManager.I.SetBgmVolume(1f);
             AudioManager.I.PlayBGM(waveMainBGM);
         }
 
