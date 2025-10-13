@@ -33,7 +33,7 @@ AudioMixerController:
   - guid: 48f65d2692f9ef545b73fcc3240ab3a4
     name: BGM_dB
   - guid: 6288abc087919044982a6e1c9fed8b2f
-    name: Master
+    name: Master_dB
   - guid: 952059a161b700b4896472a84c03ad7c
     name: SFX_dB
   m_AudioMixerGroupViews:

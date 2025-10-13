@@ -14,7 +14,7 @@ public class TrapSlowToken : MonoBehaviour
     void Awake()
     {
         _vehicle = GetComponent<IExternalSpeedScale>();
-        if (_vehicle == null)
+        if (_vehicle == null && _vehicle != this.GetComponent<IExternalSpeedScale>())
         {
             Debug.LogError($"[TrapSlowToken] {gameObject.name}에 IExternalSpeedScale이 없어 감속 불가!");
             enabled = false; // 작동 중지

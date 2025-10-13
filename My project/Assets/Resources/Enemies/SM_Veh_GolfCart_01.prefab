@@ -519,9 +519,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d86574df60d996e47a92d8de1fb08b11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ramDistance: 10
+  attackInterval: 3
+  attackRange: 15
+  maxSpeed: 25
+  handling: 7
+  reverseDuration: 0.8
+  chargeDuration: 1.5
   ramFovDeg: 40
-  ramCooldown: 2
   aimLeadTime: 0.25
 --- !u!114 &-7869223428462971138
 MonoBehaviour:

@@ -18,8 +18,8 @@ public class TrapMine : MonoBehaviour
     [SerializeField] private float armingDelay = 0.3f;
     [SerializeField] private float lifeTime = 10f;
     [SerializeField] private bool explodeOnTrigger = true;
-    [SerializeField] private bool explodeOnProximity = true;
-    [SerializeField] private float proximityPoll = 0.1f;
+    //[SerializeField] private bool explodeOnProximity = true;
+    //[SerializeField] private float proximityPoll = 0.1f;
 
     [Header("Ground Snap")]
     [SerializeField] private LayerMask groundMask;
@@ -31,7 +31,6 @@ public class TrapMine : MonoBehaviour
     [Header("FX")]
     [SerializeField] private GameObject explodeVfxPrefab;
     [SerializeField] private float vfxLifetime = 2f;
-
 
     private LivingEntity owner;
     private TeamId teamId;

@@ -14,7 +14,7 @@ public class TitleMenu: MonoBehaviour
     [SerializeField] private Slider progressBar;
 
 
-    private void Start()
+    private void OnEnable()
     {
         AudioManager.I?.PlayBGM(TitleBGM);
     }

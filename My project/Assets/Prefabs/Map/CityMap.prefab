@@ -10322,6 +10322,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &5895839370401481349
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15023,6 +15024,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &886980250547861082
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20026,6 +20028,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &2433432519060389423
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24804,6 +24807,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &1520565059086864094
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30442,6 +30446,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &6563549471741839067
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -49066,6 +49071,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &6311705586493136446
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -52428,6 +52434,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &2719366873908867158
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -62911,6 +62918,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &6250210706589634851
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -64116,15 +64124,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 64780303717126124, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
-    - {fileID: 64560633648136308, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7259213009548711293}
     - targetCorrespondingSourceObject: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1311269523504304334}
@@ -64140,22 +64143,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1356109316017642, guid: e5997f29051e1c24fa02c8fcc2698d5f, type: 3}
   m_PrefabInstance: {fileID: 1733768648497332508}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7259213009548711293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732553496184114422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54d7ea8392f69834f9d677192c4a56fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineColor: {r: 1, g: 0.9943622, b: 0.9292453, a: 1}
-  pixelThickness: 1
-  minWorldThickness: 0.005
-  pulseDuration: 1
 --- !u!114 &1311269523504304334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64189,6 +64176,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &7372567993039340883
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -68052,6 +68040,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &7038464448270039973
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -69205,9 +69194,7 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 64503775679205132, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
-    - {fileID: 64323545966566620, guid: 49f5ecf4c20a2d844a6f50431d635081, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -69259,6 +69246,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &437439569545107785
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -86301,9 +86289,7 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 64001879735154304, guid: e4a0a068c6b359d4c92d88b6b0693664, type: 3}
-    - {fileID: 64625433760500072, guid: e4a0a068c6b359d4c92d88b6b0693664, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -86360,6 +86346,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &1865317387890825096
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -89471,6 +89458,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &6792383479967740819
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -128334,6 +128322,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &4040695294037505228
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -133029,9 +133018,7 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 64958692674893400, guid: 72c55d02f43923547a5a694f08963584, type: 3}
-    - {fileID: 64288214688568996, guid: 72c55d02f43923547a5a694f08963584, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -133083,6 +133070,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &6166912563951927265
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -146121,6 +146109,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &825706312415912064
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -146424,6 +146413,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &5309256356554459811
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -160508,6 +160498,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &7987740156158724878
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -163583,6 +163574,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &7833217216483612568
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -165262,6 +165254,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &1182915590076379184
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -167354,6 +167347,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &5887439880339392728
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -195138,6 +195132,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &5968972220625379616
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -197027,6 +197022,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &8481530659396728788
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -198215,9 +198211,7 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 64105870541820226, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
-    - {fileID: 64770783373915966, guid: c86b329dfab02684e8d3582eef0fde54, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -198274,6 +198268,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &1975834534329549340
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -199531,6 +199526,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &3910890262359084748
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -200079,6 +200075,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &8668659088858189554
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -208577,9 +208574,7 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 64184370780102222, guid: f6433493c51db7a4c9ea72ac5084e6c6, type: 3}
-    - {fileID: 64395162796184294, guid: f6433493c51db7a4c9ea72ac5084e6c6, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -208631,6 +208626,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &6533403848117318048
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -208994,6 +208990,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &2873225301550161747
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -214715,6 +214712,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &6600035912870240235
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -223923,8 +223921,7 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 64445044841409040, guid: 70fb46fb4d63e3340b0f223f24a9af39, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -223976,6 +223973,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &6154969857722422935
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -228745,6 +228743,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &3923439077460614619
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -231815,6 +231814,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 23604536056759562, guid: 70fb46fb4d63e3340b0f223f24a9af39, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 64445044841409040, guid: 70fb46fb4d63e3340b0f223f24a9af39, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -231877,6 +231880,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &7375892168059428907
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -236056,6 +236060,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &1270163028863315613
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -246639,6 +246644,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &2782467586220338920
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -247900,6 +247906,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &514093012972354381
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -258205,6 +258212,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &2987205578145555344
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -262074,6 +262082,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &202880000545169523
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -262626,6 +262635,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &2409122200223500898
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -264536,6 +264546,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &5343385369742988998
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -270594,6 +270605,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &7473070102398703306
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -276223,6 +276235,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &4854997161000347939
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -277890,6 +277903,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &540810860270756915
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -282115,6 +282129,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &4811240370504852078
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -283526,6 +283541,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &7823950259242926989
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -288071,6 +288087,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &6901529097838404305
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -294658,6 +294675,7 @@ MonoBehaviour:
   dropItems: []
   explosionPrefab: {fileID: 198766293444227978, guid: 3ea37b4ac743b794f90eede42e0feda8, type: 3}
   dropRates: []
+  VFX: {fileID: 0}
 --- !u!65 &4569673999991924103
 BoxCollider:
   m_ObjectHideFlags: 0
