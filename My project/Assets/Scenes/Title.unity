@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a4d286cd5882bc4088ae09e23f5b9e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TitleBGM: {fileID: 8300000, guid: 4ca1ae6208445e94da5f684d5dca83a6, type: 3}
   loadingCanvas: {fileID: 5179491951833961730, guid: e25c46bd140c275409a53f051402fcbd, type: 3}
   sliderTag: LoadingProgressBar
   percentTextTag: LoadingPercentText
@@ -2013,9 +2014,18 @@ MonoBehaviour:
   bgmB: {fileID: 0}
   initialSfxSources: 16
   sfxDefs:
-  - {fileID: 11400000, guid: d90bc52fe98ceef469004f763d12c4cf, type: 2}
   - {fileID: 11400000, guid: 462fa58bc9f2cbf45b36fb57d39e58f4, type: 2}
+  - {fileID: 11400000, guid: 1e2b61eaae62e4c40827faa62a9d0c00, type: 2}
+  - {fileID: 11400000, guid: ccd3ef15b6e499441a4ef46eb4078af3, type: 2}
+  - {fileID: 11400000, guid: 2cb5f3083e479f946b4d08553597c886, type: 2}
+  - {fileID: 11400000, guid: 4a012ecbd1785f449bca01b01c83ca30, type: 2}
+  - {fileID: 11400000, guid: f48fa3f89c3ee8e4bb31cd9bc710a4ce, type: 2}
+  - {fileID: 11400000, guid: 5dbe208da460ce74fba438a6b506a42a, type: 2}
   - {fileID: 11400000, guid: b737b2a5a0aba03489c26f08c1254a96, type: 2}
+  - {fileID: 11400000, guid: 7a0c67b999157c7429c1dfc93f2af452, type: 2}
+  - {fileID: 11400000, guid: d90bc52fe98ceef469004f763d12c4cf, type: 2}
+  - {fileID: 11400000, guid: 5afe401ebc7135744bbc42090409d013, type: 2}
+  - {fileID: 11400000, guid: 16596b406669c3549b7a7bf526f3675d, type: 2}
 --- !u!1 &1947229215
 GameObject:
   m_ObjectHideFlags: 0

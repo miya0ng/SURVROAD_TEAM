@@ -120,6 +120,22 @@ public class AudioManager : MonoBehaviour
         a.clip = def.clip;
         a.Play();
     }
+    public void PlaySFX(string id, int count , Vector3? pos = null)
+    {
+        if (!sfxMap.TryGetValue(id, out var def) || !def.clip) return;
+        var a = RentSfx();
+        a.transform.position = pos ?? Vector3.zero;
+        a.spatialBlend = def.spatial ? 1f : 0f;
+        a.maxDistance = def.maxDistance;
+        a.priority = def.priority;
+        a.volume = def.volume;
+        a.pitch = Random.Range(def.pitchMin, def.pitchMax);
+        a.clip = def.clip;
+        for(int i=1; i<count; i++)
+        {
+            a.Play();
+        }
+    }
 
     public AudioClip CurrentBGM => _activeBGM ? _activeBGM.clip : null;
     public void PlayBGMIfDifferent(AudioClip clip, float fadeSec = -1f)

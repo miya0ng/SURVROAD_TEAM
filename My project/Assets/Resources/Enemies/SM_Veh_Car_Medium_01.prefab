@@ -396,6 +396,8 @@ MonoBehaviour:
   curHp: 0
   teamId: 2
   isDead: 0
+  SmokeWhite: {fileID: 1182352879735434, guid: 903c858175b88d942a42bfd47897e02a, type: 3}
+  SmokeBlack: {fileID: 1277371255116320, guid: 766c7760df99f424ab87495c2cceaeac, type: 3}
   car: {fileID: -4138209060255131174}
   gun: {fileID: 0}
   enemyId: 51101
@@ -519,9 +521,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d86574df60d996e47a92d8de1fb08b11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ramDistance: 10
+  attackInterval: 3
+  attackRange: 15
+  maxSpeed: 25
+  handling: 7
+  reverseDuration: 0.8
+  chargeDuration: 1.5
   ramFovDeg: 40
-  ramCooldown: 2
   aimLeadTime: 0.25
 --- !u!1 &1836649720722421060
 GameObject:

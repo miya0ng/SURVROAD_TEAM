@@ -82,6 +82,7 @@ public class EnemyProjectile : MonoBehaviour, IPoolable
     {
         // Pop 시점에 OnPoppedFromPool에서 대부분 초기화함
         lastPos = transform.position;
+        AudioManager.I?.PlaySFX("TurretShoot", transform.position);
     }
 
     void Update()

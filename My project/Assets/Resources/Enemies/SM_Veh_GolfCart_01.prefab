@@ -413,7 +413,9 @@ MonoBehaviour:
   curHp: 0
   teamId: 2
   isDead: 0
-  car: {fileID: 0}
+  SmokeWhite: {fileID: 1182352879735434, guid: 903c858175b88d942a42bfd47897e02a, type: 3}
+  SmokeBlack: {fileID: 1277371255116320, guid: 766c7760df99f424ab87495c2cceaeac, type: 3}
+  car: {fileID: -5653714960292663956}
   gun: {fileID: 0}
   enemyId: 51101
   shootRange: 30

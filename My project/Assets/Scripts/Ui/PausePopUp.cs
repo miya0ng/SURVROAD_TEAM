@@ -23,45 +23,30 @@ public class PausePopUp : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void Close()
-    {
-        Time.timeScale = 1f;
-        if (pauseRoot) pauseRoot.SetActive(false);
-    }
     void Start()
     {
         // 버튼 바인딩
-        resumeBtn?.onClick.AddListener(Close);
-        titleBtn?.onClick.AddListener(() =>
-        {
-            Time.timeScale = 1f;
-            SceneManager.LoadScene(titleSceneName);
-        });
-        restartBtn?.onClick.AddListener(() =>
-        {
-            Time.timeScale = 1f;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        });
+        resumeBtn?.onClick.AddListener(OnClose);
+        titleBtn?.onClick.AddListener(OnClickTitle);
+        restartBtn?.onClick.AddListener(OnClickRestart);
     }
-    // === 버튼 동작 ===
-    public void OnClickResume()
+
+    public void OnClose()
     {
-        AudioManager.I.PlaySFX("ButtonDefault");
-        Debug.Log("Resume Clicked");
+        AudioManager.I?.PlaySFX("ButtonDefault");
         Time.timeScale = 1f;
         if (pauseRoot) pauseRoot.SetActive(false);
     }
-
     public void OnClickTitle()
     {
-        AudioManager.I.PlaySFX("ButtonDefault");
+        AudioManager.I?.PlaySFX("ButtonDefault");
         Time.timeScale = 1f;
         SceneManager.LoadScene(titleSceneName);
     }
 
     public void OnClickRestart()
     {
-        AudioManager.I.PlaySFX("ButtonDefault");
+        AudioManager.I?.PlaySFX("ButtonDefault");
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

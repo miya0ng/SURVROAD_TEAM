@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class SceneLoader : MonoBehaviour
 {
+    public AudioClip TitleBGM;
+
     public static SceneLoader I;
 
     [Header("Prefab with Canvas + Slider + TMP Text")]
@@ -41,6 +43,11 @@ public class SceneLoader : MonoBehaviour
     {
         Time.timeScale = 1f;
         StartCoroutine(CoLoad(sceneName));
+    }
+
+    private void Start()
+    {
+        AudioManager.I.PlayBGM(TitleBGM);
     }
 
     private IEnumerator CoLoad(string sceneName)

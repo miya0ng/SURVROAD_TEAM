@@ -118,6 +118,8 @@ public class LevelUpPopup : MonoBehaviour
 
     private void SelectIndex(int idx)
     {
+        AudioManager.I?.PlaySFX("ButtonDefault");
+
         if (candidates == null || idx < 0 || idx >= candidates.Length) return;
 
         if (selectedIndex == idx)
@@ -133,6 +135,8 @@ public class LevelUpPopup : MonoBehaviour
 
     public void OnClick_EquipButton()
     {
+        AudioManager.I?.PlaySFX("LevelUp");
+
         if (selectedIndex < 0 || candidates == null || selectedIndex >= candidates.Length)
         {
             Debug.LogWarning($"EquipButton aborted: invalid selection (idx={selectedIndex}, len={(candidates == null ? -1 : candidates.Length)})");

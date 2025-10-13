@@ -114,11 +114,13 @@ public class ResultPopup : MonoBehaviour
 
     public void OnClickRestart()
     {
+        AudioManager.I?.PlaySFX("ButtonDefault");
         gameManager?.GameStart();
     }
 
     public void OnExitButton()
     {
+        AudioManager.I?.PlaySFX("ButtonDefault");
         Time.timeScale = 1f;
         SceneManager.LoadScene("Title");
     }

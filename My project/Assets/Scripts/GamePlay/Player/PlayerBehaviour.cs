@@ -24,7 +24,7 @@ public class PlayerBehaviour : LivingEntity, IDamagable, IPlayerUpgradable
     [SerializeField] private ParticleSystem magnetFxPrefab;
     protected override void Awake()
     {
-        maxHp = 1000;
+        maxHp = 100;
         curHp = maxHp;
         ui_hpBar = GetComponent<Ui_Slider>();
         ui_hpBar.SetSliderUi(maxHp, maxHp);
@@ -134,6 +134,8 @@ public class PlayerBehaviour : LivingEntity, IDamagable, IPlayerUpgradable
         if (!lv.gameObject.activeInHierarchy || lv.isDead) return;
 
         lv.OnDamage(colDamage, this);
+        AudioManager.I.PlaySFX("CarCrash00", transform.position);
+
         isCol = true;
     }
 
@@ -143,6 +145,10 @@ public class PlayerBehaviour : LivingEntity, IDamagable, IPlayerUpgradable
     {
         base.OnDamage(damage, attacker);
         ui_hpBar.UpdateHpSlider(curHp);
+        if (curHp < 30f)
+        {
+            AudioManager.I.PlaySFX("HeartBeat", count:3);
+        }
     }
 
     public void ApplyMultipliers(float durabilityMul, float maxSpeedMul, float accelerationMul)
