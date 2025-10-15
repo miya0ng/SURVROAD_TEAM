@@ -33,16 +33,14 @@ public class PlayerBehaviour : LivingEntity, IDamagable, IPlayerUpgradable
         equipManager = GameObject.FindWithTag("EquipManager").GetComponent<EquipManager>();
     }
 
-    public void OnEnable()
+    protected override void OnEnable()
     {
         equipManager.OnCandidate += LevelPopUpHp;
     }
-    public void OnDisable()
+    protected override void OnDisable()
     {
         equipManager.OnCandidate -= LevelPopUpHp;
     }
-
-
     public void LevelPopUpHp()
     {
         curHp *= 1.3f;
@@ -93,8 +91,6 @@ public class PlayerBehaviour : LivingEntity, IDamagable, IPlayerUpgradable
 
         Destroy(fx.gameObject, totalDuration);
     }
-
-
     public void PlayHealFx()
     {
         if (!healFxPrefab) return;

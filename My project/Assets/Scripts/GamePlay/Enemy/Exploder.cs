@@ -31,7 +31,7 @@ public class Exploder : MonoBehaviour
     // === 보강 옵션 ===
     [Header("Team/Friendly-Fire")]
     [SerializeField] private bool ignoreSelf = true;        // 자기 자신 피해 무시
-    [SerializeField] private bool ignoreSameTeam = true;    // 동일 팀 피해 무시
+    [SerializeField] private bool ignoreTeam = true;    // 동일 팀 피해 무시
 
     [Header("Perf/Limit")]
     [SerializeField] private int maxVictims = 64;         // 최대 타격 대상 수(과도한 연산 안전장치)
@@ -138,7 +138,7 @@ public class Exploder : MonoBehaviour
             {
                 // 자기 자신/동일 팀 무시 옵션
                 if (ignoreSelf && _selfLE && le == _selfLE) goto PHYSICS_ONLY;
-                if (ignoreSameTeam && _selfLE && le.teamId == _selfLE.teamId) goto PHYSICS_ONLY;
+                if (ignoreTeam && _selfLE && le.teamId == _selfLE.teamId) goto PHYSICS_ONLY;
 
                 visited.Add(le);
                 le.OnDamage(dmg, _selfLE ? _selfLE : null);

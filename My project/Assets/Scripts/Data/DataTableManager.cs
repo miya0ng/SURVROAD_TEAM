@@ -3,7 +3,6 @@ using UnityEngine;
 
 public static class DataTableManger
 {
-    //private static readonly string ItemCsv = "Items";
     private static readonly Dictionary<string, DataTable> tables =
         new Dictionary<string, DataTable>();
 
@@ -42,9 +41,6 @@ public static class DataTableManger
         enemyCarTable.Load(EnemyDataTable.EnemyTableId);
         tables.Add(EnemyDataTable.EnemyTableId, enemyCarTable);
     }
-
-    ////public static StringTable StringTable => Get<StringTable>(DataTableIds.String);
-    //public static ItemTable ItemTable => Get<ItemTable>(ItemTable.ItemTableId);
 
     public static T Get<T>(string id) where T : DataTable
     {

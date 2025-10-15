@@ -12,7 +12,7 @@ public class WaveManager : MonoBehaviour
     private string waveCsvPath = "WaveTable";
     private int[] waveOrder; // 비우면 CSV의 ID 오름차순으로 플레이
 
-    private EnemySpawner enemySpawner;
+    private EnemyManager enemyManager;
     private GameManager gameManager;
 
     [Header("Timing Overrides (선택)")]
@@ -38,8 +38,8 @@ public class WaveManager : MonoBehaviour
 
     void Awake()
     {
-        if (enemySpawner == null)
-            enemySpawner = GameObject.FindGameObjectWithTag("EnemySpawner")?.GetComponent<EnemySpawner>();
+        if (enemyManager == null)
+            enemyManager = GameObject.FindGameObjectWithTag("EnemySpawner")?.GetComponent<EnemyManager>();
         if (gameManager == null)
             gameManager = GameObject.FindGameObjectWithTag("GameManager")?.GetComponent<GameManager>();
 
@@ -55,8 +55,8 @@ public class WaveManager : MonoBehaviour
 
     IEnumerator Start()
     {
-        if (enemySpawner != null)
-            enemySpawner.OnWaveCleared += NextWave;
+        if (enemyManager != null)
+            enemyManager.OnWaveCleared += NextWave;
         if (gameManager != null)
             OnAllWavesCompleted += gameManager.StageClear;
 
@@ -76,8 +76,8 @@ public class WaveManager : MonoBehaviour
 
     void OnDestroy()
     {
-        if (enemySpawner != null)
-            enemySpawner.OnWaveCleared -= NextWave;
+        if (enemyManager != null)
+            enemyManager.OnWaveCleared -= NextWave;
     }
 
     void Update()
@@ -122,9 +122,9 @@ public class WaveManager : MonoBehaviour
         OnWaveChanged?.Invoke(CurrentWaveNumber, TotalWaves);
 
         // 웨이브 데이터 전달 + 스폰 시작
-        if (enemySpawner != null)
+        if (enemyManager != null)
         {
-            enemySpawner.SetWave(wave, coSpawnPerTick, tickInterval);
+            enemyManager.SetWave(wave, coSpawnPerTick, tickInterval);
         }
         else
         {

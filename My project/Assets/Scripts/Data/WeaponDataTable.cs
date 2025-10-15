@@ -21,9 +21,9 @@ public class WeaponData
     public float ExplosionRange { get; set;}
     public float Duration {  get; set; }
     public bool Piercing {  get; set; }
+    public string SelectionInfo { get; set; }
     public string Info { get; set; }
     public string PrefabName { get; set; }
-    public string SelectionInfo { get; set; }
 }
 public class WeaponDataTable : DataTable
 {

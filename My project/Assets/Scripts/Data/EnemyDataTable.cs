@@ -2,11 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// 너의 CsvTable 시스템에 맞춰 최소 어댑터만 제공.
-// 실제 CSV 필드명은 기획서 예시와 동일하다고 가정.
-
 [System.Serializable]
-public struct EnemySpec
+public class EnemySpec  // 코드상에서 사용하는 실제 클래스
 {
     public int Id;
     public string Name;
@@ -19,7 +16,7 @@ public struct EnemySpec
     public EnemyAttackType AttackType;
     public int AttackDamage;
     public float AttackInterval;  // 초 단위
-    public string PrefabName;     // 프리팹 파일명(없으면 Name 사용)
+    public string PrefabName;     // 프리팹 파일명
 }
 [System.Serializable]
 public class EnemyData
@@ -79,7 +76,7 @@ public class EnemyDataTable : DataTable
                 SizeType = r.Type,
                 MaxSpeed = r.MaxSpeed,
                 Durability = r.Durability,
-                Accel = r.Acceleration,                         // 매핑 주의
+                Accel = r.Acceleration,
                 Handling = r.Handling,
                 CollisionDamage = r.CollisionDamage,
                 AttackType = (EnemyAttackType)r.AttackType,     // enum 캐스팅
@@ -92,7 +89,7 @@ public class EnemyDataTable : DataTable
         }
     }
 
-    public EnemySpec? GetSpec(int id)
+    public EnemySpec GetSpec(int id)
     {
         if (specs.TryGetValue(id, out var value))
             return value;
@@ -101,10 +98,6 @@ public class EnemyDataTable : DataTable
         return null;
     }
     public bool TryGet(int id, out EnemySpec spec) => specs.TryGetValue(id, out spec);
-
-    public IEnumerable<EnemySpec> GetBySize(int sizeType) => specs.Values.Where(s => s.SizeType == sizeType);
-
-    public IEnumerable<EnemySpec> GetByAttackType(EnemyAttackType type) => specs.Values.Where(s => s.AttackType == type);
 
     public IReadOnlyCollection<EnemySpec> GetAll() => specs.Values.ToList().AsReadOnly();
 }

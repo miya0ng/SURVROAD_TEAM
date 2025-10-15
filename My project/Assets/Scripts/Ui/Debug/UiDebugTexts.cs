@@ -18,7 +18,7 @@ public class UiDebugTexts : MonoBehaviour
     private CarController playerController;
     private PlayerBehaviour playerHp;
     private WaveManager waveManager;
-    private EnemySpawner enemySpawner;
+    private EnemyManager enemySpawner;
     private EquipManager equipManager;
 
     private string[] equipWeapons = new string[3];
@@ -37,7 +37,7 @@ public class UiDebugTexts : MonoBehaviour
         if (wmObj) waveManager = wmObj.GetComponent<WaveManager>();
 
         var esObj = GameObject.FindWithTag("EnemySpawner");
-        if (esObj) enemySpawner = esObj.GetComponent<EnemySpawner>();
+        if (esObj) enemySpawner = esObj.GetComponent<EnemyManager>();
     }
 
     void Update()

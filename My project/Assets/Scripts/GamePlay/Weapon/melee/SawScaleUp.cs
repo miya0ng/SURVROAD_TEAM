@@ -2,11 +2,6 @@ using UnityEngine;
 
 public class SawScaleUp : MonoBehaviour
 {
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {

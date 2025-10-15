@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using Pathfinding; // A* Pathfinding Project
-public class EnemySpawner : MonoBehaviour
+public class EnemyManager : MonoBehaviour
 {
     [Header("Bindings")]
     [SerializeField] private Transform emptySpawnPoint;
@@ -342,12 +342,12 @@ public class EnemySpawner : MonoBehaviour
         var gun = enemyObj.GetComponent<EnemyGunController>();
         if (gun) { gun.damage = Mathf.Max(1, spec.AttackDamage); gun.fireInterval = Mathf.Max(0.1f, spec.AttackInterval); }
 
-        var driver = enemyObj.GetComponent<EnemyDriver>();
-        if (driver)
+        var enemyEntity = enemyObj.GetComponent<EnemyEntity>();
+        if (enemyEntity)
         {
-            driver.SetEnemyId(enemyID);
-            if (player) driver.SetTarget(player);
-            driver.ApplySpec(spec);
+            enemyEntity.SetEnemyId(enemyID);
+            //if (player) enemyEntity.SetTarget(player);
+            enemyEntity.ApplySpec(spec);
         }
 
         bool isGunCar = (enemyID == 51201 || enemyID == 52201 || enemyID == 52202);

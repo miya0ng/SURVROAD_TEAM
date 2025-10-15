@@ -47,7 +47,7 @@ public class EquipManager : MonoBehaviour
     private readonly List<EquippedEntry> equips = new();
     public int EquippedCount => equips.Count;
 
-    // 하위 호환: 기존 driver 배열을 노출(가상 슬롯은 null)
+    // 하위 호환: 기존 entity 배열을 노출(가상 슬롯은 null)
     public IReadOnlyList<WeaponDriver> Slot => equips.Select(e => e.driver).ToList();
 
     // 소켓 맵

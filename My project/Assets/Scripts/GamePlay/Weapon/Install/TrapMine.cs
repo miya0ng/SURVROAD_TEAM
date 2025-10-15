@@ -5,10 +5,10 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Collider))]
 public class TrapMine : MonoBehaviour
 {
-   [Header("Damage")]
+    [Header("Damage")]
     [SerializeField] private float minDamage = 50f;
     [SerializeField] private float maxDamage = 50f;
-   
+
     private SphereCollider zone;      // isTrigger = true
 
     [SerializeField] private LayerMask hitMask = ~0;
@@ -41,7 +41,6 @@ public class TrapMine : MonoBehaviour
     public Action<TrapMine> OnDespawnToPool;
 
     private readonly Collider[] hits = new Collider[64];
-    private Collider myCol;
     private float lifeTimer;
     //private float proxTimer;
 
@@ -57,14 +56,8 @@ public class TrapMine : MonoBehaviour
         if (!zone) zone = GetComponent<SphereCollider>();
         zone.isTrigger = true;
         zone.radius = Mathf.Max(0.5f, lv.EffectiveRange);
-
     }
 
-    void Awake()
-    {
-        myCol = GetComponent<Collider>();
-        myCol.isTrigger = true;
-    }
     void OnEnable()
     {
         if (groundMask == 0) groundMask = LayerMask.GetMask("Ground"); // 안전 기본값
@@ -156,7 +149,7 @@ public class TrapMine : MonoBehaviour
     private void Explode()
     {
         var EquipWeapon = GetComponentInParent<EquipSocket>();
-        if( EquipWeapon != null)
+        if (EquipWeapon != null)
         {
             return;
         }
@@ -164,7 +157,7 @@ public class TrapMine : MonoBehaviour
         if (exploded) return;
         exploded = true;
 
-        int n = Physics.OverlapSphereNonAlloc(transform.position, zone.radius*3, hits, hitMask, QueryTriggerInteraction.Ignore);
+        int n = Physics.OverlapSphereNonAlloc(transform.position, zone.radius * 3, hits, hitMask, QueryTriggerInteraction.Ignore);
         for (int i = 0; i < n; i++)
         {
             var le = hits[i].GetComponentInParent<LivingEntity>();
@@ -193,23 +186,23 @@ public class TrapMine : MonoBehaviour
         // 풀을 안 쓰면 기본 파괴
         //gameObject.SetActive(false); // 눈에 보이던 비가시 전환 최소화
 
-      Destroy(gameObject, 0.1f);
+        Destroy(gameObject, 0.1f);
     }
-//#if UNITY_EDITOR
-//    private void OnDrawGizmosSelected()
-//    {
-//        Gizmos.color = new Color(1f, 0.4f, 0.1f, 0.25f);
-//        Gizmos.DrawSphere(transform.position, zone.radius);
-//        Gizmos.color = new Color(1f, 0.4f, 0.1f, 1f);
-//        Gizmos.DrawWireSphere(transform.position, zone.radius);
+    //#if UNITY_EDITOR
+    //    private void OnDrawGizmosSelected()
+    //    {
+    //        Gizmos.color = new Color(1f, 0.4f, 0.1f, 0.25f);
+    //        Gizmos.DrawSphere(transform.position, zone.radius);
+    //        Gizmos.color = new Color(1f, 0.4f, 0.1f, 1f);
+    //        Gizmos.DrawWireSphere(transform.position, zone.radius);
 
-//        // Ground snap ray
-//        Gizmos.color = Color.cyan;
-//        Vector3 origin = transform.position + Vector3.up * castHeight;
-//        Gizmos.DrawLine(origin, origin + Vector3.down * (castHeight + maxCastDown));
-//        Gizmos.DrawWireSphere(origin, 0.06f);
-//    }
+    //        // Ground snap ray
+    //        Gizmos.color = Color.cyan;
+    //        Vector3 origin = transform.position + Vector3.up * castHeight;
+    //        Gizmos.DrawLine(origin, origin + Vector3.down * (castHeight + maxCastDown));
+    //        Gizmos.DrawWireSphere(origin, 0.06f);
+    //    }
 
 
-//#endif
+    //#endif
 }

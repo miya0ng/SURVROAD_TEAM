@@ -22,8 +22,9 @@ public class DestructibleObject : LivingEntity
         hitFlash = GetComponent<HitFlash>();
     }
 
-    public void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         VFX = Instantiate(VFX, transform.position, VFX.transform.rotation);
         VFX.transform.parent = transform;
         VFX.Play();

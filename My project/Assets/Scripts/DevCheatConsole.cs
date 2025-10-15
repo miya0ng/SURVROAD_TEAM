@@ -5,7 +5,7 @@ public class DevCheatConsole : MonoBehaviour
     [Header("Bindings")]
     public EquipManager equip;
     public WaveManager wave;
-    public EnemySpawner spawner;
+    public EnemyManager spawner;
     public PlayerBehaviour playerHp;
     public WeaponLibrary weaponLibrary;
 
@@ -40,7 +40,7 @@ public class DevCheatConsole : MonoBehaviour
         if (!spawner)
         {
             var es = GameObject.FindWithTag("EnemySpawner");
-            if (es) spawner = es.GetComponent<EnemySpawner>();
+            if (es) spawner = es.GetComponent<EnemyManager>();
         }
         timeScale = Time.timeScale;
     }
@@ -110,8 +110,8 @@ public class DevCheatConsole : MonoBehaviour
             // 네 스포너에 디버그 스폰 함수가 없다면 하나 추가(아래 참고)
             if (GUILayout.Button("Spawn Now"))
             {
-                // 예시 1) spawner.DebugSpawn(addEnemies);
-                // 예시 2) spawner.ForceSpawn(addEnemies);
+                // 예시 1) enemyManager.DebugSpawn(addEnemies);
+                // 예시 2) enemyManager.ForceSpawn(addEnemies);
             }
             GUI.enabled = true;
         }

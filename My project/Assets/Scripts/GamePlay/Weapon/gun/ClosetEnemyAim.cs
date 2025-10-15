@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class ClosestEnemyAim : MonoBehaviour, IAimStrategy
 {
-    private EnemySpawner spawner;
+    private EnemyManager enemyManager;
 
-    void Awake() => spawner = GameObject.FindWithTag("EnemySpawner").GetComponent<EnemySpawner>();
+    void Awake() => enemyManager = GameObject.FindWithTag("EnemySpawner").GetComponent<EnemyManager>();
 
     public Transform GetAimTarget(Transform self, TeamId teamId)
     {
-        var enemies = spawner.GetEnemies();
+        var enemies = enemyManager.GetEnemies();
         float closest = float.MaxValue; LivingEntity best = null;
         foreach (var e in enemies)
         {

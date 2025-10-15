@@ -47,7 +47,7 @@ public class EnemyCarController : MonoBehaviour, IExternalSpeedScale
     static readonly Collider[] _neighBuf = new Collider[64];
     int _frameSeed;
 
-    // === 🆕 외부 감속 시스템 (전기 트랩용) ===
+    // === 외부 감속 시스템 (전기 트랩용) ===
     private float externalSpeedScale = 1f;
 
     void Awake()
@@ -116,18 +116,18 @@ public class EnemyCarController : MonoBehaviour, IExternalSpeedScale
             extHold -= dt;
 
             float turnLimit = Mathf.Lerp(baseTurnDeg, baseTurnDeg * 0.33f, 
-                Mathf.InverseLerp(0f, effectiveMaxSpeed, speed)); // 🆕 감속 반영
+                Mathf.InverseLerp(0f, effectiveMaxSpeed, speed)); // 감속 반영
 
             float turnDeg = Mathf.Clamp(extSteer, -1f, 1f) * turnLimit;
 
             Quaternion q = Quaternion.AngleAxis(turnDeg * handling * dt, Vector3.up);
             rb.MoveRotation(rb.rotation * q);
 
-            float targetSpeed = Mathf.Lerp(0f, effectiveMaxSpeed, Mathf.Clamp01(extThrottle)); // 🆕 감속 반영
+            float targetSpeed = Mathf.Lerp(0f, effectiveMaxSpeed, Mathf.Clamp01(extThrottle)); // 감속 반영
             if (needBrake) targetSpeed *= cornerSlowFactor;
 
             float dv = targetSpeed - speed;
-            float a = dv >= 0f ? effectiveAccel : brakeDecel; // 🆕 감속 반영
+            float a = dv >= 0f ? effectiveAccel : brakeDecel; // 감속 반영
             float newSpeed = Mathf.MoveTowards(speed, targetSpeed, a * dt);
 
             Vector3 vel = transform.forward * newSpeed;
@@ -180,20 +180,20 @@ public class EnemyCarController : MonoBehaviour, IExternalSpeedScale
             : (pursueDir * pursueWeight + sepDir * separationWeight).normalized;
 
         float turnLimit2 = Mathf.Lerp(baseTurnDeg, baseTurnDeg * 0.33f, 
-            Mathf.InverseLerp(0f, effectiveMaxSpeed, speed)); // 🆕 감속 반영
+            Mathf.InverseLerp(0f, effectiveMaxSpeed, speed)); // 감속 반영
         float turn2 = Mathf.Clamp(Vector3.SignedAngle(forward, steerDir, Vector3.up), -turnLimit2, turnLimit2);
 
         Quaternion q2 = Quaternion.AngleAxis(turn2 * handling * dt, Vector3.up);
         rb.MoveRotation(rb.rotation * q2);
 
-        float targetSpeed2 = effectiveMaxSpeed; // 🆕 감속 반영
+        float targetSpeed2 = effectiveMaxSpeed; // 감속 반영
         if (needBrake) targetSpeed2 *= cornerSlowFactor;
 
         // 밀집 시 꼬리물기 방지용 소감속
         if (neighs >= 3) targetSpeed2 *= 0.85f;
 
         float dv2 = targetSpeed2 - speed;
-        float a2 = dv2 >= 0f ? effectiveAccel : brakeDecel; // 🆕 감속 반영
+        float a2 = dv2 >= 0f ? effectiveAccel : brakeDecel; // 감속 반영
         float newSpeed2 = Mathf.MoveTowards(speed, targetSpeed2, a2 * dt);
 
         Vector3 vel2 = transform.forward * newSpeed2;

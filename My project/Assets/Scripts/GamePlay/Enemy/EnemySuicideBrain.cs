@@ -76,7 +76,7 @@ public class EnemySuicideCarBrain : MonoBehaviour
                 {
                     // CSV 스펙에서 공격력을 받아왔다면 spec.AttackDamage 전달
                     // 없다면 Brain에 직렬화한 damageOnExplode 사용
-                    var driver = GetComponent<EnemyDriver>();
+                    var driver = GetComponent<EnemyEntity>();
                     if (driver != null && driver.TryGetSpec(out var spec))
                         exploder.Trigger(spec, transform);   // 오버로드 사용 (동일 시그니처도 OK)
                     else

@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private WaveManager waveManager;
-    private EnemySpawner enemySpawner;
+    private EnemyManager enemySpawner;
 
     public int specialPartCount = 0;
 
@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         var esObj = GameObject.FindGameObjectWithTag("EnemySpawner");
-        if (esObj) enemySpawner = esObj.GetComponent<EnemySpawner>();
+        if (esObj) enemySpawner = esObj.GetComponent<EnemyManager>();
 
         var wmObj = GameObject.FindGameObjectWithTag("WaveManager");
         if (wmObj) waveManager = wmObj.GetComponent<WaveManager>();
