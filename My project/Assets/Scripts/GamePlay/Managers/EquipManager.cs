@@ -91,10 +91,10 @@ public class EquipManager : MonoBehaviour
         {
             EquipWeapon(starterSO, 1);
         }
-        else if (equipStarterOnStart && starterPrefab != null && starterSO != null && player != null)
-        {
-            EquipWeapon(starterPrefab, starterSO, player);
-        }
+        //else if (equipStarterOnStart && starterPrefab != null && starterSO != null && player != null)
+        //{
+        //    EquipWeapon(starterPrefab, starterSO, player);
+        //}
 
         RaiseGaugeChanged();
     }
@@ -166,17 +166,17 @@ public class EquipManager : MonoBehaviour
         ResetPartsGauge();
     }
 
-    public void ApplyNewEquip(GameObject weaponPrefab, WeaponSO so)
-    {
-        if (!levelUpPending || weaponPrefab == null || so == null) return;
-        EquipNewCore(so, 1, preferPhysical: true);
-        ResetPartsGauge();
-    }
+    //public void ApplyNewEquip(GameObject weaponPrefab, WeaponSO so)
+    //{
+    //    if (!levelUpPending || weaponPrefab == null || so == null) return;
+    //    EquipNewCore(so, 1, preferPhysical: true);
+    //    ResetPartsGauge();
+    //}
 
     public void EquipOrUpgrade(UpgradeCandidate c)
     {
         if (!levelUpPending) return;
-        OnCandidate.Invoke();
+        OnCandidate?.Invoke();
         ChangePartsGuage();
 
         if (c.Kind == CandidateKind.PlayerStat)
@@ -200,14 +200,14 @@ public class EquipManager : MonoBehaviour
         }
     }
 
-    public void EquipWeapon(GameObject weaponPrefab, WeaponSO so, LivingEntity owner)
-    {
-        int sameIdx = FindIndexBySO(so);
-        if (sameIdx >= 0) { ApplyNewEquipExisting(sameIdx); return; }
+    //public void EquipWeapon(GameObject weaponPrefab, WeaponSO so, LivingEntity owner)
+    //{
+    //    int sameIdx = FindIndexBySO(so);
+    //    if (sameIdx >= 0) { ApplyNewEquipExisting(sameIdx); return; }
 
-        if (!TryGetLevelData(so, 1, out var data) || data.prefab == null) return;
-        TryMountOrVirtual(so, 1, preferPhysical: true);
-    }
+    //    if (!TryGetLevelData(so, 1, out var data) || data.prefab == null) return;
+    //    TryMountOrVirtual(so, 1, preferPhysical: true);
+    //}
 
     public void EquipWeapon(WeaponSO so, int level = 1)
     {
@@ -257,58 +257,58 @@ public class EquipManager : MonoBehaviour
         return list.ToArray();
     }
 
-    public void ReplaceWeapon(int index, GameObject newWeaponPrefab, WeaponSO so)
-    {
-        if (!IsValidSlotIndex(index) || newWeaponPrefab == null || so == null) return;
+    //public void ReplaceWeapon(int index, GameObject newWeaponPrefab, WeaponSO so)
+    //{
+    //    if (!IsValidSlotIndex(index) || newWeaponPrefab == null || so == null) return;
 
-        var entry = equips[index];
+    //    var entry = equips[index];
 
-        if (entry.drivers != null)
-        {
-            foreach (var d in entry.drivers)
-            {
-                if (d) OnWeaponUnequipped?.Invoke(d);
-                if (d) Destroy(d.gameObject);
-            }
-            entry.drivers.Clear();
-        }
-        entry.driver = null;
-        ReleaseSockets(entry);
+    //    if (entry.drivers != null)
+    //    {
+    //        foreach (var d in entry.drivers)
+    //        {
+    //            if (d) OnWeaponUnequipped?.Invoke(d);
+    //            if (d) Destroy(d.gameObject);
+    //        }
+    //        entry.drivers.Clear();
+    //    }
+    //    entry.driver = null;
+    //    ReleaseSockets(entry);
 
-        entry.so = so;
-        entry.level = Mathf.Max(1, entry.level);
+    //    entry.so = so;
+    //    entry.level = Mathf.Max(1, entry.level);
 
-        TryMountIntoExistingEntry(entry, preferPhysical: true);
-        equips[index] = entry;
-        OnEquipChanged?.Invoke();
-    }
+    //    TryMountIntoExistingEntry(entry, preferPhysical: true);
+    //    equips[index] = entry;
+    //    OnEquipChanged?.Invoke();
+    //}
 
-    public void UnEquipWeapon(int index)
-    {
-        if (!IsValidSlotIndex(index)) return;
+    //public void UnEquipWeapon(int index)
+    //{
+    //    if (!IsValidSlotIndex(index)) return;
 
-        var entry = equips[index];
+    //    var entry = equips[index];
 
-        if (entry.drivers != null)
-        {
-            foreach (var d in entry.drivers)
-            {
-                if (d) OnWeaponUnequipped?.Invoke(d);
-                if (d) Destroy(d.gameObject);
-            }
-        }
+    //    if (entry.drivers != null)
+    //    {
+    //        foreach (var d in entry.drivers)
+    //        {
+    //            if (d) OnWeaponUnequipped?.Invoke(d);
+    //            if (d) Destroy(d.gameObject);
+    //        }
+    //    }
 
-        ReleaseSockets(entry);
-        equips.RemoveAt(index);
-        OnEquipChanged?.Invoke();
-        ResetPartsGauge();
-    }
+    //    ReleaseSockets(entry);
+    //    equips.RemoveAt(index);
+    //    OnEquipChanged?.Invoke();
+    //    ResetPartsGauge();
+    //}
 
-    public void UnEquipLast()
-    {
-        if (equips.Count == 0) return;
-        UnEquipWeapon(equips.Count - 1);
-    }
+    //public void UnEquipLast()
+    //{
+    //    if (equips.Count == 0) return;
+    //    UnEquipWeapon(equips.Count - 1);
+    //}
 
     //// ============= cheat =================
     //public void ForceEquipNew(WeaponSO so, int level = 1)
@@ -363,26 +363,26 @@ public class EquipManager : MonoBehaviour
         OnEquipChanged?.Invoke();
     }
 
-    private void TryMountIntoExistingEntry(EquippedEntry entry, bool preferPhysical)
-    {
-        if (!preferPhysical || entry.so == null) return;
+    //private void TryMountIntoExistingEntry(EquippedEntry entry, bool preferPhysical)
+    //{
+    //    if (!preferPhysical || entry.so == null) return;
 
-        if (TryAssignMount(entry.so, out var chosen))
-        {
-            var created = CreateDriversByPolicy(entry.so, entry.level, chosen, out var socketsUsed);
-            entry.drivers = created;
-            entry.driver = created.FirstOrDefault();
-            entry.sockets = socketsUsed;
+    //    if (TryAssignMount(entry.so, out var chosen))
+    //    {
+    //        var created = CreateDriversByPolicy(entry.so, entry.level, chosen, out var socketsUsed);
+    //        entry.drivers = created;
+    //        entry.driver = created.FirstOrDefault();
+    //        entry.sockets = socketsUsed;
 
-            foreach (var d in created) OnWeaponEquipped?.Invoke(d);
-        }
-        else
-        {
-            entry.driver = null;
-            entry.drivers.Clear();
-            entry.sockets = null;
-        }
-    }
+    //        foreach (var d in created) OnWeaponEquipped?.Invoke(d);
+    //    }
+    //    else
+    //    {
+    //        entry.driver = null;
+    //        entry.drivers.Clear();
+    //        entry.sockets = null;
+    //    }
+    //}
 
     private List<WeaponDriver> CreateDriversByPolicy(WeaponSO so, int level, List<EquipSocket> chosen, out List<EquipSocket> socketsUsed)
     {
@@ -483,6 +483,7 @@ public class EquipManager : MonoBehaviour
         obj.transform.localPosition = Vector3.zero;
         obj.transform.localRotation = Quaternion.identity;
 
+
         var drv = obj.GetComponent<WeaponDriver>();
         drv.Init(player, so, Mathf.Max(1, level));
         return drv;
@@ -560,16 +561,19 @@ public class EquipManager : MonoBehaviour
         // 플레이어에 즉시 반영 (선택 사항)
         if (player != null)
         {
-            var up = player.GetComponent<CarController>();
-            var up2 = player.GetComponent<PlayerBehaviour>();
-            if (up != null)
-            {
-                up.ApplyMultipliers(durabilityMul, maxSpeedMul, accelerationMul);
-            }
-            if (up2 != null)
-            {
-                up2.ApplyMultipliers(durabilityMul, maxSpeedMul, accelerationMul);
-            }
+            //var up = player.GetComponent<CarController>();
+            //var up2 = player.GetComponent<PlayerBehaviour>();
+            //if (up != null)
+            //{
+            //    up.ApplyMultipliers(durabilityMul, maxSpeedMul, accelerationMul);
+            //}
+            //if (up2 != null)
+            //{
+            //    up2.ApplyMultipliers(durabilityMul, maxSpeedMul, accelerationMul);
+            //}
+
+            foreach (var upg in player.GetComponents<IPlayerUpgradable>())
+                upg.ApplyMultipliers(durabilityMul, maxSpeedMul, accelerationMul);
         }
 
         OnPlayerUpgrade?.Invoke(opt);
