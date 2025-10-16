@@ -36,6 +36,46 @@ public struct WeaponContext
     public ParticleSystem FireFx;
 }
 
+// ====== EquipManager DTOs ======
+public struct WeaponSlotInfo
+{
+    public Sprite Thumbnail;
+    public int Level;
+    public string Name;
+    public bool IsEmpty => Thumbnail == null && string.IsNullOrEmpty(Name);
+}
+
+public enum CandidateKind { Weapon, PlayerStat }
+
+public struct UpgradeCandidate
+{
+    public CandidateKind Kind;
+
+    // Weapon 선택지
+    public WeaponSO Weapon;   // 무기 SO (무기 선택지일 때만)
+    public int NextLevel;     // 다음 레벨
+
+    // Player 업그레이드
+    public PlayerUpgradeOption PlayerUpgrade;
+
+    // 공통 썸네일
+    public Sprite Thumbnail;
+
+    public string SelectInfo;
+}
+
+// ====== Player Stat Upgrades ======
+public enum PlayerUpgradeType { Durability = 1, MaxSpeed = 2, Acceleration = 3 }
+
+public struct PlayerUpgradeOption
+{
+    public int Id;                // 7101, 7102, 7103
+    public string Name;           // durability_up, speed_up, acceleration_up
+    public PlayerUpgradeType EffectType;
+    public float Value;           // 1.1 (10% 상승)
+    public Sprite Icon;           // UI 썸네일
+}
+
 [System.Flags]
 public enum SocketMask { Front = 1 << 0, Back = 1 << 1, Top = 1 << 2, Left = 1 << 3, Right = 1 << 4, Dropper = 1 << 5 }
 

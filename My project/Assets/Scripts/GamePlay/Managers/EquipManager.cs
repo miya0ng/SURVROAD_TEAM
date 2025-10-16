@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class EquipManager : MonoBehaviour
 {
-    // ====== Interfaces======
-    // 플레이어 쪽에서 이 인터페이스를 구현하면, 업그레이드 누적치를 즉시 반영해줄 수 있음.
-    public interface IPlayerUpgradable
-    {
-        void ApplyMultipliers(float durabilityMul, float maxSpeedMul, float accelerationMul);
-    }
-
     // ====== Starter Loadout ======
     [Header("Starter Loadout")]
     [SerializeField] private bool equipStarterOnStart = true;
@@ -61,18 +54,9 @@ public class EquipManager : MonoBehaviour
     public float PartsMax => partsMax;
     private bool levelUpPending = false;
 
-    // ====== Player Stat Upgrades ======
-    public enum PlayerUpgradeType { Durability = 1, MaxSpeed = 2, Acceleration = 3 }
+    private Ui_Slider partsGaugeUi;
 
-    public struct PlayerUpgradeOption
-    {
-        public int Id;                // 7101, 7102, 7103
-        public string Name;           // durability_up, speed_up, acceleration_up
-        public PlayerUpgradeType EffectType;
-        public float Value;           // 1.1 (10% 상승)
-        public Sprite Icon;           // UI 썸네일
-    }
-
+    // ====== PlayerUpgrade ======
     [Header("Player Upgrade Icons")]
     [SerializeField] private Sprite iconDurability;
     [SerializeField] private Sprite iconMaxSpeed;
@@ -83,35 +67,6 @@ public class EquipManager : MonoBehaviour
     private float maxSpeedMul = 1f;
     private float accelerationMul = 1f;
 
-    private Ui_Slider partsGaugeUi;
-
-    // ====== DTOs ======
-    public struct WeaponSlotInfo
-    {
-        public Sprite Thumbnail;
-        public int Level;
-        public string Name;
-        public bool IsEmpty => Thumbnail == null && string.IsNullOrEmpty(Name);
-    }
-
-    public enum CandidateKind { Weapon, PlayerStat }
-
-    public struct UpgradeCandidate
-    {
-        public CandidateKind Kind;
-
-        // Weapon 선택지
-        public WeaponSO Weapon;   // 무기 SO (무기 선택지일 때만)
-        public int NextLevel;     // 다음 레벨
-
-        // Player 업그레이드
-        public PlayerUpgradeOption PlayerUpgrade;
-
-        // 공통 썸네일
-        public Sprite Thumbnail;
-
-        public string SelectInfo;
-    }
 
     // ========= Unity =========
     void Awake()
@@ -169,7 +124,7 @@ public void ApplyNewEquipExisting(int slotIndex)
 
     if (entry.IsMounted)
     {
-        // ✅ 기존 드라이버 제거
+        // 기존 드라이버 제거
         foreach (var d in entry.drivers)
         {
             if (d) Destroy(d.gameObject);
@@ -352,21 +307,21 @@ public void ApplyNewEquipExisting(int slotIndex)
         UnEquipWeapon(equips.Count - 1);
     }
 
-    // ============= cheat =================
-    public void ForceEquipNew(WeaponSO so, int level = 1)
-    {
-        bool prevPending = levelUpPending;
-        levelUpPending = false;
-        EquipWeapon(so, level);
-        levelUpPending = prevPending;
-    }
+    //// ============= cheat =================
+    //public void ForceEquipNew(WeaponSO so, int level = 1)
+    //{
+    //    bool prevPending = levelUpPending;
+    //    levelUpPending = false;
+    //    EquipWeapon(so, level);
+    //    levelUpPending = prevPending;
+    //}
 
-    public void TryMaterializeMounts()
-    {
-        foreach (var e in equips.Where(x => !x.IsMounted).ToList())
-            TryMountIntoExistingEntry(e, preferPhysical: true);
-        OnEquipChanged?.Invoke();
-    }
+    //public void TryMaterializeMounts()
+    //{
+    //    foreach (var e in equips.Where(x => !x.IsMounted).ToList())
+    //        TryMountIntoExistingEntry(e, preferPhysical: true);
+    //    OnEquipChanged?.Invoke();
+    //}
 
     // =========================================
     // ============== Internal =================
@@ -723,7 +678,6 @@ private void SyncMountedLevel(int index)
             Thumbnail = opt.Icon
         };
     }
-
     private int GetNextLevel(WeaponSO so)
     {
         var e = equips.FirstOrDefault(s => s.so == so);
@@ -731,7 +685,6 @@ private void SyncMountedLevel(int index)
         if (e.level >= 5) return -1; // Max
         return e.level + 1;
     }
-
     private void ChangePartsGuage()
     {
         Debug.Log("ChangePartsGuage");
