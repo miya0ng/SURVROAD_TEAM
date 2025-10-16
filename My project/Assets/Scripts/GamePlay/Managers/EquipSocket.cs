@@ -5,7 +5,7 @@ public enum SocketType { Front, Back, Top, Left, Right, VehicleRoot, Dropper }
 public class EquipSocket : MonoBehaviour
 {
     public SocketType type;
-    public Transform mount;
+    public Transform soket;
     [HideInInspector] public bool occupied;
 
 #if UNITY_EDITOR

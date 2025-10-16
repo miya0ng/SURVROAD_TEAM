@@ -120,11 +120,14 @@ public class EquipManager : MonoBehaviour
         partsGaugeUi = GameObject.FindWithTag("PartsGuage")?.GetComponent<Ui_Slider>();
         // 소켓 수집
         socketMap.Clear();
-        var sockets = player ? player.GetComponentsInChildren<EquipSocket>(true)
-                             : GetComponentsInChildren<EquipSocket>(true);
+        var sockets = player ? player.GetComponentsInChildren<EquipSocket>()
+                             : GetComponentsInChildren<EquipSocket>();
         foreach (var s in sockets)
         {
-            if (!socketMap.TryGetValue(s.type, out var list)) socketMap[s.type] = list = new();
+            if (!socketMap.TryGetValue(s.type, out var list))
+            {
+                socketMap[s.type] = list = new();
+            }
             list.Add(s);
         }
 
@@ -158,55 +161,55 @@ public class EquipManager : MonoBehaviour
         }
     }
 
-public void ApplyNewEquipExisting(int slotIndex)
-{
-    if (!levelUpPending || !IsValidSlotIndex(slotIndex)) return;
-
-    var entry = equips[slotIndex];
-    if (entry.level >= 5) { Debug.Log("이미 최대 레벨입니다."); return; }
-
-    entry.level = Mathf.Min(entry.level + 1, 5);
-
-    if (entry.IsMounted)
+    public void ApplyNewEquipExisting(int slotIndex)
     {
-        // ✅ 기존 드라이버 제거
-        foreach (var d in entry.drivers)
+        if (!levelUpPending || !IsValidSlotIndex(slotIndex)) return;
+
+        var entry = equips[slotIndex];
+        if (entry.level >= 5) { Debug.Log("이미 최대 레벨입니다."); return; }
+
+        entry.level = Mathf.Min(entry.level + 1, 5);
+
+        if (entry.IsMounted)
         {
-            if (d) Destroy(d.gameObject);
+            // 기존 드라이버 제거
+            foreach (var d in entry.drivers)
+            {
+                if (d) Destroy(d.gameObject);
+            }
+            entry.drivers.Clear();
+
+            ReleaseSockets(entry);
+
+            if (TryGetLevelData(entry.so, entry.level, out var newData) && newData.prefab != null)
+            {
+                if (TryAssignMount(entry.so, out var newSockets))
+                {
+                    var created = CreateDriversByPolicy(entry.so, entry.level, newSockets, out var socketsUsed);
+                    entry.drivers = created;
+                    entry.driver = created.FirstOrDefault();
+                    entry.sockets = socketsUsed;
+
+                    foreach (var d in created)
+                        OnWeaponLeveled?.Invoke(d);
+                }
+                else
+                {
+                    Debug.LogWarning($"[EquipManager] 레벨업 실패: 소켓을 찾을 수 없습니다 - {entry.so.Name}");
+                    entry.driver = null;
+                    entry.drivers.Clear();
+                    entry.sockets = null;
+                }
+            }
         }
-        entry.drivers.Clear();
-
-        ReleaseSockets(entry);
-
-        if (TryGetLevelData(entry.so, entry.level, out var newData) && newData.prefab != null)
+        else
         {
-            if (TryAssignMount(entry.so, out var newSockets))
-            {
-                var created = CreateDriversByPolicy(entry.so, entry.level, newSockets, out var socketsUsed);
-                entry.drivers = created;
-                entry.driver = created.FirstOrDefault();
-                entry.sockets = socketsUsed;
-
-                foreach (var d in created)
-                    OnWeaponLeveled?.Invoke(d);
-            }
-            else
-            {
-                Debug.LogWarning($"[EquipManager] 레벨업 실패: 소켓을 찾을 수 없습니다 - {entry.so.Name}");
-                entry.driver = null;
-                entry.drivers.Clear();
-                entry.sockets = null;
-            }
+            entry.driver = null;
         }
-    }
-    else
-    {
-        entry.driver = null;
-    }
 
-    OnEquipChanged?.Invoke();
-    ResetPartsGauge();
-}
+        OnEquipChanged?.Invoke();
+        ResetPartsGauge();
+    }
 
     public void ApplyNewEquip(GameObject weaponPrefab, WeaponSO so)
     {
@@ -433,12 +436,12 @@ public void ApplyNewEquipExisting(int slotIndex)
         if (!TryGetLevelData(so, level, out var data) || data.prefab == null)
             return new List<WeaponDriver>();
 
-        switch (so.MountPolicy)
+        switch (so.mountPolicy)
         {
             case MountPolicy.Single:
                 {
                     var sock = chosen[0];
-                    var parent = (sock != null) ? (sock.mount ? sock.mount : sock.transform) : transform;
+                    var parent = (sock != null) ? (sock.soket ? sock.soket : sock.transform) : transform;
                     var drv = CreateWeaponInstance(data.prefab, so, level, parent);
                     if (sock != null) { sock.occupied = true; socketsUsed.Add(sock); }
                     return new List<WeaponDriver> { drv };
@@ -446,8 +449,8 @@ public void ApplyNewEquipExisting(int slotIndex)
             case MountPolicy.PairSymmetric:
                 {
                     var left = chosen[0]; var right = chosen[1];
-                    var lt = left.mount ? left.mount : left.transform;
-                    var rt = right.mount ? right.mount : right.transform;
+                    var lt = left.soket ? left.soket : left.transform;
+                    var rt = right.soket ? right.soket : right.transform;
 
                     var drvL = CreateWeaponInstance(data.prefab, so, level, lt);
                     var drvR = CreateWeaponInstance(data.prefab, so, level, rt);
@@ -461,7 +464,7 @@ public void ApplyNewEquipExisting(int slotIndex)
             case MountPolicy.NonOccupying:
                 {
                     var anchor = chosen[0];
-                    var parent = (anchor != null) ? (anchor.mount ? anchor.mount : anchor.transform) : transform;
+                    var parent = (anchor != null) ? (anchor.soket ? anchor.soket : anchor.transform) : transform;
                     var drv = CreateWeaponInstance(data.prefab, so, level, parent);
                     return new List<WeaponDriver> { drv };
                 }
@@ -479,38 +482,38 @@ public void ApplyNewEquipExisting(int slotIndex)
         }
     }
 
-private void SyncMountedLevel(int index)
-{
-    var e = equips[index];
-    if (e.drivers != null && e.drivers.Count > 0)
+    private void SyncMountedLevel(int index)
     {
-        foreach (var d in e.drivers)
+        var e = equips[index];
+        if (e.drivers != null && e.drivers.Count > 0)
         {
-            if (d) Destroy(d.gameObject);
-        }
-        e.drivers.Clear();
-
-        ReleaseSockets(e);
-
-        if (TryGetLevelData(e.so, e.level, out var newData) && newData.prefab != null)
-        {
-            if (TryAssignMount(e.so, out var newSockets))
+            foreach (var d in e.drivers)
             {
-                var created = CreateDriversByPolicy(e.so, e.level, newSockets, out var socketsUsed);
-                e.drivers = created;
-                e.driver = created.FirstOrDefault();
-                e.sockets = socketsUsed;
-
-                foreach (var d in created)
-                    OnWeaponLeveled?.Invoke(d);
+                if (d) Destroy(d.gameObject);
             }
-            else
+            e.drivers.Clear();
+
+            ReleaseSockets(e);
+
+            if (TryGetLevelData(e.so, e.level, out var newData) && newData.prefab != null)
             {
-                Debug.LogWarning($"[EquipManager] SyncLevel 실패: 소켓 부족 - {e.so.Name}");
+                if (TryAssignMount(e.so, out var newSockets))
+                {
+                    var created = CreateDriversByPolicy(e.so, e.level, newSockets, out var socketsUsed);
+                    e.drivers = created;
+                    e.driver = created.FirstOrDefault();
+                    e.sockets = socketsUsed;
+
+                    foreach (var d in created)
+                        OnWeaponLeveled?.Invoke(d);
+                }
+                else
+                {
+                    Debug.LogWarning($"[EquipManager] SyncLevel 실패: 소켓 부족 - {e.so.Name}");
+                }
             }
         }
     }
-}
 
     private bool IsValidSlotIndex(int index) => index >= 0 && index < equips.Count;
 
@@ -546,7 +549,7 @@ private void SyncMountedLevel(int index)
             : System.Enum.GetValues(typeof(SocketType)).Cast<SocketType>()
               .Where(t => ((int)so.Allowed & (1 << (int)t)) != 0);
 
-        switch (so.MountPolicy)
+        switch (so.mountPolicy)
         {
             case MountPolicy.Single:
                 foreach (var t in order)

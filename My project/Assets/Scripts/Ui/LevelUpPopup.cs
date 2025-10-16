@@ -11,6 +11,7 @@ public class LevelUpPopup : MonoBehaviour
     [Header("UI")]
     [SerializeField] private int choiceCount = 3;
     [SerializeField] private Button equipButton;
+    [SerializeField] private Button[] selectButton;
     [SerializeField] private Image[] weaponIcons;
     [SerializeField] private GameObject levelUpDefault;
     [SerializeField] private GameObject DetailPopUp;
@@ -30,7 +31,7 @@ public class LevelUpPopup : MonoBehaviour
 
         equip.OnLevelUpReady += Show;
         equip.OnPartsGaugeChanged += UpdateGauge;
-        if (equipButton != null) equipButton.interactable = false;
+       if (equipButton != null) equipButton.interactable = true;
     }
 
     void OnDisable()
@@ -96,7 +97,7 @@ public class LevelUpPopup : MonoBehaviour
         }
 
         selectedIndex = -1;
-        if (equipButton != null) equipButton.interactable = false;
+        //if (equipButton != null) equipButton.interactable = false;
 
         if (levelUpDefault != null) levelUpDefault.SetActive(true);
         Time.timeScale = 0;
@@ -124,9 +125,7 @@ public class LevelUpPopup : MonoBehaviour
 
         if (selectedIndex == idx)
         {
-            selectedIndex = -1;
-            if (equipButton != null) equipButton.interactable = false;
-            return;
+            selectButton[idx].Select();
         }
 
         selectedIndex = idx;
@@ -156,7 +155,7 @@ public class LevelUpPopup : MonoBehaviour
         }
         // Player 업그레이드: "durability_up" → "Durability Up" 등
         var raw = c.PlayerUpgrade.Name ?? "";
-        return ToTitleFromSnake(raw);
+        return ToTitleFromChar(raw);
     }
 
     private static string GetDisplayType(UpgradeCandidate c)
@@ -177,7 +176,7 @@ public class LevelUpPopup : MonoBehaviour
         }
     }
 
-    private static string ToTitleFromSnake(string s)
+    private static string ToTitleFromChar(string s)
     {
         if (string.IsNullOrEmpty(s)) return "";
         var parts = s.Split('_');
@@ -195,7 +194,7 @@ public class LevelUpPopup : MonoBehaviour
         if (c.Kind == CandidateKind.PlayerStat)
         {
             var raw = c.PlayerUpgrade.Name ?? "";
-            var display = ToTitleFromSnake(raw);
+            var display = ToTitleFromChar(raw);
             var pct = (c.PlayerUpgrade.Value - 1f) * 100f;
             return $"{display} + {pct:F1}%";
         }

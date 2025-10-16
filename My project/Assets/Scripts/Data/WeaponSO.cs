@@ -17,7 +17,7 @@ public class WeaponSO : ScriptableObject
     public List<WeaponLevelData> Levels;
 
     [Header("Mount Rules")]
-    public MountPolicy MountPolicy = MountPolicy.Single;
+    public MountPolicy mountPolicy = MountPolicy.Single;
     public SocketMask Allowed = SocketMask.Top;
     public SocketType[] PreferenceOrder;
 }
