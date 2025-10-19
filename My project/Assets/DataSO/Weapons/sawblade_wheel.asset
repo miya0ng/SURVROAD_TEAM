@@ -114,6 +114,6 @@ MonoBehaviour:
     prefab: {fileID: 1021201032924741099, guid: d4b4cc12de5953242ae4b24a5919be18, type: 3}
     bulletPrefab: {fileID: 0}
     effectPrefab: {fileID: 0}
-  MountPolicy: 1
+  mountPolicy: 1
   Allowed: 24
   PreferenceOrder: 0300000004000000

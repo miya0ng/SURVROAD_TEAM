@@ -36,7 +36,7 @@ MonoBehaviour:
     PrefabIndex: 0
     ThumbNail: {fileID: 21300000, guid: bbfe692f35ce06b448b7578add40683a, type: 3}
     prefab: {fileID: 8171487787002607651, guid: e451669df1a4ab64792d5ef97ce0ee8d, type: 3}
-    bulletPrefab: {fileID: 0}
+    bulletPrefab: {fileID: 8171487787002607651, guid: 44bae1faf073b234ead94fa0c6f5d05c, type: 3}
     effectPrefab: {fileID: 0}
   - Level: 2
     MinDamage: 6
@@ -54,7 +54,7 @@ MonoBehaviour:
     PrefabIndex: 0
     ThumbNail: {fileID: 21300000, guid: bbfe692f35ce06b448b7578add40683a, type: 3}
     prefab: {fileID: 8171487787002607651, guid: e451669df1a4ab64792d5ef97ce0ee8d, type: 3}
-    bulletPrefab: {fileID: 0}
+    bulletPrefab: {fileID: 8171487787002607651, guid: 44bae1faf073b234ead94fa0c6f5d05c, type: 3}
     effectPrefab: {fileID: 0}
   - Level: 3
     MinDamage: 10
@@ -72,7 +72,7 @@ MonoBehaviour:
     PrefabIndex: 0
     ThumbNail: {fileID: 21300000, guid: bbfe692f35ce06b448b7578add40683a, type: 3}
     prefab: {fileID: 8171487787002607651, guid: e451669df1a4ab64792d5ef97ce0ee8d, type: 3}
-    bulletPrefab: {fileID: 0}
+    bulletPrefab: {fileID: 8171487787002607651, guid: 44bae1faf073b234ead94fa0c6f5d05c, type: 3}
     effectPrefab: {fileID: 0}
   - Level: 4
     MinDamage: 14
@@ -90,7 +90,7 @@ MonoBehaviour:
     PrefabIndex: 0
     ThumbNail: {fileID: 21300000, guid: bbfe692f35ce06b448b7578add40683a, type: 3}
     prefab: {fileID: 8171487787002607651, guid: e451669df1a4ab64792d5ef97ce0ee8d, type: 3}
-    bulletPrefab: {fileID: 0}
+    bulletPrefab: {fileID: 8171487787002607651, guid: 44bae1faf073b234ead94fa0c6f5d05c, type: 3}
     effectPrefab: {fileID: 0}
   - Level: 5
     MinDamage: 14
@@ -108,8 +108,8 @@ MonoBehaviour:
     PrefabIndex: 0
     ThumbNail: {fileID: 21300000, guid: bbfe692f35ce06b448b7578add40683a, type: 3}
     prefab: {fileID: 8171487787002607651, guid: e451669df1a4ab64792d5ef97ce0ee8d, type: 3}
-    bulletPrefab: {fileID: 0}
+    bulletPrefab: {fileID: 8171487787002607651, guid: 44bae1faf073b234ead94fa0c6f5d05c, type: 3}
     effectPrefab: {fileID: 0}
-  MountPolicy: 2
+  mountPolicy: 0
   Allowed: 32
-  PreferenceOrder: 
+  PreferenceOrder: 0600000005000000
