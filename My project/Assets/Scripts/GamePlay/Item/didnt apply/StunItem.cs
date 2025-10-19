@@ -8,6 +8,7 @@ public class StunItem : ItemBase
 
     protected override void Collect(GameObject player)
     {
+        AudioManager.I.PlaySFX("GetItem", transform.position);
         float dmg = itemData.Damage; // CSV 30
         var pos = player.transform.position;
         var cols = Physics.OverlapSphere(pos, radius);

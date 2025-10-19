@@ -4,6 +4,7 @@ public class EmpBombItem : ItemBase
 {
     protected override void Collect(GameObject player)
     {
+        AudioManager.I.PlaySFX("GetItem");
         float dur = itemData.Duration > 0 ? itemData.Duration : 2f;
         var enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (var e in enemies)

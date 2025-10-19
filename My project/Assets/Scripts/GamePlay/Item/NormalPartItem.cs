@@ -24,6 +24,7 @@ public class NormalPartItem : ItemBase
     protected override void Collect(GameObject player)
     {
         Debug.Log("ItemCollect");
+        AudioManager.I.PlaySFX("GetItem", transform.position);
         equip.AddParts(partsValue);
         Destroy(gameObject);
     }

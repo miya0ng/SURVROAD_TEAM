@@ -4,6 +4,7 @@ public class TurboBoosterItem : ItemBase
 {
     protected override void Collect(GameObject player)
     {
+        AudioManager.I.PlaySFX("GetItem");
         var status = player.GetComponent<PlayerStatusEffects>();
         if (status)
         {

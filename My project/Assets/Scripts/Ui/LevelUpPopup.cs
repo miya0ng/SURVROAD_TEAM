@@ -28,7 +28,6 @@ public class LevelUpPopup : MonoBehaviour
     void OnEnable()
     {
         if (equip == null) return;
-
         equip.OnLevelUpReady += Show;
         equip.OnPartsGaugeChanged += UpdateGauge;
        if (equipButton != null) equipButton.interactable = true;
@@ -53,7 +52,7 @@ public class LevelUpPopup : MonoBehaviour
     void Show()
     {
         if (equip == null || weaponLibrary == null || weaponIcons == null) return;
-
+        AudioManager.I?.PlaySFX("LevelUp");
         var list = equip.GetUpgradeCandidates(choiceCount, weaponLibrary);
         candidates = list?.ToArray() ?? System.Array.Empty<UpgradeCandidate>();
         int n = Mathf.Min(candidates.Length, weaponIcons.Length);
