@@ -53,6 +53,7 @@ public class DestructibleObject : LivingEntity
 
     public void OnBreak()
     {
+        AudioManager.I?.PlaySFX("CarCrash02", transform.position);
         var posY = transform.position.y + 2f;
         var pos = new Vector3(transform.position.x, posY, transform.position.z);
         itemManager.DropFromObject(pos);

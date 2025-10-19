@@ -78,7 +78,7 @@ public class Exploder : MonoBehaviour
         else DoExplode(baseDamage);
     }
 
-    // 편의 오버로드(선택): CSV 스펙과 바로 연결할 때 사용 가능
+    // 오버로드: CSV 스펙과 바로 연결할 때 사용 가능
     public void Trigger(EnemySpec spec, Transform attacker = null,
                         float? radiusOverride = null, LayerMask? maskOverride = null)
     {

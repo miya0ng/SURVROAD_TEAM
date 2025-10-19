@@ -97,16 +97,15 @@ public class CarController : MonoBehaviour, IPlayerUpgradable
 
     void OnDisable()
     {
-
         if (status)
             status.OnTurboActiveChanged -= SetBooster;
-
     }
 
     public void SetBooster(bool on)
     {
         if (IsBoosterOn == on) return;
         IsBoosterOn = on;
+        AudioManager.I.PlaySFX("CarStart");
         maxForwardSpeed = on ? boostedMaxSpeed : normalMaxSpeed;
 
         if (boosterFx) boosterFx.SetActive(on);

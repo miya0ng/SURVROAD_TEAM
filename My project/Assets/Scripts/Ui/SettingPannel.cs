@@ -71,18 +71,20 @@ public class SettingsPanel : MonoBehaviour
     private void OnExit()
     {
         setting.SetActive(false);
+        AudioManager.I?.PlaySFX("ButtonDefault");
     }
     void OnBgmChanged(float v)
     {
         AudioManager.I?.SetBgmVolume(v);
         PlayerPrefs.SetFloat(K_BGM, v);
+        AudioManager.I?.PlaySFX("ButtonDefault");
     }
 
     void OnSfxChanged(float v)
     {
         AudioManager.I?.SetSfxVolume(v);
         PlayerPrefs.SetFloat(K_SFX, v);
-        AudioManager.I?.PlaySFX("DefaultButton");
+        AudioManager.I?.PlaySFX("ButtonDefault");
     }
 
     void OnVibrationChanged(bool on)
@@ -106,7 +108,6 @@ public class SettingsPanel : MonoBehaviour
         am.SetMasterVolume(master);
         am.SetBgmVolume(bgm);
         am.SetSfxVolume(sfx);
-        setting.SetActive(false);
     }
 
     void ApplyVibration(bool on)
@@ -121,7 +122,27 @@ public class SettingsPanel : MonoBehaviour
 
     void ApplyQuality(int idx)
     {
+        // 적용 (현재 코드와 호환)
         QualitySettings.SetQualityLevel(idx, true);
+
+        // 그림자 관련 런타임 강제 설정 (빌트인 렌더러용)
+        if (idx >= 2) // 예: idx 2 이상을 '높음'으로 간주
+        {
+            QualitySettings.shadows = ShadowQuality.All;          // 그림자 켜기 (Soft + Hard)
+            QualitySettings.shadowDistance = 80f;                 // 그림자 최대 거리
+            QualitySettings.shadowCascades = 4;                   // 캐스케이드 수
+            QualitySettings.shadowResolution = ShadowResolution.High;
+            QualitySettings.shadowProjection = ShadowProjection.StableFit;
+        }
+        else
+        {
+            QualitySettings.shadows = ShadowQuality.HardOnly;     // 낮은 레벨은 단색 그림자
+            QualitySettings.shadowDistance = 30f;
+            QualitySettings.shadowCascades = 1;
+            QualitySettings.shadowResolution = ShadowResolution.Low;
+            QualitySettings.shadowProjection = ShadowProjection.CloseFit;
+        }
+
         SetQualityToggles(idx);
     }
 
@@ -135,7 +156,8 @@ public class SettingsPanel : MonoBehaviour
     void SavePrefs()
     {
         PlayerPrefs.Save();
-        AudioManager.I?.PlaySFX("DefaultButton");
+        AudioManager.I?.PlaySFX("ButtonDefault");
+        setting.SetActive(false);
     }
     void ResetToDefault()
     {

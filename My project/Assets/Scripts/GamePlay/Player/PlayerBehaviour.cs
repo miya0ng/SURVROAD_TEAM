@@ -14,6 +14,13 @@ public class PlayerBehaviour : LivingEntity, IDamagable, IPlayerUpgradable
     [SerializeField] private float colDamage = 10f;
     private bool isCol = false;
 
+    [Header("HP Thresholds")]
+    [SerializeField] private float warningThreshold = 60f;
+    [SerializeField] private float dangerThreshold = 30f;
+
+    private float lastHeartbeatTime = -10f;
+    [SerializeField] private float heartbeatCooldown = 1.5f;
+
     [Header("FX")]
     [SerializeField] private Transform fxAnchor;
     [SerializeField] private Transform magnetAnchor;
@@ -22,8 +29,11 @@ public class PlayerBehaviour : LivingEntity, IDamagable, IPlayerUpgradable
     [SerializeField] private ParticleSystem sheildFxPrefab;
     [SerializeField] private ParticleSystem overPowerFxPrefab;
     [SerializeField] private ParticleSystem magnetFxPrefab;
+
+    
     protected override void Awake()
     {
+        base.Awake();
         maxHp = 100;
         curHp = maxHp;
         ui_hpBar = GetComponent<Ui_Slider>();
@@ -31,6 +41,9 @@ public class PlayerBehaviour : LivingEntity, IDamagable, IPlayerUpgradable
 
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         equipManager = GameObject.FindWithTag("EquipManager").GetComponent<EquipManager>();
+
+        if (smokeWhite != null) smokeWhite.SetActive(false);
+        if (smokeBlack != null) smokeBlack.SetActive(false);
     }
 
     protected override void OnEnable()
@@ -53,6 +66,7 @@ public class PlayerBehaviour : LivingEntity, IDamagable, IPlayerUpgradable
         ui_hpBar.UpdateHpSlider(curHp);
 
         PlayHealFx();
+        UpdateDamageEffects();
     }
 
     public void PlayStunItemFx()
@@ -130,9 +144,42 @@ public class PlayerBehaviour : LivingEntity, IDamagable, IPlayerUpgradable
         if (!lv.gameObject.activeInHierarchy || lv.isDead) return;
 
         lv.OnDamage(colDamage, this);
-        AudioManager.I.PlaySFX("CarCrash00", transform.position);
+
+        Haptics.Light();
+
+        int rand = Random.Range(1, 3);
+        switch (rand)
+        {
+            case 1:
+                AudioManager.I?.PlaySFX("CarCrash00", transform.position);
+                break;
+            case 2:
+                AudioManager.I?.PlaySFX("CarCrash01", transform.position);
+                break;
+        }
 
         isCol = true;
+    }
+    private void UpdateDamageEffects()
+    {
+        // guard
+        if (smokeWhite == null || smokeBlack == null) return;
+
+        if (curHp < dangerThreshold)
+        {
+            smokeBlack.SetActive(true);
+            smokeWhite.SetActive(false);
+        }
+        else if (curHp < warningThreshold)
+        {
+            smokeWhite.SetActive(true);
+            smokeBlack.SetActive(false);
+        }
+        else
+        {
+            smokeWhite.SetActive(false);
+            smokeBlack.SetActive(false);
+        }
     }
 
     private void OnCollisionExit(Collision collision) => isCol = false;
@@ -145,22 +192,22 @@ public class PlayerBehaviour : LivingEntity, IDamagable, IPlayerUpgradable
         ui_hpBar.UpdateHpSlider(curHp);
         if (curHp < 30f)
         {
-            AudioManager.I.PlaySFX("HeartBeat", count:3);
+            AudioManager.I.PlaySFX("HeartBeat", count:4);
         }
-        //if (curHp < 60f && curHp >= 30f)
-        //{
-        //    AudioManager.I.PlaySFX("FireBurning", transform.position);
+        if (curHp < 60f && curHp >= 30f)
+        {
+            AudioManager.I.PlaySFX("FireBurning", transform.position);
 
-        //    if (SmokeWhite == null || smokeWhite == null) return;
-        //    smokeWhite.SetActive(true);
-        //}
-        //if (curHp < 30f)
-        //{
-        //    if (SmokeWhite == null || SmokeBlack == null || smokeBlack == null || smokeWhite == null) return;
-        //    smokeBlack.SetActive(true);
-        //    smokeWhite.SetActive(false);
-        //}
-
+            if (SmokeWhite == null || smokeWhite == null) return;
+            smokeWhite.SetActive(true);
+        }
+        if (curHp < 30f)
+        {
+            if (SmokeWhite == null || SmokeBlack == null || smokeBlack == null || smokeWhite == null) return;
+            smokeBlack.SetActive(true);
+            smokeWhite.SetActive(false);
+        }
+        UpdateDamageEffects();
     }
 
     public void ApplyMultipliers(float durabilityMul, float maxSpeedMul, float accelerationMul)

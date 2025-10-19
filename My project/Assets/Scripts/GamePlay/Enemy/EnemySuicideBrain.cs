@@ -68,6 +68,7 @@ public class EnemySuicideCarBrain : MonoBehaviour
             Vector3 dir = to.normalized;
             float steer = Mathf.Clamp(Vector3.SignedAngle(transform.forward, dir, Vector3.up) / 45f + burstSteerBias, -1f, 1f);
             car.SetDesired(steer, burstThrottle);
+            //AudioManager.I.PlaySFX("CarHonk");
 
             // ±ÙÁ¢ ½Ã Æø¹ß
             if (dist <= Mathf.Max(3f, igniteDistance * 0.5f))

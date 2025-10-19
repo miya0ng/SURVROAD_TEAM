@@ -17,8 +17,8 @@ public class LivingEntity : MonoBehaviour, IDamagable
     public GameObject SmokeWhite = null;
     public GameObject SmokeBlack = null;
 
-    GameObject smokeWhite = null;
-    GameObject smokeBlack = null;
+    public GameObject smokeWhite = null;
+    public GameObject smokeBlack = null;
 
     protected virtual void Awake()
     {
