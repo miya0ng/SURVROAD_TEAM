@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         string currentScene = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(currentScene);
+        SceneLoader.I?.Load(currentScene);
     }
     public void StageClear()
     {

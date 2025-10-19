@@ -140,11 +140,27 @@ public class PlayerBehaviour : LivingEntity, IDamagable, IPlayerUpgradable
     public override void OnDamage(float damage, LivingEntity attacker)
     {
         base.OnDamage(damage, attacker);
+        Haptics.Light();
+
         ui_hpBar.UpdateHpSlider(curHp);
         if (curHp < 30f)
         {
             AudioManager.I.PlaySFX("HeartBeat", count:3);
         }
+        //if (curHp < 60f && curHp >= 30f)
+        //{
+        //    AudioManager.I.PlaySFX("FireBurning", transform.position);
+
+        //    if (SmokeWhite == null || smokeWhite == null) return;
+        //    smokeWhite.SetActive(true);
+        //}
+        //if (curHp < 30f)
+        //{
+        //    if (SmokeWhite == null || SmokeBlack == null || smokeBlack == null || smokeWhite == null) return;
+        //    smokeBlack.SetActive(true);
+        //    smokeWhite.SetActive(false);
+        //}
+
     }
 
     public void ApplyMultipliers(float durabilityMul, float maxSpeedMul, float accelerationMul)

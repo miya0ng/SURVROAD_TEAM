@@ -76,7 +76,7 @@ public class LivingEntity : MonoBehaviour, IDamagable
 
         if (curHp < 60f && curHp >= 30f)
         {
-            AudioManager.I.PlaySFX("FireBurning", transform.position);
+            // AudioManager.I.PlaySFX("FireBurning", transform.position);
 
             if (SmokeWhite == null || smokeWhite == null) return;
             smokeWhite.SetActive(true);
@@ -87,6 +87,7 @@ public class LivingEntity : MonoBehaviour, IDamagable
             smokeBlack.SetActive(true);
             smokeWhite.SetActive(false);
         }
+
     }
 
     public virtual void Heal(float amount)

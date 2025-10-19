@@ -82,7 +82,7 @@ public class EnemyGunBrain : MonoBehaviour
             bool blocked = Physics.Linecast(origin, dest, losMask, QueryTriggerInteraction.Ignore);
             if (!blocked)
             {
-                Debug.Log("[EnemyGunBrain] Update()");
+               // Debug.Log("[EnemyGunBrain] Update()");
                 gun.TickAutoFireToward(target.position);
             }
         }

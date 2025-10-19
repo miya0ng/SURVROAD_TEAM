@@ -12,6 +12,8 @@ public class PausePopUp : MonoBehaviour
     [SerializeField] private Button resumeBtn;
     [SerializeField] private Button titleBtn;
     [SerializeField] private Button restartBtn;
+    [SerializeField] private Button settingBtn;
+    [SerializeField] private GameObject settingsPanel;
 
     [Header("Title Scene")]
     [SerializeField] private string titleSceneName = "Title";
@@ -29,8 +31,13 @@ public class PausePopUp : MonoBehaviour
         resumeBtn?.onClick.AddListener(OnClose);
         titleBtn?.onClick.AddListener(OnClickTitle);
         restartBtn?.onClick.AddListener(OnClickRestart);
+        settingBtn?.onClick.AddListener(OnSetting);
     }
 
+    public void OnSetting()
+    {
+        settingsPanel.SetActive(true);
+    }
     public void OnClose()
     {
         AudioManager.I?.PlaySFX("ButtonDefault");

@@ -122,6 +122,7 @@ public class ResultPopup : MonoBehaviour
     {
         AudioManager.I?.PlaySFX("ButtonDefault");
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Title");
+        fail.SetActive(false);
+        SceneLoader.I?.Load("Title");
     }
 }

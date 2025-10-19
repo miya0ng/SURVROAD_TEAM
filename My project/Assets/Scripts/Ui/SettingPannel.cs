@@ -15,6 +15,8 @@ public class SettingsPanel : MonoBehaviour
     [SerializeField] Toggle highToggle;
     [SerializeField] Button saveButton;
     [SerializeField] Button resetButton;
+    [SerializeField] Button exitButton;
+    [SerializeField] GameObject setting;
 
     // PlayerPrefs keys
     const string K_MASTER = "vol_master";
@@ -56,15 +58,20 @@ public class SettingsPanel : MonoBehaviour
 
         if (saveButton) saveButton.onClick.AddListener(SavePrefs);
         if (resetButton) resetButton.onClick.AddListener(ResetToDefault);
+        if (exitButton) exitButton.onClick.AddListener(OnExit);
     }
 
-    void OnMasterChanged(float v)
+    //void OnMasterChanged(float v)
+    //{
+    //    AudioManager.I?.SetMasterVolume(v);
+    //    PlayerPrefs.SetFloat(K_MASTER, v);
+    //    AudioManager.I?.PlaySFX("ui_click");
+    //}
+
+    private void OnExit()
     {
-        AudioManager.I?.SetMasterVolume(v);
-        PlayerPrefs.SetFloat(K_MASTER, v);
-        AudioManager.I?.PlaySFX("ui_click");
+        setting.SetActive(false);
     }
-
     void OnBgmChanged(float v)
     {
         AudioManager.I?.SetBgmVolume(v);
@@ -75,7 +82,7 @@ public class SettingsPanel : MonoBehaviour
     {
         AudioManager.I?.SetSfxVolume(v);
         PlayerPrefs.SetFloat(K_SFX, v);
-        AudioManager.I?.PlaySFX("ui_click");
+        AudioManager.I?.PlaySFX("DefaultButton");
     }
 
     void OnVibrationChanged(bool on)
@@ -99,6 +106,7 @@ public class SettingsPanel : MonoBehaviour
         am.SetMasterVolume(master);
         am.SetBgmVolume(bgm);
         am.SetSfxVolume(sfx);
+        setting.SetActive(false);
     }
 
     void ApplyVibration(bool on)
@@ -106,6 +114,8 @@ public class SettingsPanel : MonoBehaviour
 #if UNITY_ANDROID || UNITY_IOS
         // 시스템 진동 설정 연동이 필요하면 여기서 처리
         // 예: Handheld.Vibrate()는 즉시 진동만 지원. 토글만 저장.
+
+        Haptics.Enabled = on;
 #endif
     }
 
@@ -125,9 +135,8 @@ public class SettingsPanel : MonoBehaviour
     void SavePrefs()
     {
         PlayerPrefs.Save();
-        AudioManager.I?.PlaySFX("ui_click");
+        AudioManager.I?.PlaySFX("DefaultButton");
     }
-
     void ResetToDefault()
     {
        // if (masterSlider) masterSlider.value = 0.8f;
